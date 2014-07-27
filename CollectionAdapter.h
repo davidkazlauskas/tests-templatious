@@ -196,7 +196,9 @@ bool insertTest(T&& c) {
 
     auto i = SA::iterAt(c,4);
     SA::insert(c,i,3);
+    i = SA::iterAt(c,4);
     SA::insert(c,i,2);
+    i = SA::iterAt(c,4);
     SA::insert(c,i,1);
 
     IFN_RET_FALSE(SA::getByIndex(c,0) == 1);

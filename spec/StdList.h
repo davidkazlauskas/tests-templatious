@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  tests.h
+ *       Filename:  StdList.h
  *
- *    Description:  some tests
+ *    Description:  List unit test
  *
  *        Version:  1.0
- *        Created:  07/27/2014 06:00:48 PM
+ *        Created:  07/27/2014 09:09:28 PM
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -16,10 +16,20 @@
  * =====================================================================================
  */
 
-#ifndef TESTS_HPIIGL7J
-#define TESTS_HPIIGL7J
+#ifndef STDLIST_UDCMQSLF
+#define STDLIST_UDCMQSLF
 
-#include "spec/StdVector.h"
-#include "spec/StdList.h"
+#include "../CollectionAdapter.h"
 
-#endif /* end of include guard: TESTS_HPIIGL7J */
+
+BOOST_AUTO_TEST_CASE( std_list_tests )
+{
+
+    typedef std::list<int> V;
+    V v;
+
+    BOOST_CHECK(tt::existantCollectionTest(v));
+}
+
+
+#endif /* end of include guard: STDLIST_UDCMQSLF */

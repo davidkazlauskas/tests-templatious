@@ -118,20 +118,19 @@ template <class T>
 bool eraseTest(T&& c) {
     DEF_ADAPTER(T,Ad);
 
-    Ad::clear(c);
-    integrityTest(c);
+    setCollection(c);
     auto it = SA::begin(c);
     for (int i = 0; i < 2; ++i) {
         ++it;
     }
 
-    SA::erase(c,it);
+    SA::eraseTillEnd(c,it);
     size_t res = 0;
     for (auto i = SA::begin(c); i != SA::end(c); ++i) {
         res += *i;
     }
 
-    return res == 2 * 9;
+    return res == 3;
 }
 
 template <class T>

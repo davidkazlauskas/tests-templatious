@@ -41,6 +41,8 @@ bool eraseTest2(T&& t);
 template <class T>
 bool eraseTest3(T&& t);
 template <class T>
+bool eraseTest4(T&& t);
+template <class T>
 bool indexTest(T&& t);
 template <class T>
 bool insertTest(T&& t);
@@ -61,6 +63,7 @@ bool existantCollectionTest(T&& c) {
     IFN_RET_FALSE(eraseTest(c));
     IFN_RET_FALSE(eraseTest2(c));
     IFN_RET_FALSE(eraseTest3(c));
+    IFN_RET_FALSE(eraseTest4(c));
     IFN_RET_FALSE(indexTest(c));
     IFN_RET_FALSE(insertTest(c));
     IFN_RET_FALSE(iterIntegrityTest(c));
@@ -170,6 +173,36 @@ bool eraseTest3(T&& c) {
 
     return res == 0;
 }
+
+template <class T>
+bool eraseTest4(T&& c) {
+    DEF_ADAPTER(T,Ad);
+
+    setCollection(c);
+
+    auto i = SA::begin(c);
+    for (int j = 0; j < 2; ++j) {
+        ++i;
+    }
+
+    SA::erase(c,i);
+
+    IFN_RET_FALSE(SA::getSize(c) == 5);
+
+    IFN_RET_FALSE(SA::getByIndex(c,0) == 1);
+    IFN_RET_FALSE(SA::getByIndex(c,1) == 2);
+    IFN_RET_FALSE(SA::getByIndex(c,2) == 4);
+    IFN_RET_FALSE(SA::getByIndex(c,3) == 5);
+    IFN_RET_FALSE(SA::getByIndex(c,4) == 6);
+
+    size_t res = 0;
+    for (auto i = SA::begin(c); i != SA::end(c); ++i) {
+        res += *i;
+    }
+
+    return res == 18;
+}
+
 
 template <class T>
 bool indexTest(T&& c) {

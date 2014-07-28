@@ -21,5 +21,6 @@
 
 #include "spec/StdVector.h"
 #include "spec/StdList.h"
+#include "spec/StaticVector.h"
 
 #endif /* end of include guard: TESTS_HPIIGL7J */

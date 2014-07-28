@@ -21,6 +21,7 @@
 
 #include <templatious/adapters/All.h>
 #include <templatious/StaticFactory.h>
+#include <templatious/StaticVector.h>
 
 
 namespace test_templatious {

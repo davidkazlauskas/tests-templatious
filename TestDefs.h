@@ -19,6 +19,8 @@
 #ifndef TESTDEFS_JD3RBI46
 #define TESTDEFS_JD3RBI46
 
+#include <iostream>
+
 #include <templatious/adapters/All.h>
 #include <templatious/StaticFactory.h>
 #include <templatious/StaticVector.h>

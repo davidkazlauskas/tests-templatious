@@ -9,6 +9,10 @@ include_directories ( "/home/deividas/Desktop/Dropbox/MyPrj/Templatious" )
 ADD_DEFINITIONS (
     -std=c++11
     -lstdc++
+    -Wall
+    -x c++
+    -g
+    -O0
 )
 
 SET ( CMAKE_CXX_COMPILER "g++-4.8" )

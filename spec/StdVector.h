@@ -19,7 +19,7 @@
 #ifndef STDVECTOR_97AM89C
 #define STDVECTOR_97AM89C
 
-#include "../CollectionAdapter.h"
+#include "../TestAlgs.h"
 
 
 BOOST_AUTO_TEST_CASE( std_vector_tests )
@@ -29,6 +29,14 @@ BOOST_AUTO_TEST_CASE( std_vector_tests )
     V v;
 
     BOOST_CHECK(tt::existantCollectionTest(v));
+}
+
+BOOST_AUTO_TEST_CASE( std_vector_tests_proxy )
+{
+    typedef std::vector<int> V;
+    V v;
+
+    BOOST_CHECK(tt::proxyTest(v));
 }
 
 #endif /* end of include guard: STDVECTOR_97AM89C */

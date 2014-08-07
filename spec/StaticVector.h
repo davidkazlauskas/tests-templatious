@@ -19,7 +19,7 @@
 #ifndef STATICVECTOR_8L32QS9F
 #define STATICVECTOR_8L32QS9F
 
-#include "../CollectionAdapter.h"
+#include "../TestAlgs.h"
 
 BOOST_AUTO_TEST_CASE( static_vector_tests )
 {

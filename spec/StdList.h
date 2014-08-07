@@ -19,7 +19,7 @@
 #ifndef STDLIST_UDCMQSLF
 #define STDLIST_UDCMQSLF
 
-#include "../CollectionAdapter.h"
+#include "../TestAlgs.h"
 
 
 BOOST_AUTO_TEST_CASE( std_list_tests )
@@ -31,5 +31,12 @@ BOOST_AUTO_TEST_CASE( std_list_tests )
     BOOST_CHECK(tt::existantCollectionTest(v));
 }
 
+//BOOST_AUTO_TEST_CASE( std_list_tests_proxy )
+//{
+    //typedef std::list<int> V;
+    //V v;
+
+    //BOOST_CHECK(tt::proxyTest(v));
+//}
 
 #endif /* end of include guard: STDLIST_UDCMQSLF */

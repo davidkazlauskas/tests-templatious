@@ -31,5 +31,15 @@ BOOST_AUTO_TEST_CASE( static_vector_tests )
     BOOST_CHECK(tt::existantCollectionTest(v));
 }
 
+BOOST_AUTO_TEST_CASE( static_vector_tests_proxy )
+{
+
+    const size_t SIZE = 256;
+    size_t arr[SIZE];
+    auto v = tt::t::makeStaticVector(arr);
+
+    BOOST_CHECK(tt::proxyTest(v));
+}
+
 
 #endif /* end of include guard: STATICVECTOR_8L32QS9F */

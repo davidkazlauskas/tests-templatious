@@ -59,6 +59,8 @@ bool oneRangeTest(T&& c);
 // LEVEL TWO TESTS
 template <class T>
 bool _2_rangeSkipTest(T&& c);
+template <class T>
+bool _2_skipRangeTest(T&& c);
 // LEVEL TWO TESTS
 
 template <class T>
@@ -73,6 +75,7 @@ bool proxyTest(T&& c) {
 
     // 2nd lv
     IFN_RET_FALSE(_2_rangeSkipTest(c));
+    IFN_RET_FALSE(_2_skipRangeTest(c));
 
     return true;
 }
@@ -125,6 +128,16 @@ bool _2_rangeSkipTest(T&& c) {
         3);
 
     return sum(r) == 511;
+}
+
+template <class T>
+bool _2_skipRangeTest(T&& c) {
+    setCollection_prx(c);
+
+    auto r = SF::range(
+            SF::skip(c,3),1,10);
+
+    return sum(r) == 135;
 }
 
 template <class T>

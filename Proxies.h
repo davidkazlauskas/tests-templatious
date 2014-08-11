@@ -65,6 +65,10 @@ template <class T>
 bool _2_filterSkipTest(T&& c);
 template <class T>
 bool _2_skipFilterTest(T&& c);
+template <class T>
+bool _2_filterRangeTest(T&& c);
+template <class T>
+bool _2_rangeFilterTest(T&& c);
 // LEVEL TWO TESTS
 
 template <class T>
@@ -82,6 +86,8 @@ bool proxyTest(T&& c) {
     IFN_RET_FALSE(_2_skipRangeTest(c));
     IFN_RET_FALSE(_2_filterSkipTest(c));
     IFN_RET_FALSE(_2_skipFilterTest(c));
+    IFN_RET_FALSE(_2_filterRangeTest(c));
+    IFN_RET_FALSE(_2_rangeFilterTest(c));
 
     return true;
 }
@@ -166,6 +172,30 @@ bool _2_skipFilterTest(T&& c) {
         }),3);
 
     return sum(r) == 1275;
+}
+
+template <class T>
+bool _2_filterRangeTest(T&& c) {
+    setCollection_prx(c);
+
+    auto r = SF::range(SF::filter(c,[](int i) {
+            return i > 50;
+        }),17,47);
+
+    return sum(r) == 2475;
+}
+
+template <class T>
+bool _2_rangeFilterTest(T&& c) {
+    setCollection_prx(c);
+
+    // FIX IT
+    auto r = SF::filter(SF::range(c,17,57),
+        [](int i) {
+            return i > 50;
+        });
+
+    return sum(r) == 321;
 }
 
 template <class T>

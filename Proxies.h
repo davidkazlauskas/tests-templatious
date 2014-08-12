@@ -70,6 +70,21 @@ bool _2_filterRangeTest(T&& c);
 template <class T>
 bool _2_rangeFilterTest(T&& c);
 // LEVEL TWO TESTS
+//
+// LEVEL THREE TESTS
+template <class T>
+bool _3_rangeFilterSkipTest(T&& c);
+template <class T>
+bool _3_rangeSkipFilterTest(T&& c);
+template <class T>
+bool _3_filterRangeSkipTest(T&& c);
+template <class T>
+bool _3_filterSkipRangeTest(T&& c);
+template <class T>
+bool _3_skipRangeFilterTest(T&& c);
+template <class T>
+bool _3_skipFilterRangeTest(T&& c);
+// LEVEL THREE TESTS
 
 template <class T>
 bool proxyTest(T&& c) {
@@ -88,6 +103,14 @@ bool proxyTest(T&& c) {
     IFN_RET_FALSE(_2_skipFilterTest(c));
     IFN_RET_FALSE(_2_filterRangeTest(c));
     IFN_RET_FALSE(_2_rangeFilterTest(c));
+
+    // 3rd lv
+    IFN_RET_FALSE(_3_rangeFilterSkipTest(c));
+    IFN_RET_FALSE(_3_rangeSkipFilterTest(c));
+    IFN_RET_FALSE(_3_filterRangeSkipTest(c));
+    IFN_RET_FALSE(_3_filterSkipRangeTest(c));
+    IFN_RET_FALSE(_3_skipRangeFilterTest(c));
+    IFN_RET_FALSE(_3_skipFilterRangeTest(c));
 
     return true;
 }
@@ -189,7 +212,6 @@ template <class T>
 bool _2_rangeFilterTest(T&& c) {
     setCollection_prx(c);
 
-    // FIX IT
     auto r = SF::filter(SF::range(c,17,57),
         [](int i) {
             return i > 50;
@@ -197,6 +219,102 @@ bool _2_rangeFilterTest(T&& c) {
 
     return sum(r) == 321;
 }
+
+// 3RD LEVEL
+template <class T>
+bool _3_rangeFilterSkipTest(T&& c) {
+    setCollection_prx(c);
+
+    auto r =
+        SF::skip(
+        SF::filter(
+        SF::range(c, 17, 57), [](int i) {
+            return i > 50;
+        }),3);
+
+    return sum(r) == 105;
+}
+
+template <class T>
+bool _3_rangeSkipFilterTest(T&& c) {
+    setCollection_prx(c);
+
+    auto r =
+        SF::filter(
+            SF::skip(
+                SF::range(c, 17, 57)
+            ,3),
+        [](int i) {
+            return i > 20;
+        });
+
+    return sum(r) == 474;
+}
+
+template <class T>
+bool _3_filterRangeSkipTest(T&& c) {
+    setCollection_prx(c);
+
+    auto r =
+        SF::skip(
+            SF::range(
+                SF::filter(c,
+                    [](int i) {
+                        return i > 50;
+                    }),17,37)
+            ,3);
+
+    return sum(r) == 539;
+}
+
+template <class T>
+bool _3_filterSkipRangeTest(T&& c) {
+    setCollection_prx(c);
+
+    auto r =
+        SF::range(
+            SF::skip(
+                SF::filter(c,
+                    [](int i) {
+                        return i > 50;
+                    })
+            ,3),7,14);
+
+    return sum(r) == 567;
+}
+
+template <class T>
+bool _3_skipRangeFilterTest(T&& c) {
+    setCollection_prx(c);
+
+    auto r =
+        SF::filter(
+            SF::range(
+                SF::skip(c,3)
+            ,17,27),
+        [](int i) {
+            return i > 60;
+        });
+
+    return sum(r) == 423;
+}
+
+template <class T>
+bool _3_skipFilterRangeTest(T&& c) {
+    setCollection_prx(c);
+
+    auto r =
+        SF::range(
+            SF::filter(
+                SF::skip(c,3)
+            ,[](int i) {
+                return i > 37;
+            })
+        ,7,17);
+
+    return sum(r) == 735;
+}
+// 3RD LEVEL
 
 template <class T>
 bool setColTest(T&& c) {

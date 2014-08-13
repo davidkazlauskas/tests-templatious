@@ -46,6 +46,7 @@ template <class T>
 bool proxyTest(T&& c);
 template <class T>
 bool setColTest(T&& c);
+
 template <class T>
 bool oneSkipTest(T&& c);
 template <class T>
@@ -85,6 +86,47 @@ bool _3_skipRangeFilterTest(T&& c);
 template <class T>
 bool _3_skipFilterRangeTest(T&& c);
 // LEVEL THREE TESTS
+
+// VARIATIONS
+// 1 level:
+#define _1_oneSkip(c) SF::skip(c,2)
+#define _1_twoSkip(c) SF::skip(c,3)
+#define _1_oneFilter(c) SF::filter(c,[](int i) {\
+            return i > 19; \
+        })
+#define _1_oneRange(c) SF::range(c,17,57)
+// --> 1 level
+
+// 2 level:
+#define _2_rangeSkip(c) SF::skip(SF::range(c,17,57),3)
+#define _2_skipRange(c) SF::range(SF::skip(c,3),1,10)
+#define _2_skipFilter(c) SF::filter(SF::skip(c,3),\
+        [](int i) { return i > 50; })
+#define _2_filterSkip(c) SF::skip(SF::filter(c,\
+            [](int i) { return i > 50; }),3)
+#define _2_filterRange(c) SF::range(SF::filter(c,\
+            [](int i) { return i > 50; }),17,47)
+#define _2_rangeFilter(c) SF::filter(SF::range(c,17,57),\
+        [](int i) { return i > 50; })
+// --> 2 level
+
+// 3 level:
+#define _3_rangeFilterSkip(c) SF::skip(SF::filter(SF::range(c,15,17),\
+            [](int i) { return i > 50; }),3)
+#define _3_rangeSkipFilter(c) SF::filter(SF::skip(SF::range(c,17,57),3),\
+        [](int i) { return i > 20; })
+#define _3_filterRangeSkip(c) SF::skip(SF::range(SF::filter(c,\
+        [](int i) { return i > 50; }),17,37),3)
+#define _3_filterSkipRange(c) SF::range(SF::skip(SF::filter(c,\
+        [](int i) { return i > 50; }),3),7,14)
+#define _3_skipRangeFilter(c) SF::filter(SF::range(SF::skip(c,3),17,27),\
+        [](int i) { return i > 60; })
+#define _3_skipFilterRange(c) SF::range(SF::filter(SF::skip(c,3),\
+        [](int i) { return i > 37; }),7,17)
+// --> 3 level
+
+
+// VARIATIONS
 
 template <class T>
 bool proxyTest(T&& c) {

@@ -13,16 +13,20 @@ ADD_DEFINITIONS (
     -x c++
     -g
     -O0
+    -DBOOST_TEST_DYN_LINK
 )
 
 SET ( CMAKE_CXX_COMPILER "g++-4.8" )
 
-find_package(Boost)
+find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
-    target_link_libraries(progname ${Boost_LIBRARIES})
     add_executable ( a.out main.cpp )
+    target_link_libraries(a.out
+        ${Boost_FILESYSTEM_LIBRARY}
+        ${Boost_SYSTEM_LIBRARY}
+        ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 else()
     message( SEND_ERROR "Boost 1.48.0 not found." )
 endif()

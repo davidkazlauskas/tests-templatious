@@ -87,44 +87,82 @@ template <class T>
 bool _3_skipFilterRangeTest(T&& c);
 // LEVEL THREE TESTS
 
+// CLEARANCE TESTS
+// 1st level
+template <class T>
+bool _1_cl_oneSkip(T&& c);
+template <class T>
+bool _1_cl_twoSkip(T&& c);
+template <class T>
+bool _1_cl_oneFilter(T&& c);
+template <class T>
+bool _1_cl_oneRange(T&& c);
+// 2nd level
+template <class T>
+bool _2_cl_filterRange(T&& c);
+template <class T>
+bool _2_cl_filterSkip(T&& c);
+template <class T>
+bool _2_cl_rangeFilter(T&& c);
+template <class T>
+bool _2_cl_rangeSkip(T&& c);
+template <class T>
+bool _2_cl_skipFilter(T&& c);
+template <class T>
+bool _2_cl_skipRange(T&& c);
+// 3rd level
+template <class T>
+bool _3_cl_rangeFilterSkip(T&& c);
+template <class T>
+bool _3_cl_rangeSkipFilter(T&& c);
+template <class T>
+bool _3_cl_filterRangeSkip(T&& c);
+template <class T>
+bool _3_cl_filterSkipRange(T&& c);
+template <class T>
+bool _3_cl_skipRangeFilter(T&& c);
+template <class T>
+bool _3_cl_skipFilterRange(T&& c);
+// CLEARANCE TESTS
+//
+//
 // VARIATIONS
 // 1 level:
-#define _1_oneSkip(c) SF::skip(c,2)
-#define _1_twoSkip(c) SF::skip(c,3)
+#define _1_oneSkip(c) SF::skip(c,2) // 2450
+#define _1_twoSkip(c) SF::skip(c,3) // 1683
 #define _1_oneFilter(c) SF::filter(c,[](int i) {\
             return i > 19; \
-        })
-#define _1_oneRange(c) SF::range(c,17,57)
+        }) // 4760
+#define _1_oneRange(c) SF::range(c,17,57) // 1460
 // --> 1 level
 
 // 2 level:
-#define _2_rangeSkip(c) SF::skip(SF::range(c,17,57),3)
-#define _2_skipRange(c) SF::range(SF::skip(c,3),1,10)
+#define _2_rangeSkip(c) SF::skip(SF::range(c,17,57),3) // 511
+#define _2_skipRange(c) SF::range(SF::skip(c,3),1,10) // 135
 #define _2_skipFilter(c) SF::filter(SF::skip(c,3),\
-        [](int i) { return i > 50; })
+        [](int i) { return i > 50; }) // 1275
 #define _2_filterSkip(c) SF::skip(SF::filter(c,\
-            [](int i) { return i > 50; }),3)
+            [](int i) { return i > 50; }),3) // 1275
 #define _2_filterRange(c) SF::range(SF::filter(c,\
-            [](int i) { return i > 50; }),17,47)
+            [](int i) { return i > 50; }),17,47) // 2475
 #define _2_rangeFilter(c) SF::filter(SF::range(c,17,57),\
-        [](int i) { return i > 50; })
+        [](int i) { return i > 50; }) // 321
 // --> 2 level
 
 // 3 level:
 #define _3_rangeFilterSkip(c) SF::skip(SF::filter(SF::range(c,17,57),\
-            [](int i) { return i > 50; }),3)
+            [](int i) { return i > 50; }),3) // 105
 #define _3_rangeSkipFilter(c) SF::filter(SF::skip(SF::range(c,17,57),3),\
-        [](int i) { return i > 20; })
+        [](int i) { return i > 20; }) // 474
 #define _3_filterRangeSkip(c) SF::skip(SF::range(SF::filter(c,\
-        [](int i) { return i > 50; }),17,37),3)
+        [](int i) { return i > 50; }),17,37),3) // 539
 #define _3_filterSkipRange(c) SF::range(SF::skip(SF::filter(c,\
-        [](int i) { return i > 50; }),3),7,14)
+        [](int i) { return i > 50; }),3),7,14) // 567
 #define _3_skipRangeFilter(c) SF::filter(SF::range(SF::skip(c,3),17,27),\
-        [](int i) { return i > 60; })
+        [](int i) { return i > 60; }) // 423
 #define _3_skipFilterRange(c) SF::range(SF::filter(SF::skip(c,3),\
-        [](int i) { return i > 37; }),7,17)
+        [](int i) { return i > 37; }),7,17) // 735
 // --> 3 level
-
 
 // VARIATIONS
 
@@ -132,6 +170,7 @@ template <class T>
 bool proxyTest(T&& c) {
     DEF_ADAPTER(T,Ad);
 
+    // 1st lv
     IFN_RET_FALSE(setColTest(c));
     IFN_RET_FALSE(oneSkipTest(c));
     IFN_RET_FALSE(twoSkipTest(c));
@@ -153,6 +192,35 @@ bool proxyTest(T&& c) {
     IFN_RET_FALSE(_3_filterSkipRangeTest(c));
     IFN_RET_FALSE(_3_skipRangeFilterTest(c));
     IFN_RET_FALSE(_3_skipFilterRangeTest(c));
+
+    return true;
+}
+
+template <class T>
+bool proxyDeletionTest(T&& c) {
+    DEF_ADAPTER(T,Ad);
+
+    // 1st lv
+    IFN_RET_FALSE(_1_cl_oneSkip(c));
+    IFN_RET_FALSE(_1_cl_oneRange(c));
+    IFN_RET_FALSE(_1_cl_oneFilter(c));
+    IFN_RET_FALSE(_1_cl_oneRange(c));
+
+    // 2nd lv
+    IFN_RET_FALSE(_2_cl_filterRange(c));
+    IFN_RET_FALSE(_2_cl_filterSkip(c));
+    IFN_RET_FALSE(_2_cl_rangeFilter(c));
+    IFN_RET_FALSE(_2_cl_rangeSkip(c));
+    IFN_RET_FALSE(_2_cl_skipFilter(c));
+    IFN_RET_FALSE(_2_cl_skipRange(c));
+
+    // 3rd lv
+    IFN_RET_FALSE(_3_cl_rangeFilterSkip(c));
+    IFN_RET_FALSE(_3_cl_rangeSkipFilter(c));
+    IFN_RET_FALSE(_3_cl_filterRangeSkip(c));
+    IFN_RET_FALSE(_3_cl_filterSkipRange(c));
+    IFN_RET_FALSE(_3_cl_skipRangeFilter(c));
+    IFN_RET_FALSE(_3_cl_skipFilterRange(c));
 
     return true;
 }
@@ -216,7 +284,7 @@ template <class T>
 bool _2_filterSkipTest(T&& c) {
     setCollection_prx(c);
 
-    auto r = _2_skipFilter(c);
+    auto r = _2_filterSkip(c);
 
     return sum(r) == 1275;
 }
@@ -310,6 +378,238 @@ bool _3_skipFilterRangeTest(T&& c) {
     return sum(r) == 735;
 }
 // 3RD LEVEL
+
+// CLEARANCE TESTS
+// 1 level
+template <class T>
+bool _1_cl_oneSkip(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _1_oneSkip(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _1_cl_twoSkip(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _1_twoSkip(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _1_cl_oneFilter(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _1_oneFilter(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _1_cl_oneRange(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _1_oneRange(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+// 1 level
+//
+// 2 level
+template <class T>
+bool _2_cl_rangeSkip(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _2_rangeSkip(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _2_cl_skipRange(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _2_skipRange(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _2_cl_filterSkip(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _2_skipFilter(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _2_cl_skipFilter(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _2_filterSkip(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _2_cl_filterRange(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _2_filterRange(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _2_cl_rangeFilter(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _2_rangeFilter(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+// 2 level
+//
+// 3 level
+template <class T>
+bool _3_cl_rangeFilterSkip(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _3_rangeFilterSkip(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _3_cl_rangeSkipFilter(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _3_rangeSkipFilter(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _3_cl_filterRangeSkip(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _3_filterRangeSkip(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _3_cl_filterSkipRange(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _3_filterSkipRange(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _3_cl_skipRangeFilter(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _3_skipRangeFilter(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _3_cl_skipFilterRange(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _3_skipFilterRange(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+// 3 level
+// CLEARANCE TESTS
 
 template <class T>
 bool setColTest(T&& c) {

@@ -41,15 +41,15 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_proxy )
     BOOST_CHECK(tt::proxyTest(v));
 }
 
-//BOOST_AUTO_TEST_CASE( static_vector_tests_proxy_const )
-//{
+BOOST_AUTO_TEST_CASE( static_vector_tests_proxy_const )
+{
 
-    //const size_t SIZE = 256;
-    //size_t arr[SIZE];
-    //auto v = tt::t::makeStaticVector(arr);
+    const size_t SIZE = 256;
+    size_t arr[SIZE];
+    auto v = tt::t::makeStaticVector(arr);
 
-    //BOOST_CHECK(tt::constProxyTest(v));
-//}
+    BOOST_CHECK(tt::constProxyTest(v));
+}
 
 
 #endif /* end of include guard: STATICVECTOR_8L32QS9F */

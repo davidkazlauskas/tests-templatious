@@ -87,6 +87,48 @@ template <class T>
 bool _3_skipFilterRangeTest(T&& c);
 // LEVEL THREE TESTS
 
+// CONST DUP TESTS
+template <class T>
+bool _1_c_oneSkipTest(const T& c);
+template <class T>
+bool _1_c_twoSkipTest(const T& c);
+template <class T>
+bool _1_c_oneFilterTest(const T& c);
+template <class T>
+bool _1_c_oneRangeTest(const T& c);
+// ONE LEVEL TESTS
+//
+// LEVEL TWO TESTS
+template <class T>
+bool _2_c_rangeSkipTest(const T& c);
+template <class T>
+bool _2_c_skipRangeTest(const T& c);
+template <class T>
+bool _2_c_filterSkipTest(const T& c);
+template <class T>
+bool _2_c_skipFilterTest(const T& c);
+template <class T>
+bool _2_c_filterRangeTest(const T& c);
+template <class T>
+bool _2_c_rangeFilterTest(const T& c);
+// LEVEL TWO TESTS
+//
+// LEVEL THREE TESTS
+template <class T>
+bool _3_c_rangeFilterSkipTest(const T& c);
+template <class T>
+bool _3_c_rangeSkipFilterTest(const T& c);
+template <class T>
+bool _3_c_filterRangeSkipTest(const T& c);
+template <class T>
+bool _3_c_filterSkipRangeTest(const T& c);
+template <class T>
+bool _3_c_skipRangeFilterTest(const T& c);
+template <class T>
+bool _3_c_skipFilterRangeTest(const T& c);
+// LEVEL THREE TESTS
+// CONST DUP TESTS
+
 // CLEARANCE TESTS
 // 1st level
 template <class T>
@@ -192,6 +234,36 @@ bool proxyTest(T&& c) {
     IFN_RET_FALSE(_3_filterSkipRangeTest(c));
     IFN_RET_FALSE(_3_skipRangeFilterTest(c));
     IFN_RET_FALSE(_3_skipFilterRangeTest(c));
+
+    return true;
+}
+
+template <class T>
+bool constProxyTest(T&& c) {
+    DEF_ADAPTER(T,Ad);
+    setCollection_prx(c);
+
+    // 1st lv
+    IFN_RET_FALSE(_1_c_oneSkipTest(c));
+    IFN_RET_FALSE(_1_c_twoSkipTest(c));
+    IFN_RET_FALSE(_1_c_oneFilterTest(c));
+    IFN_RET_FALSE(_1_c_oneRangeTest(c));
+
+    // 2nd lv
+    IFN_RET_FALSE(_2_c_rangeSkipTest(c));
+    IFN_RET_FALSE(_2_c_skipRangeTest(c));
+    IFN_RET_FALSE(_2_c_filterSkipTest(c));
+    IFN_RET_FALSE(_2_c_skipFilterTest(c));
+    IFN_RET_FALSE(_2_c_filterRangeTest(c));
+    IFN_RET_FALSE(_2_c_rangeFilterTest(c));
+
+    // 3rd lv
+    IFN_RET_FALSE(_3_c_rangeFilterSkipTest(c));
+    IFN_RET_FALSE(_3_c_rangeSkipFilterTest(c));
+    IFN_RET_FALSE(_3_c_filterRangeSkipTest(c));
+    IFN_RET_FALSE(_3_c_filterSkipRangeTest(c));
+    IFN_RET_FALSE(_3_c_skipRangeFilterTest(c));
+    IFN_RET_FALSE(_3_c_skipFilterRangeTest(c));
 
     return true;
 }
@@ -378,6 +450,141 @@ bool _3_skipFilterRangeTest(T&& c) {
     return sum(r) == 735;
 }
 // 3RD LEVEL
+
+// CONST TESTS IMPL
+template <class T>
+bool _2_rangeSkipTest(T&& c);
+template <class T>
+bool _2_skipRangeTest(T&& c);
+template <class T>
+bool _2_filterSkipTest(T&& c);
+template <class T>
+bool _2_skipFilterTest(T&& c);
+template <class T>
+bool _2_filterRangeTest(T&& c);
+template <class T>
+bool _2_rangeFilterTest(T&& c);
+// LEVEL TWO TESTS
+//
+// LEVEL THREE TESTS
+template <class T>
+bool _3_rangeFilterSkipTest(T&& c);
+template <class T>
+bool _3_rangeSkipFilterTest(T&& c);
+template <class T>
+bool _3_filterRangeSkipTest(T&& c);
+template <class T>
+bool _3_filterSkipRangeTest(T&& c);
+template <class T>
+bool _3_skipRangeFilterTest(T&& c);
+template <class T>
+bool _3_skipFilterRangeTest(T&& c);
+// LEVEL THREE TESTS
+
+///////////////////////////////////////////////////////////////
+
+// CONST DUP TESTS
+template <class T>
+bool _1_c_oneSkipTest(const T& c) {
+    auto r = _1_oneSkip(c);
+    return sum(r) == 2450;
+}
+
+template <class T>
+bool _1_c_twoSkipTest(const T& c) {
+    auto r = _1_twoSkip(c);
+    return sum(r) == 1683;
+}
+
+template <class T>
+bool _1_c_oneFilterTest(const T& c) {
+    auto r = _1_oneFilter(c);
+    return sum(r) == 4760;
+}
+
+template <class T>
+bool _1_c_oneRangeTest(const T& c) {
+    auto r = _1_oneRange(c);
+    return sum(r) == 1460;
+}
+// ONE LEVEL TESTS
+//
+// LEVEL TWO TESTS
+template <class T>
+bool _2_c_rangeSkipTest(const T& c) {
+    auto r = _2_rangeSkip(c);
+    return sum(r) == 511;
+}
+
+template <class T>
+bool _2_c_skipRangeTest(const T& c) {
+    auto r = _2_skipRange(c);
+    return sum(r) == 135;
+}
+
+template <class T>
+bool _2_c_filterSkipTest(const T& c) {
+    auto r = _2_skipFilter(c);
+    return sum(r) == 1275;
+}
+
+template <class T>
+bool _2_c_skipFilterTest(const T& c) {
+    auto r = _2_filterSkip(c);
+    return sum(r) == 1275;
+}
+
+template <class T>
+bool _2_c_filterRangeTest(const T& c) {
+    auto r = _2_filterRange(c);
+    return sum(r) == 2475;
+}
+
+template <class T>
+bool _2_c_rangeFilterTest(const T& c) {
+    auto r = _2_rangeFilter(c);
+    return sum(r) == 321;
+}
+
+// LEVEL TWO TESTS
+//
+// LEVEL THREE TESTS
+template <class T>
+bool _3_c_rangeFilterSkipTest(const T& c) {
+    auto r = _3_rangeFilterSkip(c);
+    return sum(r) == 105;
+}
+
+template <class T>
+bool _3_c_rangeSkipFilterTest(const T& c) {
+    auto r = _3_rangeSkipFilter(c);
+    return sum(r) == 474;
+}
+
+template <class T>
+bool _3_c_filterRangeSkipTest(const T& c) {
+    auto r = _3_filterRangeSkip(c);
+    return sum(r) == 539;
+}
+
+template <class T>
+bool _3_c_filterSkipRangeTest(const T& c) {
+    auto r = _3_filterSkipRange(c);
+    return sum(r) == 567;
+}
+
+template <class T>
+bool _3_c_skipRangeFilterTest(const T& c) {
+    auto r = _3_skipRangeFilter(c);
+    return sum(r) == 423;
+}
+
+template <class T>
+bool _3_c_skipFilterRangeTest(const T& c) {
+    auto r = _3_skipFilterRange(c);
+    return sum(r) == 735;
+}
+// CONST TESTS IMPL
 
 // CLEARANCE TESTS
 // 1 level

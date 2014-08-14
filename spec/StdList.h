@@ -39,6 +39,14 @@ BOOST_AUTO_TEST_CASE( std_list_tests_proxy )
     BOOST_CHECK(tt::proxyTest(v));
 }
 
+BOOST_AUTO_TEST_CASE( std_list_tests_proxy_const )
+{
+    typedef std::list<int> V;
+    V v;
+
+    BOOST_CHECK(tt::constProxyTest(v));
+}
+
 BOOST_AUTO_TEST_CASE( std_list_tests_proxy_clearance )
 {
     typedef std::list<int> V;

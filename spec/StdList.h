@@ -55,4 +55,12 @@ BOOST_AUTO_TEST_CASE( std_list_tests_proxy_clearance )
     BOOST_CHECK(tt::proxyDeletionTest(v));
 }
 
+BOOST_AUTO_TEST_CASE( std_list_tests_virtual )
+{
+    typedef std::list<int> V;
+    V v;
+
+    BOOST_CHECK(tt::virtualTest(v));
+}
+
 #endif /* end of include guard: STDLIST_UDCMQSLF */

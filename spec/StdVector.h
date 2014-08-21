@@ -55,5 +55,13 @@ BOOST_AUTO_TEST_CASE( std_vector_tests_proxy_clearance )
     BOOST_CHECK(tt::proxyDeletionTest(v));
 }
 
+BOOST_AUTO_TEST_CASE( std_vector_tests_virtual )
+{
+    typedef std::vector<int> V;
+    V v;
+
+    BOOST_CHECK(tt::virtualTest(v));
+}
+
 #endif /* end of include guard: STDVECTOR_97AM89C */
 

@@ -21,6 +21,7 @@
 
 #include "CollectionAdapter.h"
 #include "Proxies.h"
+#include "VirtualCollection.h"
 
 #endif /* end of include guard: TESTALGS_GMTU7RDA */
 

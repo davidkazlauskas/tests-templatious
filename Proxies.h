@@ -837,7 +837,7 @@ void setCollection_prx(T&& c) {
     SA::clear(c);
 
     // 0 .. 99
-    SA::add(c,SF::loopL(100));
+    SA::add(c,SF::seqL(100));
 }
 
 }

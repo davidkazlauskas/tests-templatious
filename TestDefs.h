@@ -21,6 +21,8 @@
 
 #include <iostream>
 
+#include <boost/test/unit_test.hpp>
+
 #include <templatious/adapters/All.h>
 #include <templatious/StaticFactory.h>
 #include <templatious/StaticVector.h>
@@ -31,6 +33,7 @@ namespace test_templatious {
 
 namespace t = templatious;
 namespace ta = t::adapters;
+namespace u = t::util;
 typedef t::StaticAdapter SA;
 typedef t::StaticFactory SF;
 

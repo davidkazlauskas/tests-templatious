@@ -23,5 +23,6 @@
 #include "spec/StdList.h"
 #include "spec/StaticVector.h"
 #include "LogicPrimitives.h"
+#include "TypeLists.h"
 
 #endif /* end of include guard: TESTS_HPIIGL7J */

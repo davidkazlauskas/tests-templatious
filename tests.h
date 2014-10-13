@@ -24,5 +24,6 @@
 #include "spec/StaticVector.h"
 #include "LogicPrimitives.h"
 #include "TypeLists.h"
+#include "PackTests.h"
 
 #endif /* end of include guard: TESTS_HPIIGL7J */

@@ -19,14 +19,32 @@
 #ifndef PACKTESTS_1UNIFFZN
 #define PACKTESTS_1UNIFFZN
 
+#include <sstream>
+
 #include "TestDefs.h"
 
 BOOST_AUTO_TEST_SUITE( pack_tests )
 
 BOOST_AUTO_TEST_CASE( pack_basic_test )
 {
+    TEMPLATIOUS_TRIPLET_STD;
 
+    std::stringstream ss;
 
+    auto p =
+        SF::pack(
+            SF::packInsert(
+                SF::pack(1,2,3,4),
+                " "),
+            "\n"
+        );
+
+    auto f = SF::streamFunctor(ss);
+
+    SM::callEach(f,p);
+
+    std::string expected = "1 2 3 4\n";
+    BOOST_CHECK( ss.str() == expected );
 }
 
 BOOST_AUTO_TEST_SUITE_END()

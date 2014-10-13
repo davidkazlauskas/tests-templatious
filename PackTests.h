@@ -47,6 +47,22 @@ BOOST_AUTO_TEST_CASE( pack_basic_test )
     BOOST_CHECK( ss.str() == expected );
 }
 
+TEMPLATIOUS_CALLEACH_FCTOR( Square, i *= i );
+
+BOOST_AUTO_TEST_CASE( pack_mutation )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    int a = 3;
+    int b = 4;
+
+    auto p = SF::pack(a,b);
+
+    SM::callEach(Square(),p);
+
+    BOOST_CHECK( a + b == 25 );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: PACKTESTS_1UNIFFZN */

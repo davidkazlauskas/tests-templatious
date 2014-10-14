@@ -117,6 +117,36 @@ BOOST_AUTO_TEST_CASE( pack_integrity )
     BOOST_CHECK( sum == 923 );
 }
 
+BOOST_AUTO_TEST_CASE( pack_integrity_shared_stor )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    int a = 7;
+    char b = '7';
+    long c = 77;
+    short d = 777;
+    double e = 7.7; // will be truncated to 7
+    float f = 0.77; // will be truncated to 0
+
+    auto p = SF::pack(a,b,c,d,e,f);
+
+    int sum = 0;
+
+    auto func =
+            SF::matchFunctor(
+                SF::matchLoose<int>(SF::storageFunctor<SumAll>(sum)),
+                SF::matchLoose<char>(SF::storageFunctor<SumAll>(sum)),
+                SF::matchLoose<long>(SF::storageFunctor<SumAll>(sum)),
+                SF::matchLoose<short>(SF::storageFunctor<SumAll>(sum)),
+                SF::matchLoose<double>(SF::storageFunctor<SumAll>(sum)),
+                SF::matchLoose<float>(SF::storageFunctor<SumAll>(sum))
+            );
+
+
+    SM::callEach(func,p);
+
+    BOOST_CHECK( sum == 923 );
+}
 
 BOOST_AUTO_TEST_SUITE_END()
 

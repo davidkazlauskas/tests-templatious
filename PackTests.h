@@ -158,13 +158,8 @@ BOOST_AUTO_TEST_CASE( pack_repeat_test_lval )
 
     auto func = SF::storageFunctor<SumAll>(sum);
     auto rpt = SF::packRepeat<5>(a);
-    auto prnt = SF::pack(SF::packInsert(rpt," + ")," = ",sum,"\n");
 
-    auto pF = SF::streamFunctor(std::cout);
-
-    SM::callEach(pF,prnt);
     SM::callEach(func,rpt);
-    SM::callEach(pF,prnt);
 
     BOOST_CHECK( sum == 25 );
 }
@@ -180,13 +175,22 @@ BOOST_AUTO_TEST_CASE( pack_repeat_test_lval_mul )
 
     auto func = SF::storageFunctor<SumAll>(sum);
     auto rpt = SF::packRepeat<5>(a,b);
-    auto prnt = SF::pack(SF::packInsert(rpt," + ")," = ",sum,"\n");
 
-    auto pF = SF::streamFunctor(std::cout);
-
-    SM::callEach(pF,prnt);
     SM::callEach(func,rpt);
-    SM::callEach(pF,prnt);
+
+    BOOST_CHECK( sum == 60 );
+}
+
+BOOST_AUTO_TEST_CASE( pack_repeat_test_rval_mul )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    int sum = 0;
+
+    auto func = SF::storageFunctor<SumAll>(sum);
+    auto rpt = SF::packRepeat<5>(5,7);
+
+    SM::callEach(func,rpt);
 
     BOOST_CHECK( sum == 60 );
 }

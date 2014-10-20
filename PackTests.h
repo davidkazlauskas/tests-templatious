@@ -148,6 +148,49 @@ BOOST_AUTO_TEST_CASE( pack_integrity_shared_stor )
     BOOST_CHECK( sum == 923 );
 }
 
+BOOST_AUTO_TEST_CASE( pack_repeat_test_lval )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    int a = 5;
+
+    int sum = 0;
+
+    auto func = SF::storageFunctor<SumAll>(sum);
+    auto rpt = SF::packRepeat<5>(a);
+    auto prnt = SF::pack(SF::packInsert(rpt," + ")," = ",sum,"\n");
+
+    auto pF = SF::streamFunctor(std::cout);
+
+    SM::callEach(pF,prnt);
+    SM::callEach(func,rpt);
+    SM::callEach(pF,prnt);
+
+    BOOST_CHECK( sum == 25 );
+}
+
+BOOST_AUTO_TEST_CASE( pack_repeat_test_lval_mul )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    int a = 5;
+    short b = 7;
+
+    int sum = 0;
+
+    auto func = SF::storageFunctor<SumAll>(sum);
+    auto rpt = SF::packRepeat<5>(a,b);
+    auto prnt = SF::pack(SF::packInsert(rpt," + ")," = ",sum,"\n");
+
+    auto pF = SF::streamFunctor(std::cout);
+
+    SM::callEach(pF,prnt);
+    SM::callEach(func,rpt);
+    SM::callEach(pF,prnt);
+
+    BOOST_CHECK( sum == 60 );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: PACKTESTS_1UNIFFZN */

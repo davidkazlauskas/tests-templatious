@@ -11,7 +11,7 @@ ADD_DEFINITIONS (
     -lstdc++
     -Wall
     -x c++
-    -g
+    -ggdb3
     -O0
     -DBOOST_TEST_DYN_LINK
 )

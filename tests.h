@@ -25,5 +25,6 @@
 #include "LogicPrimitives.h"
 #include "TypeLists.h"
 #include "PackTests.h"
+#include "ChainFunctor.h"
 
 #endif /* end of include guard: TESTS_HPIIGL7J */

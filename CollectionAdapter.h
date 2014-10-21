@@ -153,7 +153,7 @@ bool eraseTest2(T&& c) {
         res += *i;
     }
 
-    return res = 3;
+    return res == 18;
 }
 
 template <class T>

@@ -105,8 +105,6 @@ bool addTest(T&& c) {
 
 template <class T>
 bool integrityTest(T&& c) {
-    DEF_ADAPTER(T,Ad);
-
     setCollection(c);
 
     size_t res = 0;
@@ -119,8 +117,6 @@ bool integrityTest(T&& c) {
 
 template <class T>
 bool eraseTest(T&& c) {
-    DEF_ADAPTER(T,Ad);
-
     setCollection(c);
     auto it = SA::begin(c);
     for (int i = 0; i < 2; ++i) {
@@ -138,8 +134,6 @@ bool eraseTest(T&& c) {
 
 template <class T>
 bool eraseTest2(T&& c) {
-    DEF_ADAPTER(T,Ad);
-
     setCollection(c);
 
     auto it = SA::begin(c);
@@ -158,8 +152,6 @@ bool eraseTest2(T&& c) {
 
 template <class T>
 bool eraseTest3(T&& c) {
-    DEF_ADAPTER(T,Ad);
-
     setCollection(c);
 
     SA::erase(c,SA::begin(c),SA::end(c));
@@ -176,8 +168,6 @@ bool eraseTest3(T&& c) {
 
 template <class T>
 bool eraseTest4(T&& c) {
-    DEF_ADAPTER(T,Ad);
-
     setCollection(c);
 
     auto i = SA::begin(c);
@@ -206,8 +196,6 @@ bool eraseTest4(T&& c) {
 
 template <class T>
 bool indexTest(T&& c) {
-    DEF_ADAPTER(T,Ad);
-
     setCollection(c);
 
     IFN_RET_FALSE(SA::getByIndex(c,0) == 1);
@@ -222,8 +210,6 @@ bool indexTest(T&& c) {
 
 template <class T>
 bool insertTest(T&& c) {
-    DEF_ADAPTER(T,Ad);
-
     setCollection(c);
 
     auto i = SA::iterAt(c,4);
@@ -255,8 +241,6 @@ bool insertTest(T&& c) {
 
 template <class T>
 bool iterIntegrityTest(T&& c) {
-    DEF_ADAPTER(T,Ad);
-
     setCollection(c);
 
     IFN_RET_FALSE(SA::iterAt(c,0) == SA::begin(c));
@@ -267,8 +251,6 @@ bool iterIntegrityTest(T&& c) {
 
 template <class T>
 bool iterAssigmentTest(T&& c) {
-    DEF_ADAPTER(T,Ad);
-
     setCollection(c);
 
     for (auto i = SA::begin(c); i != SA::end(c); ++i) {

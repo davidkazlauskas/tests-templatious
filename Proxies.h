@@ -210,8 +210,6 @@ bool _3_cl_skipFilterRange(T&& c);
 
 template <class T>
 bool proxyTest(T&& c) {
-    DEF_ADAPTER(T,Ad);
-
     // 1st lv
     IFN_RET_FALSE(setColTest(c));
     IFN_RET_FALSE(oneSkipTest(c));
@@ -240,7 +238,6 @@ bool proxyTest(T&& c) {
 
 template <class T>
 bool constProxyTest(T&& c) {
-    DEF_ADAPTER(T,Ad);
     setCollection_prx(c);
 
     // 1st lv
@@ -270,7 +267,6 @@ bool constProxyTest(T&& c) {
 
 template <class T>
 bool proxyDeletionTest(T&& c) {
-    DEF_ADAPTER(T,Ad);
 
     // 1st lv
     IFN_RET_FALSE(_1_cl_oneSkip(c));

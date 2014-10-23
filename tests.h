@@ -26,5 +26,6 @@
 #include "TypeLists.h"
 #include "PackTests.h"
 #include "ChainFunctor.h"
+#include "DistributorTests.h"
 
 #endif /* end of include guard: TESTS_HPIIGL7J */

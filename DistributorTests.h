@@ -23,6 +23,19 @@
 
 BOOST_AUTO_TEST_SUITE( distributor_tests )
 
+BOOST_AUTO_TEST_CASE( distributor_tests_basic )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    int a,b,c,d,e,f,g;
+    auto p = SF::pack(a,b,c,d,e,f,g);
+    SM::distribute(SF::seqI(1,7),p);
+
+    int sum = 0;
+    SM::callEach([&](int i) { sum += i; },p);
+    BOOST_CHECK( sum == 28 );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: DISTRIBUTORTESTS_JA9IEGAL */

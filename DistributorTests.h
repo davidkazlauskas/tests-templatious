@@ -251,7 +251,6 @@ BOOST_AUTO_TEST_CASE( distributor_tests_foreach_midbreak )
             return --count > 0;
         },arr,arr,arr);
 
-    std::cout << res1 << std::endl;
     BOOST_CHECK( res1 == 7 * 3 );
 
     int sum = 0;

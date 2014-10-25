@@ -168,8 +168,22 @@ BOOST_AUTO_TEST_CASE( distributor_tests_ignorestop_reverse )
     sum = 0;
     int res1 = SM::forEach([&](int i) { sum += i; },arr);
     BOOST_CHECK( res1 == 7 );
+    BOOST_CHECK( sum == -7 );
 
+    int count = 4;
+    int res2 = SM::distributeSpecial<true>(
+            [&](int av,int& bv) {
+                bv = av;
+                return --count > 0;
+            },
+            p,arr);
+    BOOST_CHECK( res2 == 7 );
 
+    sum = 0;
+    int res3 = SM::forEach([&](int i) { sum += i; },arr);
+
+    BOOST_CHECK( res3 == 7 );
+    BOOST_CHECK( sum == 1 + 2 + 3 + 4 + 5 + 6 + 7 );
 }
 
 BOOST_AUTO_TEST_SUITE_END()

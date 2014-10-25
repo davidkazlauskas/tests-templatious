@@ -71,15 +71,18 @@ BOOST_AUTO_TEST_CASE( distributor_tests_special )
 
     auto p = SF::pack(a,b,c,d,e,f,g);
 
-    SM::distributeSpecial(
+    int res0 = SM::distributeSpecial(
         [](int av,int& bv) { bv = av * 7; },
         SF::seqI(1,7),
         p
     );
 
-    int sum = 0;
-    SM::callEach([&](int x) { sum += x; },p);
+    BOOST_CHECK( res0 == 7 );
 
+    int sum = 0;
+    int res1 = SM::callEach([&](int x) { sum += x; },p);
+
+    BOOST_CHECK( res1 == 7 );
     BOOST_CHECK( sum == 196 );
 }
 

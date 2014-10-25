@@ -64,6 +64,25 @@ BOOST_AUTO_TEST_CASE( distributor_tests_basic_mixed )
     BOOST_CHECK( ss.str() == "49 50 51 52 5 54 55" );
 }
 
+BOOST_AUTO_TEST_CASE( distributor_tests_special )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+    int a,b,c,d,e,f,g;
+
+    auto p = SF::pack(a,b,c,d,e,f,g);
+
+    SM::distributeSpecial(
+        [](int av,int& bv) { bv = av * 7; },
+        SF::seqI(1,7),
+        p
+    );
+
+    int sum = 0;
+    SM::callEach([&](int x) { sum += x; },p);
+
+    BOOST_CHECK( sum == 196 );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: DISTRIBUTORTESTS_JA9IEGAL */

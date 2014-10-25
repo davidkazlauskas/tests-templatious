@@ -110,6 +110,11 @@ BOOST_AUTO_TEST_CASE( distributor_tests_midbreak )
 
     BOOST_CHECK( res0 == 4 );
 
+    sum = 0;
+    int res1 = SM::callEach([&](int i) { sum += i; },p);
+
+    BOOST_CHECK( res1 == 7 );
+    BOOST_CHECK( sum == 1 + 2 + 3 + 4 - 1 - 1 - 1 );
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -246,6 +246,31 @@ BOOST_AUTO_TEST_CASE( distributor_tests_foreach_midbreak )
     BOOST_CHECK( res0 == 7 );
 
     int count = 10;
+    int res1 = SM::forEach([&](int& i) {
+            i *= 7;
+            return --count > 0;
+        },arr,arr,arr);
+
+    BOOST_CHECK( res1 == 10 );
+
+    int sum = 0;
+    SM::forEach([&](int i) { sum += i; },arr);
+
+    int expectedSum = 49 + 98 + 147 +
+        28 + 35 + 42 + 49;
+
+    BOOST_CHECK( sum == expectedSum );
+}
+
+BOOST_AUTO_TEST_CASE( distributor_tests_foreach_midbreak_ignore )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+    int arr[7];
+    int res0 = SM::distribute(SF::seqI(1,7),arr);
+
+    BOOST_CHECK( res0 == 7 );
+
+    int count = 10;
     int res1 = SM::forEach<true>([&](int& i) {
             i *= 7;
             return --count > 0;

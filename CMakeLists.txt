@@ -14,7 +14,7 @@ ADD_DEFINITIONS (
     -ggdb3
     -O0
     -DBOOST_TEST_DYN_LINK
-    #-fcolor-diagnostics
+    -fcolor-diagnostics
 )
 
 #SET ( CMAKE_CXX_COMPILER "g++-4.8" )

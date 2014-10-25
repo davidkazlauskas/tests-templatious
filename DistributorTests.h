@@ -237,6 +237,31 @@ BOOST_AUTO_TEST_CASE( distributor_tests_calleach_midbreak_ignore )
     BOOST_CHECK( sum == expectedSum );
 }
 
+BOOST_AUTO_TEST_CASE( distributor_tests_foreach_midbreak )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+    int arr[7];
+    int res0 = SM::distribute(SF::seqI(1,7),arr);
+
+    BOOST_CHECK( res0 == 7 );
+
+    int count = 10;
+    int res1 = SM::forEach<true>([&](int& i) {
+            i *= 7;
+            return --count > 0;
+        },arr,arr,arr);
+
+    std::cout << res1 << std::endl;
+    BOOST_CHECK( res1 == 7 * 3 );
+
+    int sum = 0;
+    SM::forEach([&](int i) { sum += i; },arr);
+
+    int expectedSum = 343 + 686 + 1029 + 1372 + 1715 + 2058 + 2401;
+
+    BOOST_CHECK( sum == expectedSum );
+}
+
 
 BOOST_AUTO_TEST_SUITE_END()
 

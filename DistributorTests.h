@@ -186,6 +186,32 @@ BOOST_AUTO_TEST_CASE( distributor_tests_ignorestop_reverse )
     BOOST_CHECK( sum == 1 + 2 + 3 + 4 + 5 + 6 + 7 );
 }
 
+BOOST_AUTO_TEST_CASE( distributor_tests_calleach_midbreak )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+    int a,b,c,d,e,f,g;
+    auto p = SF::pack(a,b,c,d,e,f,g);
+    int res0 = SM::distribute(SF::seqI(1,7),p);
+
+    BOOST_CHECK( res0 == 7 );
+
+    int count = 10;
+    int res1 = SM::callEach([&](int& i) {
+            i *= 7;
+            return --count > 0;
+        },p,p,p);
+
+    BOOST_CHECK( res1 == 10 );
+
+    int sum = 0;
+    SM::callEach([&](int i) { sum += i; },p);
+
+    int expectedSum = 49 + 98 + 147 +
+        28 + 35 + 42 + 49;
+
+    BOOST_CHECK( sum == expectedSum );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: DISTRIBUTORTESTS_JA9IEGAL */

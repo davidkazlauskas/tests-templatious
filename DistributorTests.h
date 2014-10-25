@@ -98,7 +98,18 @@ BOOST_AUTO_TEST_CASE( distributor_tests_midbreak )
 
     BOOST_CHECK( sum == -7 );
 
-    //int res0 = SM::distributeSpecial()
+    int count = 4;
+    int res0 = SM::distributeSpecial(
+        [&](int av,int& bv) {
+            bv = av;
+            return --count > 0;
+        },
+        SF::seqI(1,7),
+        p
+    );
+
+    BOOST_CHECK( res0 == 4 );
+
 }
 
 BOOST_AUTO_TEST_SUITE_END()

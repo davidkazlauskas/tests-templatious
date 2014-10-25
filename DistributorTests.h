@@ -86,6 +86,21 @@ BOOST_AUTO_TEST_CASE( distributor_tests_special )
     BOOST_CHECK( sum == 196 );
 }
 
+BOOST_AUTO_TEST_CASE( distributor_tests_midbreak )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+    int a,b,c,d,e,f,g;
+    auto p = SF::pack(a,b,c,d,e,f,g);
+
+    SM::set(-1,p);
+    int sum = 0;
+    SM::callEach([&](int i) { sum += i; },p);
+
+    BOOST_CHECK( sum == -7 );
+
+    //int res0 = SM::distributeSpecial()
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: DISTRIBUTORTESTS_JA9IEGAL */

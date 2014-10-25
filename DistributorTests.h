@@ -36,6 +36,34 @@ BOOST_AUTO_TEST_CASE( distributor_tests_basic )
     BOOST_CHECK( sum == 28 );
 }
 
+BOOST_AUTO_TEST_CASE( distributor_tests_basic_mixed )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    long a;
+    long long b;
+    int c;
+    short d;
+    char e;
+    double f;
+    float g;
+
+    auto p = SF::pack(a,b,c,d,e,f,g);
+    int res = SM::distribute(SF::seqI('1','7'),p);
+
+    BOOST_CHECK( res == 7 );
+
+    std::stringstream ss;
+    auto func = SF::streamFunctor(ss);
+
+    auto prnt = SF::packInsert(p,' ');
+    int res2 = SM::callEach(func,prnt);
+
+    BOOST_CHECK( res2 == 7 + 6 );
+
+    BOOST_CHECK( ss.str() == "49 50 51 52 5 54 55" );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: DISTRIBUTORTESTS_JA9IEGAL */

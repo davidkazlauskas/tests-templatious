@@ -183,6 +183,21 @@ BOOST_AUTO_TEST_CASE( chain_functor_math_get_do_undo_stateful )
 
 namespace
 {
+    auto encryptS =
+    [](std::vector<char>& v) {
+        SM::forEach([](char& c) { c ^= '7'; },v);
+    };
+
+    auto encryptF =
+    [](const std::vector<char>& v) {
+        std::vector<char> vn;
+        SA::addCustom(vn,
+            [](char c) { return c ^ '7'; },
+            v
+        );
+        return std::move(vn);
+    };
+
     struct SomeData {
         SomeData(int a,double b,char c)
             : _a(), _b(b), _c(c) {}

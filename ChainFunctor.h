@@ -181,6 +181,17 @@ BOOST_AUTO_TEST_CASE( chain_functor_math_get_do_undo_stateful )
     BOOST_CHECK(curr == 7);
 }
 
+namespace
+{
+    struct SomeData {
+        SomeData(int a,double b,char c)
+            : _a(), _b(b), _c(c) {}
+        int _a;
+        double _b;
+        char _c;
+    };
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: CHAINFUNCTOR_QZZUXKYU */

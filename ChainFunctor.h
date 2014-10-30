@@ -136,6 +136,21 @@ BOOST_AUTO_TEST_CASE( chain_functor_math_invert_functional )
     BOOST_CHECK(back == 7);
 }
 
+BOOST_AUTO_TEST_CASE( chain_functor_math_invert_stateful )
+{
+    auto rv = fS.reverse();
+
+    int curr = 7;
+
+    rv.doBwd(curr);
+
+    BOOST_CHECK(curr == 969);
+
+    rv(curr);
+
+    BOOST_CHECK(curr == 7);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: CHAINFUNCTOR_QZZUXKYU */

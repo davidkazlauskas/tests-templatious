@@ -151,6 +151,36 @@ BOOST_AUTO_TEST_CASE( chain_functor_math_invert_stateful )
     BOOST_CHECK(curr == 7);
 }
 
+BOOST_AUTO_TEST_CASE( chain_functor_math_get_do_undo_functional )
+{
+    auto d = fF.getDo();
+    auto u = fF.getUndo();
+
+    int curr = d(7);
+
+    BOOST_CHECK(curr == 969);
+
+    int back = u(curr);
+
+    BOOST_CHECK(back == 7);
+}
+
+BOOST_AUTO_TEST_CASE( chain_functor_math_get_do_undo_stateful )
+{
+    auto d = fS.getDo();
+    auto u = fS.getUndo();
+
+    int curr = 7;
+
+    d(curr);
+
+    BOOST_CHECK(curr == 969);
+
+    u(curr);
+
+    BOOST_CHECK(curr == 7);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: CHAINFUNCTOR_QZZUXKYU */

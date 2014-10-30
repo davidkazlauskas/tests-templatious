@@ -90,6 +90,13 @@ auto fF = SF::chainFunctor(
     SF::functorPair(addDo2F,addUndo2F)
 );
 
+auto fS = SF::chainFunctor<true>(
+    SF::functorPair(mulDo,mulUndo),
+    SF::functorPair(addDo,addUndo),
+    SF::functorPair(mulDo2,mulUndo2),
+    SF::functorPair(addDo2,addUndo2)
+);
+
 }
 
 BOOST_AUTO_TEST_CASE( chain_functor_math_reverse_functional )

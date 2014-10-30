@@ -67,8 +67,8 @@ auto addDo2 = [](int& a) { a = a + 17; };
 auto addUndo2 = [](int& a) { a = a - 17; };
 
 // FUNCTIONAL
-auto mulDoF = [](int& a) { a = a * 7; };
-auto mulUndoF = [](int& a) { a = a / 7; };
+auto mulDoF = [](int a) { return a * 7; };
+auto mulUndoF = [](int a) { return a / 7; };
 
 auto addDoF = [](int a) { return a + 7; };
 auto addUndoF = [](int a) { return a - 7; };
@@ -85,11 +85,19 @@ BOOST_AUTO_TEST_CASE( chain_functor_math_reverse_functional )
     TEMPLATIOUS_TRIPLET_STD;
 
     auto f = SF::chainFunctor(
-            SF::functorPair(mulDoF,mulUndoF),
-            SF::functorPair(addDoF,addUndoF),
-            SF::functorPair(mulDo2F,mulUndo2F),
-            SF::functorPair(addDo2F,addUndo2F)
+        SF::functorPair(mulDoF,mulUndoF),
+        SF::functorPair(addDoF,addUndoF),
+        SF::functorPair(mulDo2F,mulUndo2F),
+        SF::functorPair(addDo2F,addUndo2F)
     );
+
+    int inter = f(7);
+
+    BOOST_CHECK(inter == 969);
+
+    int back = f.doBwd(inter);
+
+    BOOST_CHECK(back == 7);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

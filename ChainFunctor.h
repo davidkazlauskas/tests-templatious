@@ -195,11 +195,6 @@ namespace
         }
     };
 
-    //auto encryptS =
-    //[](std::vector<char>& v) {
-        //SM::forEach([](char& c) { c ^= '7'; },v);
-    //};
-
     auto encryptF =
     [](const std::vector<char>& v) {
         std::vector<char> vn;
@@ -232,7 +227,11 @@ namespace
         return SomeData(*ptr);
     };
 
-    //auto turnToBytesS
+    auto sdFctor = SF::chainFunctor(
+        SF::functorPair(turnToBytesF,makeFromBytesF),
+        SF::functorPair(encryptF,encryptF)
+    );
+
 }
 
 BOOST_AUTO_TEST_SUITE_END()

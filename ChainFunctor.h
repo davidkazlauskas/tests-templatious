@@ -53,6 +53,45 @@ BOOST_AUTO_TEST_CASE( chain_functor_string_filter )
     BOOST_CHECK( res == "WHAT_I'M_I_DOING?_DON'T_*******_MY_*******_YO." );
 }
 
+// STATEFUL
+auto mulDo = [](int& a) { a = a * 7; };
+auto mulUndo = [](int& a) { a = a / 7; };
+
+auto addDo = [](int& a) { a = a + 7; };
+auto addUndo = [](int& a) { a = a - 7; };
+
+auto mulDo2 = [](int& a) { a = a * 17; };
+auto mulUndo2 = [](int& a) { a = a / 17; };
+
+auto addDo2 = [](int& a) { a = a + 17; };
+auto addUndo2 = [](int& a) { a = a - 17; };
+
+// FUNCTIONAL
+auto mulDoF = [](int& a) { a = a * 7; };
+auto mulUndoF = [](int& a) { a = a / 7; };
+
+auto addDoF = [](int a) { return a + 7; };
+auto addUndoF = [](int a) { return a - 7; };
+
+auto mulDo2F = [](int a) { return a * 17; };
+auto mulUndo2F = [](int a) { return a / 17; };
+
+auto addDo2F = [](int a) { return a + 17; };
+auto addUndo2F = [](int a) { return a - 17; };
+
+
+BOOST_AUTO_TEST_CASE( chain_functor_math_reverse_functional )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    auto f = SF::chainFunctor(
+            SF::functorPair(mulDoF,mulUndoF),
+            SF::functorPair(addDoF,addUndoF),
+            SF::functorPair(mulDo2F,mulUndo2F),
+            SF::functorPair(addDo2F,addUndo2F)
+    );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: CHAINFUNCTOR_QZZUXKYU */

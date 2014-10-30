@@ -198,12 +198,18 @@ namespace
         return std::move(vn);
     };
 
+    //auto turnTo
+
     struct SomeData {
         SomeData(int a,double b,char c)
             : _a(), _b(b), _c(c) {}
         int _a;
         double _b;
         char _c;
+
+        bool operator==(const SomeData& s) const {
+            return s._a == _a && s._b == _b && s._c == _c;
+        }
     };
 }
 

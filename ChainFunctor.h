@@ -112,7 +112,6 @@ BOOST_AUTO_TEST_CASE( chain_functor_math_reverse_functional )
 
 BOOST_AUTO_TEST_CASE( chain_functor_math_reverse_stateful )
 {
-
     int curr = 7;
 
     fS(curr);
@@ -122,6 +121,19 @@ BOOST_AUTO_TEST_CASE( chain_functor_math_reverse_stateful )
     fS.doBwd(curr);
 
     BOOST_CHECK(curr == 7);
+}
+
+BOOST_AUTO_TEST_CASE( chain_functor_math_invert_functional )
+{
+    auto rv = fF.reverse();
+
+    int curr = rv.doBwd(7);
+
+    BOOST_CHECK(curr == 969);
+
+    int back = rv(curr);
+
+    BOOST_CHECK(back == 7);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

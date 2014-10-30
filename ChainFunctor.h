@@ -183,23 +183,6 @@ BOOST_AUTO_TEST_CASE( chain_functor_math_get_do_undo_stateful )
 
 namespace
 {
-    auto encryptS =
-    [](std::vector<char>& v) {
-        SM::forEach([](char& c) { c ^= '7'; },v);
-    };
-
-    auto encryptF =
-    [](const std::vector<char>& v) {
-        std::vector<char> vn;
-        SA::addCustom(vn,
-            [](char c) { return c ^ '7'; },
-            v
-        );
-        return std::move(vn);
-    };
-
-    //auto turnTo
-
     struct SomeData {
         SomeData(int a,double b,char c)
             : _a(), _b(b), _c(c) {}
@@ -211,6 +194,45 @@ namespace
             return s._a == _a && s._b == _b && s._c == _c;
         }
     };
+
+    //auto encryptS =
+    //[](std::vector<char>& v) {
+        //SM::forEach([](char& c) { c ^= '7'; },v);
+    //};
+
+    auto encryptF =
+    [](const std::vector<char>& v) {
+        std::vector<char> vn;
+        SA::addCustom(vn,
+            [](char c) { return c ^ '7'; },
+            v
+        );
+        return std::move(vn);
+    };
+
+    auto turnToBytesF =
+    [](const SomeData& d) {
+        std::vector<char> res;
+
+        const int sz = sizeof(SomeData);
+        char tmp[sz];
+        memcpy(tmp,&d,sz);
+
+        SA::add(res,tmp);
+        return std::move(res);
+    };
+
+    auto makeFromBytesF =
+    [](const std::vector<char>& v) {
+        const int sz = sizeof(SomeData);
+        char tmp[sz];
+        SM::distribute(v,tmp);
+
+        SomeData* ptr = reinterpret_cast<SomeData*>(tmp);
+        return SomeData(*ptr);
+    };
+
+    //auto turnToBytesS
 }
 
 BOOST_AUTO_TEST_SUITE_END()

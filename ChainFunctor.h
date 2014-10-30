@@ -53,6 +53,10 @@ BOOST_AUTO_TEST_CASE( chain_functor_string_filter )
     BOOST_CHECK( res == "WHAT_I'M_I_DOING?_DON'T_*******_MY_*******_YO." );
 }
 
+namespace
+{
+TEMPLATIOUS_TRIPLET_STD;
+
 // STATEFUL
 auto mulDo = [](int& a) { a = a * 7; };
 auto mulUndo = [](int& a) { a = a / 7; };
@@ -79,23 +83,22 @@ auto mulUndo2F = [](int a) { return a / 17; };
 auto addDo2F = [](int a) { return a + 17; };
 auto addUndo2F = [](int a) { return a - 17; };
 
+auto fF = SF::chainFunctor(
+    SF::functorPair(mulDoF,mulUndoF),
+    SF::functorPair(addDoF,addUndoF),
+    SF::functorPair(mulDo2F,mulUndo2F),
+    SF::functorPair(addDo2F,addUndo2F)
+);
+
+}
 
 BOOST_AUTO_TEST_CASE( chain_functor_math_reverse_functional )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
-    auto f = SF::chainFunctor(
-        SF::functorPair(mulDoF,mulUndoF),
-        SF::functorPair(addDoF,addUndoF),
-        SF::functorPair(mulDo2F,mulUndo2F),
-        SF::functorPair(addDo2F,addUndo2F)
-    );
-
-    int inter = f(7);
+    int inter = fF(7);
 
     BOOST_CHECK(inter == 969);
 
-    int back = f.doBwd(inter);
+    int back = fF.doBwd(inter);
 
     BOOST_CHECK(back == 7);
 }

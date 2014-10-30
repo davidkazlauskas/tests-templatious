@@ -185,7 +185,7 @@ namespace
 {
     struct SomeData {
         SomeData(int a,double b,char c)
-            : _a(), _b(b), _c(c) {}
+            : _a(a), _b(b), _c(c) {}
         int _a;
         double _b;
         char _c;
@@ -232,6 +232,29 @@ namespace
         SF::functorPair(encryptF,encryptF)
     );
 
+// PR UTIL
+    auto prnt = SF::streamFunctor(std::cout);
+
+    auto prSomeData =
+    [](const SomeData& s) {
+        SM::callEach(prnt,
+            "_a: ",s._a,", _b: ",s._b,", _c: ",s._c,"\n");
+    };
+
+    auto prAny = SF::matchFunctor(
+        SF::matchLoose<SomeData>(prSomeData),
+        SF::matchAny(prnt)
+    );
+}
+
+BOOST_AUTO_TEST_CASE( chain_functor_serialize_and_deserialize )
+{
+    SomeData d(7,7.777,'7');
+    auto gargle = sdFctor(d);
+    //SM::forEach(prnt,gargle,'\n',SA::getSize(gargle),'\n');
+    auto back = sdFctor.doBwd(gargle);
+    //SM::callEach(prAny,"1st --> ",d,"2nd --> ",back);
+    BOOST_CHECK( back == d );
 }
 
 BOOST_AUTO_TEST_SUITE_END()

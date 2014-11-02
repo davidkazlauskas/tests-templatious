@@ -62,6 +62,18 @@ BOOST_AUTO_TEST_CASE( once_traversable_move_semantics )
     SM::forEach(sf,v);
 
     BOOST_CHECK( sum == 28 );
+
+    auto ot = SF::onceTraversable(std::move(v));
+
+    sum = 0;
+    SM::forEach(sf,ot);
+
+    BOOST_CHECK( sum == 28 );
+
+    sum = 0;
+    SM::forEach(sf,v);
+
+    BOOST_CHECK( sum == 0 );
 }
 
 BOOST_AUTO_TEST_SUITE_END()

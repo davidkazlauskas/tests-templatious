@@ -19,6 +19,8 @@
 #ifndef ONCETRAVERSABLE_3KYC0B8Q
 #define ONCETRAVERSABLE_3KYC0B8Q
 
+#include <vector>
+
 #include "TestDefs.h"
 
 BOOST_AUTO_TEST_SUITE( once_traversable )
@@ -42,6 +44,24 @@ BOOST_AUTO_TEST_CASE( once_traversable_basic )
     } while ( sz == p.size );
 
     BOOST_CHECK( sum == 351 );
+}
+
+TEMPLATIOUS_CALLEACH_FCTOR_WSTOR( Sum, _c += i );
+
+BOOST_AUTO_TEST_CASE( once_traversable_move_semantics )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+    typedef std::vector<int> Vect;
+
+    Vect v;
+    SA::add(v,SF::seqI(1,7));
+
+    int sum = 0;
+    auto sf = SF::storageFunctor<Sum>(sum);
+
+    SM::forEach(sf,v);
+
+    BOOST_CHECK( sum == 28 );
 }
 
 BOOST_AUTO_TEST_SUITE_END()

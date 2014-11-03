@@ -195,6 +195,34 @@ BOOST_AUTO_TEST_CASE( pack_repeat_test_rval_mul )
     BOOST_CHECK( sum == 60 );
 }
 
+TEMPLATIOUS_CALLEACH_FCTOR_WSTOR( Sum, _c += i );
+BOOST_AUTO_TEST_CASE( pack_storage_semantics_move )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    std::vector<int> i;
+    SA::add(i,7,7,7,7,7,7,7);
+
+    int sum = 0;
+    auto fs = SF::storageFunctor<Sum>(sum);
+
+    SM::forEach(fs,i);
+
+    BOOST_CHECK( sum == 7 * 7 );
+
+    auto p = SF::pack(std::move(i));
+
+    sum = 0;
+    SM::forEach(fs,i);
+
+    BOOST_CHECK( sum == 0 );
+
+    sum = 0;
+    SM::forEach(fs,p.get<0>());
+
+    BOOST_CHECK( sum == 7 * 7 );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: PACKTESTS_1UNIFFZN */

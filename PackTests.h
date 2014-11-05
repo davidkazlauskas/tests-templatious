@@ -240,6 +240,29 @@ BOOST_AUTO_TEST_CASE( pack_storage_semantics_address )
     BOOST_CHECK( std::addressof(p.get<6>()) == &g );
 }
 
+BOOST_AUTO_TEST_CASE( pack_storage_semantics_const_address )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    const int a = 7;
+    const int b = 7;
+    const int c = 7;
+    const int d = 7;
+    const int e = 7;
+    const int f = 7;
+    const int g = 7;
+
+    auto p = SF::pack(a,b,c,d,e,f,g);
+
+    BOOST_CHECK( std::addressof(p.get<0>()) == &a );
+    BOOST_CHECK( std::addressof(p.get<1>()) == &b );
+    BOOST_CHECK( std::addressof(p.get<2>()) == &c );
+    BOOST_CHECK( std::addressof(p.get<3>()) == &d );
+    BOOST_CHECK( std::addressof(p.get<4>()) == &e );
+    BOOST_CHECK( std::addressof(p.get<5>()) == &f );
+    BOOST_CHECK( std::addressof(p.get<6>()) == &g );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: PACKTESTS_1UNIFFZN */

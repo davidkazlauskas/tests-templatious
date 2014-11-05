@@ -221,6 +221,23 @@ BOOST_AUTO_TEST_CASE( pack_storage_semantics_move )
     SM::forEach(fs,p.get<0>());
 
     BOOST_CHECK( sum == 7 * 7 );
+    BOOST_CHECK( std::addressof(p.get<0>()) != std::addressof(i) );
+}
+
+BOOST_AUTO_TEST_CASE( pack_storage_semantics_address )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    int a,b,c,d,e,f,g;
+    auto p = SF::pack(a,b,c,d,e,f,g);
+
+    BOOST_CHECK( std::addressof(p.get<0>()) == &a );
+    BOOST_CHECK( std::addressof(p.get<1>()) == &b );
+    BOOST_CHECK( std::addressof(p.get<2>()) == &c );
+    BOOST_CHECK( std::addressof(p.get<3>()) == &d );
+    BOOST_CHECK( std::addressof(p.get<4>()) == &e );
+    BOOST_CHECK( std::addressof(p.get<5>()) == &f );
+    BOOST_CHECK( std::addressof(p.get<6>()) == &g );
 }
 
 BOOST_AUTO_TEST_SUITE_END()

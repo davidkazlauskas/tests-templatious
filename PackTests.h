@@ -278,7 +278,21 @@ BOOST_AUTO_TEST_CASE( pack_function_mutation )
 
     SM::set(0,a,b,c,d,e,f,g); // set without pack to be sure
 
-    BOOST_CHECK( fnFct() == 0 );
+    BOOST_CHECK( fnFct() == 0 * 7 );
+    a = 7;
+    BOOST_CHECK( fnFct() == 1 * 7 );
+    b = 7;
+    BOOST_CHECK( fnFct() == 3 * 7 );
+    c = 7;
+    BOOST_CHECK( fnFct() == 6 * 7 );
+    d = 7;
+    BOOST_CHECK( fnFct() == 10 * 7 );
+    e = 7;
+    BOOST_CHECK( fnFct() == 15 * 7 );
+    f = 7;
+    BOOST_CHECK( fnFct() == 21 * 7 );
+    g = 7;
+    BOOST_CHECK( fnFct() == 28 * 7 );
 }
 
 BOOST_AUTO_TEST_SUITE_END()

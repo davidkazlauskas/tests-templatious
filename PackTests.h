@@ -263,6 +263,24 @@ BOOST_AUTO_TEST_CASE( pack_storage_semantics_const_address )
     BOOST_CHECK( std::addressof(p.get<6>()) == &g );
 }
 
+BOOST_AUTO_TEST_CASE( pack_function_mutation )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    int a,b,c,d,e,f,g;
+    auto p = SF::pack(a,b,c,d,e,f,g);
+
+    auto rq = [](int aa,int bb,int cc,int dd,int ee,int ff,int gg) {
+        return aa + 2 * bb + 3 * cc + 4 * dd + 5 * ee + 6 * ff + 7 * gg;
+    };
+
+    auto fnFct = SF::packFunctor(rq,p);
+
+    SM::set(0,a,b,c,d,e,f,g); // set without pack to be sure
+
+    BOOST_CHECK( fnFct() == 0 );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: PACKTESTS_1UNIFFZN */

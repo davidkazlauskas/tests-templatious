@@ -70,6 +70,28 @@ BOOST_AUTO_TEST_CASE( collection_repeater_rval_epic_oneliner )
     BOOST_CHECK( sum == 62 );
 }
 
+BOOST_AUTO_TEST_CASE( collection_repeater_rval_move )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    std::vector<int> v;
+    SA::add(v,SF::seqI(1,7));
+
+    int sum = 0;
+    auto f = SF::storageFunctor<Sum>(sum);
+    SM::forEach(f,v);
+    BOOST_CHECK( sum == 28 );
+
+    auto r = SF::repA(17,std::move(v));
+    sum = 0;
+    SM::forEach(f,v);
+    BOOST_CHECK( sum == 0 );
+
+    sum = 0;
+    SM::forEach(f,r);
+    BOOST_CHECK( sum == 62 );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: COLLECTIONREPEATER_7ZC3F3ES */

@@ -40,6 +40,36 @@ BOOST_AUTO_TEST_CASE( collection_repeater_abs )
     BOOST_CHECK( sum == 62 );
 }
 
+BOOST_AUTO_TEST_CASE( collection_repeater_mul )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    auto l = SF::seqI(1,7);
+
+    auto r = SF::repM(7,l);
+
+    int sum = 0;
+    auto f = SF::storageFunctor<Sum>(sum);
+
+    SM::forEach(f,r);
+
+    BOOST_CHECK( sum == 28 * 7 );
+}
+
+BOOST_AUTO_TEST_CASE( collection_repeater_rval_epic_oneliner )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    int sum = 0;
+
+    SM::forEach(
+        SF::storageFunctor<Sum>(sum),
+        SF::repA(17,SF::seqI(1,7))
+    );
+
+    BOOST_CHECK( sum == 62 );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: COLLECTIONREPEATER_7ZC3F3ES */

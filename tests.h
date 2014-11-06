@@ -28,5 +28,6 @@
 #include "ChainFunctor.h"
 #include "DistributorTests.h"
 #include "OnceTraversable.h"
+#include "CollectionRepeater.h"
 
 #endif /* end of include guard: TESTS_HPIIGL7J */

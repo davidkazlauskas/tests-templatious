@@ -47,4 +47,6 @@ typedef t::StaticFactory SF;
 
 namespace tt = test_templatious;
 
+TEMPLATIOUS_CALLEACH_FCTOR_WSTOR( Sum, _c += i );
+
 #endif /* end of include guard: TESTDEFS_JD3RBI46 */

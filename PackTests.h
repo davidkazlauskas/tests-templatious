@@ -93,8 +93,6 @@ BOOST_AUTO_TEST_CASE( pack_match_fctor_diff )
     BOOST_CHECK( mul == 30030 );
 }
 
-TEMPLATIOUS_CALLEACH_FCTOR_WSTOR( SumAll, _c += i );
-
 BOOST_AUTO_TEST_CASE( pack_integrity )
 {
     TEMPLATIOUS_TRIPLET_STD;
@@ -110,7 +108,7 @@ BOOST_AUTO_TEST_CASE( pack_integrity )
 
     int sum = 0;
 
-    auto func = SumAll<int&>(sum);
+    auto func = Sum<int&>(sum);
 
     SM::callEach(func,p);
 
@@ -134,12 +132,12 @@ BOOST_AUTO_TEST_CASE( pack_integrity_shared_stor )
 
     auto func =
             SF::matchFunctor(
-                SF::matchLoose<int>(SF::storageFunctor<SumAll>(sum)),
-                SF::matchLoose<char>(SF::storageFunctor<SumAll>(sum)),
-                SF::matchLoose<long>(SF::storageFunctor<SumAll>(sum)),
-                SF::matchLoose<short>(SF::storageFunctor<SumAll>(sum)),
-                SF::matchLoose<double>(SF::storageFunctor<SumAll>(sum)),
-                SF::matchLoose<float>(SF::storageFunctor<SumAll>(sum))
+                SF::matchLoose<int>(SF::storageFunctor<Sum>(sum)),
+                SF::matchLoose<char>(SF::storageFunctor<Sum>(sum)),
+                SF::matchLoose<long>(SF::storageFunctor<Sum>(sum)),
+                SF::matchLoose<short>(SF::storageFunctor<Sum>(sum)),
+                SF::matchLoose<double>(SF::storageFunctor<Sum>(sum)),
+                SF::matchLoose<float>(SF::storageFunctor<Sum>(sum))
             );
 
 
@@ -156,7 +154,7 @@ BOOST_AUTO_TEST_CASE( pack_repeat_test_lval )
 
     int sum = 0;
 
-    auto func = SF::storageFunctor<SumAll>(sum);
+    auto func = SF::storageFunctor<Sum>(sum);
     auto rpt = SF::packRepeat<5>(a);
 
     SM::callEach(func,rpt);
@@ -173,7 +171,7 @@ BOOST_AUTO_TEST_CASE( pack_repeat_test_lval_mul )
 
     int sum = 0;
 
-    auto func = SF::storageFunctor<SumAll>(sum);
+    auto func = SF::storageFunctor<Sum>(sum);
     auto rpt = SF::packRepeat<5>(a,b);
 
     SM::callEach(func,rpt);
@@ -187,7 +185,7 @@ BOOST_AUTO_TEST_CASE( pack_repeat_test_rval_mul )
 
     int sum = 0;
 
-    auto func = SF::storageFunctor<SumAll>(sum);
+    auto func = SF::storageFunctor<Sum>(sum);
     auto rpt = SF::packRepeat<5>(5,7);
 
     SM::callEach(func,rpt);
@@ -195,7 +193,6 @@ BOOST_AUTO_TEST_CASE( pack_repeat_test_rval_mul )
     BOOST_CHECK( sum == 60 );
 }
 
-TEMPLATIOUS_CALLEACH_FCTOR_WSTOR( Sum, _c += i );
 BOOST_AUTO_TEST_CASE( pack_storage_semantics_move )
 {
     TEMPLATIOUS_TRIPLET_STD;

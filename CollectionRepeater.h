@@ -23,7 +23,6 @@
 
 BOOST_AUTO_TEST_SUITE( collection_repeater )
 
-TEMPLATIOUS_CALLEACH_FCTOR_WSTOR( Sum, _c += i );
 BOOST_AUTO_TEST_CASE( collection_repeater_abs )
 {
     TEMPLATIOUS_TRIPLET_STD;

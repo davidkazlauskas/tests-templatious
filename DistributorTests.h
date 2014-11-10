@@ -286,6 +286,40 @@ BOOST_AUTO_TEST_CASE( distributor_tests_foreach_midbreak_ignore )
     BOOST_CHECK( sum == expectedSum );
 }
 
+BOOST_AUTO_TEST_CASE( distributor_tests_dummy_var_very_functional )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    int a,b,c,d,e,f,g;
+
+    auto r = SM::distribute(
+        SF::seqI(1,77),
+        SF::pack(
+            a,
+            SF::dummyVar(),
+            b,
+            SF::dummyVar<2>(),
+            c,
+            SF::dummyVar<3>(),
+            d,
+            SF::dummyVar<4>(),
+            e,
+            SF::dummyVar<5>(),
+            f,
+            SF::dummyVar<6>(),
+            g
+        )
+    );
+
+    BOOST_CHECK( r == 7 + 1 + 2 + 3 + 4 + 5 + 6 );
+
+    int sum = 0;
+    auto fs = SF::storageFunctor<Sum>(sum);
+
+    SM::callEach(fs,a,b,c,d,e,f,g);
+
+    BOOST_CHECK( sum == 84 );
+}
 
 BOOST_AUTO_TEST_SUITE_END()
 

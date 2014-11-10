@@ -46,8 +46,6 @@ BOOST_AUTO_TEST_CASE( once_traversable_basic )
     BOOST_CHECK( sum == 351 );
 }
 
-TEMPLATIOUS_CALLEACH_FCTOR_WSTOR( Sum, _c += i );
-
 BOOST_AUTO_TEST_CASE( once_traversable_move_semantics )
 {
     TEMPLATIOUS_TRIPLET_STD;

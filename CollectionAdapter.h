@@ -85,7 +85,7 @@ bool clearTest(T&& c) {
     DEF_ADAPTER(T,Ad);
 
     Ad::clear(c);
-    if (0 != Ad::getSize(c)) {
+    if (0 != Ad::size(c)) {
         return false;
     }
 
@@ -96,11 +96,11 @@ template <class T>
 bool addTest(T&& c) {
     DEF_ADAPTER(T,Ad);
 
-    size_t sz = Ad::getSize(c);
+    size_t sz = Ad::size(c);
 
     Ad::add(c,7);
 
-    return (Ad::getSize(c) == sz + 1);
+    return (Ad::size(c) == sz + 1);
 }
 
 template <class T>
@@ -156,7 +156,7 @@ bool eraseTest3(T&& c) {
 
     SA::erase(c,SA::begin(c),SA::end(c));
 
-    IFN_RET_FALSE(SA::getSize(c) == 0);
+    IFN_RET_FALSE(SA::size(c) == 0);
 
     size_t res = 0;
     for (auto i = SA::begin(c); i != SA::end(c); ++i) {
@@ -177,7 +177,7 @@ bool eraseTest4(T&& c) {
 
     SA::erase(c,i);
 
-    IFN_RET_FALSE(SA::getSize(c) == 5);
+    IFN_RET_FALSE(SA::size(c) == 5);
 
     IFN_RET_FALSE(SA::getByIndex(c,0) == 1);
     IFN_RET_FALSE(SA::getByIndex(c,1) == 2);

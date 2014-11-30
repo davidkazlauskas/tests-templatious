@@ -89,6 +89,10 @@ BOOST_AUTO_TEST_CASE( sequence_invert )
         BOOST_CHECK( prev - 1 == i );
         prev = i;
     }
+
+    SM::forEach(sf,s);
+
+    BOOST_CHECK( 2982 == sum );
 }
 
 BOOST_AUTO_TEST_SUITE_END()

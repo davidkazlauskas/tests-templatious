@@ -64,4 +64,31 @@ BOOST_AUTO_TEST_CASE( sequence_beg_end_char )
     BOOST_CHECK( "abcdefghijklmnopqrstuvwxyz" == s );
 }
 
+BOOST_AUTO_TEST_CASE( sequence_throw_include )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    bool caught = false;
+
+    try {
+        auto s = SF::seqI(7,77,3);
+    } catch (templatious::IncorrectBoundsException e) {
+        caught = true;
+    }
+
+    BOOST_CHECK( caught );
+}
+
+BOOST_AUTO_TEST_CASE( sequence_invert )
+{
+    INIT_BALLER;
+
+    auto s = SF::seqI(77,7);
+    int prev = 78;
+    TEMPLATIOUS_FOREACH(auto i,s) {
+        BOOST_CHECK( prev - 1 == i );
+        prev = i;
+    }
+}
+
 BOOST_AUTO_TEST_SUITE_END()

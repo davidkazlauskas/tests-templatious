@@ -79,7 +79,7 @@ BOOST_AUTO_TEST_CASE( sequence_throw_include )
     BOOST_CHECK( caught );
 }
 
-BOOST_AUTO_TEST_CASE( sequence_invert )
+BOOST_AUTO_TEST_CASE( sequence_invert_manual )
 {
     INIT_BALLER;
 
@@ -87,6 +87,38 @@ BOOST_AUTO_TEST_CASE( sequence_invert )
     int prev = 78;
     TEMPLATIOUS_FOREACH(auto i,s) {
         BOOST_CHECK( prev - 1 == i );
+        prev = i;
+    }
+
+    SM::forEach(sf,s);
+
+    BOOST_CHECK( 2982 == sum );
+}
+
+BOOST_AUTO_TEST_CASE( sequence_invert_auto )
+{
+    INIT_BALLER;
+
+    auto s = SF::seqI(7,77).rev();
+    int prev = 78;
+    TEMPLATIOUS_FOREACH(auto i,s) {
+        BOOST_CHECK( prev - 1 == i );
+        prev = i;
+    }
+
+    SM::forEach(sf,s);
+
+    BOOST_CHECK( 2982 == sum );
+}
+
+BOOST_AUTO_TEST_CASE( sequence_invert_double )
+{
+    INIT_BALLER;
+    auto s = SF::seqI(7,77).rev().rev();
+    int prev = 6;
+
+    TEMPLATIOUS_FOREACH(auto i,s) {
+        BOOST_CHECK( prev == i - 1 );
         prev = i;
     }
 

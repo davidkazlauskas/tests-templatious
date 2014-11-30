@@ -127,4 +127,18 @@ BOOST_AUTO_TEST_CASE( sequence_invert_double )
     BOOST_CHECK( 2982 == sum );
 }
 
+BOOST_AUTO_TEST_CASE( sequence_unsigned_backwards )
+{
+    INIT_BALLER;
+
+    bool caught = false;
+    try {
+        auto s = SF::seqI<unsigned int>(77,7);
+    } catch (templatious::UnsignedSequenceException e) {
+        caught = true;
+    }
+
+    BOOST_CHECK( caught );
+}
+
 BOOST_AUTO_TEST_SUITE_END()

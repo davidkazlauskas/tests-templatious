@@ -49,4 +49,8 @@ namespace tt = test_templatious;
 
 TEMPLATIOUS_CALLEACH_FCTOR_WSTOR( Sum, _c += i );
 
+#define SUM_VAR( vname, fctorname ) \
+    int vname = 0;\
+    auto fctorname = templatious::StaticFactory::storageFunctor<Sum>(vname);
+
 #endif /* end of include guard: TESTDEFS_JD3RBI46 */

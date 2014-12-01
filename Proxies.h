@@ -165,7 +165,19 @@ template <class T>
 bool _3_cl_skipRangeFilter(T&& c);
 template <class T>
 bool _3_cl_skipFilterRange(T&& c);
+// boundary
+template <class T>
+bool _stf_sum_range(T&& c);
+template <class T>
+bool _stf_sum_range_end(T&& c);
+
+template <class T>
+bool _stf_cl_range(T&& c);
+template <class T>
+bool _stf_cl_range_end(T&& c);
 // CLEARANCE TESTS
+
+
 //
 //
 // VARIATIONS
@@ -206,6 +218,11 @@ bool _3_cl_skipFilterRange(T&& c);
         [](int i) { return i > 37; }),7,17) // 735
 // --> 3 level
 
+// start to finish
+#define _stf_range(c) SF::range(c,0,17) // 136
+#define _stf_range_end(c) SF::range(c,77,100) // 2024
+// --> start to finish
+
 // VARIATIONS
 
 template <class T>
@@ -232,6 +249,10 @@ bool proxyTest(T&& c) {
     IFN_RET_FALSE(_3_filterSkipRangeTest(c));
     IFN_RET_FALSE(_3_skipRangeFilterTest(c));
     IFN_RET_FALSE(_3_skipFilterRangeTest(c));
+
+    // boundary
+    IFN_RET_FALSE(_stf_sum_range(c));
+    IFN_RET_FALSE(_stf_sum_range_end(c));
 
     return true;
 }
@@ -289,6 +310,10 @@ bool proxyDeletionTest(T&& c) {
     IFN_RET_FALSE(_3_cl_filterSkipRange(c));
     IFN_RET_FALSE(_3_cl_skipRangeFilter(c));
     IFN_RET_FALSE(_3_cl_skipFilterRange(c));
+
+    // boundary
+    IFN_RET_FALSE(_stf_cl_range(c));
+    IFN_RET_FALSE(_stf_cl_range_end(c));
 
     return true;
 }
@@ -810,6 +835,46 @@ bool _3_cl_skipFilterRange(T&& c) {
     int s2 = sum(c);
 
     return s == a + s2;
+}
+
+template <class T>
+bool _stf_cl_range(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _stf_range(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _stf_cl_range_end(T&& c) {
+    setCollection_prx(c);
+    int s = sum(c);
+
+    auto r = _stf_range(c);
+
+    int a = sum(r);
+    SA::clear(r);
+    int s2 = sum(c);
+
+    return s == a + s2;
+}
+
+template <class T>
+bool _stf_sum_range(T&& c) {
+    auto r = _stf_range(c);
+    return sum(r) == 136;
+}
+
+template <class T>
+bool _stf_sum_range_end(T&& c) {
+    auto r = _stf_range_end(c);
+    return sum(r) == 2024;
 }
 // 3 level
 // CLEARANCE TESTS

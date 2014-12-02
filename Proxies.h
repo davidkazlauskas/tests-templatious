@@ -177,6 +177,9 @@ template <class T>
 bool _stf_cl_range_end(T&& c);
 // CLEARANCE TESTS
 
+// MOVE SEMANTICS
+template <class T>
+bool moveSemanticsTest(T&& c);
 
 //
 //
@@ -314,6 +317,38 @@ bool proxyDeletionTest(T&& c) {
     // boundary
     IFN_RET_FALSE(_stf_cl_range(c));
     IFN_RET_FALSE(_stf_cl_range_end(c));
+
+    // move
+    IFN_RET_FALSE(moveSemanticsTest(c));
+
+    return true;
+}
+
+template <class T>
+bool moveSemanticsTest(T&& c) {
+    TEMPLATIOUS_TRIPLET_STD;
+
+    //{
+        //setCollection_prx(c);
+        //auto s = _1_twoSkip(std::move(c));
+        //TEMPLATIOUS_FOREACH(auto i,c) {
+            //std::cout << i << " ";
+        //}
+        //std::cout << std::endl;
+        //IFN_RET_FALSE(SA::size(c) == 0);
+    //}
+
+    {
+        setCollection_prx(c);
+        auto s = _1_oneRange(std::move(c));
+        IFN_RET_FALSE(SA::size(c) == 0);
+    }
+
+    //{
+        //setCollection_prx(c);
+        //auto s = _1_oneFilter(std::move(c));
+        //IFN_RET_FALSE(SA::size(c) == 0);
+    //}
 
     return true;
 }

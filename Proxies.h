@@ -328,15 +328,11 @@ template <class T>
 bool moveSemanticsTest(T&& c) {
     TEMPLATIOUS_TRIPLET_STD;
 
-    //{
-        //setCollection_prx(c);
-        //auto s = _1_twoSkip(std::move(c));
-        //TEMPLATIOUS_FOREACH(auto i,c) {
-            //std::cout << i << " ";
-        //}
-        //std::cout << std::endl;
-        //IFN_RET_FALSE(SA::size(c) == 0);
-    //}
+    {
+        setCollection_prx(c);
+        auto s = _1_twoSkip(std::move(c));
+        IFN_RET_FALSE(SA::size(c) == 0);
+    }
 
     {
         setCollection_prx(c);
@@ -344,11 +340,11 @@ bool moveSemanticsTest(T&& c) {
         IFN_RET_FALSE(SA::size(c) == 0);
     }
 
-    //{
-        //setCollection_prx(c);
-        //auto s = _1_oneFilter(std::move(c));
-        //IFN_RET_FALSE(SA::size(c) == 0);
-    //}
+    {
+        setCollection_prx(c);
+        auto s = _1_oneFilter(std::move(c));
+        IFN_RET_FALSE(SA::size(c) == 0);
+    }
 
     return true;
 }

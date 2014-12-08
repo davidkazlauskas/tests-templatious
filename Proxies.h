@@ -371,6 +371,28 @@ bool moveSemanticsTest(T&& c) {
         IFN_RET_FALSE(SA::size(s._c.getRef()) == -1);
     }
 
+    {
+        setCollection_prx(c);
+        auto r = _1_oneSkip(std::move(c));
+        auto s = _1_oneRange(std::move(r));
+
+        IFN_RET_FALSE(SA::size(c) == 0);
+        IFN_RET_FALSE(SA::size(r._c.getRef()) == 0);
+        IFN_RET_FALSE(SA::size(s._c.getRef()) == -1);
+    }
+
+    {
+        setCollection_prx(c);
+        auto r = _1_oneRange(std::move(c));
+        auto s = _1_oneSkip(std::move(r));
+        auto flt = _1_oneFilter(std::move(s));
+
+        IFN_RET_FALSE(SA::size(c) == 0);
+        IFN_RET_FALSE(SA::size(r._c.getRef()) == 0);
+        IFN_RET_FALSE(SA::size(s._c.getRef()._c.getRef()) == 0);
+        IFN_RET_FALSE(SA::size(flt._c.getRef()) == -1);
+    }
+
     return true;
 }
 

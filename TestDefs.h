@@ -38,10 +38,18 @@ typedef t::StaticAdapter SA;
 typedef t::StaticFactory SF;
 
 #define DEF_ADAPTER(cl,name) typedef ta::CollectionAdapter<cl> name
+
+#define IFN_SECTOR_START(name) \
+    int counter = 0;\
+    const char* SECTOR_NAME = name;
+
 #define IFN_RET_FALSE(expr) \
     if (!(expr)) {\
+        std::cout << "FAILED AT: " << counter << std::endl;\
+        std::cout << "SECTOR: |" << SECTOR_NAME << "|" << std::endl;\
         return false;\
-    }
+    }\
+    ++counter;
 
 }
 

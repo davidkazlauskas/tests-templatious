@@ -54,6 +54,7 @@ bool iterAssigmentTest(T&& c);
 template <class T>
 bool existantCollectionTest(T&& c) {
     DEF_ADAPTER(T,Ad);
+    IFN_SECTOR_START( "existant collection test" );
 
     static_assert(Ad::is_valid,"Adapter is not supported.");
     IFN_RET_FALSE(Ad::is_valid);
@@ -152,6 +153,8 @@ bool eraseTest2(T&& c) {
 
 template <class T>
 bool eraseTest3(T&& c) {
+    IFN_SECTOR_START( "erase test 3" );
+
     setCollection(c);
 
     SA::erase(c,SA::begin(c),SA::end(c));
@@ -168,6 +171,8 @@ bool eraseTest3(T&& c) {
 
 template <class T>
 bool eraseTest4(T&& c) {
+    IFN_SECTOR_START( "erase test 4" );
+
     setCollection(c);
 
     auto i = SA::begin(c);
@@ -196,6 +201,8 @@ bool eraseTest4(T&& c) {
 
 template <class T>
 bool indexTest(T&& c) {
+    IFN_SECTOR_START( "index test" );
+
     setCollection(c);
 
     IFN_RET_FALSE(SA::getByIndex(c,0) == 1);
@@ -210,6 +217,7 @@ bool indexTest(T&& c) {
 
 template <class T>
 bool insertTest(T&& c) {
+    IFN_SECTOR_START( "insert test" );
     setCollection(c);
 
     auto i = SA::iterAt(c,4);
@@ -241,6 +249,7 @@ bool insertTest(T&& c) {
 
 template <class T>
 bool iterIntegrityTest(T&& c) {
+    IFN_SECTOR_START( "iter integrity test" );
     setCollection(c);
 
     IFN_RET_FALSE(SA::iterAt(c,0) == SA::begin(c));
@@ -251,6 +260,8 @@ bool iterIntegrityTest(T&& c) {
 
 template <class T>
 bool iterAssigmentTest(T&& c) {
+    IFN_SECTOR_START( "iter assignment test" );
+
     setCollection(c);
 
     for (auto i = SA::begin(c); i != SA::end(c); ++i) {

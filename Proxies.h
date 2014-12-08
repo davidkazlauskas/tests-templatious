@@ -230,6 +230,8 @@ bool moveSemanticsTest(T&& c);
 
 template <class T>
 bool proxyTest(T&& c) {
+    IFN_SECTOR_START( "proxy test" );
+
     // 1st lv
     IFN_RET_FALSE(setColTest(c));
     IFN_RET_FALSE(oneSkipTest(c));
@@ -263,6 +265,7 @@ bool proxyTest(T&& c) {
 template <class T>
 bool constProxyTest(T&& c) {
     setCollection_prx(c);
+    IFN_SECTOR_START( "const proxy test" );
 
     // 1st lv
     IFN_RET_FALSE(_1_c_oneSkipTest(c));
@@ -291,6 +294,7 @@ bool constProxyTest(T&& c) {
 
 template <class T>
 bool proxyDeletionTest(T&& c) {
+    IFN_SECTOR_START( "proxy deletion test" );
 
     // 1st lv
     IFN_RET_FALSE(_1_cl_oneSkip(c));
@@ -327,6 +331,7 @@ bool proxyDeletionTest(T&& c) {
 template <class T>
 bool moveSemanticsTest(T&& c) {
     TEMPLATIOUS_TRIPLET_STD;
+    IFN_SECTOR_START( "move semantics test" );
 
     {
         setCollection_prx(c);
@@ -913,6 +918,7 @@ bool _stf_sum_range_end(T&& c) {
 template <class T>
 bool setColTest(T&& c) {
     setCollection_prx(c);
+    IFN_SECTOR_START( "set col test" );
 
     int s = 0;
     TEMPLATIOUS_FOREACH(int i,c) {

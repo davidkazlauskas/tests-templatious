@@ -351,6 +351,16 @@ bool moveSemanticsTest(T&& c) {
         IFN_RET_FALSE(SA::size(c) == 0);
     }
 
+    {
+        setCollection_prx(c);
+        auto flt = _1_oneFilter(std::move(c));
+        auto s = _1_oneFilter(std::move(flt));
+
+        IFN_RET_FALSE(SA::size(c) == 0);
+        IFN_RET_FALSE(SA::size(flt._c.getRef()) == 0);
+        IFN_RET_FALSE(SA::size(s._c.getRef()) == -1);
+    }
+
     return true;
 }
 

@@ -331,7 +331,7 @@ bool proxyDeletionTest(T&& c) {
 template <class T>
 bool moveSemanticsTest(T&& c) {
     TEMPLATIOUS_TRIPLET_STD;
-    IFN_SECTOR_START( "move semantics test" );
+    IFN_SECTOR_START( "move semantics tests" );
 
     {
         setCollection_prx(c);

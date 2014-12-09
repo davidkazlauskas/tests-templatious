@@ -181,6 +181,10 @@ bool _stf_cl_range_end(T&& c);
 template <class T>
 bool moveSemanticsTest(T&& c);
 
+// CLEARANCE ASSERTIONS
+template <class T>
+bool clearanceAssertionsTest(T&& c);
+
 //
 //
 // VARIATIONS
@@ -325,6 +329,9 @@ bool proxyDeletionTest(T&& c) {
     // move
     IFN_RET_FALSE(moveSemanticsTest(c));
 
+    // clearance assertions
+    IFN_RET_FALSE(clearanceAssertionsTest(c));
+
     return true;
 }
 
@@ -391,6 +398,28 @@ bool moveSemanticsTest(T&& c) {
         IFN_RET_FALSE(SA::size(r._c.getRef()) == 0);
         IFN_RET_FALSE(SA::size(s._c.getRef()._c.getRef()) == 0);
         IFN_RET_FALSE(SA::size(flt._c.getRef()) == -1);
+    }
+
+    return true;
+}
+
+template <class T>
+bool clearanceAssertionsTest(T&& c) {
+    TEMPLATIOUS_TRIPLET_STD;
+    IFN_SECTOR_START( "clearance assertion tests" );
+
+    {
+        setCollection_prx(c);
+        auto r = _1_oneRange(c);
+        SA::clear(r);
+
+        bool caught = false;
+        try {
+            auto b = SA::begin(r);
+        } catch (t::ProxyClearedUsageException e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
     }
 
     return true;

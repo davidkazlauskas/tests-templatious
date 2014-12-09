@@ -19,6 +19,8 @@
 #ifndef TESTDEFS_JD3RBI46
 #define TESTDEFS_JD3RBI46
 
+#define TEMPLATIOUS_TESTING
+
 #include <iostream>
 
 #include <boost/test/unit_test.hpp>

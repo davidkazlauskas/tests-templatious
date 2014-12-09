@@ -404,6 +404,44 @@ bool moveSemanticsTest(T&& c) {
 }
 
 template <class T>
+bool proxyExceptionTestSuite(T& c) {
+    TEMPLATIOUS_TRIPLET_STD;
+    IFN_SECTOR_START( "proxy clearance exception suite" );
+
+    {
+        bool caught = false;
+        try {
+            auto b = SA::begin(c);
+        } catch (t::ProxyClearedUsageException e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
+    {
+        bool caught = false;
+        try {
+            auto b = SA::end(c);
+        } catch (t::ProxyClearedUsageException e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
+    {
+        bool caught = false;
+        try {
+            auto b = SA::iterAt(c,7);
+        } catch (t::ProxyClearedUsageException e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
+    return true;
+}
+
+template <class T>
 bool clearanceAssertionsTest(T&& c) {
     TEMPLATIOUS_TRIPLET_STD;
     IFN_SECTOR_START( "clearance assertion tests" );
@@ -413,13 +451,7 @@ bool clearanceAssertionsTest(T&& c) {
         auto r = _1_oneRange(c);
         SA::clear(r);
 
-        bool caught = false;
-        try {
-            auto b = SA::begin(r);
-        } catch (t::ProxyClearedUsageException e) {
-            caught = true;
-        }
-        IFN_RET_FALSE(caught);
+        IFN_RET_FALSE(proxyExceptionTestSuite(r));
     }
 
     return true;

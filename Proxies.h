@@ -454,6 +454,22 @@ bool clearanceAssertionsTest(T&& c) {
         IFN_RET_FALSE(proxyExceptionTestSuite(r));
     }
 
+    {
+        setCollection_prx(c);
+        auto r = _1_oneSkip(c);
+        SA::clear(r);
+
+        IFN_RET_FALSE(proxyExceptionTestSuite(r));
+    }
+
+    {
+        setCollection_prx(c);
+        auto r = _1_oneFilter(c);
+        SA::clear(r);
+
+        IFN_RET_FALSE(proxyExceptionTestSuite(r));
+    }
+
     return true;
 }
 

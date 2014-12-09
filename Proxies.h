@@ -428,6 +428,27 @@ bool proxyExceptionTestSuite(T& c) {
         IFN_RET_FALSE(caught);
     }
 
+    // WORK ON THAT M8!!!
+    //{
+        //bool caught = false;
+        //try {
+            //auto b = SA::cbegin(c);
+        //} catch (t::ProxyClearedUsageException e) {
+            //caught = true;
+        //}
+        //IFN_RET_FALSE(caught);
+    //}
+
+    //{
+        //bool caught = false;
+        //try {
+            //auto b = SA::cend(c);
+        //} catch (t::ProxyClearedUsageException e) {
+            //caught = true;
+        //}
+        //IFN_RET_FALSE(caught);
+    //}
+
     {
         //bool caught = false;
         //try {

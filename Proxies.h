@@ -429,13 +429,13 @@ bool proxyExceptionTestSuite(T& c) {
     }
 
     {
-        bool caught = false;
-        try {
-            auto b = SA::iterAt(c,7);
-        } catch (t::ProxyClearedUsageException e) {
-            caught = true;
-        }
-        IFN_RET_FALSE(caught);
+        //bool caught = false;
+        //try {
+            //auto b = SA::iterAt(c,7);
+        //} catch (t::ProxyClearedUsageException e) {
+            //caught = true;
+        //}
+        //IFN_RET_FALSE(caught);
     }
 
     return true;

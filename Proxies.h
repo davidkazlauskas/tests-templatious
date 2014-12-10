@@ -429,15 +429,15 @@ bool proxyExceptionTestSuite(T& c) {
     }
 
     // WORK ON THAT M8!!!
-    //{
-        //bool caught = false;
-        //try {
-            //auto b = SA::cbegin(c);
-        //} catch (t::ProxyClearedUsageException e) {
-            //caught = true;
-        //}
-        //IFN_RET_FALSE(caught);
-    //}
+    {
+        bool caught = false;
+        try {
+            auto b = SA::cbegin(c);
+        } catch (t::ProxyClearedUsageException e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
 
     //{
         //bool caught = false;

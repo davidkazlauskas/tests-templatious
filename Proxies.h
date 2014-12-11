@@ -38,21 +38,19 @@ auto sum(T&& c)
         sum += i;
     }
 
-    // DAT SHOULD COMPILE
+    Val sum2 = 0;
+    for (auto i = SA::cbegin(c); i != SA::cend(c); ++i) {
+        sum2 += *i;
+    }
 
-    //Val sum2 = 0;
-    //for (auto i = SA::cbegin(c); i != SA::cend(c); ++i) {
-        //sum2 += *i;
-    //}
-
-    //if (sum != sum2) {
-        //Val retVal = sum + 1;
-        //if (sum2 == retVal) {
-            //return retVal + 1;
-        //} else {
-            //return retVal;
-        //}
-    //}
+    if (sum != sum2) {
+        Val retVal = sum + 1;
+        if (sum2 == retVal) {
+            return retVal + 1;
+        } else {
+            return retVal;
+        }
+    }
 
     return sum;
 }

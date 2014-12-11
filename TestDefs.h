@@ -39,6 +39,20 @@ namespace u = t::util;
 typedef t::StaticAdapter SA;
 typedef t::StaticFactory SF;
 
+struct IfnCaseCounter {
+    static int count;
+
+    IfnCaseCounter() { }
+    ~IfnCaseCounter() {
+        std::cout << "Total number of mini tests executed: "
+                  << count << std::endl;
+    }
+};
+
+int IfnCaseCounter::count = 0;
+
+BOOST_GLOBAL_FIXTURE( IfnCaseCounter );
+
 #define DEF_ADAPTER(cl,name) typedef ta::CollectionAdapter<cl> name
 
 #define IFN_SECTOR_START(name) \
@@ -51,7 +65,8 @@ typedef t::StaticFactory SF;
         std::cout << "SECTOR: |" << SECTOR_NAME << "|" << std::endl;\
         return false;\
     }\
-    ++counter;
+    ++counter;\
+    ::test_templatious::IfnCaseCounter::count++;
 
 }
 

@@ -297,6 +297,8 @@ bool iterAtIntegrityTest(T&& c) {
 
     std::vector< typename Ad::ValueType > v;
 
+    SA::add(v,c);
+
     return true;
 }
 

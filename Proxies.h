@@ -425,7 +425,7 @@ bool proxyExceptionTestSuite(T& c) {
     {
         bool caught = false;
         try {
-            auto b = SA::begin(c);
+            SA::begin(c);
         } catch (t::ProxyClearedUsageException e) {
             caught = true;
         }
@@ -435,7 +435,7 @@ bool proxyExceptionTestSuite(T& c) {
     {
         bool caught = false;
         try {
-            auto b = SA::end(c);
+            SA::end(c);
         } catch (t::ProxyClearedUsageException e) {
             caught = true;
         }
@@ -445,7 +445,7 @@ bool proxyExceptionTestSuite(T& c) {
     {
         bool caught = false;
         try {
-            auto b = SA::cbegin(c);
+            SA::cbegin(c);
         } catch (t::ProxyClearedUsageException e) {
             caught = true;
         }
@@ -455,7 +455,7 @@ bool proxyExceptionTestSuite(T& c) {
     {
         bool caught = false;
         try {
-            auto b = SA::cend(c);
+            SA::cend(c);
         } catch (t::ProxyClearedUsageException e) {
             caught = true;
         }
@@ -465,7 +465,7 @@ bool proxyExceptionTestSuite(T& c) {
     {
         bool caught = false;
         try {
-            auto b = SA::iterAt(c,7);
+            SA::iterAt(c,7);
         } catch (t::ProxyClearedUsageException e) {
             caught = true;
         }

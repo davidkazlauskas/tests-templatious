@@ -289,7 +289,7 @@ bool iterAssigmentTest(T&& c) {
 }
 
 template <class T>
-bool iterAtIntegrityTest(T& c) {
+bool iterAtIntegrityTest(T&& c) {
     IFN_SECTOR_START( "iter at integrity test" );
 
     typedef t::adapters::CollectionAdapter<T> Ad;

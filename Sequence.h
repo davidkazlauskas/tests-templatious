@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE( sequence_throw_include )
     bool caught = false;
 
     try {
-        auto s = SF::seqI(7,77,3);
+        SF::seqI(7,77,3);
     } catch (templatious::IncorrectBoundsException e) {
         caught = true;
     }
@@ -129,11 +129,9 @@ BOOST_AUTO_TEST_CASE( sequence_invert_double )
 
 BOOST_AUTO_TEST_CASE( sequence_unsigned_backwards )
 {
-    INIT_BALLER;
-
     bool caught = false;
     try {
-        auto s = SF::seqI<unsigned int>(77,7);
+        SF::seqI<unsigned int>(77,7);
     } catch (templatious::UnsignedSequenceException e) {
         caught = true;
     }

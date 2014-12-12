@@ -323,6 +323,8 @@ bool iterAtIntegrityTest(T&& c) {
 
     IFN_RET_FALSE(testPassed);
 
+    IFN_RET_FALSE( *SA::cend(c) == *SA::citerAt(c,size) )
+
     return true;
 }
 

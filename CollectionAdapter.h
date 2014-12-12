@@ -306,6 +306,19 @@ bool iterAtIntegrityTest(T&& c) {
 
     IFN_RET_FALSE(SA::size(v) == size);
 
+    auto beg = v.cbegin();
+    auto end = v.cend();
+    int prVal = -1;
+    bool testPassed = true;
+    while (beg != end) {
+        testPassed &= *beg - 1 == prVal;
+
+        prVal = *beg;
+        ++beg;
+    }
+
+    IFN_RET_FALSE(testPassed);
+
     return true;
 }
 

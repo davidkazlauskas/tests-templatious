@@ -310,8 +310,12 @@ bool iterAtIntegrityTest(T&& c) {
     auto end = v.cend();
     int prVal = -1;
     bool testPassed = true;
+    int cnt = 0;
     while (beg != end) {
         testPassed &= *beg - 1 == prVal;
+        auto cIt = SA::citerAt(c,cnt);
+        testPassed &= *cIt == *beg;
+        ++cnt;
 
         prVal = *beg;
         ++beg;

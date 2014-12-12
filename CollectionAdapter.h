@@ -299,6 +299,8 @@ bool iterAtIntegrityTest(T&& c) {
 
     SA::add(v,c);
 
+    IFN_RET_FALSE(SA::size(v) == size);
+
     return true;
 }
 

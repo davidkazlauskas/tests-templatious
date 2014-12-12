@@ -50,6 +50,8 @@ template <class T>
 bool iterIntegrityTest(T&& c);
 template <class T>
 bool iterAssigmentTest(T&& c);
+template <class T>
+bool iterAtIntegrityTest(T&& c);
 
 template <class T>
 bool existantCollectionTest(T&& c) {
@@ -69,6 +71,7 @@ bool existantCollectionTest(T&& c) {
     IFN_RET_FALSE(insertTest(c));
     IFN_RET_FALSE(iterIntegrityTest(c));
     IFN_RET_FALSE(iterAssigmentTest(c));
+    IFN_RET_FALSE(iterAtIntegrityTest(c));
 
     return true;
 }
@@ -281,6 +284,13 @@ bool iterAssigmentTest(T&& c) {
     IFN_RET_FALSE(SA::getByIndex(c,3) == 3);
     IFN_RET_FALSE(SA::getByIndex(c,4) == 2);
     IFN_RET_FALSE(SA::getByIndex(c,5) == 1);
+
+    return true;
+}
+
+template <class T>
+bool iterAtIntegrityTest(T&& c) {
+    IFN_SECTOR_START( "iter at integrity test" );
 
     return true;
 }

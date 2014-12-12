@@ -15,6 +15,7 @@ ADD_DEFINITIONS (
     -O0
     -DBOOST_TEST_DYN_LINK
     -fcolor-diagnostics
+    -Wno-unused-local-typedefs # keep g++ happy
 )
 
 #SET ( CMAKE_CXX_COMPILER "g++-4.8" )

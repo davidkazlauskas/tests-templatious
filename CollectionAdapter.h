@@ -292,8 +292,13 @@ template <class T>
 bool iterAtIntegrityTest(T&& c) {
     IFN_SECTOR_START( "iter at integrity test" );
 
-    typedef t::adapters::CollectionAdapter<T> Ad;
+    SA::clear(c);
+    SA::add(c,SF::seqL(100));
+
     int size = SA::size(c);
+    IFN_RET_FALSE(size == 100);
+
+    typedef t::adapters::CollectionAdapter<T> Ad;
 
     std::vector< typename Ad::ValueType > v;
 

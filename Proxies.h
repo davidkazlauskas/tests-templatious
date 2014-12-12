@@ -199,6 +199,10 @@ bool moveSemanticsTest(T&& c);
 template <class T>
 bool clearanceAssertionsTest(T&& c);
 
+// SIZE TESTS
+template <class T>
+bool proxySizeTests(T&& c);
+
 //
 //
 // VARIATIONS
@@ -345,6 +349,9 @@ bool proxyDeletionTest(T&& c) {
 
     // clearance assertions
     IFN_RET_FALSE(clearanceAssertionsTest(c));
+
+    // sizing tests
+    IFN_RET_FALSE(proxySizeTests(c));
 
     return true;
 }
@@ -502,6 +509,39 @@ bool clearanceAssertionsTest(T&& c) {
         SA::clear(r);
 
         IFN_RET_FALSE(proxyExceptionTestSuite(r));
+    }
+
+    return true;
+}
+
+template <class T>
+bool proxySizeTests(T&& c) {
+    // all proxies should return -1
+    // as size is not usually clear (like filter)
+    // or trivial to calculate, or costly
+    // to calculate.
+    TEMPLATIOUS_TRIPLET_STD;
+    IFN_SECTOR_START( "proxy sizing tests" );
+
+    {
+        setCollection_prx(c);
+        auto f = _1_oneFilter(c);
+
+        IFN_RET_FALSE(SA::size(f) == -1);
+    }
+
+    {
+        setCollection_prx(c);
+        auto f = _1_oneSkip(c);
+
+        IFN_RET_FALSE(SA::size(f) == -1);
+    }
+
+    {
+        setCollection_prx(c);
+        auto f = _1_oneRange(c);
+
+        IFN_RET_FALSE(SA::size(f) == -1);
     }
 
     return true;

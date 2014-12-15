@@ -21,8 +21,9 @@
 
 #include "../TestAlgs.h"
 
+BOOST_AUTO_TEST_SUITE( std_vector_tests );
 
-BOOST_AUTO_TEST_CASE( std_vector_tests )
+BOOST_AUTO_TEST_CASE( std_vector_tests_basic )
 {
 
     typedef std::vector<int> V;
@@ -62,6 +63,13 @@ BOOST_AUTO_TEST_CASE( std_vector_tests_virtual )
 
     BOOST_CHECK(tt::virtualTest(v));
 }
+
+BOOST_AUTO_TEST_CASE( std_vector_tests_destruction )
+{
+
+}
+
+BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STDVECTOR_97AM89C */
 

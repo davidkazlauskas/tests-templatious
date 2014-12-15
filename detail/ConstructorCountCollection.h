@@ -61,24 +61,6 @@ private:
 template <class UniquenessToken>
 int ConstructorCountCollection<UniquenessToken>::_count = 0;
 
-template <class Token,class T>
-bool constructionCountCollectionTest(T& c) {
-    IFN_SECTOR_START( "Construction count collection test." );
-
-    TEMPLATIOUS_TRIPLET_STD;
-
-    SA::clear(c);
-
-    typedef ConstructorCountCollection<Token> CCC;
-    for (int i = 0; i < 100; ++i) {
-        SA::add(CCC());
-    }
-
-    IFN_RET_FALSE(CCC::count() == 100);
-
-    return true;
-}
-
 }
 
 #endif /* end of include guard: CONSTRUCTORCOUNTCOLLECTION_APM2CV9I */

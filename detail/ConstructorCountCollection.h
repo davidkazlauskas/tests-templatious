@@ -38,6 +38,10 @@ template <class UniquenessToken>
 struct ConstructorCountCollection {
 
     ConstructorCountCollection() : _moved(false) { ++_count; }
+
+    ConstructorCountCollection(const ConstructorCountCollection& other):
+     _moved(other._moved) { }
+
     ConstructorCountCollection(ConstructorCountCollection&& other) : _moved(false) {
         if (!other._moved) {
             other._moved = true;

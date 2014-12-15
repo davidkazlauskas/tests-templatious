@@ -33,7 +33,7 @@ bool constructionCountCollectionTest(T& c) {
 
     typedef ConstructorCountCollection<Token> CCC;
     for (int i = 0; i < 100; ++i) {
-        SA::add(CCC());
+        SA::add(c,CCC());
     }
 
     IFN_RET_FALSE(CCC::count() == 100);

@@ -100,6 +100,37 @@ BOOST_AUTO_TEST_CASE( select_tests_const )
     BOOST_CHECK( fabs(sum - tt::CVEC_SIZE * 7.77) < 0.00000001 );
 }
 
+BOOST_AUTO_TEST_CASE( select_tests_explicit )
+{
+    auto v = tt::compTypeVect();
+
+    auto l = [](const tt::CompositeType& i) { return i._c * i._c; };
+    auto s = SF::select<short>(v,l);
+
+    int sum = 0;
+    auto sf = templatious::StaticFactory::storageFunctor<Sum>(sum);
+    SM::forEach(sf,s);
+
+    bool sizeGood = true;
+    TEMPLATIOUS_FOREACH(auto i,s) {
+        sizeGood &= sizeof(i) == sizeof(short);
+    }
+
+    BOOST_CHECK( sizeGood );
+    BOOST_CHECK( sum == tt::CVEC_SIZE * '7' * '7' );
+}
+
+BOOST_AUTO_TEST_CASE( select_tests_move_semantics )
+{
+    auto v = tt::compTypeVect();
+
+    auto l = [](const tt::CompositeType& i) { return i._c * i._c; };
+    auto s = SF::select<short>(std::move(v),l);
+
+    BOOST_CHECK( SA::size(v) == 0 );
+    BOOST_CHECK( SA::size(s) == tt::CVEC_SIZE );
+}
+
 
 BOOST_AUTO_TEST_SUITE_END();
 

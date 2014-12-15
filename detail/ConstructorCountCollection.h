@@ -48,6 +48,18 @@ struct ConstructorCountCollection {
         }
     }
 
+    ConstructorCountCollection& operator=(ConstructorCountCollection&& other) {
+        if (!_moved) {
+            --_count;
+        }
+
+        _moved = other._moved;
+        other._count = true;
+        if (!_moved) {
+            throw MoveException();
+        }
+    }
+
     ~ConstructorCountCollection() {
         if (!_moved) {
             --_count;

@@ -24,12 +24,13 @@ namespace test_templatious {
 template <class UniquenessToken>
 struct ConstructorCountCollection {
 
+    static int count() { return _count; }
 private:
-    static int count;
+    static int _count;
 };
 
 template <class UniquenessToken>
-int ConstructorCountCollection<UniquenessToken>::count = 0;
+int ConstructorCountCollection<UniquenessToken>::_count = 0;
 
 }
 

@@ -21,7 +21,9 @@
 
 #include "../TestAlgs.h"
 
-BOOST_AUTO_TEST_CASE( static_vector_tests )
+BOOST_AUTO_TEST_SUITE( static_vector_tests );
+
+BOOST_AUTO_TEST_CASE( static_vector_tests_basic )
 {
 
     const size_t SIZE = 256; 
@@ -61,5 +63,19 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_virtual )
     BOOST_CHECK(tt::virtualTest(v));
 }
 
+BOOST_AUTO_TEST_CASE( static_vector_tests_destruction )
+{
+    struct UniqueToken {};
+    typedef tt::ConstructorCountCollection<UniqueToken> ValType;
+
+    const size_t SIZE = 256;
+    ValType arr[SIZE];
+    auto v = tt::t::makeStaticVector(arr);
+
+    BOOST_CHECK(tt::constructionCountCollectionTest<UniqueToken>(v));
+    BOOST_CHECK(ValType::count() == 0);
+}
+
+BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICVECTOR_8L32QS9F */

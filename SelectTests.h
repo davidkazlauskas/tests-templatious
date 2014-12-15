@@ -25,14 +25,6 @@ namespace test_templatious {
     struct CompositeType {
         CompositeType() : _a(7), _b(7.77), _c('7') {}
 
-        int getA() const { return _a; }
-        double getB() const { return _b; }
-        char getC() const { return _c; }
-
-        void setA(int a) { _a = a; }
-        void setB(double b) { _b = b; }
-        void setC(char c) { _c = c; }
-    private:
         int _a;
         double _b;
         char _c;
@@ -45,16 +37,15 @@ namespace test_templatious {
     CompVect compTypeVect() {
         CompVect res;
 
-        TEMPLATIOUS_REPEAT( CVEC_SIZE ) {
+        // TEMPLATIOUS_REPEAT could be used here
+        // but these compiler warnings about unused vars...
+        for (int i = 0; i < 100; ++i) {
             SA::add(res,CompositeType());
         }
 
         return std::move(res);
     }
 }
-
-#define COMP_TYPE_SELECT_LAMBDA(name,expr) \
-    auto name = [](const tt::CompositeType& i) { return expr; }
 
 BOOST_AUTO_TEST_SUITE( select_tests );
 
@@ -66,8 +57,26 @@ BOOST_AUTO_TEST_CASE( select_tests_simple )
 
     auto v = tt::compTypeVect();
 
-    COMP_TYPE_SELECT_LAMBDA(l,i.getA());
+    auto l = [](tt::CompositeType& i) -> int& { return i._a; };
     auto s = SF::select(v,l);
+
+    SM::forEach(sf,s);
+
+    BOOST_CHECK( sum == tt::CVEC_SIZE * 7 );
+}
+
+BOOST_AUTO_TEST_CASE( select_tests_mutate )
+{
+    INIT_BALLER;
+
+    auto v = tt::compTypeVect();
+
+    auto l = [](tt::CompositeType& i) -> int& { return i._a; };
+    auto s = SF::select(v,l);
+
+    TEMPLATIOUS_FOREACH(auto& i,s) {
+        i *= 2;
+    }
 
     SM::forEach(sf,s);
 

@@ -45,6 +45,16 @@ bool constructionCountCollectionTest(T& c) {
         SA::add(c,CCC());
     }
 
+    IFN_RET_FALSE(CCC::count() == 100);
+
+    auto tmp = CCC();
+    IFN_RET_FALSE(CCC::count() == 101);
+
+    TEMPLATIOUS_FOREACH(auto& i,c) {
+        tmp = i;
+    }
+    IFN_RET_FALSE(CCC::count() == 101);
+
     return true;
 }
 

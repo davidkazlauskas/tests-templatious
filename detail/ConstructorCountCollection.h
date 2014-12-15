@@ -55,6 +55,8 @@ struct ConstructorCountCollection {
 
         _moved = other._moved;
         other._count = true;
+
+        return *this;
     }
 
     ConstructorCountCollection& operator=(const ConstructorCountCollection& other) {
@@ -66,6 +68,8 @@ struct ConstructorCountCollection {
         if (!_moved) {
             ++_count;
         }
+
+        return *this;
     }
 
     ~ConstructorCountCollection() {

@@ -75,8 +75,6 @@ struct ConstructorCountCollection {
     ~ConstructorCountCollection() {
         if (!_moved) {
             --_count;
-        } else {
-            throw MoveException();
         }
     }
 

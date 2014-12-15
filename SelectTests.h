@@ -67,7 +67,6 @@ BOOST_AUTO_TEST_CASE( select_tests_simple )
 
 BOOST_AUTO_TEST_CASE( select_tests_mutate )
 {
-
     auto v = tt::compTypeVect();
 
     auto l = [](tt::CompositeType& i) -> int& { return i._a; };
@@ -83,6 +82,22 @@ BOOST_AUTO_TEST_CASE( select_tests_mutate )
     }
 
     BOOST_CHECK( sum == tt::CVEC_SIZE * 7 * 2 );
+}
+
+BOOST_AUTO_TEST_CASE( select_tests_const )
+{
+    auto v = tt::compTypeVect();
+
+    const decltype(v)& cv(v);
+
+    auto l = [](const tt::CompositeType& i) -> const double& { return i._b; };
+    auto s = SF::select(cv,l);
+
+    double sum = 0;
+    auto sf = templatious::StaticFactory::storageFunctor<Sum>(sum);
+    SM::forEach(sf,s);
+
+    BOOST_CHECK( fabs(sum - tt::CVEC_SIZE * 7.77) < 0.00000001 );
 }
 
 

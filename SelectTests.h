@@ -40,10 +40,12 @@ namespace test_templatious {
 
     typedef std::vector< CompositeType > CompVect;
 
+    static const int CVEC_SIZE = 100;
+
     CompVect compTypeVect() {
         CompVect res;
 
-        TEMPLATIOUS_REPEAT( 100 ) {
+        TEMPLATIOUS_REPEAT( CVEC_SIZE ) {
             SA::add(res,CompositeType());
         }
 
@@ -51,13 +53,25 @@ namespace test_templatious {
     }
 }
 
+#define COMP_TYPE_SELECT_LAMBDA(name,expr) \
+    auto name = [](const tt::CompositeType& i) { return expr; }
+
 BOOST_AUTO_TEST_SUITE( select_tests );
 
 
 
 BOOST_AUTO_TEST_CASE( select_tests_simple )
 {
+    INIT_BALLER;
 
+    auto v = tt::compTypeVect();
+
+    COMP_TYPE_SELECT_LAMBDA(l,i.getA());
+    auto s = SF::select(v,l);
+
+    SM::forEach(sf,s);
+
+    BOOST_CHECK( sum == tt::CVEC_SIZE * 7 );
 }
 
 

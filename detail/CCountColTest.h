@@ -35,7 +35,6 @@ bool constructionCountCollectionTest(T& c) {
     for (int i = 0; i < 100; ++i) {
         SA::add(c,CCC());
     }
-
     IFN_RET_FALSE(CCC::count() == 100);
 
     SA::clear(c);

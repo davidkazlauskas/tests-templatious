@@ -80,7 +80,11 @@ bool constructionCountCollectionTest(T& c) {
     }
     IFN_RET_FALSE(CCC::count() == 1);
 
+    tmp = *iter;
+    IFN_RET_FALSE(CCC::count() == 2);
 
+    tmp = std::move(*iter);
+    IFN_RET_FALSE(CCC::count() == 1);
 
     return true;
 }

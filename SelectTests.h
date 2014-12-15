@@ -28,6 +28,10 @@ namespace test_templatious {
         int getA() const { return _a; }
         double getB() const { return _b; }
         char getC() const { return _c; }
+
+        void setA(int a) { _a = a; }
+        void setB(double b) { _b = b; }
+        void setC(char c) { _c = c; }
     private:
         int _a;
         double _b;

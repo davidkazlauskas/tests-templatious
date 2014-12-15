@@ -21,6 +21,20 @@
 
 #include "TestDefs.h"
 
+namespace test_templatious {
+    struct CompositeType {
+        CompositeType() : _a(7), _b(7.77), _c('7') {}
+
+        int getA() const { return _a; }
+        double getB() const { return _b; }
+        char getC() const { return _c; }
+    private:
+        int _a;
+        double _b;
+        char _c;
+    };
+}
+
 BOOST_AUTO_TEST_SUITE( select_tests );
 
 

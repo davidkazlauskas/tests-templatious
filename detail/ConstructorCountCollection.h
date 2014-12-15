@@ -19,10 +19,22 @@
 #ifndef CONSTRUCTORCOUNTCOLLECTION_APM2CV9I
 #define CONSTRUCTORCOUNTCOLLECTION_APM2CV9I
 
+#include <exception>
+
 namespace test_templatious {
+
+struct MoveException: public std::exception {
+
+    virtual const char* what() const noexcept override {
+        return "Trying to move from empty class.";
+    }
+
+    virtual ~MoveException() {}
+};
 
 template <class UniquenessToken>
 struct ConstructorCountCollection {
+
 
     ConstructorCountCollection() : _moved(false) { ++_count; }
     ConstructorCountCollection(ConstructorCountCollection&& other) : _moved(false) {

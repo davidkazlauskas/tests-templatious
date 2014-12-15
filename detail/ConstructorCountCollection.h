@@ -55,8 +55,16 @@ struct ConstructorCountCollection {
 
         _moved = other._moved;
         other._count = true;
+    }
+
+    ConstructorCountCollection& operator=(const ConstructorCountCollection& other) {
         if (!_moved) {
-            throw MoveException();
+            --_count;
+        }
+
+        _moved = other._moved;
+        if (!_moved) {
+            ++_count;
         }
     }
 

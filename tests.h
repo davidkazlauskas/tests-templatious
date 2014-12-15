@@ -30,5 +30,6 @@
 #include "OnceTraversable.h"
 #include "CollectionRepeater.h"
 #include "Sequence.h"
+#include "SelectTests.h"
 
 #endif /* end of include guard: TESTS_HPIIGL7J */

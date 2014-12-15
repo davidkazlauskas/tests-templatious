@@ -30,6 +30,7 @@
 #include <templatious/StaticVector.h>
 #include <templatious/LogicPrimitives.h>
 
+#include "detail/ConstructorCountCollection.h"
 
 namespace test_templatious {
 

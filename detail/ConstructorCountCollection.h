@@ -35,7 +35,6 @@ struct MoveException: public std::exception {
 template <class UniquenessToken>
 struct ConstructorCountCollection {
 
-
     ConstructorCountCollection() : _moved(false) { ++_count; }
     ConstructorCountCollection(ConstructorCountCollection&& other) : _moved(false) {
         if (!other._moved) {

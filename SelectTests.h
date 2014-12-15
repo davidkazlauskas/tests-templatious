@@ -67,7 +67,6 @@ BOOST_AUTO_TEST_CASE( select_tests_simple )
 
 BOOST_AUTO_TEST_CASE( select_tests_mutate )
 {
-    INIT_BALLER;
 
     auto v = tt::compTypeVect();
 
@@ -78,9 +77,12 @@ BOOST_AUTO_TEST_CASE( select_tests_mutate )
         i *= 2;
     }
 
-    SM::forEach(sf,s);
+    int sum = 0;
+    TEMPLATIOUS_FOREACH(auto& i,v) {
+        sum += i._a;
+    }
 
-    BOOST_CHECK( sum == tt::CVEC_SIZE * 7 );
+    BOOST_CHECK( sum == tt::CVEC_SIZE * 7 * 2 );
 }
 
 

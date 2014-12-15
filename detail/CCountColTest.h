@@ -55,6 +55,16 @@ bool constructionCountCollectionTest(T& c) {
     }
     IFN_RET_FALSE(CCC::count() == 101);
 
+    TEMPLATIOUS_FOREACH(auto& i,c) {
+        tmp = std::move(i);
+    }
+    IFN_RET_FALSE(CCC::count() == 1);
+
+    TEMPLATIOUS_FOREACH(auto& i,c) {
+        i = tmp;
+    }
+    IFN_RET_FALSE(CCC::count() == 101);
+
     return true;
 }
 

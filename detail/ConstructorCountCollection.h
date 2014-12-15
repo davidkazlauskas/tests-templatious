@@ -54,7 +54,7 @@ struct ConstructorCountCollection {
         }
 
         _moved = other._moved;
-        other._count = true;
+        other._moved = true;
 
         return *this;
     }

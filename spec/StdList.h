@@ -21,10 +21,10 @@
 
 #include "../TestAlgs.h"
 
+BOOST_AUTO_TEST_SUITE( std_list_tests );
 
-BOOST_AUTO_TEST_CASE( std_list_tests )
+BOOST_AUTO_TEST_CASE( std_list_tests_basic )
 {
-
     typedef std::list<int> V;
     V v;
 
@@ -62,5 +62,18 @@ BOOST_AUTO_TEST_CASE( std_list_tests_virtual )
 
     BOOST_CHECK(tt::virtualTest(v));
 }
+
+BOOST_AUTO_TEST_CASE( std_list_tests_destruction )
+{
+    struct UniqueToken {};
+    typedef tt::ConstructorCountCollection<UniqueToken> ValType;
+    typedef std::list<ValType> V;
+    V v;
+
+    BOOST_CHECK(tt::constructionCountCollectionTest<UniqueToken>(v));
+    BOOST_CHECK(ValType::count() == 0);
+}
+
+BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STDLIST_UDCMQSLF */

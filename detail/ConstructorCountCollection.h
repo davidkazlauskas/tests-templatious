@@ -21,6 +21,16 @@
 
 namespace test_templatious {
 
+template <class UniquenessToken>
+struct ConstructorCountCollection {
+
+private:
+    static int count;
+};
+
+template <class UniquenessToken>
+int ConstructorCountCollection<UniquenessToken>::count = 0;
+
 }
 
 #endif /* end of include guard: CONSTRUCTORCOUNTCOLLECTION_APM2CV9I */

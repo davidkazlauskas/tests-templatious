@@ -24,9 +24,18 @@ namespace test_templatious {
 template <class UniquenessToken>
 struct ConstructorCountCollection {
 
+    ConstructorCountCollection() : _moved(false) { ++_count; }
+
+    ~ConstructorCountCollection() {
+        if (!_moved) {
+            --_count;
+        }
+    }
+
     static int count() { return _count; }
 private:
     static int _count;
+    bool _moved;
 };
 
 template <class UniquenessToken>

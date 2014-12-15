@@ -37,9 +37,28 @@ namespace test_templatious {
         double _b;
         char _c;
     };
+
+    typedef std::vector< CompositeType > CompVect;
+
+    CompVect compTypeVect() {
+        CompVect res;
+
+        TEMPLATIOUS_REPEAT( 100 ) {
+            SA::add(res,CompositeType());
+        }
+
+        return std::move(res);
+    }
 }
 
 BOOST_AUTO_TEST_SUITE( select_tests );
+
+
+
+BOOST_AUTO_TEST_CASE( select_tests_simple )
+{
+
+}
 
 
 BOOST_AUTO_TEST_SUITE_END();

@@ -66,7 +66,11 @@ BOOST_AUTO_TEST_CASE( std_vector_tests_virtual )
 
 BOOST_AUTO_TEST_CASE( std_vector_tests_destruction )
 {
-
+    struct UniqueToken {};
+    typedef tt::ConstructorCountCollection<UniqueToken> ValType;
+    typedef std::vector<ValType> V;
+    V v;
+    BOOST_CHECK(tt::constructionCountCollectionTest<UniqueToken>(v));
 }
 
 BOOST_AUTO_TEST_SUITE_END();

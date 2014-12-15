@@ -21,4 +21,9 @@
 
 #include "TestDefs.h"
 
+BOOST_AUTO_TEST_SUITE( select_tests );
+
+
+BOOST_AUTO_TEST_SUITE_END();
+
 #endif /* end of include guard: SELECTTESTS_90V9R4K9 */

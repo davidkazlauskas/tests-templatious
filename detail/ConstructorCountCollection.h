@@ -39,10 +39,13 @@ struct ConstructorCountCollection {
 
     ConstructorCountCollection() : _moved(false) { ++_count; }
 
-    ConstructorCountCollection(const ConstructorCountCollection& other):
-     _moved(false) { ++_count; }
+    ConstructorCountCollection(const ConstructorCountCollection& other): _moved(other._moved) {
+        if (!_moved) {
+            ++_count;
+        }
+    }
 
-    ConstructorCountCollection(ConstructorCountCollection&& other) : _moved(false) {
+    ConstructorCountCollection(ConstructorCountCollection&& other) : _moved(other._moved) {
         if (!other._moved) {
             other._moved = true;
         }

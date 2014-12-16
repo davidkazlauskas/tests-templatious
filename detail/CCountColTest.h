@@ -43,7 +43,12 @@ bool constructionCountCollectionTest(T& c) {
     for (int i = 0; i < 100; ++i) {
         SA::add(c,CCC());
     }
+    IFN_RET_FALSE(CCC::count() == 100);
 
+    SA::insert(c,SA::begin(c),CCC());
+    IFN_RET_FALSE(CCC::count() == 101);
+
+    SA::erase(c,SA::begin(c));
     IFN_RET_FALSE(CCC::count() == 100);
 
     auto tmp = CCC();
@@ -84,6 +89,9 @@ bool constructionCountCollectionTest(T& c) {
 
     tmp = std::move(*iter);
     IFN_RET_FALSE(CCC::count() == 1);
+
+    SA::clear(c);
+    IFN_RET_FALSE(SA::size(c) == 0);
 
     return true;
 }

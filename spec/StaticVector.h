@@ -63,20 +63,48 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_virtual )
     BOOST_CHECK(tt::virtualTest(v));
 }
 
-// AND THIS IS WHEN I FOUND OUT THAT STATIC ARRAYS
-// INITIALIZE THEIR ELEMENTS WITH DEFAULT CONSTRUCTOR
-//BOOST_AUTO_TEST_CASE( static_vector_tests_destruction )
-//{
-    //struct UniqueToken {};
-    //typedef tt::ConstructorCountCollection<UniqueToken> ValType;
+BOOST_AUTO_TEST_CASE( static_vector_tests_destruction )
+{
+    struct UniqueToken {};
+    typedef tt::ConstructorCountCollection<UniqueToken> ValType;
 
-    //const size_t SIZE = 256;
-    //ValType arr[SIZE];
-    //auto v = tt::t::makeStaticVector(arr);
+    const size_t SIZE = 256;
+    char arr[SIZE * sizeof(ValType)];
+    auto v = tt::t::makeStaticVector<ValType>(arr);
 
-    //BOOST_CHECK(tt::constructionCountCollectionTest<UniqueToken>(v));
-    //BOOST_CHECK(ValType::count() == 0);
-//}
+    BOOST_CHECK(tt::constructionCountCollectionTest<UniqueToken>(v));
+    BOOST_CHECK(ValType::count() == 0);
+    BOOST_CHECK(SA::size(v) == 0);
+
+    // native functionality
+    for (int i = 0; i < 100; ++i) {
+        v.push_first(ValType());
+    }
+    BOOST_CHECK(ValType::count() == 100);
+
+    int cnt = 0;
+    while (v.size() > 0) {
+        auto p = v.pop();
+        ++cnt;
+    }
+    BOOST_CHECK(ValType::count() == 0);
+    BOOST_CHECK(cnt == 100);
+
+
+    for (int i = 0; i < 100; ++i) {
+        v.push(ValType());
+    }
+    BOOST_CHECK(ValType::count() == 100);
+    BOOST_CHECK(cnt == 100);
+
+    cnt = 0;
+    while (v.size() > 0) {
+        auto p = v.pop_first();
+        ++cnt;
+    }
+    BOOST_CHECK(ValType::count() == 0);
+    BOOST_CHECK(cnt == 100);
+}
 
 BOOST_AUTO_TEST_SUITE_END();
 

@@ -27,8 +27,8 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_basic )
 {
 
     const size_t SIZE = 256; 
-    size_t arr[SIZE];
-    auto v = tt::t::makeStaticVector(arr);
+    char arr[SIZE * sizeof(int)];
+    auto v = tt::t::makeStaticVector<int>(arr);
 
     BOOST_CHECK(tt::existantCollectionTest(v));
 }
@@ -37,8 +37,8 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_proxy )
 {
 
     const size_t SIZE = 256;
-    size_t arr[SIZE];
-    auto v = tt::t::makeStaticVector(arr);
+    char arr[SIZE * sizeof(int)];
+    auto v = tt::t::makeStaticVector<int>(arr);
 
     BOOST_CHECK(tt::proxyTest(v));
 }
@@ -47,8 +47,8 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_proxy_const )
 {
 
     const size_t SIZE = 256;
-    size_t arr[SIZE];
-    auto v = tt::t::makeStaticVector(arr);
+    char arr[SIZE * sizeof(int)];
+    auto v = tt::t::makeStaticVector<int>(arr);
 
     BOOST_CHECK(tt::constProxyTest(v));
 }
@@ -57,8 +57,8 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_virtual )
 {
 
     const size_t SIZE = 256;
-    size_t arr[SIZE];
-    auto v = tt::t::makeStaticVector(arr);
+    char arr[SIZE * sizeof(int)];
+    auto v = tt::t::makeStaticVector<int>(arr);
 
     BOOST_CHECK(tt::virtualTest(v));
 }

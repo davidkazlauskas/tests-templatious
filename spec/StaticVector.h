@@ -70,40 +70,49 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_destruction )
 
     const size_t SIZE = 256;
     char arr[SIZE * sizeof(ValType)];
-    auto v = tt::t::makeStaticVector<ValType>(arr);
 
-    BOOST_CHECK(tt::constructionCountCollectionTest<UniqueToken>(v));
-    BOOST_CHECK(ValType::count() == 0);
-    BOOST_CHECK(SA::size(v) == 0);
+    // limited scope
+    {
+        auto v = tt::t::makeStaticVector<ValType>(arr);
 
-    // native functionality
-    for (int i = 0; i < 100; ++i) {
-        v.push_first(ValType());
-    }
-    BOOST_CHECK(ValType::count() == 100);
+        BOOST_CHECK(tt::constructionCountCollectionTest<UniqueToken>(v));
+        BOOST_CHECK(ValType::count() == 0);
+        BOOST_CHECK(SA::size(v) == 0);
 
-    int cnt = 0;
-    while (v.size() > 0) {
-        auto p = v.pop();
-        ++cnt;
-    }
-    BOOST_CHECK(ValType::count() == 0);
-    BOOST_CHECK(cnt == 100);
+        // native functionality
+        for (int i = 0; i < 100; ++i) {
+            v.push_first(ValType());
+        }
+        BOOST_CHECK(ValType::count() == 100);
+
+        int cnt = 0;
+        while (v.size() > 0) {
+            auto p = v.pop();
+            ++cnt;
+        }
+        BOOST_CHECK(ValType::count() == 0);
+        BOOST_CHECK(cnt == 100);
 
 
-    for (int i = 0; i < 100; ++i) {
+        for (int i = 0; i < 100; ++i) {
+            v.push(ValType());
+        }
+        BOOST_CHECK(ValType::count() == 100);
+        BOOST_CHECK(cnt == 100);
+
+        cnt = 0;
+        while (v.size() > 0) {
+            auto p = v.pop_first();
+            ++cnt;
+        }
+        BOOST_CHECK(ValType::count() == 0);
+        BOOST_CHECK(cnt == 100);
+
+        // should be taken care by destructor
         v.push(ValType());
-    }
-    BOOST_CHECK(ValType::count() == 100);
-    BOOST_CHECK(cnt == 100);
-
-    cnt = 0;
-    while (v.size() > 0) {
-        auto p = v.pop_first();
-        ++cnt;
+        BOOST_CHECK(ValType::count() == 1);
     }
     BOOST_CHECK(ValType::count() == 0);
-    BOOST_CHECK(cnt == 100);
 }
 
 BOOST_AUTO_TEST_SUITE_END();

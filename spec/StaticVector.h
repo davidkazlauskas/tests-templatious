@@ -115,6 +115,37 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_destruction )
     BOOST_CHECK(ValType::count() == 0);
 }
 
+BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    {
+        tt::t::StaticBuffer<int,256> b;
+
+        bool caught = false;
+        try {
+            b.getStaticVector(257);
+        } catch (templatious::StaticBufferExceedException e) {
+            caught = true;
+        }
+        BOOST_CHECK( caught );
+    }
+
+    {
+        tt::t::StaticBuffer<int,256> b;
+
+        b.getStaticVector(256);
+        bool caught = false;
+        try {
+            b.getStaticVector(1);
+        } catch (templatious::StaticBufferExceedException e) {
+            caught = true;
+        }
+        BOOST_CHECK( caught );
+    }
+
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICVECTOR_8L32QS9F */

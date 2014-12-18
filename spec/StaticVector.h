@@ -171,6 +171,53 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer_basic )
     }
 }
 
+BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer_split_integrity )
+{
+    INIT_BALLER;
+
+    tt::t::StaticBuffer<int,256> sb;
+
+    auto a = sb.getStaticVector(64);
+    auto b = sb.getStaticVector(64);
+    auto c = sb.getStaticVector(64);
+    auto d = sb.getStaticVector(64);
+
+    auto s = SF::seqI(1,256);
+    auto filler = SF::seqL(7,64+7);
+
+    SA::add(a,filler);
+    SA::add(b,filler);
+    SA::add(c,filler);
+    SA::add(d,filler);
+
+    SM::set(7,a,b,c,d);
+    sum = 0;
+    SM::forEach(sf,a,b,c,d);
+    int setSum = sum;
+
+    SM::distribute(s,a,b,c,d);
+
+    sum = 0;
+    SM::forEach(sf,a,b,c,d);
+    int sumNatural = sum;
+
+    sum = 0;
+    SM::forEach(sf,s);
+    int sumSeq = sum;
+
+    bool canAdd = false;
+    canAdd |= SA::canAdd(a);
+    canAdd |= SA::canAdd(b);
+    canAdd |= SA::canAdd(c);
+    canAdd |= SA::canAdd(d);
+
+    BOOST_CHECK( SA::size(filler) == 64 );
+    BOOST_CHECK( setSum == 256 * 7 );
+    BOOST_CHECK( sumNatural == sumSeq );
+    BOOST_CHECK( sumNatural == 32896 );
+    BOOST_CHECK( canAdd == false );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICVECTOR_8L32QS9F */

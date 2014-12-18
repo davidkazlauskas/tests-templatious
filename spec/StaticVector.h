@@ -153,9 +153,22 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer )
         } catch (templatious::StaticBufferWrongSize e) {
             caught = true;
         }
+
         BOOST_CHECK( caught );
     }
 
+    {
+        tt::t::StaticBuffer<int,256> b;
+
+        bool caught = false;
+        try {
+            b.getStaticVector(-7);
+        } catch (templatious::StaticBufferWrongSize e) {
+            caught = true;
+        }
+
+        BOOST_CHECK( caught );
+    }
 }
 
 BOOST_AUTO_TEST_SUITE_END();

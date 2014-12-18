@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_destruction )
     BOOST_CHECK(ValType::count() == 0);
 }
 
-BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer )
+BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer_basic )
 {
     TEMPLATIOUS_TRIPLET_STD;
 

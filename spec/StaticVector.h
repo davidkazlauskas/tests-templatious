@@ -27,8 +27,8 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_basic )
 {
 
     const size_t SIZE = 256; 
-    char arr[SIZE * sizeof(int)];
-    auto v = tt::t::makeStaticVector<int>(arr);
+    tt::t::StaticBuffer<int,SIZE> b;
+    auto v = b.getStaticVector();
 
     BOOST_CHECK(tt::existantCollectionTest(v));
 }
@@ -37,8 +37,8 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_proxy )
 {
 
     const size_t SIZE = 256;
-    char arr[SIZE * sizeof(int)];
-    auto v = tt::t::makeStaticVector<int>(arr);
+    tt::t::StaticBuffer<int,SIZE> b;
+    auto v = b.getStaticVector();
 
     BOOST_CHECK(tt::proxyTest(v));
 }
@@ -47,8 +47,8 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_proxy_const )
 {
 
     const size_t SIZE = 256;
-    char arr[SIZE * sizeof(int)];
-    auto v = tt::t::makeStaticVector<int>(arr);
+    tt::t::StaticBuffer<int,SIZE> b;
+    auto v = b.getStaticVector();
 
     BOOST_CHECK(tt::constProxyTest(v));
 }
@@ -57,8 +57,8 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_virtual )
 {
 
     const size_t SIZE = 256;
-    char arr[SIZE * sizeof(int)];
-    auto v = tt::t::makeStaticVector<int>(arr);
+    tt::t::StaticBuffer<int,SIZE> b;
+    auto v = b.getStaticVector();
 
     BOOST_CHECK(tt::virtualTest(v));
 }
@@ -69,11 +69,11 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_destruction )
     typedef tt::ConstructorCountCollection<UniqueToken> ValType;
 
     const size_t SIZE = 256;
-    char arr[SIZE * sizeof(ValType)];
+    tt::t::StaticBuffer<ValType,SIZE> b;
 
     // limited scope
     {
-        auto v = tt::t::makeStaticVector<ValType>(arr);
+        auto v = b.getStaticVector();
 
         BOOST_CHECK(tt::constructionCountCollectionTest<UniqueToken>(v));
         BOOST_CHECK(ValType::count() == 0);

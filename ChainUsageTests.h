@@ -115,6 +115,22 @@ BOOST_AUTO_TEST_CASE( chained_usage_tests_varying_addition )
 
         BOOST_CHECK( sum == 28 + 242 + 28 );
     }
+
+
+#define DAT_7_PACK SF::pack(a,b,c,d,e,f,g)
+    { // RVALUE PACK, pack, seq, vars
+        SA::clear(v);
+        int a,b,c,d,e,f,g;
+        SM::distribute(SF::seqI(1,7),DAT_7_PACK);
+
+        SA::add(v,DAT_7_PACK,SF::seqI(17,27),a,b,c,d,e,f,g);
+
+        sum = 0;
+        SM::forEach(sf,v);
+
+        BOOST_CHECK( sum == 28 + 242 + 28 );
+    }
+
 }
 
 BOOST_AUTO_TEST_SUITE_END();

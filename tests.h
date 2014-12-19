@@ -31,5 +31,6 @@
 #include "CollectionRepeater.h"
 #include "Sequence.h"
 #include "SelectTests.h"
+#include "ChainUsageTests.h"
 
 #endif /* end of include guard: TESTS_HPIIGL7J */

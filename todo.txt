@@ -1,0 +1,6 @@
+
+TEST OPERATIONS THAT NEED TO BE DONE
+
+1. StaticManipulator operations (foreach, calleach)
+
+

@@ -218,6 +218,29 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer_split_integrity )
     BOOST_CHECK( canAdd == false );
 }
 
+BOOST_AUTO_TEST_CASE( static_vector_tests_const_val )
+{
+    INIT_BALLER;
+
+    tt::t::StaticBuffer<const int,256> sb;
+    auto v = sb.getStaticVector();
+
+    SA::add(v,SF::seqI(1,256));
+
+    SM::forEach(sf,v);
+    BOOST_CHECK( sum == 32896 );
+    auto p = v.pop();
+    BOOST_CHECK( p == 256 );
+    v.push(p);
+    BOOST_CHECK( v.top() == p );
+    BOOST_CHECK( v.isFull() );
+}
+
+//BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
+//{
+
+//}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICVECTOR_8L32QS9F */

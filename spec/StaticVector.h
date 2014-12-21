@@ -285,6 +285,26 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
             // don't lose value after exception
             // as internally copy has to be
             // constructed and then moved
+            //
+            // However, here it is lucky because if
+            // both constructors fail state is unchanged,
+            // but if first constructor succeeds and move
+            // fails, then vector lost an element.
+        } catch (const tt::CCountCollectionThrowUp& e) {
+            caught = true;
+        }
+        BOOST_CHECK( caught );
+        BOOST_CHECK( v.size() == 1 );
+        BOOST_CHECK( v.top().getState() == 7 );
+    }
+
+    {
+        bool caught = false;
+        ValType::heal();
+        auto tmp = ValType();
+        ValType::throwUp();
+        try {
+            v.pop(tmp);
         } catch (const tt::CCountCollectionThrowUp& e) {
             caught = true;
         }

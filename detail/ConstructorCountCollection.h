@@ -40,16 +40,20 @@ struct MoveException: public std::exception {
 template <class UniquenessToken>
 struct ConstructorCountCollection {
 
-    ConstructorCountCollection() : _moved(false) { ++_count; }
+    ConstructorCountCollection() : _moved(false), _someState(0) { ++_count; }
 
-    ConstructorCountCollection(const ConstructorCountCollection& other): _moved(other._moved) {
+    ConstructorCountCollection(const ConstructorCountCollection& other) :
+        _moved(other._moved), _someState(other._someState)
+    {
         throwIfNeeded();
         if (!_moved) {
             ++_count;
         }
     }
 
-    ConstructorCountCollection(ConstructorCountCollection&& other) : _moved(other._moved) {
+    ConstructorCountCollection(ConstructorCountCollection&& other) :
+        _moved(other._moved), _someState(other._someState)
+    {
         throwIfNeeded();
         if (!other._moved) {
             other._moved = true;
@@ -63,6 +67,7 @@ struct ConstructorCountCollection {
         }
 
         _moved = other._moved;
+        _someState = other._someState;
         other._moved = true;
 
         return *this;
@@ -75,6 +80,7 @@ struct ConstructorCountCollection {
         }
 
         _moved = other._moved;
+        _someState = other._someState;
         if (!_moved) {
             ++_count;
         }
@@ -101,6 +107,7 @@ private:
     static int _count;
     static bool _throwUp;
     bool _moved;
+    int _someState;
 };
 
 template <class UniquenessToken>

@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_destruction )
 
         cnt = 0;
         while (v.size() > 0) {
-            auto p = v.pop_first();
+            auto p = v.popFirst();
             ++cnt;
         }
         BOOST_CHECK(ValType::count() == 0);

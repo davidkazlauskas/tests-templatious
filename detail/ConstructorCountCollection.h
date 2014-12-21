@@ -25,6 +25,9 @@
 
 namespace test_templatious {
 
+TEMPLATIOUS_BOILERPLATE_EXCEPTION( CCountCollectionThrowUp,
+    "I threw up because I was told to.");
+
 struct MoveException: public std::exception {
 
     virtual const char* what() const noexcept override {
@@ -40,18 +43,21 @@ struct ConstructorCountCollection {
     ConstructorCountCollection() : _moved(false) { ++_count; }
 
     ConstructorCountCollection(const ConstructorCountCollection& other): _moved(other._moved) {
+        throwIfNeeded();
         if (!_moved) {
             ++_count;
         }
     }
 
     ConstructorCountCollection(ConstructorCountCollection&& other) : _moved(other._moved) {
+        throwIfNeeded();
         if (!other._moved) {
             other._moved = true;
         }
     }
 
     ConstructorCountCollection& operator=(ConstructorCountCollection&& other) {
+        throwIfNeeded();
         if (!_moved) {
             --_count;
         }
@@ -63,6 +69,7 @@ struct ConstructorCountCollection {
     }
 
     ConstructorCountCollection& operator=(const ConstructorCountCollection& other) {
+        throwIfNeeded();
         if (!_moved) {
             --_count;
         }
@@ -82,13 +89,25 @@ struct ConstructorCountCollection {
     }
 
     static int count() { return _count; }
+    static void throwUp() { _throwUp = true; }
+    static void heal() { _throwUp = false; }
 private:
+    static void throwIfNeeded() {
+        if (_throwUp) {
+            throw CCountCollectionThrowUp();
+        }
+    }
+
     static int _count;
+    static bool _throwUp;
     bool _moved;
 };
 
 template <class UniquenessToken>
 int ConstructorCountCollection<UniquenessToken>::_count = 0;
+
+template <class UniquenessToken>
+bool ConstructorCountCollection<UniquenessToken>::_throwUp = false;
 
 }
 

@@ -236,10 +236,31 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_const_val )
     BOOST_CHECK( v.isFull() );
 }
 
-//BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
-//{
+BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
+{
+    INIT_BALLER;
 
-//}
+    struct UniqueToken {};
+    typedef tt::ConstructorCountCollection<UniqueToken> ValType;
+
+    tt::t::StaticBuffer<ValType,256> sb;
+    auto v = sb.getStaticVector();
+
+    v.push(ValType());
+    v.top().setState(7);
+    BOOST_CHECK( v.top().getState() == 7 );
+
+    ValType::throwUp();
+    bool caught = false;
+    try {
+        v.push(ValType());
+    } catch (const tt::CCountCollectionThrowUp& e) {
+        caught = true;
+    }
+    BOOST_CHECK( caught );
+    BOOST_CHECK( v.size() == 1 );
+    BOOST_CHECK( v.top().getState() == 7 );
+}
 
 BOOST_AUTO_TEST_SUITE_END();
 

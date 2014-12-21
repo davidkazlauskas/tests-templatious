@@ -97,6 +97,14 @@ struct ConstructorCountCollection {
     static int count() { return _count; }
     static void throwUp() { _throwUp = true; }
     static void heal() { _throwUp = false; }
+
+    void setState(int ns) {
+        _someState = ns;
+    }
+
+    int getState() const {
+        return _someState;
+    }
 private:
     static void throwIfNeeded() {
         if (_throwUp) {

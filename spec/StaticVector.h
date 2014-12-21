@@ -300,7 +300,7 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
 
     {
         bool caught = false;
-        ValType::heal();
+        ValType::heal(); // allow temp var creation
         auto tmp = ValType();
         ValType::throwUp();
         try {
@@ -313,6 +313,40 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
         BOOST_CHECK( v.top().getState() == 7 );
     }
 
+    BOOST_CHECK( ValType::count() == 1);
+    // exception safe pop
+    v.popState();
+    BOOST_CHECK( ValType::count() == 0);
+
+    {
+        bool caughtAll = true;
+
+        try {
+            v.pop();
+            caughtAll &= false;
+        } catch (const tt::t::StaticVectorEmptyPopException& e) {
+            caughtAll &= true;
+        }
+
+        try {
+            v.popFirst();
+            caughtAll &= false;
+        } catch (const tt::t::StaticVectorEmptyPopException& e) {
+            caughtAll &= true;
+        }
+
+        try {
+            v.popState();
+            caughtAll &= false;
+        } catch (const tt::t::StaticVectorEmptyPopException& e) {
+            caughtAll &= true;
+        }
+
+        BOOST_CHECK( caughtAll );
+    }
+
+    // And that's the way the cookie crumbles.
+    BOOST_CHECK( ValType::count() == 0);
 }
 
 BOOST_AUTO_TEST_SUITE_END();

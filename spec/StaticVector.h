@@ -277,6 +277,22 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
     }
 
     BOOST_CHECK( ValType::count() == 1 );
+
+    {
+        bool caught = false;
+        try {
+            v.pop();
+            // don't lose value after exception
+            // as internally copy has to be
+            // constructed and then moved
+        } catch (const tt::CCountCollectionThrowUp& e) {
+            caught = true;
+        }
+        BOOST_CHECK( caught );
+        BOOST_CHECK( v.size() == 1 );
+        BOOST_CHECK( v.top().getState() == 7 );
+    }
+
 }
 
 BOOST_AUTO_TEST_SUITE_END();

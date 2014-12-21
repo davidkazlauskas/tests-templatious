@@ -275,6 +275,8 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
         BOOST_CHECK( v.size() == 1 );
         BOOST_CHECK( v.top().getState() == 7 );
     }
+
+    BOOST_CHECK( ValType::count() == 1 );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

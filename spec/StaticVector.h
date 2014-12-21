@@ -267,7 +267,7 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
     {
         bool caught = false;
         try {
-            v.emplace();
+            v.emplaceBack();
         } catch (const tt::CCountCollectionThrowUp& e) {
             caught = true;
         }

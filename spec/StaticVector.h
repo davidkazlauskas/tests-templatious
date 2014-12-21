@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_destruction )
 
         // native functionality
         for (int i = 0; i < 100; ++i) {
-            v.push_first(ValType());
+            v.pushFirst(ValType());
         }
         BOOST_CHECK(ValType::count() == 100);
 

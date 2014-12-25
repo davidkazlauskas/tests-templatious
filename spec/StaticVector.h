@@ -23,6 +23,8 @@
 
 BOOST_AUTO_TEST_SUITE( static_vector_tests );
 
+static const int SUM_1_TO_256 = 32896;
+
 BOOST_AUTO_TEST_CASE( static_vector_tests_basic )
 {
 
@@ -214,7 +216,7 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer_split_integrity )
     BOOST_CHECK( SA::size(filler) == 64 );
     BOOST_CHECK( setSum == 256 * 7 );
     BOOST_CHECK( sumNatural == sumSeq );
-    BOOST_CHECK( sumNatural == 32896 );
+    BOOST_CHECK( sumNatural == SUM_1_TO_256 );
     BOOST_CHECK( canAdd == false );
 }
 
@@ -228,7 +230,7 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_const_val )
     SA::add(v,SF::seqI(1,256));
 
     SM::forEach(sf,v);
-    BOOST_CHECK( sum == 32896 );
+    BOOST_CHECK( sum == SUM_1_TO_256 );
     auto p = v.pop();
     BOOST_CHECK( p == 256 );
     v.push(p);
@@ -347,6 +349,41 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
 
     // And that's the way the cookie crumbles.
     BOOST_CHECK( ValType::count() == 0);
+}
+
+BOOST_AUTO_TEST_CASE( static_vector_tests_move_semantics )
+{
+    INIT_BALLER;
+
+    // this is the only correct/intended way to
+    // instantiate StaticVector by the way
+    tt::t::StaticBuffer<int,256> sb;
+    auto v = sb.getStaticVector();
+    SA::add(v,SF::seqI(1,256));
+    BOOST_CHECK(SA::size(v) == 256);
+
+    auto b = std::move(v);
+
+    BOOST_CHECK( SA::size(v) == 0 );
+    BOOST_CHECK( SA::size(b) == 256 );
+
+    sum = 0;
+    SM::forEach(sf,b);
+    BOOST_CHECK( sum == SUM_1_TO_256 );
+
+    sum = 0;
+    SM::forEach(sf,v);
+    BOOST_CHECK( sum == 0 );
+    BOOST_CHECK( !SA::canAdd(v) );
+
+    bool caught = false;
+    try {
+        SA::add(v,7);
+    } catch (const templatious::StaticVectorMovedOperationException& e) {
+        caught = true;
+    }
+    BOOST_CHECK( caught );
+    BOOST_CHECK( SA::size(v) == 0 );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

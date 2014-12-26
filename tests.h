@@ -32,5 +32,6 @@
 #include "Sequence.h"
 #include "SelectTests.h"
 #include "ChainUsageTests.h"
+#include "StaticManipulatorTests.h"
 
 #endif /* end of include guard: TESTS_HPIIGL7J */

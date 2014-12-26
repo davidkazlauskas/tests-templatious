@@ -23,6 +23,17 @@
 
 BOOST_AUTO_TEST_SUITE( static_manipulator_tests );
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_basic )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+    std::vector<int> v;
+    SA::add(v,SF::seqI(1,77));
+
+    int sum = SM::sum<int>(v);
+
+    BOOST_CHECK(sum == 3003);
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

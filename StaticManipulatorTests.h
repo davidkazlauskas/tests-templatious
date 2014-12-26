@@ -112,6 +112,19 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_all_at_once )
     }
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_avg_basic )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    BOOST_CHECK( SM::avg<int>(SF::seqI(1,99)) == 50 );
+
+    BOOST_CHECK( SM::avg<int>(1,2,3,4,5,6,7) == 4 );
+
+    int a = 7;
+    char b = '7';
+    BOOST_CHECK( SM::avg<int>(SF::pack(a,b,5,'8',17)) == 28 );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

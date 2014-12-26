@@ -23,7 +23,7 @@
 
 BOOST_AUTO_TEST_SUITE( static_manipulator_tests );
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_basic )
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_collection )
 {
     TEMPLATIOUS_TRIPLET_STD;
     std::vector<int> v;
@@ -39,8 +39,19 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_variables )
     int a = 7;
     char b = '7';
 
-    BOOST_CHECK( SM::sum(a,b,1,2,'8') ==
+    BOOST_CHECK( SM::sum<int>(a,b,1,2,'8') ==
         7 + 55 + 1 + 2 + 56
+    );
+}
+
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_pack )
+{
+    int a = 7;
+    char b = '7';
+
+    auto p = SF::pack(a,b,1,2,'a');
+    BOOST_CHECK( SM::sum<int>(p) ==
+        7 + 55 + 1 + 2 + 97
     );
 }
 

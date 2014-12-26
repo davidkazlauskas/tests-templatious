@@ -140,6 +140,25 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_avg_all_at_once )
     BOOST_CHECK( std::abs(46.108108108 - avg) < 0.0000001 );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_quadro )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    auto s = SF::seqI(1,100);
+    std::vector<int> v;
+    SA::add(v,SF::seqI(7,77));
+
+    unsigned long long sum = 0;
+    SM::quadro([&](int x,int y,int z) {
+        sum += x * y * z; }, s,v,s);
+
+    const unsigned long long QUADRO_SUM = 76048455000;
+
+    BOOST_CHECK( std::numeric_limits<
+        unsigned long long>::max() > QUADRO_SUM );
+    BOOST_CHECK( sum == QUADRO_SUM);
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

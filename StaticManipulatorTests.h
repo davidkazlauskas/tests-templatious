@@ -34,6 +34,16 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_basic )
     BOOST_CHECK(sum == 3003);
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_variables )
+{
+    int a = 7;
+    char b = '7';
+
+    BOOST_CHECK( SM::sum(a,b,1,2,'8') ==
+        7 + 55 + 1 + 2 + 56
+    );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

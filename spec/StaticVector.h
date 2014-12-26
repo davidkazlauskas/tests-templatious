@@ -240,7 +240,7 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_const_val )
 
 BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
 {
-    INIT_BALLER;
+    TEMPLATIOUS_TRIPLET_STD;
 
     struct UniqueToken {};
     typedef tt::ConstructorCountCollection<UniqueToken> ValType;

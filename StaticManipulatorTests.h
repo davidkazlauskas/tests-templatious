@@ -202,6 +202,28 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_map_size_assertion )
     BOOST_CHECK( caught );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_map_size_assertion_proxy )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    auto s = SF::seqL(100);
+    auto l = [](int i) { return i > 77; };
+
+    auto p1 = SF::filter(s,l);
+    auto p2 = SF::filter(s,l);
+
+    // should not be used with proxies,
+    // regardless if actual size is identical
+    bool caught = false;
+    try {
+        SM::map< std::vector<int> >([](int i,int j) { return i + j; },p1,p2);
+    } catch (const templatious::MapFunctionNotEqualException& e) {
+        caught = true;
+    }
+
+    BOOST_CHECK( caught );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

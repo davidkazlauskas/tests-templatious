@@ -185,6 +185,23 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_map )
     BOOST_CHECK( diffGood );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_map_size_assertion )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    auto s1 = SF::seqL(100);
+    auto s2 = SF::seqI(100);
+
+    bool caught = false;
+    try {
+        SM::map< std::vector<int> >([](int i,int j) { return i + j; },s1,s2);
+    } catch (const templatious::MapFunctionNotEqualException& e) {
+        caught = true;
+    }
+
+    BOOST_CHECK( caught );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

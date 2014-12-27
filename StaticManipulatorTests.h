@@ -159,6 +159,32 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_quadro )
     BOOST_CHECK( sum == QUADRO_SUM);
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_map )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    auto s = SF::seqI(100);
+    std::vector<long> v;
+    SA::add(v,SF::seqI(7,107));
+    std::list<short> l;
+    SA::add(l,SF::seqI(77,177));
+
+    bool diffGood = true;
+    auto res = SM::map< std::vector<int> >(
+        [&](int i,long j,short k) {
+            diffGood &= (j - i == 7);
+            diffGood &= (k - j == 70);
+            return i + j + k;
+        },
+        s,v,l
+    );
+
+    int mappedSum = SM::sum(res);
+    int manSum = SM::sum(s,v,l);
+    BOOST_CHECK( manSum == mappedSum );
+    BOOST_CHECK( diffGood );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

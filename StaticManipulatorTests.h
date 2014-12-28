@@ -140,6 +140,38 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_avg_all_at_once )
     BOOST_CHECK( std::abs(46.108108108 - avg) < 0.0000001 );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_avg_custom )
+{
+    std::vector< std::string > v;
+
+    SA::add(
+        v,
+        "3.14",
+        "7.7",
+        "8.7",
+        "77"
+    );
+
+    int a = 7;
+    char b = '7';
+    auto datPack = SF::pack(
+        1,2,3,4,5,6,7,
+        SF::pack(a,b,5,'8',17));
+
+    // if you encounter string try to convert to double
+    auto conv =
+        SF::matchFunctor(
+            SF::matchLoose< std::string >(
+                [](const std::string& s) {
+                    return std::atof(s.c_str());
+                }),
+            SF::matchAnyForward()
+        );
+
+    double avg = SM::avgC(conv,v,datPack);
+    BOOST_CHECK( std::abs(16.53375 - avg) < 0.0000001 );
+}
+
 BOOST_AUTO_TEST_CASE( static_manipulator_tests_quadro )
 {
     TEMPLATIOUS_TRIPLET_STD;

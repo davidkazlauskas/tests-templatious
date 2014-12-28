@@ -314,6 +314,31 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_traverse_size_assertion_proxy )
     BOOST_CHECK( caught );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_traverse_with_pass_index )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    std::vector<long> v;
+    SA::add(v,SF::seqI(7,107));
+    std::list<short> l;
+    SA::add(l,SF::seqI(77,177));
+
+    bool diffGood = true;
+    int mappedSum = 0;
+    SM::traverse<true>(
+        [&](int i,long j,short k) {
+            diffGood &= (j - i == 7);
+            diffGood &= (k - j == 70);
+            mappedSum += i + j + k;
+        },
+        v,l
+    );
+
+    int manSum = SM::sum(SF::seqI(100),v,l);
+    BOOST_CHECK( manSum == mappedSum );
+    BOOST_CHECK( diffGood );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

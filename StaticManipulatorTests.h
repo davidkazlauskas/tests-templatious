@@ -249,6 +249,49 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_map_with_pass_index )
     BOOST_CHECK( diffGood );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_traverse )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    auto s = SF::seqI(100);
+    std::vector<long> v;
+    SA::add(v,SF::seqI(7,107));
+    std::list<short> l;
+    SA::add(l,SF::seqI(77,177));
+
+    bool diffGood = true;
+    int mappedSum = 0;
+    SM::traverse(
+        [&](int i,long j,short k) {
+            diffGood &= (j - i == 7);
+            diffGood &= (k - j == 70);
+            mappedSum += i + j + k;
+        },
+        s,v,l
+    );
+
+    int manSum = SM::sum(s,v,l);
+    BOOST_CHECK( manSum == mappedSum );
+    BOOST_CHECK( diffGood );
+}
+
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_traverse_size_assertion )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    auto s1 = SF::seqL(100);
+    auto s2 = SF::seqI(100);
+
+    bool caught = false;
+    try {
+        SM::traverse([](int i,int j) { return i + j; },s1,s2);
+    } catch (const templatious::TraverseFunctionNotEqualException& e) {
+        caught = true;
+    }
+
+    BOOST_CHECK( caught );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

@@ -170,7 +170,7 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_map )
     SA::add(l,SF::seqI(77,177));
 
     bool diffGood = true;
-    auto res = SM::map< std::vector<int> >(
+    auto res = SM::map< int >(
         [&](int i,long j,short k) {
             diffGood &= (j - i == 7);
             diffGood &= (k - j == 70);
@@ -194,7 +194,7 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_map_size_assertion )
 
     bool caught = false;
     try {
-        SM::map< std::vector<int> >([](int i,int j) { return i + j; },s1,s2);
+        SM::map< int >([](int i,int j) { return i + j; },s1,s2);
     } catch (const templatious::MapFunctionNotEqualException& e) {
         caught = true;
     }
@@ -216,7 +216,7 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_map_size_assertion_proxy )
     // regardless if actual size is identical
     bool caught = false;
     try {
-        SM::map< std::vector<int> >([](int i,int j) { return i + j; },p1,p2);
+        SM::map< int >([](int i,int j) { return i + j; },p1,p2);
     } catch (const templatious::MapFunctionNotEqualException& e) {
         caught = true;
     }

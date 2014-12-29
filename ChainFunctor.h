@@ -251,9 +251,7 @@ BOOST_AUTO_TEST_CASE( chain_functor_serialize_and_deserialize )
 {
     SomeData d(7,7.777,'7');
     auto gargle = sdFctor(d);
-    //SM::forEach(prnt,gargle,'\n',SA::getSize(gargle),'\n');
     auto back = sdFctor.doBwd(gargle);
-    //SM::callEach(prAny,"1st --> ",d,"2nd --> ",back);
     BOOST_CHECK( back == d );
 }
 

@@ -577,10 +577,21 @@ template <class T>
 bool proxyEmptyCollectionTests(T&& c) {
     IFN_SECTOR_START("proxy empty collections");
 
-    setCollection_prx(c);
-    auto f = _1_oneFilter(c);
-
-    IFN_RET_FALSE( SA::trueSize(f) == 0 );
+    SA::clear(c);
+    {
+        auto f = _1_oneFilter(c);
+        IFN_RET_FALSE( SA::trueSize(f) == 0 );
+    }
+    {
+        // anything else than 0,0
+        // throws out of range exception
+        auto f = SF::range(c,0,0);
+        IFN_RET_FALSE( SA::trueSize(f) == 0 );
+    }
+    {
+        auto f = _1_oneSkip(c);
+        IFN_RET_FALSE( SA::trueSize(f) == 0 );
+    }
 
     return true;
 }

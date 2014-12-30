@@ -592,6 +592,10 @@ bool proxyEmptyCollectionTests(T&& c) {
         auto f = _1_oneSkip(c);
         IFN_RET_FALSE( SA::trueSize(f) == 0 );
     }
+    {
+        auto f = _2_filterSkip(c);
+        IFN_RET_FALSE( SA::trueSize(f) == 0 );
+    }
 
     return true;
 }

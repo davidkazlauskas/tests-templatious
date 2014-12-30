@@ -52,6 +52,8 @@ template <class T>
 bool iterAssigmentTest(T&& c);
 template <class T>
 bool iterAtIntegrityTest(T&& c);
+template <class T>
+bool sizeTest(T&& c);
 
 template <class T>
 bool existantCollectionTest(T&& c) {
@@ -72,6 +74,7 @@ bool existantCollectionTest(T&& c) {
     IFN_RET_FALSE(iterIntegrityTest(c));
     IFN_RET_FALSE(iterAssigmentTest(c));
     IFN_RET_FALSE(iterAtIntegrityTest(c));
+    IFN_RET_FALSE(sizeTest(c));
 
     return true;
 }
@@ -344,6 +347,27 @@ bool iterAtIntegrityTest(T&& c) {
         }
         IFN_RET_FALSE(caught);
     }
+
+    return true;
+}
+
+template <class T>
+bool sizeTest(T&& c) {
+    IFN_SECTOR_START( "iter at integrity test" );
+
+    SA::clear(c);
+    SA::add(c,SF::seqL(100));
+
+    IFN_RET_FALSE( SA::size(c) == 100 );
+    IFN_RET_FALSE( SA::size(c) == SA::trueSize(c) );
+
+    int j = 0;
+    auto e = SA::cend(c);
+    for (auto i = SA::cbegin(c); i != e; ++i) {
+        ++j;
+    }
+    IFN_RET_FALSE( SA::trueSize(c) == j );
+    IFN_RET_FALSE( j == 100 );
 
     return true;
 }

@@ -596,6 +596,16 @@ bool proxyEmptyCollectionTests(T&& c) {
         auto f = _2_filterSkip(c);
         IFN_RET_FALSE( SA::trueSize(f) == 0 );
     }
+    {
+        auto f =
+            SF::skip(
+                SF::filter(
+                    SF::range(c,0,0),
+                    [](int i){ return i > 50; }
+                )
+            ,2);
+        IFN_RET_FALSE( SA::trueSize(f) == 0 );
+    }
 
     return true;
 }

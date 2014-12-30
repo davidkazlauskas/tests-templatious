@@ -14,12 +14,13 @@ ADD_DEFINITIONS (
     -ggdb3
     -O0
     -DBOOST_TEST_DYN_LINK
-    -fcolor-diagnostics
+    #-fcolor-diagnostics
     -Wno-unused-local-typedefs # keep g++ happy
 )
 
 #SET ( CMAKE_CXX_COMPILER "g++-4.9" )
 SET ( CMAKE_CXX_COMPILER "clang++-3.5" )
+#SET ( CMAKE_CXX_COMPILER "g++" )
 
 find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 

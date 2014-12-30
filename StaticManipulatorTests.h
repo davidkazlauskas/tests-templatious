@@ -112,6 +112,38 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_all_at_once )
     }
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_custom )
+{
+    std::vector< std::string > v;
+
+    SA::add(
+        v,
+        "3.14",
+        "7.7",
+        "8.7",
+        "77"
+    );
+
+    int a = 7;
+    char b = '7';
+    auto datPack = SF::pack(
+        1,2,3,4,5,6,7,
+        SF::pack(a,b,5,'8',17));
+
+    // if you encounter string try to convert to double
+    auto conv =
+        SF::matchFunctor(
+            SF::matchLoose< std::string >(
+                [](const std::string& s) {
+                    return std::atof(s.c_str());
+                }),
+            SF::matchAnyForward()
+        );
+
+    double sum = SM::sumC(conv,v,datPack);
+    BOOST_CHECK( std::abs(264.54 - sum) < 0.0000001 );
+}
+
 BOOST_AUTO_TEST_CASE( static_manipulator_tests_avg_basic )
 {
     TEMPLATIOUS_TRIPLET_STD;

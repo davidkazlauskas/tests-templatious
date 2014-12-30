@@ -203,6 +203,9 @@ bool clearanceAssertionsTest(T&& c);
 template <class T>
 bool proxySizeTests(T&& c);
 
+template <class T>
+bool proxyEmptyCollectionTests(T&& c);
+
 //
 //
 // VARIATIONS
@@ -353,6 +356,8 @@ bool proxyDeletionTest(T&& c) {
     // sizing tests
     IFN_RET_FALSE(proxySizeTests(c));
 
+    // empty proxies
+    IFN_RET_FALSE(proxyEmptyCollectionTests(c));
     return true;
 }
 
@@ -564,6 +569,18 @@ bool proxySizeTests(T&& c) {
 
         IFN_RET_FALSE(SA::trueSize(f) == 40);
     }
+
+    return true;
+}
+
+template <class T>
+bool proxyEmptyCollectionTests(T&& c) {
+    IFN_SECTOR_START("proxy empty collections");
+
+    setCollection_prx(c);
+    auto f = _1_oneFilter(c);
+
+    IFN_RET_FALSE( SA::trueSize(f) == 0 );
 
     return true;
 }

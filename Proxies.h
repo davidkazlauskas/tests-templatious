@@ -553,6 +553,13 @@ bool proxySizeTests(T&& c) {
 
     {
         setCollection_prx(c);
+        auto f = _1_oneSkip(c);
+
+        IFN_RET_FALSE(SA::trueSize(f) == 50);
+    }
+
+    {
+        setCollection_prx(c);
         auto f = _1_oneRange(c);
 
         IFN_RET_FALSE(SA::trueSize(f) == 40);

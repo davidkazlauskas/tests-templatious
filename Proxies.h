@@ -659,7 +659,7 @@ bool oneSkipTest(T&& c) {
 
 template <class T>
 bool twoSkipTest(T&& c) {
-    IFN_SECTOR_START( "one skip test" );
+    IFN_SECTOR_START( "two skip test" );
 
     setCollection_prx(c);
 
@@ -674,29 +674,47 @@ bool twoSkipTest(T&& c) {
 
 template <class T>
 bool oneFilterTest(T&& c) {
+    IFN_SECTOR_START( "one filter test" );
+
     setCollection_prx(c);
 
     auto f = _1_oneFilter(c);
+    auto fS = _1_oneFilterC(c);
 
-    return sum(f) == 4760;
+    IFN_RET_FALSE( sum(f) == 4760 );
+    IFN_RET_FALSE( sum(fS) == 4760 );
+
+    return true;
 }
 
 template <class T>
 bool oneRangeTest(T&& c) {
+    IFN_SECTOR_START( "one range test" );
+
     setCollection_prx(c);
 
     auto r = _1_oneRange(c);
+    auto rS = _1_oneRangeC(c);
 
-    return sum(r) == 1460;
+    IFN_RET_FALSE( sum(r) == 1460 );
+    IFN_RET_FALSE( sum(rS) == 1460 );
+
+    return true;
 }
 
 template <class T>
 bool _2_rangeSkipTest(T&& c) {
+    IFN_SECTOR_START( "2 range skip test" );
+
     setCollection_prx(c);
 
     auto r = _2_rangeSkip(c);
+    auto rS = _2_rangeSkipC(c);
 
-    return sum(r) == 511;
+    IFN_RET_FALSE( sum(r) == 511 );
+    IFN_RET_FALSE( sum(rS) == 511 );
+
+    return true;
 }
 
 template <class T>

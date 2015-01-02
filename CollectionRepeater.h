@@ -103,6 +103,7 @@ BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater )
     BOOST_CHECK( SM::sum(v) == 49 );
     BOOST_CHECK( SM::sum(r) == 49 );
     BOOST_CHECK( SM::sum(SF::repS(7,7)) == 49 );
+    BOOST_CHECK( SA::size(r) == 7 );
 }
 
 BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater_empty )
@@ -122,6 +123,17 @@ BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater_exceptions )
         bool caught = false;
         try {
             SA::getByIndex(r,7);
+        } catch (const templatious::detail::
+            ItemRepeaterOutOfRangeException& e) {
+            caught = true;
+        }
+        BOOST_CHECK( caught );
+    }
+
+    {
+        bool caught = false;
+        try {
+            SA::iterAt(r,0);
         } catch (const templatious::detail::
             ItemRepeaterOutOfRangeException& e) {
             caught = true;

@@ -140,7 +140,7 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_custom )
             SF::matchAnyForward()
         );
 
-    double sum = SM::sumC(conv,v,datPack);
+    double sum = SM::sumS(conv,v,datPack);
     BOOST_CHECK( std::abs(264.54 - sum) < 0.0000001 );
 }
 
@@ -200,7 +200,7 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_avg_custom )
             SF::matchAnyForward()
         );
 
-    double avg = SM::avgC(conv,v,datPack);
+    double avg = SM::avgS(conv,v,datPack);
     BOOST_CHECK( std::abs(16.53375 - avg) < 0.0000001 );
 }
 

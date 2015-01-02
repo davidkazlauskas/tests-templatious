@@ -216,6 +216,13 @@ bool proxyEmptyCollectionTests(T&& c);
             return i > 19; \
         }) // 4760
 #define _1_oneRange(c) SF::range(c,17,57) // 1460
+// COPY OVERLOADS
+#define _1_oneSkipC(c) SF::skipC(c,2) 2450
+#define _1_twoSkipC(c) SF::skipC(c,3) 1683
+#define _1_oneFilterC(c) SF::filterC(c,[](int i) {\
+            return i > 19; \
+        }) 4760
+#define _1_oneRangeC(c) SF::rangeC(c,17,57) 1460
 // --> 1 level
 
 // 2 level:
@@ -228,6 +235,17 @@ bool proxyEmptyCollectionTests(T&& c);
 #define _2_filterRange(c) SF::range(SF::filter(c,\
             [](int i) { return i > 50; }),17,47) // 2475
 #define _2_rangeFilter(c) SF::filter(SF::range(c,17,57),\
+        [](int i) { return i > 50; }) // 321
+// COPY OVERLOADS
+#define _2_rangeSkipC(c) SF::skipC(SF::rangeC(c,17,57),3) // 511
+#define _2_skipRangeC(c) SF::rangeC(SF::skipC(c,3),1,10) // 135
+#define _2_skipFilterC(c) SF::filterC(SF::skipC(c,3),\
+        [](int i) { return i > 50; }) // 1275
+#define _2_filterSkipC(c) SF::skipC(SF::filterC(c,\
+            [](int i) { return i > 50; }),3) // 1275
+#define _2_filterRangeC(c) SF::rangeC(SF::filterC(c,\
+            [](int i) { return i > 50; }),17,47) // 2475
+#define _2_rangeFilterC(c) SF::filterC(SF::rangeC(c,17,57),\
         [](int i) { return i > 50; }) // 321
 // --> 2 level
 
@@ -243,6 +261,19 @@ bool proxyEmptyCollectionTests(T&& c);
 #define _3_skipRangeFilter(c) SF::filter(SF::range(SF::skip(c,3),17,27),\
         [](int i) { return i > 60; }) // 423
 #define _3_skipFilterRange(c) SF::range(SF::filter(SF::skip(c,3),\
+        [](int i) { return i > 37; }),7,17) // 735
+// COPY OVERLOADS
+#define _3_rangeFilterSkipC(c) SF::skipC(SF::filterC(SF::rangeC(c,17,57),\
+            [](int i) { return i > 50; }),3) // 105
+#define _3_rangeSkipFilterC(c) SF::filterC(SF::skipC(SF::rangeC(c,17,57),3),\
+        [](int i) { return i > 20; }) // 474
+#define _3_filterRangeSkipC(c) SF::skipC(SF::rangeC(SF::filterC(c,\
+        [](int i) { return i > 50; }),17,37),3) // 539
+#define _3_filterSkipRangeC(c) SF::rangeC(SF::skipC(SF::filterC(c,\
+        [](int i) { return i > 50; }),3),7,14) // 567
+#define _3_skipRangeFilterC(c) SF::filterC(SF::rangeC(SF::skipC(c,3),17,27),\
+        [](int i) { return i > 60; }) // 423
+#define _3_skipFilterRangeC(c) SF::rangeC(SF::filterC(SF::skipC(c,3),\
         [](int i) { return i > 37; }),7,17) // 735
 // --> 3 level
 

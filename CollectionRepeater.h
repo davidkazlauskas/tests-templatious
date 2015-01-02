@@ -91,6 +91,18 @@ BOOST_AUTO_TEST_CASE( collection_repeater_rval_move )
     BOOST_CHECK( sum == 62 );
 }
 
+BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    std::vector<int> v;
+    SA::add(v,SF::repS(7,7));
+
+    auto r = SF::repS(7,7);
+    BOOST_CHECK( SM::sum(v) == 49 );
+    BOOST_CHECK( SM::sum(r) == 0 );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: COLLECTIONREPEATER_7ZC3F3ES */

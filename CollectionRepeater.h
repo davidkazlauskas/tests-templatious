@@ -100,7 +100,8 @@ BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater )
 
     auto r = SF::repS(7,7);
     BOOST_CHECK( SM::sum(v) == 49 );
-    BOOST_CHECK( SM::sum(r) == 0 );
+    BOOST_CHECK( SM::sum(r) == 49 );
+    BOOST_CHECK( SM::sum(SF::repS(7,7)) == 49 );
 }
 
 BOOST_AUTO_TEST_SUITE_END()

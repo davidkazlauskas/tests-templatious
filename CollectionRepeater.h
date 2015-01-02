@@ -98,7 +98,8 @@ BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater )
     std::vector<int> v;
     SA::add(v,SF::repS(7,7));
 
-    auto r = SF::repS(7,7);
+    int sev = 7;
+    auto r = SF::repS(7,sev);
     BOOST_CHECK( SM::sum(v) == 49 );
     BOOST_CHECK( SM::sum(r) == 49 );
     BOOST_CHECK( SM::sum(SF::repS(7,7)) == 49 );
@@ -106,10 +107,27 @@ BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater )
 
 BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater_empty )
 {
-    auto r = SF::repS(0,7);
+    int sev = 7;
+    auto r = SF::repS(0,sev);
 
     BOOST_CHECK( SM::sum(r) == 0 );
     BOOST_CHECK( SM::sum(SF::repS(0,7)) == 0 );
+}
+
+BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater_exceptions )
+{
+    auto r = SF::repS(0,7);
+
+    {
+        bool caught = false;
+        try {
+            SA::getByIndex(r,7);
+        } catch (const templatious::detail::
+            ItemRepeaterOutOfRangeException& e) {
+            caught = true;
+        }
+        BOOST_CHECK( caught );
+    }
 }
 
 BOOST_AUTO_TEST_SUITE_END()

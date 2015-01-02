@@ -795,15 +795,23 @@ bool _2_rangeFilterTest(T&& c) {
 // 3RD LEVEL
 template <class T>
 bool _3_rangeFilterSkipTest(T&& c) {
+    IFN_SECTOR_START( "3 range filter skip test" );
+
     setCollection_prx(c);
 
     auto r = _3_rangeFilterSkip(c);
+    auto rS = _3_rangeFilterSkipC(c);
 
-    return sum(r) == 105;
+    IFN_RET_FALSE( sum(r) == 105 );
+    IFN_RET_FALSE( sum(rS) == 105 );
+
+    return true;
 }
 
 template <class T>
 bool _3_rangeSkipFilterTest(T&& c) {
+    IFN_SECTOR_START( "3 range skip filter test" );
+
     setCollection_prx(c);
 
     auto r =
@@ -815,43 +823,79 @@ bool _3_rangeSkipFilterTest(T&& c) {
             return i > 20;
         });
 
-    return sum(r) == 474;
+    auto rS =
+        SF::filterC(
+            SF::skipC(
+                SF::rangeC(c, 17, 57)
+            ,3),
+        [](int i) {
+            return i > 20;
+        });
+
+    IFN_RET_FALSE( sum(r) == 474 );
+    IFN_RET_FALSE( sum(rS) == 474 );
+
+    return true;
 }
 
 template <class T>
 bool _3_filterRangeSkipTest(T&& c) {
+    IFN_SECTOR_START( "3 filter range skip test" );
+
     setCollection_prx(c);
 
     auto r = _3_filterRangeSkip(c);
+    auto rS = _3_filterRangeSkipC(c);
 
-    return sum(r) == 539;
+    IFN_RET_FALSE( sum(r) == 539 );
+    IFN_RET_FALSE( sum(rS) == 539 );
+
+    return true;
 }
 
 template <class T>
 bool _3_filterSkipRangeTest(T&& c) {
+    IFN_SECTOR_START( "3 filter skip range test" );
+
     setCollection_prx(c);
 
     auto r = _3_filterSkipRange(c);
+    auto rS = _3_filterSkipRangeC(c);
 
-    return sum(r) == 567;
+    IFN_RET_FALSE( sum(r) == 567 );
+    IFN_RET_FALSE( sum(rS) == 567 );
+
+    return true;
 }
 
 template <class T>
 bool _3_skipRangeFilterTest(T&& c) {
+    IFN_SECTOR_START( "3 skip range filter test" );
+
     setCollection_prx(c);
 
     auto r = _3_skipRangeFilter(c);
+    auto rS = _3_skipRangeFilterC(c);
 
-    return sum(r) == 423;
+    IFN_RET_FALSE( sum(r) == 423 );
+    IFN_RET_FALSE( sum(rS) == 423 );
+
+    return true;
 }
 
 template <class T>
 bool _3_skipFilterRangeTest(T&& c) {
+    IFN_SECTOR_START( "3 skip filter range test" );
+
     setCollection_prx(c);
 
     auto r = _3_skipFilterRange(c);
+    auto rS = _3_skipFilterRangeC(c);
 
-    return sum(r) == 735;
+    IFN_RET_FALSE( sum(r) == 735 );
+    IFN_RET_FALSE( sum(rS) == 735 );
+
+    return true;
 }
 // 3RD LEVEL
 

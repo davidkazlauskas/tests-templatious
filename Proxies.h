@@ -217,12 +217,12 @@ bool proxyEmptyCollectionTests(T&& c);
         }) // 4760
 #define _1_oneRange(c) SF::range(c,17,57) // 1460
 // COPY OVERLOADS
-#define _1_oneSkipC(c) SF::skipC(c,2) 2450
-#define _1_twoSkipC(c) SF::skipC(c,3) 1683
+#define _1_oneSkipC(c) SF::skipC(c,2) // 2450
+#define _1_twoSkipC(c) SF::skipC(c,3) // 1683
 #define _1_oneFilterC(c) SF::filterC(c,[](int i) {\
             return i > 19; \
-        }) 4760
-#define _1_oneRangeC(c) SF::rangeC(c,17,57) 1460
+        }) // 4760
+#define _1_oneRangeC(c) SF::rangeC(c,17,57) // 1460
 // --> 1 level
 
 // 2 level:
@@ -645,19 +645,31 @@ static const int PROX_SUM = 4950;
 
 template <class T>
 bool oneSkipTest(T&& c) {
+    IFN_SECTOR_START( "one skip test" );
     setCollection_prx(c);
 
     auto s = _1_oneSkip(c);
+    auto sC = _1_oneSkipC(c);
 
-    return sum(s) == 2450;
+    IFN_RET_FALSE( sum(s) == 2450 );
+    IFN_RET_FALSE( sum(sC) == 2450 );
+
+    return true;
 }
 
 template <class T>
 bool twoSkipTest(T&& c) {
+    IFN_SECTOR_START( "one skip test" );
+
     setCollection_prx(c);
 
     auto s = _1_twoSkip(c);
-    return sum(s) == 1683;
+    auto sC = _1_twoSkipC(c);
+
+    IFN_RET_FALSE( sum(s) == 1683 )
+    IFN_RET_FALSE( sum(sC) == 1683 )
+
+    return true;
 }
 
 template <class T>

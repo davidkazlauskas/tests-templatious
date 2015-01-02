@@ -151,6 +151,17 @@ BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater_exceptions )
         }
         BOOST_CHECK( caught );
     }
+
+    {
+        bool caught = false;
+        try {
+            SF::repS(-1,0.7);
+        } catch (const templatious::detail::
+            ItemRepeaterNegativeSizeException& e) {
+            caught = true;
+        }
+        BOOST_CHECK( caught );
+    }
 }
 
 BOOST_AUTO_TEST_SUITE_END()

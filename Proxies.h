@@ -719,47 +719,77 @@ bool _2_rangeSkipTest(T&& c) {
 
 template <class T>
 bool _2_skipRangeTest(T&& c) {
+    IFN_SECTOR_START( "2 skip range test" );
+
     setCollection_prx(c);
 
     auto r = _2_skipRange(c);
+    auto rS = _2_skipRangeC(c);
 
-    return sum(r) == 135;
+    IFN_RET_FALSE( sum(r) == 135 );
+    IFN_RET_FALSE( sum(rS) == 135 );
+
+    return true;
 }
 
 template <class T>
 bool _2_filterSkipTest(T&& c) {
+    IFN_SECTOR_START( "2 filter skip test" );
+
     setCollection_prx(c);
 
     auto r = _2_filterSkip(c);
+    auto rS = _2_filterSkipC(c);
 
-    return sum(r) == 1275;
+    IFN_RET_FALSE( sum(r) == 1275 );
+    IFN_RET_FALSE( sum(rS) == 1275 );
+
+    return true;
 }
 
 template <class T>
 bool _2_skipFilterTest(T&& c) {
+    IFN_SECTOR_START( "2 skip filter test" );
+
     setCollection_prx(c);
 
     auto r = _2_skipFilter(c);
+    auto rS = _2_skipFilterC(c);
 
-    return sum(r) == 1275;
+    IFN_RET_FALSE( sum(r) == 1275 );
+    IFN_RET_FALSE( sum(rS) == 1275 );
+
+    return true;
 }
 
 template <class T>
 bool _2_filterRangeTest(T&& c) {
+    IFN_SECTOR_START( "2 filter range test" );
+
     setCollection_prx(c);
 
     auto r = _2_filterRange(c);
+    auto rS = _2_filterRangeC(c);
 
-    return sum(r) == 2475;
+    IFN_RET_FALSE( sum(r) == 2475 );
+    IFN_RET_FALSE( sum(rS) == 2475 );
+
+    return true;
 }
 
 template <class T>
 bool _2_rangeFilterTest(T&& c) {
+    IFN_SECTOR_START( "2 range filter test" );
+
     setCollection_prx(c);
 
     auto r = _2_rangeFilter(c);
+    auto rS = _2_rangeFilterC(c);
 
-    return sum(r) == 321;
+    IFN_RET_FALSE( sum(r) == 321 );
+    IFN_RET_FALSE( sum(rS) == 321 );
+
+    return true;
 }
 
 // 3RD LEVEL

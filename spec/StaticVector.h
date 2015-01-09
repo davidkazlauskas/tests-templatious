@@ -35,6 +35,37 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_basic )
     BOOST_CHECK(tt::existantCollectionTest(v));
 }
 
+BOOST_AUTO_TEST_CASE( static_vector_tests_raw )
+{
+    const size_t SIZE = 256;
+    tt::t::StaticBuffer<int,SIZE> b;
+    auto v = b.getStaticVector();
+
+    SA::add(v,SF::seqI(1,256));
+
+    auto rb = v.rawBegin();
+    auto re = v.rawEnd();
+
+    int sum = 0;
+    while (rb != re) {
+        sum += *rb;
+        ++(*rb);
+        ++rb;
+    }
+
+    BOOST_CHECK( sum == SUM_1_TO_256 );
+
+    auto rcb = v.rawCBegin();
+    auto rce = v.rawCEnd();
+    sum = 0;
+    while (rcb != rce) {
+        sum += *rcb;
+        ++rcb;
+    }
+
+    BOOST_CHECK( sum == SUM_1_TO_256 + 256 );
+}
+
 BOOST_AUTO_TEST_CASE( static_vector_tests_proxy )
 {
 

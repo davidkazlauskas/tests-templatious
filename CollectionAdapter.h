@@ -103,7 +103,7 @@ template <class T>
 bool addTest(T&& c) {
     DEF_ADAPTER(T,Ad);
 
-    size_t sz = Ad::size(c);
+    int sz = Ad::size(c);
 
     Ad::add(c,7);
 

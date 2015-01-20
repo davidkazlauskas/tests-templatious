@@ -469,7 +469,7 @@ bool proxyExceptionTestSuite(T& c) {
         bool caught = false;
         try {
             SA::begin(c);
-        } catch (t::ProxyClearedUsageException e) {
+        } catch (t::detail::ProxyClearedUsageException e) {
             caught = true;
         }
         IFN_RET_FALSE(caught);
@@ -479,7 +479,7 @@ bool proxyExceptionTestSuite(T& c) {
         bool caught = false;
         try {
             SA::end(c);
-        } catch (t::ProxyClearedUsageException e) {
+        } catch (t::detail::ProxyClearedUsageException e) {
             caught = true;
         }
         IFN_RET_FALSE(caught);
@@ -489,7 +489,7 @@ bool proxyExceptionTestSuite(T& c) {
         bool caught = false;
         try {
             SA::cbegin(c);
-        } catch (t::ProxyClearedUsageException e) {
+        } catch (t::detail::ProxyClearedUsageException e) {
             caught = true;
         }
         IFN_RET_FALSE(caught);
@@ -499,7 +499,7 @@ bool proxyExceptionTestSuite(T& c) {
         bool caught = false;
         try {
             SA::cend(c);
-        } catch (t::ProxyClearedUsageException e) {
+        } catch (t::detail::ProxyClearedUsageException e) {
             caught = true;
         }
         IFN_RET_FALSE(caught);
@@ -509,7 +509,7 @@ bool proxyExceptionTestSuite(T& c) {
         bool caught = false;
         try {
             SA::iterAt(c,7);
-        } catch (t::ProxyClearedUsageException e) {
+        } catch (t::detail::ProxyClearedUsageException e) {
             caught = true;
         }
         IFN_RET_FALSE(caught);

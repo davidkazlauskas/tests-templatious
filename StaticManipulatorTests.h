@@ -403,9 +403,8 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_traverse_with_pass_index )
     BOOST_CHECK( diffGood );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_fold )
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_fold_mul )
 {
-
     std::vector<long> v;
     SA::add(v,SF::seqI(2,3));
 
@@ -413,6 +412,17 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_fold )
         v,SF::seqI(4,5));
 
     BOOST_CHECK( r == 120 );
+}
+
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_fold_sum )
+{
+    std::vector<long> v;
+    SA::add(v,SF::seqI(2,3));
+
+    auto r = SM::fold(0,[](long a,long b) { return a + b; },
+        v,SF::seqI(4,5));
+
+    BOOST_CHECK( r == 2 + 3 + 4 + 5 );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

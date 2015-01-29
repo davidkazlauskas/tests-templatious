@@ -49,8 +49,6 @@ namespace test_templatious {
 
 BOOST_AUTO_TEST_SUITE( select_tests );
 
-
-
 BOOST_AUTO_TEST_CASE( select_tests_simple )
 {
     INIT_BALLER;

@@ -129,7 +129,6 @@ BOOST_AUTO_TEST_CASE( select_tests_move_semantics )
     BOOST_CHECK( SA::size(s) == tt::CVEC_SIZE );
 }
 
-
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: SELECTTESTS_90V9R4K9 */

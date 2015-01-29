@@ -425,6 +425,15 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_fold_sum )
     BOOST_CHECK( r == 2 + 3 + 4 + 5 );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_basic )
+{
+    std::vector<long> v;
+    auto s = SF::seqL(100);
+    SA::add(v,s);
+
+    BOOST_CHECK( SM::areCollectionsEqual(v,s) );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

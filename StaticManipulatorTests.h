@@ -476,6 +476,27 @@ BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_custom_const_fctor 
         v,s,SF::seqL(100)) );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_custom_const_fctor_anything_equal )
+{
+    std::vector<long> v;
+    auto s = SF::seqL(100);
+    SA::add(v,s);
+
+    auto cmp = SF::seqL(100,200);
+
+    auto fctor = [](long a,long b) { return true; };
+
+    // functor says collections are equal
+    BOOST_CHECK( SM::areCollectionsEqualS(fctor,v,cmp) );
+
+    // normal check should say they aren't
+    BOOST_CHECK( !SM::areCollectionsEqual(v,cmp) );
+
+    // if size is not same collections aren't equal
+    // regardless of functor
+    BOOST_CHECK( !SM::areCollectionsEqualS(fctor,v,SF::seqL(100,201)) );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

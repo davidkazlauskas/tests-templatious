@@ -471,7 +471,7 @@ BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_custom_const_fctor 
     auto s = SF::seqL(100);
     SA::add(v,s);
 
-    BOOST_CHECK( !SM::areCollectionsEqualS(
+    BOOST_CHECK( SM::areCollectionsEqualS(
         [](long a,long b) { return a == b; },
         v,s,SF::seqL(100)) );
 }

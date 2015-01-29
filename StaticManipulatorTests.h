@@ -443,6 +443,17 @@ BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_multi )
     BOOST_CHECK( SM::areCollectionsEqual(v,s,SF::seqL(100)) );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_proxy )
+{
+    std::vector<long> v;
+    auto s = SF::seqL(100);
+    SA::add(v,s);
+
+    auto f = SF::filter(v,[](long i) { return true; });
+
+    BOOST_CHECK( SM::areCollectionsEqual(v,s,f) );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

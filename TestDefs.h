@@ -28,7 +28,6 @@
 #include <templatious/adapters/All.h>
 #include <templatious/StaticFactory.h>
 #include <templatious/StaticVector.h>
-#include <templatious/LogicPrimitives.h>
 
 #include "detail/ConstructorCountCollection.h"
 

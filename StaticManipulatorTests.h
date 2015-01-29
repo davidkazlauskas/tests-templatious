@@ -465,6 +465,17 @@ BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_proxy_unequal )
     BOOST_CHECK( !SM::areCollectionsEqual(v,f) );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_custom_const_fctor )
+{
+    std::vector<long> v;
+    auto s = SF::seqL(100);
+    SA::add(v,s);
+
+    BOOST_CHECK( !SM::areCollectionsEqualS(
+        [](long a,long b) { return a == b; },
+        v,s,SF::seqL(100)) );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

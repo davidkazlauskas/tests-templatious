@@ -106,6 +106,7 @@ BOOST_AUTO_TEST_CASE( select_tests_explicit )
 
     auto l = [](const tt::CompositeType& i) { return i._c * i._c; };
     auto s = SF::select<short>(v,l);
+    auto sc = SF::selectC<short>(v,l);
 
     int sum = 0;
     auto sf = templatious::StaticFactory::storageFunctor<Sum>(sum);
@@ -118,6 +119,7 @@ BOOST_AUTO_TEST_CASE( select_tests_explicit )
 
     BOOST_CHECK( sizeGood );
     BOOST_CHECK( sum == tt::CVEC_SIZE * '7' * '7' );
+    BOOST_CHECK( SM::areCollectionsEqual(s,sc) );
 }
 
 BOOST_AUTO_TEST_CASE( select_tests_move_semantics )

@@ -55,12 +55,14 @@ BOOST_AUTO_TEST_CASE( select_tests_simple )
 
     auto v = tt::compTypeVect();
 
-    auto l = [](tt::CompositeType& i) -> int& { return i._a; };
+    auto l = [](const tt::CompositeType& i) -> const int& { return i._a; };
     auto s = SF::select(v,l);
+    auto sc = SF::selectC<int>(v,l);
 
     SM::forEach(sf,s);
 
     BOOST_CHECK( sum == tt::CVEC_SIZE * 7 );
+    BOOST_CHECK( SM::areCollectionsEqual(s,sc) );
 }
 
 BOOST_AUTO_TEST_CASE( select_tests_mutate )

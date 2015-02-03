@@ -549,6 +549,17 @@ BOOST_AUTO_TEST_CASE( static_manipulator_exists )
     BOOST_CHECK( !SM::exists(fctorBad,s) );
 }
 
+
+BOOST_AUTO_TEST_CASE( static_manipulator_exists_var )
+{
+    auto s = SF::seqL(100);
+
+    auto fctor = [](long l) { return l == 777; };
+
+    BOOST_CHECK( SM::exists(fctor,s,-1,777,-2) );
+
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

@@ -565,6 +565,9 @@ BOOST_AUTO_TEST_CASE( static_manipulator_exists_pack )
 
     BOOST_CHECK( SM::existsP(fctor,1,2,3,
         SF::pack('7',777,'7'),4,5,6) );
+
+    BOOST_CHECK( !SM::existsP(fctor,1,2,3,
+        SF::pack('7',77,'7'),4,5,6) );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

@@ -523,6 +523,19 @@ BOOST_AUTO_TEST_CASE( static_manipulator_forall_pack )
         SF::pack(7,7,7),
         7,7,p
     ) );
+
+    BOOST_CHECK( !SM::forAllP(
+        [](int i) { return i == 7; },
+        SF::pack(7,6,7),
+        7,7,p
+    ) );
+
+    auto p2 = SF::pack(7,6);
+    BOOST_CHECK( !SM::forAllP(
+        [](int i) { return i == 7; },
+        SF::pack(7,7,7),
+        7,7,p2
+    ) );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

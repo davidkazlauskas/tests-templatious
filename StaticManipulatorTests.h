@@ -497,6 +497,14 @@ BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_custom_const_fctor_
     BOOST_CHECK( !SM::areCollectionsEqualS(fctor,v,SF::seqL(100,201)) );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_forall )
+{
+    auto s = SF::seqL(100);
+
+    auto fctor = [](long l) { return l >= 0 && l < 100; };
+    BOOST_CHECK( SM::forAll(fctor,s) );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

@@ -510,6 +510,9 @@ BOOST_AUTO_TEST_CASE( static_manipulator_forall_var )
     auto fctor = [](long l) { return l == 7; };
     BOOST_CHECK( SM::forAll(fctor,
         7,7,7,7,7,7,7,SF::repS(7,7)) );
+
+    BOOST_CHECK( !SM::forAll(fctor,
+        7,7,7,77,7,7,SF::repS(7,7)) );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

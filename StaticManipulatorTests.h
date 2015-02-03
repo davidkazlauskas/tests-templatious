@@ -538,6 +538,17 @@ BOOST_AUTO_TEST_CASE( static_manipulator_forall_pack )
     ) );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_exists )
+{
+    auto s = SF::seqL(100);
+
+    auto fctorGood = [](long l) { return l == 7; };
+    auto fctorBad = [](long l) { return l == 777; };
+
+    BOOST_CHECK( SM::exists(fctorGood,s) );
+    BOOST_CHECK( !SM::exists(fctorBad,s) );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

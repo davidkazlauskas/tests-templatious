@@ -515,6 +515,16 @@ BOOST_AUTO_TEST_CASE( static_manipulator_forall_var )
         7,7,7,77,7,7,SF::repS(7,7)) );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_forall_pack )
+{
+    auto p = SF::pack(7,7);
+    BOOST_CHECK( SM::forAllP(
+        [](int i) { return i == 7; },
+        SF::pack(7,7,7),
+        7,7,p
+    ) );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

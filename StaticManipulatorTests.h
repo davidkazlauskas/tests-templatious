@@ -557,7 +557,14 @@ BOOST_AUTO_TEST_CASE( static_manipulator_exists_var )
     auto fctor = [](long l) { return l == 777; };
 
     BOOST_CHECK( SM::exists(fctor,s,-1,777,-2) );
+}
 
+BOOST_AUTO_TEST_CASE( static_manipulator_exists_pack )
+{
+    auto fctor = [](long l) { return l == 777; };
+
+    BOOST_CHECK( SM::existsP(fctor,1,2,3,
+        SF::pack('7',777,'7'),4,5,6) );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

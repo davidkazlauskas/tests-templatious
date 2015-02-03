@@ -505,6 +505,13 @@ BOOST_AUTO_TEST_CASE( static_manipulator_forall )
     BOOST_CHECK( SM::forAll(fctor,s) );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_forall_var )
+{
+    auto fctor = [](long l) { return l == 7; };
+    BOOST_CHECK( SM::forAll(fctor,
+        7,7,7,7,7,7,7,SF::repS(7,7)) );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

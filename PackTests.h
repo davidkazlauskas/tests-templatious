@@ -307,6 +307,33 @@ BOOST_AUTO_TEST_CASE( pack_transform )
     BOOST_CHECK( SM::sum(trP) == 7 * 7 * 2 );
 }
 
+BOOST_AUTO_TEST_CASE( pack_transform_moar )
+{
+    TEMPLATIOUS_TRIPLET_STD;
+
+    int a,b,c,d,e,f,g;
+    auto p = SF::pack(a,b,c,d,e,f,g);
+    SM::set(7,p);
+
+    auto trFunc = [](int i) {
+        std::stringstream s;
+        s << ">";
+        s << i;
+        s << "<";
+
+        std::string res = s.str();
+        return std::move(res);
+    };
+    auto trP = SF::packTransformWithin(trFunc,p);
+
+    std::stringstream ss;
+    auto sf = SF::streamFunctor(ss);
+    SM::callEach(sf,trP);
+
+    auto res = ss.str();
+    BOOST_CHECK( res == ">7<>7<>7<>7<>7<>7<>7<" );
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: PACKTESTS_1UNIFFZN */

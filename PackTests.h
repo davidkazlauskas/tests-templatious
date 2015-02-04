@@ -300,7 +300,7 @@ BOOST_AUTO_TEST_CASE( pack_transform )
     auto p = SF::pack(a,b,c,d,e,f,g);
     SM::set(7,p);
 
-    auto trFunc = [](int i) { return SF::pack(std::move(i),std::move(i)); };
+    auto trFunc = [](int i) { return SF::pack(int(i),int(i)); };
     auto trP = SF::packTransformWithin(trFunc,p);
 
     BOOST_CHECK( SM::sum(p) == 7 * 7 );

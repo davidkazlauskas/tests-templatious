@@ -112,6 +112,11 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_tight_n_loose )
     BOOST_CHECK( std::addressof(i) == std::addressof(cref) );
 }
 
+struct AnyFctor {
+    template <class T>
+    int operator()(T&& t) { return 77; }
+};
+
 BOOST_AUTO_TEST_CASE( static_factory_match_functor_composition )
 {
     auto f1 = SF::matchFunctor(
@@ -141,7 +146,28 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_composition )
     BOOST_CHECK( f12(s) == 5 );
     BOOST_CHECK( f12(l) == 6 );
 
-    //BOOST_CHECK()
+    BOOST_CHECK( f21(i) == 4 );
+    BOOST_CHECK( f21(c) == 2 );
+    BOOST_CHECK( f21(f) == 3 );
+    BOOST_CHECK( f21(s) == 5 );
+    BOOST_CHECK( f21(l) == 6 );
+
+    auto fAny = SF::matchFunctor(
+        f12,
+        SF::matchAny(AnyFctor())
+    );
+
+    BOOST_CHECK( fAny(i) == 1 );
+    BOOST_CHECK( fAny(c) == 2 );
+    BOOST_CHECK( fAny(f) == 3 );
+    BOOST_CHECK( fAny(s) == 5 );
+    BOOST_CHECK( fAny(l) == 6 );
+
+    struct Banana {};
+
+    BOOST_CHECK( fAny("string") == 77 );
+    BOOST_CHECK( fAny(std::string("string")) == 77 );
+    BOOST_CHECK( fAny(Banana()) == 77 );
 }
 
 

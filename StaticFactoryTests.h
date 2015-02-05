@@ -112,6 +112,38 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_tight_n_loose )
     BOOST_CHECK( std::addressof(i) == std::addressof(cref) );
 }
 
+BOOST_AUTO_TEST_CASE( static_factory_match_functor_composition )
+{
+    auto f1 = SF::matchFunctor(
+        SF::matchLoose<int>([](int i) { return 1; }),
+        SF::matchLoose<char>([](char i) { return 2; }),
+        SF::matchLoose<float>([](char i) { return 3; })
+    );
+
+    auto f2 = SF::matchFunctor(
+        SF::matchLoose<int>([](int i) { return 4; }),
+        SF::matchLoose<short>([](short i) { return 5; }),
+        SF::matchLoose<long>([](long l) { return 6; })
+    );
+
+    auto f12 = SF::matchFunctor(f1,f2);
+    auto f21 = SF::matchFunctor(f2,f1);
+
+    int i;
+    char c;
+    float f;
+    short s;
+    long l;
+
+    BOOST_CHECK( f12(i) == 1 );
+    BOOST_CHECK( f12(c) == 2 );
+    BOOST_CHECK( f12(f) == 3 );
+    BOOST_CHECK( f12(s) == 5 );
+    BOOST_CHECK( f12(l) == 6 );
+
+    //BOOST_CHECK()
+}
+
 
 BOOST_AUTO_TEST_SUITE_END();
 

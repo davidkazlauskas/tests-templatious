@@ -23,6 +23,19 @@
 
 BOOST_AUTO_TEST_SUITE( static_factory_tests );
 
+BOOST_AUTO_TEST_CASE( static_factory_match_functor_basic )
+{
+    int a;
+    char b;
+
+    auto f = SF::matchFunctor(
+        SF::matchLoose<int>([](int i) { return 7;}),
+        SF::matchLoose<char>([](char i) { return 77;})
+    );
+
+    BOOST_CHECK( f(a) == 7 );
+    BOOST_CHECK( f(b) == 77 );
+}
 
 BOOST_AUTO_TEST_SUITE_END();
 

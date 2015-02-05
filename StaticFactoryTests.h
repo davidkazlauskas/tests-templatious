@@ -87,6 +87,31 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_mutate )
     BOOST_CHECK( statFctor._cnt == 2 );
 }
 
+BOOST_AUTO_TEST_CASE( static_factory_match_functor_tight_n_loose )
+{
+    auto f = SF::matchFunctor(
+        SF::matchTight<int&>([](int& i) { ++i; return i; }),
+        SF::matchLoose<int>([](int i) { return 2*i; })
+    );
+
+    int i = 0;
+    const int& cref = i;
+
+    BOOST_CHECK( f(i) == 1 );
+    BOOST_CHECK( f(i) == 2 );
+    BOOST_CHECK( f(i) == 3 );
+    BOOST_CHECK( f(7) == 14 );
+    BOOST_CHECK( f(8) == 16 );
+    BOOST_CHECK( f(i) == 4 );
+    BOOST_CHECK( f(i) == 5 );
+    BOOST_CHECK( f(cref) == 10 );
+    BOOST_CHECK( f(i) == 6 );
+    BOOST_CHECK( f(cref) == 12 );
+    BOOST_CHECK( f(i) == 7 );
+
+    BOOST_CHECK( std::addressof(i) == std::addressof(cref) );
+}
+
 
 BOOST_AUTO_TEST_SUITE_END();
 

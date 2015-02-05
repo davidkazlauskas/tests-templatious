@@ -61,6 +61,33 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_string_to_double )
     BOOST_CHECK( f('7') == 55 );
 }
 
+BOOST_AUTO_TEST_CASE( static_factory_match_functor_mutate )
+{
+    struct Fctor {
+        Fctor() : _cnt(0) {}
+        double operator()(int op) { ++_cnt; return op; }
+        int _cnt;
+    };
+
+    Fctor statFctor;
+
+    auto f = SF::matchFunctor(
+        SF::matchLoose<short>([](short i) -> double { return 2*i; }),
+        SF::matchLoose<int>(statFctor)
+    );
+
+    short s = 7;
+    int i = 77;
+    BOOST_CHECK( f(s) == 14 );
+    BOOST_CHECK( f(i) == 77 );
+    BOOST_CHECK( f(s) == 14 );
+    BOOST_CHECK( f(i) == 77 );
+    BOOST_CHECK( f(s) == 14 );
+
+    BOOST_CHECK( statFctor._cnt == 2 );
+}
+
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICFACTORYTESTS_ZJBL62XK */

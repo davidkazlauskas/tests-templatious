@@ -48,6 +48,21 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_mutate )
     BOOST_CHECK( sd == sv );
 }
 
+BOOST_AUTO_TEST_CASE( iter_dump_tests_clearance )
+{
+
+    auto v = std::vector<int>();
+    SA::add(v,1,2,3);
+    auto d = SF::iterDump(v);
+
+    // clearing iter dump shouldn't mutate original
+    SA::clear(d);
+
+    BOOST_CHECK( SA::size(d) == 0 );
+    BOOST_CHECK( SA::size(v) == 3 );
+    BOOST_CHECK( SM::sum<int>(v) == 6 );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: ITERDUMPTESTS_XJXLMIV5 */

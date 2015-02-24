@@ -33,5 +33,6 @@
 #include "ChainUsageTests.h"
 #include "StaticManipulatorTests.h"
 #include "StaticFactoryTests.h"
+#include "IterDumpTests.h"
 
 #endif /* end of include guard: TESTS_HPIIGL7J */

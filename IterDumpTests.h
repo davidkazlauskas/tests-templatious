@@ -41,7 +41,11 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_mutate )
     auto d = SF::iterDump(v);
     SM::set(7,d);
 
-    BOOST_CHECK( 21 == SM::sum<int>(d) );
+    auto sd = SM::sum<int>(d);
+    auto sv = SM::sum<int>(v);
+
+    BOOST_CHECK( 21 == sd );
+    BOOST_CHECK( sd == sv );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

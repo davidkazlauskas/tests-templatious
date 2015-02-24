@@ -63,6 +63,15 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_clearance )
     BOOST_CHECK( SM::sum<int>(v) == 6 );
 }
 
+BOOST_AUTO_TEST_CASE( iter_dump_tests_sort )
+{
+    auto v = std::vector<int>();
+    SA::add(v,3,2,1);
+    auto d = SF::iterDump(v);
+
+    std::sort(SA::begin(d),SA::end(d));
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: ITERDUMPTESTS_XJXLMIV5 */

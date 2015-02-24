@@ -33,6 +33,17 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_basic )
     BOOST_CHECK( 6 == SM::sum<int>(d) );
 }
 
+BOOST_AUTO_TEST_CASE( iter_dump_tests_mutate )
+{
+
+    auto v = std::vector<int>();
+    SA::add(v,1,2,3);
+    auto d = SF::iterDump(v);
+    SM::set(7,d);
+
+    BOOST_CHECK( 21 == SM::sum<int>(d) );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: ITERDUMPTESTS_XJXLMIV5 */

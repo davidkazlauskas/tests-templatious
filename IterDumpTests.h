@@ -67,23 +67,33 @@ template <class T,class U>
 void sortStuff(T& t,U& u) {
     auto b = SA::begin(t);
     auto i = b;
+    auto e = SA::end(t);
 
-    auto bit = SA::begin(u);
-
-    if ((*bit) != i) {
-        auto saved = std::move(*i);
-        *i = *(*bit);
-        while ((*bit).iter() != i) {
-            auto dist = std::distance(b,(*bit).iter());
-            auto oldBit = bit;
-            bit = SA::iterAt(u,dist);
-            if ((*bit).iter() != i) {
-                *(*oldBit) = std::move(*(*bit));
-            } else {
-                *(*oldBit) = saved;
+    long sz = SA::size(t);
+    long consistent = 0;
+    while (i != e) {
+        auto bit = SA::iterAt(u,std::distance(b,i));
+        if ((*bit).iter() != i) {
+            auto saved = std::move(*i);
+            *i = *(*bit);
+            ++consistent;
+            while ((*bit).iter() != i) {
+                auto dist = std::distance(b,(*bit).iter());
+                auto oldBit = bit;
+                bit = SA::iterAt(u,dist);
+                if ((*bit).iter() != i) {
+                    *(*oldBit) = std::move(*(*bit));
+                    ++consistent;
+                } else {
+                    *(*oldBit) = saved;
+                    ++consistent;
+                }
             }
+        } else {
+            ++consistent;
         }
-        //*(*bit) = saved;
+        if (consistent == sz) return;
+        ++i;
     }
 }
 

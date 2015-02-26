@@ -63,6 +63,28 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_clearance )
     BOOST_CHECK( SM::sum<int>(v) == 6 );
 }
 
+template <class T,class U>
+void sortStuff(T& t,U& u) {
+    auto b = SA::begin(t);
+    auto i = b;
+
+    auto bit = SA::begin(u);
+
+    if ((*bit) != i) {
+        auto saved = std::move(*i);
+        *i = *(*bit);
+        while ((*bit).iter() != i) {
+            auto dist = std::distance(b,(*bit).iter());
+            auto oldBit = bit;
+            bit = SA::iterAt(u,dist);
+            if ((*bit).iter() == i) {
+                *(*oldBit) = saved;
+            }
+        }
+        //*(*bit) = saved;
+    }
+}
+
 BOOST_AUTO_TEST_CASE( iter_dump_tests_sort )
 {
     auto v = std::vector<int>();
@@ -70,6 +92,20 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort )
     auto d = SF::iterDump(v);
 
     std::sort(SA::begin(d),SA::end(d));
+
+    auto b = SA::begin(d);
+
+    TEMPLATIOUS_FOREACH( auto i, v ) {
+        std::cout << i << std::endl;
+    }
+
+    BOOST_CHECK( *b == 1 );
+    ++b;
+    BOOST_CHECK( *b == 2 );
+    ++b;
+    BOOST_CHECK( *b == 3 );
+
+    sortStuff(v,d);
 }
 
 BOOST_AUTO_TEST_SUITE_END();

@@ -95,9 +95,9 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort )
 
     auto b = SA::begin(d);
 
-    TEMPLATIOUS_FOREACH( auto i, v ) {
-        std::cout << i << std::endl;
-    }
+    //TEMPLATIOUS_FOREACH( auto i, v ) {
+        //std::cout << i << std::endl;
+    //}
 
     BOOST_CHECK( *b == 1 );
     ++b;
@@ -106,6 +106,44 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort )
     BOOST_CHECK( *b == 3 );
 
     sortStuff(v,d);
+
+    auto b2 = SA::begin(v);
+    BOOST_CHECK( *b2 == 1 );
+    ++b2;
+    BOOST_CHECK( *b2 == 2 );
+    ++b2;
+    BOOST_CHECK( *b2 == 3 );
+}
+
+BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_hard )
+{
+    auto v = std::vector<int>();
+    SA::add(v,6,3,4,5,2,7,1);
+    auto d = SF::iterDump(v);
+
+    std::sort(SA::begin(d),SA::end(d));
+
+    auto b = SA::begin(d);
+
+    BOOST_CHECK( *b == 1 );
+    ++b;
+    BOOST_CHECK( *b == 2 );
+    ++b;
+    BOOST_CHECK( *b == 3 );
+    ++b;
+    BOOST_CHECK( *b == 4 );
+    ++b;
+    BOOST_CHECK( *b == 5 );
+    ++b;
+    BOOST_CHECK( *b == 6 );
+    ++b;
+    BOOST_CHECK( *b == 7 );
+
+    sortStuff(v,d);
+
+    TEMPLATIOUS_FOREACH( auto i, v ) {
+        std::cout << i << std::endl;
+    }
 }
 
 BOOST_AUTO_TEST_SUITE_END();

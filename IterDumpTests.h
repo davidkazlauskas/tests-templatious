@@ -77,7 +77,9 @@ void sortStuff(T& t,U& u) {
             auto dist = std::distance(b,(*bit).iter());
             auto oldBit = bit;
             bit = SA::iterAt(u,dist);
-            if ((*bit).iter() == i) {
+            if ((*bit).iter() != i) {
+                *(*oldBit) = std::move(*(*bit));
+            } else {
                 *(*oldBit) = saved;
             }
         }

@@ -115,10 +115,6 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort )
 
     auto b = SA::begin(d);
 
-    //TEMPLATIOUS_FOREACH( auto i, v ) {
-        //std::cout << i << std::endl;
-    //}
-
     BOOST_CHECK( *b == 1 );
     ++b;
     BOOST_CHECK( *b == 2 );
@@ -160,10 +156,6 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_hard )
     BOOST_CHECK( *b == 7 );
 
     sortStuff(v,d);
-
-    TEMPLATIOUS_FOREACH( auto i, v ) {
-        std::cout << i << std::endl;
-    }
 }
 
 BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_random )
@@ -199,10 +191,6 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_random )
 
     *SA::end(v) = 7;
     sortStuff(v,d);
-
-    TEMPLATIOUS_FOREACH( auto i, v ) {
-        std::cout << i << std::endl;
-    }
 }
 
 BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_stress )

@@ -68,16 +68,18 @@ void sortStuff(T& t,U& u) {
     auto b = SA::begin(t);
     auto i = b;
     auto e = SA::end(t);
+    auto wrappedEnd = templatious::detail::
+        VectoratorItem<decltype(e)>(e);
 
     long sz = SA::size(t);
     long consistent = 0;
     while (i != e) {
         auto bit = SA::iterAt(u,std::distance(b,i));
-        if ((*bit).iter() != i) {
+        if ((*bit).iter() != i && (*bit).iter() != e) {
             auto saved = std::move(*i);
             *i = *(*bit);
             ++consistent;
-            while ((*bit).iter() != i) {
+            for (;;) {
                 auto dist = std::distance(b,(*bit).iter());
                 auto oldBit = bit;
                 bit = SA::iterAt(u,dist);
@@ -86,10 +88,13 @@ void sortStuff(T& t,U& u) {
                     ++consistent;
                 } else {
                     *(*oldBit) = saved;
+                    (*oldBit).assign(wrappedEnd);
                     ++consistent;
+                    break;
                 }
+                (*oldBit).assign(wrappedEnd);
             }
-        } else {
+        } else if ((*bit).iter() == i) {
             ++consistent;
         }
         if (consistent == sz) return;
@@ -151,6 +156,45 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_hard )
     ++b;
     BOOST_CHECK( *b == 7 );
 
+    sortStuff(v,d);
+
+    TEMPLATIOUS_FOREACH( auto i, v ) {
+        std::cout << i << std::endl;
+    }
+}
+
+BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_random )
+{
+    auto v = std::vector<int>();
+    SA::add(v,4,0,5,1,5,2,4,6,6,0);
+    // 0,0,1,2,4,4,5,5,6,6
+    auto d = SF::iterDump(v);
+
+    std::sort(SA::begin(d),SA::end(d));
+
+    auto b = SA::begin(d);
+
+    BOOST_CHECK( *b == 0 );
+    ++b;
+    BOOST_CHECK( *b == 0 );
+    ++b;
+    BOOST_CHECK( *b == 1 );
+    ++b;
+    BOOST_CHECK( *b == 2 );
+    ++b;
+    BOOST_CHECK( *b == 4 );
+    ++b;
+    BOOST_CHECK( *b == 4 );
+    ++b;
+    BOOST_CHECK( *b == 5 );
+    ++b;
+    BOOST_CHECK( *b == 5 );
+    ++b;
+    BOOST_CHECK( *b == 6 );
+    ++b;
+    BOOST_CHECK( *b == 6 );
+
+    *SA::end(v) = 7;
     sortStuff(v,d);
 
     TEMPLATIOUS_FOREACH( auto i, v ) {

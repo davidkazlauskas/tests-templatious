@@ -202,6 +202,38 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_random )
     }
 }
 
+BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_stress )
+{
+    const int TOTAL = 100;
+    const int LOWER_BOUND = 1;
+    const int VARIATION = 100;
+
+    srand(777); // deterministic seed
+
+    auto v = std::vector<int>();
+    TEMPLATIOUS_REPEAT(TOTAL) {
+        int rnd = rand() % VARIATION + LOWER_BOUND;
+        SA::add(v,rnd);
+    }
+
+    auto sum = SM::sum<int>(v);
+
+    auto v2 = std::vector<int>();
+    auto v3 = std::vector<int>();
+    SA::add(v2,v);
+    SA::add(v3,v);
+    BOOST_CHECK( SM::areCollectionsEqual(v,v2) );
+    BOOST_CHECK( SM::areCollectionsEqual(v,v3) );
+
+    std::sort(SA::begin(v2),SA::end(v2));
+
+    auto d = SF::iterDump(v3);
+    sortStuff(v3,d);
+    BOOST_CHECK( SM::areCollectionsEqual(v2,v3) );
+    BOOST_CHECK( SM::sum<int>(v2) == sum );
+    BOOST_CHECK( SM::sum<int>(v3) == sum );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: ITERDUMPTESTS_XJXLMIV5 */

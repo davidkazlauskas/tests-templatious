@@ -63,48 +63,6 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_clearance )
     BOOST_CHECK( SM::sum<int>(v) == 6 );
 }
 
-template <class T,class U>
-void sortStuff(T& t,U& u) {
-    auto b = SA::begin(t);
-    auto i = b;
-    auto e = SA::end(t);
-    auto wrappedEnd = templatious::detail::
-        VectoratorItem<decltype(e)>(e);
-
-    long sz = SA::size(t);
-    long consistent = 0;
-    while (i != e) {
-        auto bit = SA::iterAt(u,std::distance(b,i));
-        if ((*bit).iter() != i && (*bit).iter() != e) {
-            auto saved = std::move(*i);
-            *i = *(*bit);
-            ++consistent;
-            for (;;) {
-                auto dist = std::distance(b,(*bit).iter());
-                auto oldBit = bit;
-                bit = SA::iterAt(u,dist);
-                if ((*bit).iter() != i) {
-                    *(*oldBit) = std::move(*(*bit));
-                    ++consistent;
-                } else {
-                    *(*oldBit) = saved;
-                    (*bit).assign(wrappedEnd);
-                    (*oldBit).assign(wrappedEnd);
-                    ++consistent;
-                    break;
-                }
-                (*oldBit).assign(wrappedEnd);
-            }
-        } else if ((*bit).iter() == i) {
-            ++consistent;
-        }
-        // if there's one element left unsorted
-        // it must be in the right place
-        if (consistent >= sz - 1) return;
-        ++i;
-    }
-}
-
 BOOST_AUTO_TEST_CASE( iter_dump_tests_sort )
 {
     auto v = std::vector<int>();
@@ -121,7 +79,8 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort )
     ++b;
     BOOST_CHECK( *b == 3 );
 
-    sortStuff(v,d);
+    templatious::detail::VectoratorAlgs
+        ::vectoratorSort(v,d);
 
     auto b2 = SA::begin(v);
     BOOST_CHECK( *b2 == 1 );
@@ -155,7 +114,8 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_hard )
     ++b;
     BOOST_CHECK( *b == 7 );
 
-    sortStuff(v,d);
+    templatious::detail::VectoratorAlgs
+        ::vectoratorSort(v,d);
 }
 
 BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_random )
@@ -190,7 +150,8 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_random )
     BOOST_CHECK( *b == 6 );
 
     *SA::end(v) = 7;
-    sortStuff(v,d);
+    templatious::detail::VectoratorAlgs
+        ::vectoratorSort(v,d);
 }
 
 BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_stress )
@@ -226,7 +187,8 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_stress )
         std::sort(SA::begin(d),SA::end(d));
         // good for debugging
         //*SA::end(v3) = 777;
-        sortStuff(v3,d);
+        templatious::detail::VectoratorAlgs
+            ::vectoratorSort(v3,d);
         BOOST_CHECK( SM::areCollectionsEqual(v2,v3) );
         BOOST_CHECK( SM::sum<int>(v2) == sum );
         BOOST_CHECK( SM::sum<int>(v3) == sum );

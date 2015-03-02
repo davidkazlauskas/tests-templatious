@@ -196,6 +196,16 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_stress )
     }
 }
 
+// sort non-random access iter
+BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_raw ) {
+    std::vector<int> l;
+
+    SA::add(l,SF::seqI(100,1));
+
+    auto flt = SF::filter(l,[](int i) { return i % 5 == 0; });
+    SM::sort(flt);
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: ITERDUMPTESTS_XJXLMIV5 */

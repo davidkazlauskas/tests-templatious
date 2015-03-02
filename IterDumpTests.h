@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_basic )
 
     auto v = std::vector<int>();
     SA::add(v,1,2,3);
-    auto d = SF::iterDump(v);
+    auto d = SM::iterDump(v);
 
     BOOST_CHECK( 6 == SM::sum<int>(d) );
 }
@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_mutate )
 
     auto v = std::vector<int>();
     SA::add(v,1,2,3);
-    auto d = SF::iterDump(v);
+    auto d = SM::iterDump(v);
     SM::set(7,d);
 
     auto sd = SM::sum<int>(d);
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_clearance )
 
     auto v = std::vector<int>();
     SA::add(v,1,2,3);
-    auto d = SF::iterDump(v);
+    auto d = SM::iterDump(v);
 
     // clearing iter dump shouldn't mutate original
     SA::clear(d);
@@ -67,7 +67,7 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort )
 {
     auto v = std::vector<int>();
     SA::add(v,3,2,1);
-    auto d = SF::iterDump(v);
+    auto d = SM::iterDump(v);
 
     std::sort(SA::begin(d),SA::end(d));
 
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_hard )
 {
     auto v = std::vector<int>();
     SA::add(v,6,3,4,5,2,7,1);
-    auto d = SF::iterDump(v);
+    auto d = SM::iterDump(v);
 
     std::sort(SA::begin(d),SA::end(d));
 
@@ -123,7 +123,7 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_random )
     auto v = std::vector<int>();
     SA::add(v,4,0,5,1,5,2,4,6,6,0);
     // 0,0,1,2,4,4,5,5,6,6
-    auto d = SF::iterDump(v);
+    auto d = SM::iterDump(v);
 
     std::sort(SA::begin(d),SA::end(d));
 
@@ -183,7 +183,7 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_stress )
 
         std::sort(SA::begin(v2),SA::end(v2));
 
-        auto d = SF::iterDump(v3);
+        auto d = SM::iterDump(v3);
         std::sort(SA::begin(d),SA::end(d));
         // good for debugging
         //*SA::end(v3) = 777;

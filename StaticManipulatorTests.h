@@ -578,6 +578,26 @@ BOOST_AUTO_TEST_CASE( static_manipulator_exists_pack )
         'a','b','c',p2,'d','e','f'));
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_is_sorted )
+{
+    auto s = SF::seqL(100);
+
+    BOOST_CHECK( SM::isSorted(s) );
+
+    std::vector<int> v;
+    SA::add(v,s);
+
+    BOOST_CHECK( SM::isSorted(v) );
+
+    auto pr = v[7];
+    v[7] = 1;
+    BOOST_CHECK( !SM::isSorted(v) );
+    v[7] = pr;
+    BOOST_CHECK( SM::isSorted(v) );
+    v[7] = pr + 1;
+    BOOST_CHECK( SM::isSorted(v) );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

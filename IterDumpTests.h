@@ -248,7 +248,7 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_manual ) {
     SM::sort(SF::range(l,1,3));
 
     BOOST_CHECK( SM::areCollectionsEqual(l,
-        (int[]){1,4,5,6,3,2,7}) );
+        (int[]){1,5,6,4,3,2,7}) );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

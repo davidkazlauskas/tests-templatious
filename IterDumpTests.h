@@ -249,6 +249,16 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_manual ) {
 
     BOOST_CHECK( SM::areCollectionsEqual(l,
         (int[]){1,5,6,4,3,2,7}) );
+
+    SM::sort(
+        SF::skip(
+            SF::filter(l,[](int i) { return i > 2; }),
+            2
+        )
+    );
+
+    BOOST_CHECK( SM::areCollectionsEqual(l,
+        (int[]){1,4,6,5,3,2,7}) );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

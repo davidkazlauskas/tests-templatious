@@ -197,7 +197,7 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_stress )
 }
 
 // sort non-random access iter
-BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_raw ) {
+BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_list ) {
     std::list<int> l;
     std::vector<int> vcpy;
 
@@ -222,6 +222,18 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_raw ) {
 
     BOOST_CHECK( sum == SM::sum<int>(flt) );
     BOOST_CHECK( tot == SM::sum<int>(l) );
+}
+
+BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_raw ) {
+    std::vector<int> v;
+
+    SA::add(v,SF::seqI(100,1));
+
+    BOOST_CHECK( !SM::isSorted(v) );
+
+    SM::sort(v);
+
+    BOOST_CHECK( SM::isSorted(v) );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

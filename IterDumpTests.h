@@ -236,6 +236,16 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_raw ) {
     BOOST_CHECK( SM::isSorted(v) );
 }
 
+BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_manual ) {
+    std::list<int> l;
+
+    SA::add(l,7,6,5,4,3,2,1);
+    SM::sort(SF::skip(l,3));
+
+    BOOST_CHECK( SM::areCollectionsEqual(l,
+        (int[]){1,6,5,4,3,2,7}) );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: ITERDUMPTESTS_XJXLMIV5 */

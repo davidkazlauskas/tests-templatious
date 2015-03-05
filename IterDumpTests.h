@@ -199,13 +199,26 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_stress )
 // sort non-random access iter
 BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_raw ) {
     std::list<int> l;
+    std::vector<int> vcpy;
 
     SA::add(l,SF::seqI(100,1));
+    SA::add(vcpy,l);
+
+    BOOST_CHECK( SM::areCollectionsEqual(vcpy,l) );
+    BOOST_CHECK( !SM::isSorted(l) );
+
     int tot = SM::sum<int>(l);
 
     auto flt = SF::filter(l,[](int i) { return i % 5 == 0; });
     int sum = SM::sum<int>(flt);
+
+    BOOST_CHECK( !SM::isSorted(flt) );
+
     SM::sort(flt);
+
+    BOOST_CHECK( SM::isSorted(flt) );
+    BOOST_CHECK( !SM::isSorted(l) );
+    BOOST_CHECK( !SM::areCollectionsEqual(vcpy,l) );
 
     BOOST_CHECK( sum == SM::sum<int>(flt) );
     BOOST_CHECK( tot == SM::sum<int>(l) );

@@ -600,6 +600,22 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_is_sorted )
     BOOST_CHECK( !SM::isSorted(v) );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_is_sorted_special )
+{
+    std::vector<int> v;
+    SA::add(v,SF::seqL(100));
+
+    auto c = [](int a,int b) { return a > b; };
+
+    BOOST_CHECK( SM::isSorted(v) );
+    BOOST_CHECK( !SM::isSortedS(v,c) );
+
+    std::reverse(SA::begin(v),SA::end(v));
+
+    BOOST_CHECK( !SM::isSorted(v) );
+    BOOST_CHECK( SM::isSortedS(v,c) );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

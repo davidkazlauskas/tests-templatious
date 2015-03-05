@@ -594,8 +594,10 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_is_sorted )
     BOOST_CHECK( !SM::isSorted(v) );
     v[7] = pr;
     BOOST_CHECK( SM::isSorted(v) );
-    v[7] = pr + 1;
+    ++v[7];
     BOOST_CHECK( SM::isSorted(v) );
+    ++v[7];
+    BOOST_CHECK( !SM::isSorted(v) );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

@@ -621,6 +621,18 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_is_sorted_special )
     BOOST_CHECK( !SM::isSortedS(v,c) );
 }
 
+BOOST_AUTO_TEST_CASE( static_manipulator_tests_is_sorted_edge_cases )
+{
+    std::vector<int> v;
+
+    // empty collection is always sorted
+    BOOST_CHECK( SM::isSorted(v) );
+
+    // collection with one element is always sorted
+    SA::add(v,7);
+    BOOST_CHECK( SM::isSorted(v) );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

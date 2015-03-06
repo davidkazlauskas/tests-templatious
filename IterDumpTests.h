@@ -261,6 +261,25 @@ BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_manual ) {
         (int[]){1,4,6,5,3,2,7}) );
 }
 
+BOOST_AUTO_TEST_CASE( iter_dump_tests_sort_empty ) {
+    // sort shouldn't crash with 0 or 1 elements.
+    // and shouldn't alter collection
+    std::list<int> l;
+
+    BOOST_CHECK( SA::size(l) == 0 );
+    SM::sort(l);
+    BOOST_CHECK( SA::size(l) == 0 );
+
+    SA::add(l,7);
+    std::vector<int> v;
+    SA::add(v,l);
+
+    BOOST_CHECK( SA::size(l) == 1 );
+    SM::sort(l);
+    BOOST_CHECK( SM::areCollectionsEqual(v,l) );
+    BOOST_CHECK( SA::size(l) == 1 );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: ITERDUMPTESTS_XJXLMIV5 */

@@ -183,7 +183,7 @@ struct DeciderA {
     static const bool does_match =
         firstArg && secondArg;
 
-    static const int num_matches = 2;
+    static const int num_args = 2;
 };
 
 BOOST_AUTO_TEST_CASE( static_factory_match_functor_custom_function )

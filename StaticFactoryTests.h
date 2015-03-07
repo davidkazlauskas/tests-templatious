@@ -113,8 +113,8 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_tight_n_loose )
 }
 
 struct AnyFctor {
-    template <class T>
-    int operator()(T&& t) { return 77; }
+    template <class... T>
+    int operator()(T&&... t) { return 77; }
 };
 
 BOOST_AUTO_TEST_CASE( static_factory_match_functor_composition )
@@ -189,7 +189,7 @@ struct DeciderA {
 BOOST_AUTO_TEST_CASE( static_factory_match_functor_custom_function )
 {
     auto mf = SF::matchFunctor(
-        SF::matchSpecial<DeciderA>([](int i) { return 1; }),
+        SF::matchSpecial<DeciderA>([](int i,double d) { return 1; }),
         SF::matchAny(AnyFctor())
     );
 

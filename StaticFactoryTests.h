@@ -227,6 +227,20 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_custom_function )
     BOOST_CHECK( mf(1,"7",7,7) == 2 );
 }
 
+BOOST_AUTO_TEST_CASE( static_factory_match_functor_loose_first )
+{
+    // for loose comparison first matches should be enough
+    auto mf = SF::matchFunctor(
+        SF::matchLoose<int>([](int i,double d) { return 1; }),
+        SF::matchLoose<char>([](int i,double d) { return 2; }),
+        SF::matchAny(AnyFctor())
+    );
+
+    BOOST_CHECK( mf(1,7.7) == 1 );
+    BOOST_CHECK( mf('1',7.7) == 2 );
+    BOOST_CHECK( mf("moo",7.7) == 77 );
+}
+
 BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICFACTORYTESTS_ZJBL62XK */

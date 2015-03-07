@@ -176,9 +176,10 @@ struct DeciderA {
 
     static const bool isInt = std::is_same<Dec,int>::value;
     static const bool isDouble = std::is_same<Dec,double>::value;
+    static const bool isChar = std::is_same<Dec,char>::value;
 
     static const bool firstArg = pos == 1 && isInt;
-    static const bool secondArg = pos == 2 && isDouble;
+    static const bool secondArg = (pos == 2) && (isDouble || isChar);
 
     static const bool does_match =
         firstArg || secondArg;
@@ -194,6 +195,7 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_custom_function )
     );
 
     BOOST_CHECK( mf(1,7.7) == 1 );
+    BOOST_CHECK( mf(1,7) == 77 );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

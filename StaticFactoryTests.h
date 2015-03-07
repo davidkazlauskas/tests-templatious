@@ -196,18 +196,26 @@ struct DeciderB {
 
     static const bool firstArg = pos == 1 && isInt;
     static const bool secondArg = pos == 2 && isStr;
+    static const bool tailArg = pos > 2 && isInt;
 
     static const bool does_match =
-        firstArg || secondArg;
+        firstArg || secondArg || tailArg;
 
     static const int num_args = 2;
+};
+
+struct DummyB {
+    template <class... Args>
+    int operator()(Args&&... args) const {
+        return 2;
+    }
 };
 
 BOOST_AUTO_TEST_CASE( static_factory_match_functor_custom_function )
 {
     auto mf = SF::matchFunctor(
         SF::matchSpecial<DeciderA>([](int i,double d) { return 1; }),
-        SF::matchSpecial<DeciderB>([](int i,const char* c) { return 2; }),
+        SF::matchSpecial<DeciderB>(DummyB()),
         SF::matchAny(AnyFctor())
     );
 
@@ -215,6 +223,7 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_custom_function )
     BOOST_CHECK( mf(1,7) == 77 );
     BOOST_CHECK( mf(1,'7') == 1 );
     BOOST_CHECK( mf(1,"7") == 2 );
+    BOOST_CHECK( mf(1,"7",7) == 2 );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

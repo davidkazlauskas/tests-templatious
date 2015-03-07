@@ -224,6 +224,7 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_custom_function )
     BOOST_CHECK( mf(1,'7') == 1 );
     BOOST_CHECK( mf(1,"7") == 2 );
     BOOST_CHECK( mf(1,"7",7) == 2 );
+    BOOST_CHECK( mf(1,"7",7,7) == 2 );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

@@ -181,7 +181,7 @@ struct DeciderA {
     static const bool secondArg = pos == 2 && isDouble;
 
     static const bool does_match =
-        firstArg && secondArg;
+        firstArg || secondArg;
 
     static const int num_args = 2;
 };

@@ -170,6 +170,29 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_composition )
     BOOST_CHECK( fAny(Banana()) == 77 );
 }
 
+template <class A,int pos>
+struct DeciderA {
+    typedef typename std::decay<A>::type Dec;
+
+    static const bool isInt = std::is_same<Dec,int>::value;
+    static const bool isDouble = std::is_same<Dec,double>::value;
+
+    static const bool firstArg = pos == 1 && isInt;
+    static const bool secondArg = pos == 2 && isDouble;
+
+    static const bool does_match =
+        firstArg && secondArg;
+};
+
+BOOST_AUTO_TEST_CASE( static_factory_match_functor_custom_function )
+{
+    auto mf = SF::matchFunctor(
+        SF::matchSpecial<DeciderA>([](int i) { return 1; }),
+        SF::matchAny(AnyFctor())
+    );
+
+    BOOST_CHECK( mf(1,7.7) == 1 );
+}
 
 BOOST_AUTO_TEST_SUITE_END();
 

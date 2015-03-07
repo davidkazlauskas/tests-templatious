@@ -187,16 +187,34 @@ struct DeciderA {
     static const int num_args = 2;
 };
 
+template <class A,int pos>
+struct DeciderB {
+    typedef typename std::decay<A>::type Dec;
+
+    static const bool isInt = std::is_same<Dec,int>::value;
+    static const bool isStr = std::is_same<Dec,const char*>::value;
+
+    static const bool firstArg = pos == 1 && isInt;
+    static const bool secondArg = pos == 2 && isStr;
+
+    static const bool does_match =
+        firstArg || secondArg;
+
+    static const int num_args = 2;
+};
+
 BOOST_AUTO_TEST_CASE( static_factory_match_functor_custom_function )
 {
     auto mf = SF::matchFunctor(
         SF::matchSpecial<DeciderA>([](int i,double d) { return 1; }),
+        SF::matchSpecial<DeciderB>([](int i,const char* c) { return 2; }),
         SF::matchAny(AnyFctor())
     );
 
     BOOST_CHECK( mf(1,7.7) == 1 );
     BOOST_CHECK( mf(1,7) == 77 );
     BOOST_CHECK( mf(1,'7') == 1 );
+    BOOST_CHECK( mf(1,"7") == 2 );
 }
 
 BOOST_AUTO_TEST_SUITE_END();

@@ -16,11 +16,7 @@
  * =====================================================================================
  */
 
-#ifndef STATICMANIPULATORTESTS_JT4V7DJV
-#define STATICMANIPULATORTESTS_JT4V7DJV
-
 #include "TestDefs.h"
-
 
 TEST_CASE( "static_manipulator_tests_sum_collection", "[static_manipulator_tests]" )
 {
@@ -632,5 +628,3 @@ TEST_CASE( "static_manipulator_tests_is_sorted_edge_cases", "[static_manipulator
     REQUIRE( SM::isSorted(v) );
 }
 
-
-#endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

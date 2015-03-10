@@ -21,9 +21,8 @@
 
 #include "TestDefs.h"
 
-BOOST_AUTO_TEST_SUITE( static_manipulator_tests );
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_collection )
+TEST_CASE( "static_manipulator_tests_sum_collection", "[static_manipulator_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
     std::vector<int> v;
@@ -31,31 +30,31 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_collection )
 
     int sum = SM::sum<int>(v);
 
-    BOOST_CHECK(sum == 3003);
+    REQUIRE(sum == 3003);
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_variables )
+TEST_CASE( "static_manipulator_tests_sum_variables", "[static_manipulator_tests]" )
 {
     int a = 7;
     char b = '7';
 
-    BOOST_CHECK( SM::sum<int>(a,b,1,2,'8') ==
+    REQUIRE( SM::sum<int>(a,b,1,2,'8') ==
         7 + 55 + 1 + 2 + 56
     );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_pack )
+TEST_CASE( "static_manipulator_tests_sum_pack", "[static_manipulator_tests]" )
 {
     int a = 7;
     char b = '7';
 
     auto p = SF::pack(a,b,1,2,'a');
-    BOOST_CHECK( SM::sum<int>(p) ==
+    REQUIRE( SM::sum<int>(p) ==
         7 + 55 + 1 + 2 + 97
     );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_all_at_once )
+TEST_CASE( "static_manipulator_tests_sum_all_at_once", "[static_manipulator_tests]" )
 {
     int a = 7;
     char b = '7';
@@ -68,14 +67,14 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_all_at_once )
 #define STAMA_T_SUM_ROW a,b,1,2,'8'
 
     { // col, pack, var
-        BOOST_CHECK(
+        REQUIRE(
             SM::sum<int>(v,p,STAMA_T_SUM_ROW)
             == ALL_SUM
         );
     }
 
     { // col, var, pack
-        BOOST_CHECK(
+        REQUIRE(
             SM::sum<int>(v,STAMA_T_SUM_ROW,p)
             == ALL_SUM
         );
@@ -83,14 +82,14 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_all_at_once )
 
 
     { // var, col, pack
-        BOOST_CHECK(
+        REQUIRE(
             SM::sum<int>(STAMA_T_SUM_ROW,v,p)
             == ALL_SUM
         );
     }
 
     { // var, pack, col
-        BOOST_CHECK(
+        REQUIRE(
             SM::sum<int>(STAMA_T_SUM_ROW,p,v)
             == ALL_SUM
         );
@@ -98,21 +97,21 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_all_at_once )
 
 
     { // pack, var, col
-        BOOST_CHECK(
+        REQUIRE(
             SM::sum<int>(p,STAMA_T_SUM_ROW,v)
             == ALL_SUM
         );
     }
 
     { // pack, col, var
-        BOOST_CHECK(
+        REQUIRE(
             SM::sum<int>(p,v,STAMA_T_SUM_ROW)
             == ALL_SUM
         );
     }
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_custom )
+TEST_CASE( "static_manipulator_tests_sum_custom", "[static_manipulator_tests]" )
 {
     std::vector< std::string > v;
 
@@ -141,23 +140,23 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_sum_custom )
         );
 
     double sum = SM::sumS(conv,v,datPack);
-    BOOST_CHECK( std::abs(264.54 - sum) < 0.0000001 );
+    REQUIRE( std::abs(264.54 - sum) < 0.0000001 );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_avg_basic )
+TEST_CASE( "static_manipulator_tests_avg_basic", "[static_manipulator_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
-    BOOST_CHECK( SM::avg<int>(SF::seqI(1,99)) == 50 );
+    REQUIRE( SM::avg<int>(SF::seqI(1,99)) == 50 );
 
-    BOOST_CHECK( SM::avg<int>(1,2,3,4,5,6,7) == 4 );
+    REQUIRE( SM::avg<int>(1,2,3,4,5,6,7) == 4 );
 
     int a = 7;
     char b = '7';
-    BOOST_CHECK( SM::avg<int>(SF::pack(a,b,5,'8',17)) == 28 );
+    REQUIRE( SM::avg<int>(SF::pack(a,b,5,'8',17)) == 28 );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_avg_all_at_once )
+TEST_CASE( "static_manipulator_tests_avg_all_at_once", "[static_manipulator_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -169,10 +168,10 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_avg_all_at_once )
         SF::pack(a,b,5,'8',17));
 
     double avg = SM::avg(datPack);
-    BOOST_CHECK( std::abs(46.108108108 - avg) < 0.0000001 );
+    REQUIRE( std::abs(46.108108108 - avg) < 0.0000001 );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_avg_custom )
+TEST_CASE( "static_manipulator_tests_avg_custom", "[static_manipulator_tests]" )
 {
     std::vector< std::string > v;
 
@@ -201,10 +200,10 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_avg_custom )
         );
 
     double avg = SM::avgS(conv,v,datPack);
-    BOOST_CHECK( std::abs(16.53375 - avg) < 0.0000001 );
+    REQUIRE( std::abs(16.53375 - avg) < 0.0000001 );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_quadro )
+TEST_CASE( "static_manipulator_tests_quadro", "[static_manipulator_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -218,12 +217,12 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_quadro )
 
     const unsigned long long QUADRO_SUM = 76048455000;
 
-    BOOST_CHECK( std::numeric_limits<
+    REQUIRE( std::numeric_limits<
         unsigned long long>::max() > QUADRO_SUM );
-    BOOST_CHECK( sum == QUADRO_SUM);
+    REQUIRE( sum == QUADRO_SUM);
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_map )
+TEST_CASE( "static_manipulator_tests_map", "[static_manipulator_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -245,11 +244,11 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_map )
 
     int mappedSum = SM::sum(res);
     int manSum = SM::sum(s,v,l);
-    BOOST_CHECK( manSum == mappedSum );
-    BOOST_CHECK( diffGood );
+    REQUIRE( manSum == mappedSum );
+    REQUIRE( diffGood );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_map_size_assertion )
+TEST_CASE( "static_manipulator_tests_map_size_assertion", "[static_manipulator_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -263,10 +262,10 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_map_size_assertion )
         caught = true;
     }
 
-    BOOST_CHECK( caught );
+    REQUIRE( caught );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_map_size_assertion_proxy )
+TEST_CASE( "static_manipulator_tests_map_size_assertion_proxy", "[static_manipulator_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -285,10 +284,10 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_map_size_assertion_proxy )
         caught = true;
     }
 
-    BOOST_CHECK( caught );
+    REQUIRE( caught );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_map_with_pass_index )
+TEST_CASE( "static_manipulator_tests_map_with_pass_index", "[static_manipulator_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -309,11 +308,11 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_map_with_pass_index )
 
     int mappedSum = SM::sum(res);
     int manSum = SM::sum(SF::seqI(100),v,l);
-    BOOST_CHECK( manSum == mappedSum );
-    BOOST_CHECK( diffGood );
+    REQUIRE( manSum == mappedSum );
+    REQUIRE( diffGood );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_traverse )
+TEST_CASE( "static_manipulator_tests_traverse", "[static_manipulator_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -335,11 +334,11 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_traverse )
     );
 
     int manSum = SM::sum(s,v,l);
-    BOOST_CHECK( manSum == mappedSum );
-    BOOST_CHECK( diffGood );
+    REQUIRE( manSum == mappedSum );
+    REQUIRE( diffGood );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_traverse_size_assertion )
+TEST_CASE( "static_manipulator_tests_traverse_size_assertion", "[static_manipulator_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -353,10 +352,10 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_traverse_size_assertion )
         caught = true;
     }
 
-    BOOST_CHECK( caught );
+    REQUIRE( caught );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_traverse_size_assertion_proxy )
+TEST_CASE( "static_manipulator_tests_traverse_size_assertion_proxy", "[static_manipulator_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -375,10 +374,10 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_traverse_size_assertion_proxy )
         caught = true;
     }
 
-    BOOST_CHECK( caught );
+    REQUIRE( caught );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_traverse_with_pass_index )
+TEST_CASE( "static_manipulator_tests_traverse_with_pass_index", "[static_manipulator_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -399,11 +398,11 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_traverse_with_pass_index )
     );
 
     int manSum = SM::sum(SF::seqI(100),v,l);
-    BOOST_CHECK( manSum == mappedSum );
-    BOOST_CHECK( diffGood );
+    REQUIRE( manSum == mappedSum );
+    REQUIRE( diffGood );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_fold_mul )
+TEST_CASE( "static_manipulator_tests_fold_mul", "[static_manipulator_tests]" )
 {
     std::vector<long> v;
     SA::add(v,SF::seqI(2,3));
@@ -411,10 +410,10 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_fold_mul )
     auto r = SM::fold(1,[](long a,long b) { return a * b; },
         v,SF::seqI(4,5));
 
-    BOOST_CHECK( r == 120 );
+    REQUIRE( r == 120 );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_fold_sum )
+TEST_CASE( "static_manipulator_tests_fold_sum", "[static_manipulator_tests]" )
 {
     std::vector<long> v;
     SA::add(v,SF::seqI(2,3));
@@ -422,28 +421,28 @@ BOOST_AUTO_TEST_CASE( static_manipulator_tests_fold_sum )
     auto r = SM::fold(0,[](long a,long b) { return a + b; },
         v,SF::seqI(4,5));
 
-    BOOST_CHECK( r == 2 + 3 + 4 + 5 );
+    REQUIRE( r == 2 + 3 + 4 + 5 );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_basic )
+TEST_CASE( "static_manipulator_collection_equality_basic", "[static_manipulator_tests]" )
 {
     std::vector<long> v;
     auto s = SF::seqL(100);
     SA::add(v,s);
 
-    BOOST_CHECK( SM::areCollectionsEqual(v,s) );
+    REQUIRE( SM::areCollectionsEqual(v,s) );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_multi )
+TEST_CASE( "static_manipulator_collection_equality_multi", "[static_manipulator_tests]" )
 {
     std::vector<long> v;
     auto s = SF::seqL(100);
     SA::add(v,s);
 
-    BOOST_CHECK( SM::areCollectionsEqual(v,s,SF::seqL(100)) );
+    REQUIRE( SM::areCollectionsEqual(v,s,SF::seqL(100)) );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_proxy )
+TEST_CASE( "static_manipulator_collection_equality_proxy", "[static_manipulator_tests]" )
 {
     std::vector<long> v;
     auto s = SF::seqL(100);
@@ -451,10 +450,10 @@ BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_proxy )
 
     auto f = SF::filter(v,[](long i) { return true; });
 
-    BOOST_CHECK( SM::areCollectionsEqual(v,s,f) );
+    REQUIRE( SM::areCollectionsEqual(v,s,f) );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_proxy_unequal )
+TEST_CASE( "static_manipulator_collection_equality_proxy_unequal", "[static_manipulator_tests]" )
 {
     std::vector<long> v;
     auto s = SF::seqL(100);
@@ -462,21 +461,21 @@ BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_proxy_unequal )
 
     auto f = SF::filter(v,[](long i) { return i % 7; });
 
-    BOOST_CHECK( !SM::areCollectionsEqual(v,f) );
+    REQUIRE( !SM::areCollectionsEqual(v,f) );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_custom_const_fctor )
+TEST_CASE( "static_manipulator_collection_equality_custom_const_fctor", "[static_manipulator_tests]" )
 {
     std::vector<long> v;
     auto s = SF::seqL(100);
     SA::add(v,s);
 
-    BOOST_CHECK( SM::areCollectionsEqualS(
+    REQUIRE( SM::areCollectionsEqualS(
         [](long a,long b) { return a == b; },
         v,s,SF::seqL(100)) );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_custom_const_fctor_anything_equal )
+TEST_CASE( "static_manipulator_collection_equality_custom_const_fctor_anything_equal", "[static_manipulator_tests]" )
 {
     std::vector<long> v;
     auto s = SF::seqL(100);
@@ -487,152 +486,151 @@ BOOST_AUTO_TEST_CASE( static_manipulator_collection_equality_custom_const_fctor_
     auto fctor = [](long a,long b) { return true; };
 
     // functor says collections are equal
-    BOOST_CHECK( SM::areCollectionsEqualS(fctor,v,cmp) );
+    REQUIRE( SM::areCollectionsEqualS(fctor,v,cmp) );
 
     // normal check should say they aren't
-    BOOST_CHECK( !SM::areCollectionsEqual(v,cmp) );
+    REQUIRE( !SM::areCollectionsEqual(v,cmp) );
 
     // if size is not same collections aren't equal
     // regardless of functor
-    BOOST_CHECK( !SM::areCollectionsEqualS(fctor,v,SF::seqL(100,201)) );
+    REQUIRE( !SM::areCollectionsEqualS(fctor,v,SF::seqL(100,201)) );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_forall )
+TEST_CASE( "static_manipulator_forall", "[static_manipulator_tests]" )
 {
     auto s = SF::seqL(100);
 
     auto fctor = [](long l) { return l >= 0 && l < 100; };
-    BOOST_CHECK( SM::forAll(fctor,s) );
+    REQUIRE( SM::forAll(fctor,s) );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_forall_var )
+TEST_CASE( "static_manipulator_forall_var", "[static_manipulator_tests]" )
 {
     auto fctor = [](long l) { return l == 7; };
-    BOOST_CHECK( SM::forAll(fctor,
+    REQUIRE( SM::forAll(fctor,
         7,7,7,7,7,7,7,SF::repS(7,7)) );
 
-    BOOST_CHECK( !SM::forAll(fctor,
+    REQUIRE( !SM::forAll(fctor,
         7,7,7,77,7,7,SF::repS(7,7)) );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_forall_pack )
+TEST_CASE( "static_manipulator_forall_pack", "[static_manipulator_tests]" )
 {
     auto p = SF::pack(7,7);
-    BOOST_CHECK( SM::forAllP(
+    REQUIRE( SM::forAllP(
         [](int i) { return i == 7; },
         SF::pack(7,7,7),
         7,7,p
     ) );
 
-    BOOST_CHECK( !SM::forAllP(
+    REQUIRE( !SM::forAllP(
         [](int i) { return i == 7; },
         SF::pack(7,6,7),
         7,7,p
     ) );
 
     auto p2 = SF::pack(7,6);
-    BOOST_CHECK( !SM::forAllP(
+    REQUIRE( !SM::forAllP(
         [](int i) { return i == 7; },
         SF::pack(7,7,7),
         7,7,p2
     ) );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_exists )
+TEST_CASE( "static_manipulator_exists", "[static_manipulator_tests]" )
 {
     auto s = SF::seqL(100);
 
     auto fctorGood = [](long l) { return l == 7; };
     auto fctorBad = [](long l) { return l == 777; };
 
-    BOOST_CHECK( SM::exists(fctorGood,s) );
-    BOOST_CHECK( !SM::exists(fctorBad,s) );
+    REQUIRE( SM::exists(fctorGood,s) );
+    REQUIRE( !SM::exists(fctorBad,s) );
 }
 
 
-BOOST_AUTO_TEST_CASE( static_manipulator_exists_var )
+TEST_CASE( "static_manipulator_exists_var", "[static_manipulator_tests]" )
 {
     auto s = SF::seqL(100);
 
     auto fctor = [](long l) { return l == 777; };
 
-    BOOST_CHECK( SM::exists(fctor,s,-1,777,-2) );
+    REQUIRE( SM::exists(fctor,s,-1,777,-2) );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_exists_pack )
+TEST_CASE( "static_manipulator_exists_pack", "[static_manipulator_tests]" )
 {
     auto fctor = [](long l) { return l == 777; };
 
-    BOOST_CHECK( SM::existsP(fctor,1,2,3,
+    REQUIRE( SM::existsP(fctor,1,2,3,
         SF::pack('7',777,'7'),4,5,6) );
 
-    BOOST_CHECK( !SM::existsP(fctor,1,2,3,
+    REQUIRE( !SM::existsP(fctor,1,2,3,
         SF::pack('7',77,'7'),4,5,6) );
 
     auto p1 = SF::pack(2,3,777);
-    BOOST_CHECK( SM::existsP(fctor,
+    REQUIRE( SM::existsP(fctor,
         'a','b','c',p1,'d','e','f'));
 
     auto p2 = SF::pack(2,3,77);
-    BOOST_CHECK( !SM::existsP(fctor,
+    REQUIRE( !SM::existsP(fctor,
         'a','b','c',p2,'d','e','f'));
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_is_sorted )
+TEST_CASE( "static_manipulator_tests_is_sorted", "[static_manipulator_tests]" )
 {
     auto s = SF::seqL(100);
 
-    BOOST_CHECK( SM::isSorted(s) );
+    REQUIRE( SM::isSorted(s) );
 
     std::vector<int> v;
     SA::add(v,s);
 
-    BOOST_CHECK( SM::isSorted(v) );
+    REQUIRE( SM::isSorted(v) );
 
     auto pr = v[7];
     v[7] = 1;
-    BOOST_CHECK( !SM::isSorted(v) );
+    REQUIRE( !SM::isSorted(v) );
     v[7] = pr;
-    BOOST_CHECK( SM::isSorted(v) );
+    REQUIRE( SM::isSorted(v) );
     ++v[7];
-    BOOST_CHECK( SM::isSorted(v) );
+    REQUIRE( SM::isSorted(v) );
     ++v[7];
-    BOOST_CHECK( !SM::isSorted(v) );
+    REQUIRE( !SM::isSorted(v) );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_is_sorted_special )
+TEST_CASE( "static_manipulator_tests_is_sorted_special", "[static_manipulator_tests]" )
 {
     std::vector<int> v;
     SA::add(v,SF::seqL(100));
 
     auto c = [](int a,int b) { return a > b; };
 
-    BOOST_CHECK( SM::isSorted(v) );
-    BOOST_CHECK( !SM::isSortedS(v,c) );
+    REQUIRE( SM::isSorted(v) );
+    REQUIRE( !SM::isSortedS(v,c) );
 
     std::reverse(SA::begin(v),SA::end(v));
 
-    BOOST_CHECK( !SM::isSorted(v) );
-    BOOST_CHECK( SM::isSortedS(v,c) );
+    REQUIRE( !SM::isSorted(v) );
+    REQUIRE( SM::isSortedS(v,c) );
 
     ++v[7];
-    BOOST_CHECK( SM::isSortedS(v,c) );
+    REQUIRE( SM::isSortedS(v,c) );
     ++v[7];
-    BOOST_CHECK( !SM::isSortedS(v,c) );
+    REQUIRE( !SM::isSortedS(v,c) );
 }
 
-BOOST_AUTO_TEST_CASE( static_manipulator_tests_is_sorted_edge_cases )
+TEST_CASE( "static_manipulator_tests_is_sorted_edge_cases", "[static_manipulator_tests]" )
 {
     std::vector<int> v;
 
     // empty collection is always sorted
-    BOOST_CHECK( SM::isSorted(v) );
+    REQUIRE( SM::isSorted(v) );
 
     // collection with one element is always sorted
     SA::add(v,7);
-    BOOST_CHECK( SM::isSorted(v) );
+    REQUIRE( SM::isSorted(v) );
 }
 
-BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICMANIPULATORTESTS_JT4V7DJV */

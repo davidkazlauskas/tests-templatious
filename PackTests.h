@@ -23,9 +23,8 @@
 
 #include "TestDefs.h"
 
-BOOST_AUTO_TEST_SUITE( pack_tests )
 
-BOOST_AUTO_TEST_CASE( pack_basic_test )
+TEST_CASE( "pack_basic_test", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -44,12 +43,12 @@ BOOST_AUTO_TEST_CASE( pack_basic_test )
     SM::callEach(f,p);
 
     std::string expected = "1 2 3 4\n";
-    BOOST_CHECK( ss.str() == expected );
+    REQUIRE( ss.str() == expected );
 }
 
 TEMPLATIOUS_CALLEACH_FCTOR( Square, i *= i );
 
-BOOST_AUTO_TEST_CASE( pack_mutation )
+TEST_CASE( "pack_mutation", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -60,10 +59,10 @@ BOOST_AUTO_TEST_CASE( pack_mutation )
 
     SM::callEach(Square(),p);
 
-    BOOST_CHECK( a + b == 25 );
+    REQUIRE( a + b == 25 );
 }
 
-BOOST_AUTO_TEST_CASE( pack_match_fctor_diff )
+TEST_CASE( "pack_match_fctor_diff", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -90,10 +89,10 @@ BOOST_AUTO_TEST_CASE( pack_match_fctor_diff )
 
     SM::callEach(func,p);
 
-    BOOST_CHECK( mul == 30030 );
+    REQUIRE( mul == 30030 );
 }
 
-BOOST_AUTO_TEST_CASE( pack_integrity )
+TEST_CASE( "pack_integrity", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -112,10 +111,10 @@ BOOST_AUTO_TEST_CASE( pack_integrity )
 
     SM::callEach(func,p);
 
-    BOOST_CHECK( sum == 923 );
+    REQUIRE( sum == 923 );
 }
 
-BOOST_AUTO_TEST_CASE( pack_integrity_shared_stor )
+TEST_CASE( "pack_integrity_shared_stor", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -143,10 +142,10 @@ BOOST_AUTO_TEST_CASE( pack_integrity_shared_stor )
 
     SM::callEach(func,p);
 
-    BOOST_CHECK( sum == 923 );
+    REQUIRE( sum == 923 );
 }
 
-BOOST_AUTO_TEST_CASE( pack_repeat_test_lval )
+TEST_CASE( "pack_repeat_test_lval", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -159,10 +158,10 @@ BOOST_AUTO_TEST_CASE( pack_repeat_test_lval )
 
     SM::callEach(func,rpt);
 
-    BOOST_CHECK( sum == 25 );
+    REQUIRE( sum == 25 );
 }
 
-BOOST_AUTO_TEST_CASE( pack_repeat_test_lval_mul )
+TEST_CASE( "pack_repeat_test_lval_mul", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -176,10 +175,10 @@ BOOST_AUTO_TEST_CASE( pack_repeat_test_lval_mul )
 
     SM::callEach(func,rpt);
 
-    BOOST_CHECK( sum == 60 );
+    REQUIRE( sum == 60 );
 }
 
-BOOST_AUTO_TEST_CASE( pack_repeat_test_rval_mul )
+TEST_CASE( "pack_repeat_test_rval_mul", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -190,10 +189,10 @@ BOOST_AUTO_TEST_CASE( pack_repeat_test_rval_mul )
 
     SM::callEach(func,rpt);
 
-    BOOST_CHECK( sum == 60 );
+    REQUIRE( sum == 60 );
 }
 
-BOOST_AUTO_TEST_CASE( pack_storage_semantics_move )
+TEST_CASE( "pack_storage_semantics_move", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -205,39 +204,39 @@ BOOST_AUTO_TEST_CASE( pack_storage_semantics_move )
 
     SM::forEach(fs,i);
 
-    BOOST_CHECK( sum == 7 * 7 );
+    REQUIRE( sum == 7 * 7 );
 
     auto p = SF::pack(std::move(i));
 
     sum = 0;
     SM::forEach(fs,i);
 
-    BOOST_CHECK( sum == 0 );
+    REQUIRE( sum == 0 );
 
     sum = 0;
     SM::forEach(fs,p.get<0>());
 
-    BOOST_CHECK( sum == 7 * 7 );
-    BOOST_CHECK( std::addressof(p.get<0>()) != std::addressof(i) );
+    REQUIRE( sum == 7 * 7 );
+    REQUIRE( std::addressof(p.get<0>()) != std::addressof(i) );
 }
 
-BOOST_AUTO_TEST_CASE( pack_storage_semantics_address )
+TEST_CASE( "pack_storage_semantics_address", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
 
-    BOOST_CHECK( std::addressof(p.get<0>()) == &a );
-    BOOST_CHECK( std::addressof(p.get<1>()) == &b );
-    BOOST_CHECK( std::addressof(p.get<2>()) == &c );
-    BOOST_CHECK( std::addressof(p.get<3>()) == &d );
-    BOOST_CHECK( std::addressof(p.get<4>()) == &e );
-    BOOST_CHECK( std::addressof(p.get<5>()) == &f );
-    BOOST_CHECK( std::addressof(p.get<6>()) == &g );
+    REQUIRE( std::addressof(p.get<0>()) == &a );
+    REQUIRE( std::addressof(p.get<1>()) == &b );
+    REQUIRE( std::addressof(p.get<2>()) == &c );
+    REQUIRE( std::addressof(p.get<3>()) == &d );
+    REQUIRE( std::addressof(p.get<4>()) == &e );
+    REQUIRE( std::addressof(p.get<5>()) == &f );
+    REQUIRE( std::addressof(p.get<6>()) == &g );
 }
 
-BOOST_AUTO_TEST_CASE( pack_storage_semantics_const_address )
+TEST_CASE( "pack_storage_semantics_const_address", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -251,16 +250,16 @@ BOOST_AUTO_TEST_CASE( pack_storage_semantics_const_address )
 
     auto p = SF::pack(a,b,c,d,e,f,g);
 
-    BOOST_CHECK( std::addressof(p.get<0>()) == &a );
-    BOOST_CHECK( std::addressof(p.get<1>()) == &b );
-    BOOST_CHECK( std::addressof(p.get<2>()) == &c );
-    BOOST_CHECK( std::addressof(p.get<3>()) == &d );
-    BOOST_CHECK( std::addressof(p.get<4>()) == &e );
-    BOOST_CHECK( std::addressof(p.get<5>()) == &f );
-    BOOST_CHECK( std::addressof(p.get<6>()) == &g );
+    REQUIRE( std::addressof(p.get<0>()) == &a );
+    REQUIRE( std::addressof(p.get<1>()) == &b );
+    REQUIRE( std::addressof(p.get<2>()) == &c );
+    REQUIRE( std::addressof(p.get<3>()) == &d );
+    REQUIRE( std::addressof(p.get<4>()) == &e );
+    REQUIRE( std::addressof(p.get<5>()) == &f );
+    REQUIRE( std::addressof(p.get<6>()) == &g );
 }
 
-BOOST_AUTO_TEST_CASE( pack_function_mutation )
+TEST_CASE( "pack_function_mutation", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -275,24 +274,24 @@ BOOST_AUTO_TEST_CASE( pack_function_mutation )
 
     SM::set(0,a,b,c,d,e,f,g); // set without pack to be sure
 
-    BOOST_CHECK( fnFct() == 0 * 7 );
+    REQUIRE( fnFct() == 0 * 7 );
     a = 7;
-    BOOST_CHECK( fnFct() == 1 * 7 );
+    REQUIRE( fnFct() == 1 * 7 );
     b = 7;
-    BOOST_CHECK( fnFct() == 3 * 7 );
+    REQUIRE( fnFct() == 3 * 7 );
     c = 7;
-    BOOST_CHECK( fnFct() == 6 * 7 );
+    REQUIRE( fnFct() == 6 * 7 );
     d = 7;
-    BOOST_CHECK( fnFct() == 10 * 7 );
+    REQUIRE( fnFct() == 10 * 7 );
     e = 7;
-    BOOST_CHECK( fnFct() == 15 * 7 );
+    REQUIRE( fnFct() == 15 * 7 );
     f = 7;
-    BOOST_CHECK( fnFct() == 21 * 7 );
+    REQUIRE( fnFct() == 21 * 7 );
     g = 7;
-    BOOST_CHECK( fnFct() == 28 * 7 );
+    REQUIRE( fnFct() == 28 * 7 );
 }
 
-BOOST_AUTO_TEST_CASE( pack_transform )
+TEST_CASE( "pack_transform", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -303,11 +302,11 @@ BOOST_AUTO_TEST_CASE( pack_transform )
     auto trFunc = [](int i) { return SF::pack(int(i),int(i)); };
     auto trP = SF::packTransformWithin(trFunc,p);
 
-    BOOST_CHECK( SM::sum(p) == 7 * 7 );
-    BOOST_CHECK( SM::sum(trP) == 7 * 7 * 2 );
+    REQUIRE( SM::sum(p) == 7 * 7 );
+    REQUIRE( SM::sum(trP) == 7 * 7 * 2 );
 }
 
-BOOST_AUTO_TEST_CASE( pack_transform_moar )
+TEST_CASE( "pack_transform_moar", "[pack_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -331,10 +330,9 @@ BOOST_AUTO_TEST_CASE( pack_transform_moar )
     SM::callEach(sf,trP);
 
     auto res = ss.str();
-    BOOST_CHECK( res == ">7<>7<>7<>7<>7<>7<>7<" );
+    REQUIRE( res == ">7<>7<>7<>7<>7<>7<>7<" );
 }
 
-BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: PACKTESTS_1UNIFFZN */
 

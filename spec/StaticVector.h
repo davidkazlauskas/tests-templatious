@@ -21,21 +21,20 @@
 
 #include "../TestAlgs.h"
 
-BOOST_AUTO_TEST_SUITE( static_vector_tests );
 
 static const int SUM_1_TO_256 = 32896;
 
-BOOST_AUTO_TEST_CASE( static_vector_tests_basic )
+TEST_CASE( "static_vector_tests_basic", "[static_vector_tests]" )
 {
 
     const size_t SIZE = 256; 
     tt::t::StaticBuffer<int,SIZE> b;
     auto v = b.getStaticVector();
 
-    BOOST_CHECK(tt::existantCollectionTest(v));
+    REQUIRE(tt::existantCollectionTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( static_vector_tests_raw )
+TEST_CASE( "static_vector_tests_raw", "[static_vector_tests]" )
 {
     const size_t SIZE = 256;
     tt::t::StaticBuffer<int,SIZE> b;
@@ -53,7 +52,7 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_raw )
         ++rb;
     }
 
-    BOOST_CHECK( sum == SUM_1_TO_256 );
+    REQUIRE( sum == SUM_1_TO_256 );
 
     auto rcb = v.rawCBegin();
     auto rce = v.rawCEnd();
@@ -63,40 +62,40 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_raw )
         ++rcb;
     }
 
-    BOOST_CHECK( sum == SUM_1_TO_256 + 256 );
+    REQUIRE( sum == SUM_1_TO_256 + 256 );
 }
 
-BOOST_AUTO_TEST_CASE( static_vector_tests_proxy )
+TEST_CASE( "static_vector_tests_proxy", "[static_vector_tests]" )
 {
 
     const size_t SIZE = 256;
     tt::t::StaticBuffer<int,SIZE> b;
     auto v = b.getStaticVector();
 
-    BOOST_CHECK(tt::proxyTest(v));
+    REQUIRE(tt::proxyTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( static_vector_tests_proxy_const )
+TEST_CASE( "static_vector_tests_proxy_const", "[static_vector_tests]" )
 {
 
     const size_t SIZE = 256;
     tt::t::StaticBuffer<int,SIZE> b;
     auto v = b.getStaticVector();
 
-    BOOST_CHECK(tt::constProxyTest(v));
+    REQUIRE(tt::constProxyTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( static_vector_tests_virtual )
+TEST_CASE( "static_vector_tests_virtual", "[static_vector_tests]" )
 {
 
     const size_t SIZE = 256;
     tt::t::StaticBuffer<int,SIZE> b;
     auto v = b.getStaticVector();
 
-    BOOST_CHECK(tt::virtualTest(v));
+    REQUIRE(tt::virtualTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( static_vector_tests_destruction )
+TEST_CASE( "static_vector_tests_destruction", "[static_vector_tests]" )
 {
     struct UniqueToken {};
     typedef tt::ConstructorCountCollection<UniqueToken> ValType;
@@ -108,47 +107,47 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_destruction )
     {
         auto v = b.getStaticVector();
 
-        BOOST_CHECK(tt::constructionCountCollectionTest<UniqueToken>(v));
-        BOOST_CHECK(ValType::count() == 0);
-        BOOST_CHECK(SA::size(v) == 0);
+        REQUIRE(tt::constructionCountCollectionTest<UniqueToken>(v));
+        REQUIRE(ValType::count() == 0);
+        REQUIRE(SA::size(v) == 0);
 
         // native functionality
         for (int i = 0; i < 100; ++i) {
             v.pushFirst(ValType());
         }
-        BOOST_CHECK(ValType::count() == 100);
+        REQUIRE(ValType::count() == 100);
 
         int cnt = 0;
         while (v.size() > 0) {
             auto p = v.pop();
             ++cnt;
         }
-        BOOST_CHECK(ValType::count() == 0);
-        BOOST_CHECK(cnt == 100);
+        REQUIRE(ValType::count() == 0);
+        REQUIRE(cnt == 100);
 
 
         for (int i = 0; i < 100; ++i) {
             v.push(ValType());
         }
-        BOOST_CHECK(ValType::count() == 100);
-        BOOST_CHECK(cnt == 100);
+        REQUIRE(ValType::count() == 100);
+        REQUIRE(cnt == 100);
 
         cnt = 0;
         while (v.size() > 0) {
             auto p = v.popFirst();
             ++cnt;
         }
-        BOOST_CHECK(ValType::count() == 0);
-        BOOST_CHECK(cnt == 100);
+        REQUIRE(ValType::count() == 0);
+        REQUIRE(cnt == 100);
 
         // should be taken care by destructor
         v.push(ValType());
-        BOOST_CHECK(ValType::count() == 1);
+        REQUIRE(ValType::count() == 1);
     }
-    BOOST_CHECK(ValType::count() == 0);
+    REQUIRE(ValType::count() == 0);
 }
 
-BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer_basic )
+TEST_CASE( "static_vector_tests_static_buffer_basic", "[static_vector_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -161,7 +160,7 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer_basic )
         } catch (templatious::StaticBufferExceedException e) {
             caught = true;
         }
-        BOOST_CHECK( caught );
+        REQUIRE( caught );
     }
 
     {
@@ -174,7 +173,7 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer_basic )
         } catch (templatious::StaticBufferExceedException e) {
             caught = true;
         }
-        BOOST_CHECK( caught );
+        REQUIRE( caught );
     }
 
     {
@@ -187,7 +186,7 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer_basic )
             caught = true;
         }
 
-        BOOST_CHECK( caught );
+        REQUIRE( caught );
     }
 
     {
@@ -200,11 +199,11 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer_basic )
             caught = true;
         }
 
-        BOOST_CHECK( caught );
+        REQUIRE( caught );
     }
 }
 
-BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer_split_integrity )
+TEST_CASE( "static_vector_tests_static_buffer_split_integrity", "[static_vector_tests]" )
 {
     INIT_BALLER;
 
@@ -244,14 +243,14 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_static_buffer_split_integrity )
     canAdd |= SA::canAdd(c);
     canAdd |= SA::canAdd(d);
 
-    BOOST_CHECK( SA::size(filler) == 64 );
-    BOOST_CHECK( setSum == 256 * 7 );
-    BOOST_CHECK( sumNatural == sumSeq );
-    BOOST_CHECK( sumNatural == SUM_1_TO_256 );
-    BOOST_CHECK( canAdd == false );
+    REQUIRE( SA::size(filler) == 64 );
+    REQUIRE( setSum == 256 * 7 );
+    REQUIRE( sumNatural == sumSeq );
+    REQUIRE( sumNatural == SUM_1_TO_256 );
+    REQUIRE( canAdd == false );
 }
 
-BOOST_AUTO_TEST_CASE( static_vector_tests_const_val )
+TEST_CASE( "static_vector_tests_const_val", "[static_vector_tests]" )
 {
     INIT_BALLER;
 
@@ -261,15 +260,15 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_const_val )
     SA::add(v,SF::seqI(1,256));
 
     SM::forEach(sf,v);
-    BOOST_CHECK( sum == SUM_1_TO_256 );
+    REQUIRE( sum == SUM_1_TO_256 );
     auto p = v.pop();
-    BOOST_CHECK( p == 256 );
+    REQUIRE( p == 256 );
     v.push(p);
-    BOOST_CHECK( v.top() == p );
-    BOOST_CHECK( v.isFull() );
+    REQUIRE( v.top() == p );
+    REQUIRE( v.isFull() );
 }
 
-BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
+TEST_CASE( "static_vector_tests_exception_correct", "[static_vector_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -281,7 +280,7 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
 
     v.push(ValType());
     v.top().setState(7);
-    BOOST_CHECK( v.top().getState() == 7 );
+    REQUIRE( v.top().getState() == 7 );
 
     ValType::throwUp();
 
@@ -292,9 +291,9 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
         } catch (const tt::CCountCollectionThrowUp& e) {
             caught = true;
         }
-        BOOST_CHECK( caught );
-        BOOST_CHECK( v.size() == 1 );
-        BOOST_CHECK( v.top().getState() == 7 );
+        REQUIRE( caught );
+        REQUIRE( v.size() == 1 );
+        REQUIRE( v.top().getState() == 7 );
     }
 
     {
@@ -304,12 +303,12 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
         } catch (const tt::CCountCollectionThrowUp& e) {
             caught = true;
         }
-        BOOST_CHECK( caught );
-        BOOST_CHECK( v.size() == 1 );
-        BOOST_CHECK( v.top().getState() == 7 );
+        REQUIRE( caught );
+        REQUIRE( v.size() == 1 );
+        REQUIRE( v.top().getState() == 7 );
     }
 
-    BOOST_CHECK( ValType::count() == 1 );
+    REQUIRE( ValType::count() == 1 );
 
     {
         bool caught = false;
@@ -326,9 +325,9 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
         } catch (const tt::CCountCollectionThrowUp& e) {
             caught = true;
         }
-        BOOST_CHECK( caught );
-        BOOST_CHECK( v.size() == 1 );
-        BOOST_CHECK( v.top().getState() == 7 );
+        REQUIRE( caught );
+        REQUIRE( v.size() == 1 );
+        REQUIRE( v.top().getState() == 7 );
     }
 
     {
@@ -341,15 +340,15 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
         } catch (const tt::CCountCollectionThrowUp& e) {
             caught = true;
         }
-        BOOST_CHECK( caught );
-        BOOST_CHECK( v.size() == 1 );
-        BOOST_CHECK( v.top().getState() == 7 );
+        REQUIRE( caught );
+        REQUIRE( v.size() == 1 );
+        REQUIRE( v.top().getState() == 7 );
     }
 
-    BOOST_CHECK( ValType::count() == 1);
+    REQUIRE( ValType::count() == 1);
     // exception safe pop
     v.popState();
-    BOOST_CHECK( ValType::count() == 0);
+    REQUIRE( ValType::count() == 0);
 
     {
         bool caughtAll = true;
@@ -375,14 +374,14 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_exception_correct )
             caughtAll &= true;
         }
 
-        BOOST_CHECK( caughtAll );
+        REQUIRE( caughtAll );
     }
 
     // And that's the way the cookie crumbles.
-    BOOST_CHECK( ValType::count() == 0);
+    REQUIRE( ValType::count() == 0);
 }
 
-BOOST_AUTO_TEST_CASE( static_vector_tests_move_semantics )
+TEST_CASE( "static_vector_tests_move_semantics", "[static_vector_tests]" )
 {
     INIT_BALLER;
 
@@ -391,21 +390,21 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_move_semantics )
     tt::t::StaticBuffer<int,256> sb;
     auto v = sb.getStaticVector();
     SA::add(v,SF::seqI(1,256));
-    BOOST_CHECK(SA::size(v) == 256);
+    REQUIRE(SA::size(v) == 256);
 
     auto b = std::move(v);
 
-    BOOST_CHECK( SA::size(v) == 0 );
-    BOOST_CHECK( SA::size(b) == 256 );
+    REQUIRE( SA::size(v) == 0 );
+    REQUIRE( SA::size(b) == 256 );
 
     sum = 0;
     SM::forEach(sf,b);
-    BOOST_CHECK( sum == SUM_1_TO_256 );
+    REQUIRE( sum == SUM_1_TO_256 );
 
     sum = 0;
     SM::forEach(sf,v);
-    BOOST_CHECK( sum == 0 );
-    BOOST_CHECK( !SA::canAdd(v) );
+    REQUIRE( sum == 0 );
+    REQUIRE( !SA::canAdd(v) );
 
     bool caught = false;
     try {
@@ -413,10 +412,9 @@ BOOST_AUTO_TEST_CASE( static_vector_tests_move_semantics )
     } catch (const templatious::StaticVectorMovedOperationException& e) {
         caught = true;
     }
-    BOOST_CHECK( caught );
-    BOOST_CHECK( SA::size(v) == 0 );
+    REQUIRE( caught );
+    REQUIRE( SA::size(v) == 0 );
 }
 
-BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICVECTOR_8L32QS9F */

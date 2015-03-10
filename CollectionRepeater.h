@@ -21,9 +21,8 @@
 
 #include "TestDefs.h"
 
-BOOST_AUTO_TEST_SUITE( collection_repeater );
 
-BOOST_AUTO_TEST_CASE( collection_repeater_abs )
+TEST_CASE( "collection_repeater_abs", "[collection_repeater]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -36,10 +35,10 @@ BOOST_AUTO_TEST_CASE( collection_repeater_abs )
 
     SM::forEach(f,r);
 
-    BOOST_CHECK( sum == 62 );
+    REQUIRE( sum == 62 );
 }
 
-BOOST_AUTO_TEST_CASE( collection_repeater_mul )
+TEST_CASE( "collection_repeater_mul", "[collection_repeater]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -52,10 +51,10 @@ BOOST_AUTO_TEST_CASE( collection_repeater_mul )
 
     SM::forEach(f,r);
 
-    BOOST_CHECK( sum == 28 * 7 );
+    REQUIRE( sum == 28 * 7 );
 }
 
-BOOST_AUTO_TEST_CASE( collection_repeater_rval_epic_oneliner )
+TEST_CASE( "collection_repeater_rval_epic_oneliner", "[collection_repeater]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -66,10 +65,10 @@ BOOST_AUTO_TEST_CASE( collection_repeater_rval_epic_oneliner )
         SF::repA(17,SF::seqI(1,7))
     );
 
-    BOOST_CHECK( sum == 62 );
+    REQUIRE( sum == 62 );
 }
 
-BOOST_AUTO_TEST_CASE( collection_repeater_rval_move )
+TEST_CASE( "collection_repeater_rval_move", "[collection_repeater]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -79,19 +78,19 @@ BOOST_AUTO_TEST_CASE( collection_repeater_rval_move )
     int sum = 0;
     auto f = SF::storageFunctor<Sum>(sum);
     SM::forEach(f,v);
-    BOOST_CHECK( sum == 28 );
+    REQUIRE( sum == 28 );
 
     auto r = SF::repA(17,std::move(v));
     sum = 0;
     SM::forEach(f,v);
-    BOOST_CHECK( sum == 0 );
+    REQUIRE( sum == 0 );
 
     sum = 0;
     SM::forEach(f,r);
-    BOOST_CHECK( sum == 62 );
+    REQUIRE( sum == 62 );
 }
 
-BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater )
+TEST_CASE( "collection_repeater_item_repeater", "[collection_repeater]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -100,22 +99,22 @@ BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater )
 
     int sev = 7;
     auto r = SF::repS(7,sev);
-    BOOST_CHECK( SM::sum(v) == 49 );
-    BOOST_CHECK( SM::sum(r) == 49 );
-    BOOST_CHECK( SM::sum(SF::repS(7,7)) == 49 );
-    BOOST_CHECK( SA::size(r) == 7 );
+    REQUIRE( SM::sum(v) == 49 );
+    REQUIRE( SM::sum(r) == 49 );
+    REQUIRE( SM::sum(SF::repS(7,7)) == 49 );
+    REQUIRE( SA::size(r) == 7 );
 }
 
-BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater_empty )
+TEST_CASE( "collection_repeater_item_repeater_empty", "[collection_repeater]" )
 {
     int sev = 7;
     auto r = SF::repS(0,sev);
 
-    BOOST_CHECK( SM::sum(r) == 0 );
-    BOOST_CHECK( SM::sum(SF::repS(0,7)) == 0 );
+    REQUIRE( SM::sum(r) == 0 );
+    REQUIRE( SM::sum(SF::repS(0,7)) == 0 );
 }
 
-BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater_exceptions )
+TEST_CASE( "collection_repeater_item_repeater_exceptions", "[collection_repeater]" )
 {
     auto r = SF::repS(0,7);
 
@@ -127,7 +126,7 @@ BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater_exceptions )
             ItemRepeaterOutOfRangeException& e) {
             caught = true;
         }
-        BOOST_CHECK( caught );
+        REQUIRE( caught );
     }
 
     {
@@ -138,7 +137,7 @@ BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater_exceptions )
             ItemRepeaterOutOfRangeException& e) {
             caught = true;
         }
-        BOOST_CHECK( caught );
+        REQUIRE( caught );
     }
 
     {
@@ -149,7 +148,7 @@ BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater_exceptions )
             ItemRepeaterEmptyException& e) {
             caught = true;
         }
-        BOOST_CHECK( caught );
+        REQUIRE( caught );
     }
 
     {
@@ -160,10 +159,9 @@ BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater_exceptions )
             ItemRepeaterNegativeSizeException& e) {
             caught = true;
         }
-        BOOST_CHECK( caught );
+        REQUIRE( caught );
     }
 }
 
-BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: COLLECTIONREPEATER_7ZC3F3ES */

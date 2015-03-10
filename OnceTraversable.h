@@ -23,9 +23,8 @@
 
 #include "TestDefs.h"
 
-BOOST_AUTO_TEST_SUITE( once_traversable )
 
-BOOST_AUTO_TEST_CASE( once_traversable_basic )
+TEST_CASE( "once_traversable_basic", "[once_traversable]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -43,10 +42,10 @@ BOOST_AUTO_TEST_CASE( once_traversable_basic )
         // 1 + 2 * 7 + 3 * 17 + 4 + 5 * 7 + 6 * 17 + 7 + 5 * 7 + 6 * 17
     } while ( sz == p.size );
 
-    BOOST_CHECK( sum == 351 );
+    REQUIRE( sum == 351 );
 }
 
-BOOST_AUTO_TEST_CASE( once_traversable_move_semantics )
+TEST_CASE( "once_traversable_move_semantics", "[once_traversable]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
     typedef std::vector<int> Vect;
@@ -59,21 +58,20 @@ BOOST_AUTO_TEST_CASE( once_traversable_move_semantics )
 
     SM::forEach(sf,v);
 
-    BOOST_CHECK( sum == 28 );
+    REQUIRE( sum == 28 );
 
     auto ot = SF::onceTraversable(std::move(v));
 
     sum = 0;
     SM::forEach(sf,ot);
 
-    BOOST_CHECK( sum == 28 );
+    REQUIRE( sum == 28 );
 
     sum = 0;
     SM::forEach(sf,v);
 
-    BOOST_CHECK( sum == 0 );
+    REQUIRE( sum == 0 );
 }
 
-BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: ONCETRAVERSABLE_3KYC0B8Q */

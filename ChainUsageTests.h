@@ -22,9 +22,8 @@
 
 #include "TestDefs.h"
 
-BOOST_AUTO_TEST_SUITE( chained_usage_tests );
 
-BOOST_AUTO_TEST_CASE( chained_usage_tests_varying_addition )
+TEST_CASE( "chained_usage_tests_varying_addition", "[chained_usage_tests]" )
 {
     INIT_BALLER;
 
@@ -41,7 +40,7 @@ BOOST_AUTO_TEST_CASE( chained_usage_tests_varying_addition )
         sum = 0;
         SM::forEach(sf,v);
 
-        BOOST_CHECK( sum == 28 + 242 + 28 );
+        REQUIRE( sum == 28 + 242 + 28 );
     }
 
     { // pack, vars, seq
@@ -55,7 +54,7 @@ BOOST_AUTO_TEST_CASE( chained_usage_tests_varying_addition )
         sum = 0;
         SM::forEach(sf,v);
 
-        BOOST_CHECK( sum == 28 + 242 + 28 );
+        REQUIRE( sum == 28 + 242 + 28 );
     }
 
 
@@ -70,7 +69,7 @@ BOOST_AUTO_TEST_CASE( chained_usage_tests_varying_addition )
         sum = 0;
         SM::forEach(sf,v);
 
-        BOOST_CHECK( sum == 28 + 242 + 28 );
+        REQUIRE( sum == 28 + 242 + 28 );
     }
 
     { // vars, seq, pack
@@ -84,7 +83,7 @@ BOOST_AUTO_TEST_CASE( chained_usage_tests_varying_addition )
         sum = 0;
         SM::forEach(sf,v);
 
-        BOOST_CHECK( sum == 28 + 242 + 28 );
+        REQUIRE( sum == 28 + 242 + 28 );
     }
 
 
@@ -99,7 +98,7 @@ BOOST_AUTO_TEST_CASE( chained_usage_tests_varying_addition )
         sum = 0;
         SM::forEach(sf,v);
 
-        BOOST_CHECK( sum == 28 + 242 + 28 );
+        REQUIRE( sum == 28 + 242 + 28 );
     }
 
     { // seq, pack, vars
@@ -113,7 +112,7 @@ BOOST_AUTO_TEST_CASE( chained_usage_tests_varying_addition )
         sum = 0;
         SM::forEach(sf,v);
 
-        BOOST_CHECK( sum == 28 + 242 + 28 );
+        REQUIRE( sum == 28 + 242 + 28 );
     }
 
 
@@ -128,11 +127,10 @@ BOOST_AUTO_TEST_CASE( chained_usage_tests_varying_addition )
         sum = 0;
         SM::forEach(sf,v);
 
-        BOOST_CHECK( sum == 28 + 242 + 28 );
+        REQUIRE( sum == 28 + 242 + 28 );
     }
 
 }
 
-BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: CHAINUSAGETESTS_C94JK7M5 */

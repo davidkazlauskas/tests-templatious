@@ -24,7 +24,6 @@
 
 #include "TestDefs.h"
 
-BOOST_AUTO_TEST_SUITE( chain_functor )
 
 std::string profanityFilter(const std::string& s) {
     std::string mutant = s;
@@ -35,7 +34,7 @@ std::string profanityFilter(const std::string& s) {
     return mutant;
 }
 
-BOOST_AUTO_TEST_CASE( chain_functor_string_filter )
+TEST_CASE( "chain_functor_string_filter", "[chain_functor]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -50,7 +49,7 @@ BOOST_AUTO_TEST_CASE( chain_functor_string_filter )
     // default argument we HAVE to pass it
     // or it won't compile.
     std::string res = func(str,std::locale());
-    BOOST_CHECK( res == "WHAT_I'M_I_DOING?_DON'T_*******_MY_*******_YO." );
+    REQUIRE( res == "WHAT_I'M_I_DOING?_DON'T_*******_MY_*******_YO." );
 }
 
 namespace
@@ -99,44 +98,44 @@ auto fS = SF::chainFunctor<true>(
 
 }
 
-BOOST_AUTO_TEST_CASE( chain_functor_math_reverse_functional )
+TEST_CASE( "chain_functor_math_reverse_functional", "[chain_functor]" )
 {
     int inter = fF(7);
 
-    BOOST_CHECK(inter == 969);
+    REQUIRE(inter == 969);
 
     int back = fF.doBwd(inter);
 
-    BOOST_CHECK(back == 7);
+    REQUIRE(back == 7);
 }
 
-BOOST_AUTO_TEST_CASE( chain_functor_math_reverse_stateful )
+TEST_CASE( "chain_functor_math_reverse_stateful", "[chain_functor]" )
 {
     int curr = 7;
 
     fS(curr);
 
-    BOOST_CHECK(curr == 969);
+    REQUIRE(curr == 969);
 
     fS.doBwd(curr);
 
-    BOOST_CHECK(curr == 7);
+    REQUIRE(curr == 7);
 }
 
-BOOST_AUTO_TEST_CASE( chain_functor_math_invert_functional )
+TEST_CASE( "chain_functor_math_invert_functional", "[chain_functor]" )
 {
     auto rv = fF.reverse();
 
     int curr = rv.doBwd(7);
 
-    BOOST_CHECK(curr == 969);
+    REQUIRE(curr == 969);
 
     int back = rv(curr);
 
-    BOOST_CHECK(back == 7);
+    REQUIRE(back == 7);
 }
 
-BOOST_AUTO_TEST_CASE( chain_functor_math_invert_stateful )
+TEST_CASE( "chain_functor_math_invert_stateful", "[chain_functor]" )
 {
     auto rv = fS.reverse();
 
@@ -144,28 +143,28 @@ BOOST_AUTO_TEST_CASE( chain_functor_math_invert_stateful )
 
     rv.doBwd(curr);
 
-    BOOST_CHECK(curr == 969);
+    REQUIRE(curr == 969);
 
     rv(curr);
 
-    BOOST_CHECK(curr == 7);
+    REQUIRE(curr == 7);
 }
 
-BOOST_AUTO_TEST_CASE( chain_functor_math_get_do_undo_functional )
+TEST_CASE( "chain_functor_math_get_do_undo_functional", "[chain_functor]" )
 {
     auto d = fF.getDo();
     auto u = fF.getUndo();
 
     int curr = d(7);
 
-    BOOST_CHECK(curr == 969);
+    REQUIRE(curr == 969);
 
     int back = u(curr);
 
-    BOOST_CHECK(back == 7);
+    REQUIRE(back == 7);
 }
 
-BOOST_AUTO_TEST_CASE( chain_functor_math_get_do_undo_stateful )
+TEST_CASE( "chain_functor_math_get_do_undo_stateful", "[chain_functor]" )
 {
     auto d = fS.getDo();
     auto u = fS.getUndo();
@@ -174,11 +173,11 @@ BOOST_AUTO_TEST_CASE( chain_functor_math_get_do_undo_stateful )
 
     d(curr);
 
-    BOOST_CHECK(curr == 969);
+    REQUIRE(curr == 969);
 
     u(curr);
 
-    BOOST_CHECK(curr == 7);
+    REQUIRE(curr == 7);
 }
 
 namespace
@@ -247,15 +246,14 @@ namespace
     );
 }
 
-BOOST_AUTO_TEST_CASE( chain_functor_serialize_and_deserialize )
+TEST_CASE( "chain_functor_serialize_and_deserialize", "[chain_functor]" )
 {
     SomeData d(7,7.777,'7');
     auto gargle = sdFctor(d);
     auto back = sdFctor.doBwd(gargle);
-    BOOST_CHECK( back == d );
+    REQUIRE( back == d );
 }
 
-BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: CHAINFUNCTOR_QZZUXKYU */
 

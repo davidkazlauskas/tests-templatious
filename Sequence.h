@@ -18,9 +18,8 @@
 
 #include "TestDefs.h"
 
-BOOST_AUTO_TEST_SUITE( sequence_tests )
 
-BOOST_AUTO_TEST_CASE( sequence_simple )
+TEST_CASE( "sequence_simple", "[sequence_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -29,30 +28,30 @@ BOOST_AUTO_TEST_CASE( sequence_simple )
     auto s = SF::seqI(10);
     SM::forEach(sf,s);
 
-    BOOST_CHECK( sum == 55 );
+    REQUIRE( sum == 55 );
 }
 
-BOOST_AUTO_TEST_CASE( sequence_beg_end )
+TEST_CASE( "sequence_beg_end", "[sequence_tests]" )
 {
     INIT_BALLER;
 
     auto s = SF::seqI(7,77);
     SM::forEach(sf,s);
 
-    BOOST_CHECK( 2982 == sum );
+    REQUIRE( 2982 == sum );
 }
 
-BOOST_AUTO_TEST_CASE( sequence_beg_end_step )
+TEST_CASE( "sequence_beg_end_step", "[sequence_tests]" )
 {
     INIT_BALLER;
 
     auto s = SF::seqL(7,77,3);
     SM::forEach(sf,s);
 
-    BOOST_CHECK( 996 == sum );
+    REQUIRE( 996 == sum );
 }
 
-BOOST_AUTO_TEST_CASE( sequence_beg_end_char )
+TEST_CASE( "sequence_beg_end_char", "[sequence_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
     std::string s = "";
@@ -61,10 +60,10 @@ BOOST_AUTO_TEST_CASE( sequence_beg_end_char )
     auto sq = SF::seqI('a','z');
     SM::forEach(append,sq);
 
-    BOOST_CHECK( "abcdefghijklmnopqrstuvwxyz" == s );
+    REQUIRE( "abcdefghijklmnopqrstuvwxyz" == s );
 }
 
-BOOST_AUTO_TEST_CASE( sequence_throw_include )
+TEST_CASE( "sequence_throw_include", "[sequence_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -76,58 +75,58 @@ BOOST_AUTO_TEST_CASE( sequence_throw_include )
         caught = true;
     }
 
-    BOOST_CHECK( caught );
+    REQUIRE( caught );
 }
 
-BOOST_AUTO_TEST_CASE( sequence_invert_manual )
+TEST_CASE( "sequence_invert_manual", "[sequence_tests]" )
 {
     INIT_BALLER;
 
     auto s = SF::seqI(77,7);
     int prev = 78;
     TEMPLATIOUS_FOREACH(auto i,s) {
-        BOOST_CHECK( prev - 1 == i );
+        REQUIRE( prev - 1 == i );
         prev = i;
     }
 
     SM::forEach(sf,s);
 
-    BOOST_CHECK( 2982 == sum );
+    REQUIRE( 2982 == sum );
 }
 
-BOOST_AUTO_TEST_CASE( sequence_invert_auto )
+TEST_CASE( "sequence_invert_auto", "[sequence_tests]" )
 {
     INIT_BALLER;
 
     auto s = SF::seqI(7,77).rev();
     int prev = 78;
     TEMPLATIOUS_FOREACH(auto i,s) {
-        BOOST_CHECK( prev - 1 == i );
+        REQUIRE( prev - 1 == i );
         prev = i;
     }
 
     SM::forEach(sf,s);
 
-    BOOST_CHECK( 2982 == sum );
+    REQUIRE( 2982 == sum );
 }
 
-BOOST_AUTO_TEST_CASE( sequence_invert_double )
+TEST_CASE( "sequence_invert_double", "[sequence_tests]" )
 {
     INIT_BALLER;
     auto s = SF::seqI(7,77).rev().rev();
     int prev = 6;
 
     TEMPLATIOUS_FOREACH(auto i,s) {
-        BOOST_CHECK( prev == i - 1 );
+        REQUIRE( prev == i - 1 );
         prev = i;
     }
 
     SM::forEach(sf,s);
 
-    BOOST_CHECK( 2982 == sum );
+    REQUIRE( 2982 == sum );
 }
 
-BOOST_AUTO_TEST_CASE( sequence_unsigned_backwards )
+TEST_CASE( "sequence_unsigned_backwards", "[sequence_tests]" )
 {
     bool caught = false;
     try {
@@ -136,7 +135,6 @@ BOOST_AUTO_TEST_CASE( sequence_unsigned_backwards )
         caught = true;
     }
 
-    BOOST_CHECK( caught );
+    REQUIRE( caught );
 }
 
-BOOST_AUTO_TEST_SUITE_END()

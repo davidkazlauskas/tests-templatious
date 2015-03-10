@@ -21,9 +21,8 @@
 
 #include "TestDefs.h"
 
-BOOST_AUTO_TEST_SUITE( distributor_tests )
 
-BOOST_AUTO_TEST_CASE( distributor_tests_basic )
+TEST_CASE( "distributor_tests_basic", "[distributor_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -33,10 +32,10 @@ BOOST_AUTO_TEST_CASE( distributor_tests_basic )
 
     int sum = 0;
     SM::callEach([&](int i) { sum += i; },p);
-    BOOST_CHECK( sum == 28 );
+    REQUIRE( sum == 28 );
 }
 
-BOOST_AUTO_TEST_CASE( distributor_tests_basic_mixed )
+TEST_CASE( "distributor_tests_basic_mixed", "[distributor_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -51,7 +50,7 @@ BOOST_AUTO_TEST_CASE( distributor_tests_basic_mixed )
     auto p = SF::pack(a,b,c,d,e,f,g);
     int res = SM::distribute(SF::seqI('1','7'),p);
 
-    BOOST_CHECK( res == 7 );
+    REQUIRE( res == 7 );
 
     std::stringstream ss;
     auto func = SF::streamFunctor(ss);
@@ -59,12 +58,12 @@ BOOST_AUTO_TEST_CASE( distributor_tests_basic_mixed )
     auto prnt = SF::packInsert(p,' ');
     int res2 = SM::callEach(func,prnt);
 
-    BOOST_CHECK( res2 == 7 + 6 );
+    REQUIRE( res2 == 7 + 6 );
 
-    BOOST_CHECK( ss.str() == "49 50 51 52 5 54 55" );
+    REQUIRE( ss.str() == "49 50 51 52 5 54 55" );
 }
 
-BOOST_AUTO_TEST_CASE( distributor_tests_special )
+TEST_CASE( "distributor_tests_special", "[distributor_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
     int a,b,c,d,e,f,g;
@@ -77,16 +76,16 @@ BOOST_AUTO_TEST_CASE( distributor_tests_special )
         p
     );
 
-    BOOST_CHECK( res0 == 7 );
+    REQUIRE( res0 == 7 );
 
     int sum = 0;
     int res1 = SM::callEach([&](int x) { sum += x; },p);
 
-    BOOST_CHECK( res1 == 7 );
-    BOOST_CHECK( sum == 196 );
+    REQUIRE( res1 == 7 );
+    REQUIRE( sum == 196 );
 }
 
-BOOST_AUTO_TEST_CASE( distributor_tests_midbreak )
+TEST_CASE( "distributor_tests_midbreak", "[distributor_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
     int a,b,c,d,e,f,g;
@@ -96,7 +95,7 @@ BOOST_AUTO_TEST_CASE( distributor_tests_midbreak )
     int sum = 0;
     SM::callEach([&](int i) { sum += i; },p);
 
-    BOOST_CHECK( sum == -7 );
+    REQUIRE( sum == -7 );
 
     int count = 4;
     int res0 = SM::distributeSpecial(
@@ -108,16 +107,16 @@ BOOST_AUTO_TEST_CASE( distributor_tests_midbreak )
         p
     );
 
-    BOOST_CHECK( res0 == 4 );
+    REQUIRE( res0 == 4 );
 
     sum = 0;
     int res1 = SM::callEach([&](int i) { sum += i; },p);
 
-    BOOST_CHECK( res1 == 7 );
-    BOOST_CHECK( sum == 1 + 2 + 3 + 4 - 1 - 1 - 1 );
+    REQUIRE( res1 == 7 );
+    REQUIRE( sum == 1 + 2 + 3 + 4 - 1 - 1 - 1 );
 }
 
-BOOST_AUTO_TEST_CASE( distributor_tests_ignorestop )
+TEST_CASE( "distributor_tests_ignorestop", "[distributor_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
     int a,b,c,d,e,f,g;
@@ -127,7 +126,7 @@ BOOST_AUTO_TEST_CASE( distributor_tests_ignorestop )
     int sum = 0;
     SM::callEach([&](int i) { sum += i; },p);
 
-    BOOST_CHECK( sum == -7 );
+    REQUIRE( sum == -7 );
 
     int count = 4;
     int res0 = SM::distributeSpecial<true>(
@@ -139,36 +138,36 @@ BOOST_AUTO_TEST_CASE( distributor_tests_ignorestop )
         p
     );
 
-    BOOST_CHECK( res0 == 7 );
+    REQUIRE( res0 == 7 );
 
     sum = 0;
     int res1 = SM::callEach([&](int i) { sum += i; },p);
 
-    BOOST_CHECK( res1 == 7 );
-    BOOST_CHECK( sum == 1 + 2 + 3 + 4 + 5 + 6 + 7 );
+    REQUIRE( res1 == 7 );
+    REQUIRE( sum == 1 + 2 + 3 + 4 + 5 + 6 + 7 );
 }
 
-BOOST_AUTO_TEST_CASE( distributor_tests_ignorestop_reverse )
+TEST_CASE( "distributor_tests_ignorestop_reverse", "[distributor_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
     int res0 = SM::distribute(SF::seqI(1,7),p);
 
-    BOOST_CHECK( res0 == 7 );
+    REQUIRE( res0 == 7 );
 
     int sum = 0;
     SM::callEach([&](int i) { sum += i; },p);
 
-    BOOST_CHECK( sum == 1 + 2 + 3 + 4 + 5 + 6 + 7 );
+    REQUIRE( sum == 1 + 2 + 3 + 4 + 5 + 6 + 7 );
 
     int arr[7];
     SM::set(-1,arr);
 
     sum = 0;
     int res1 = SM::forEach([&](int i) { sum += i; },arr);
-    BOOST_CHECK( res1 == 7 );
-    BOOST_CHECK( sum == -7 );
+    REQUIRE( res1 == 7 );
+    REQUIRE( sum == -7 );
 
     int count = 4;
     int res2 = SM::distributeSpecial<true>(
@@ -177,23 +176,23 @@ BOOST_AUTO_TEST_CASE( distributor_tests_ignorestop_reverse )
                 return --count > 0;
             },
             p,arr);
-    BOOST_CHECK( res2 == 7 );
+    REQUIRE( res2 == 7 );
 
     sum = 0;
     int res3 = SM::forEach([&](int i) { sum += i; },arr);
 
-    BOOST_CHECK( res3 == 7 );
-    BOOST_CHECK( sum == 1 + 2 + 3 + 4 + 5 + 6 + 7 );
+    REQUIRE( res3 == 7 );
+    REQUIRE( sum == 1 + 2 + 3 + 4 + 5 + 6 + 7 );
 }
 
-BOOST_AUTO_TEST_CASE( distributor_tests_calleach_midbreak )
+TEST_CASE( "distributor_tests_calleach_midbreak", "[distributor_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
     int res0 = SM::distribute(SF::seqI(1,7),p);
 
-    BOOST_CHECK( res0 == 7 );
+    REQUIRE( res0 == 7 );
 
     int count = 10;
     int res1 = SM::callEach([&](int& i) {
@@ -201,7 +200,7 @@ BOOST_AUTO_TEST_CASE( distributor_tests_calleach_midbreak )
             return --count > 0;
         },p,p,p);
 
-    BOOST_CHECK( res1 == 10 );
+    REQUIRE( res1 == 10 );
 
     int sum = 0;
     SM::callEach([&](int i) { sum += i; },p);
@@ -209,17 +208,17 @@ BOOST_AUTO_TEST_CASE( distributor_tests_calleach_midbreak )
     int expectedSum = 49 + 98 + 147 +
         28 + 35 + 42 + 49;
 
-    BOOST_CHECK( sum == expectedSum );
+    REQUIRE( sum == expectedSum );
 }
 
-BOOST_AUTO_TEST_CASE( distributor_tests_calleach_midbreak_ignore )
+TEST_CASE( "distributor_tests_calleach_midbreak_ignore", "[distributor_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
     int res0 = SM::distribute(SF::seqI(1,7),p);
 
-    BOOST_CHECK( res0 == 7 );
+    REQUIRE( res0 == 7 );
 
     int count = 10;
     int res1 = SM::callEach<true>([&](int& i) {
@@ -227,23 +226,23 @@ BOOST_AUTO_TEST_CASE( distributor_tests_calleach_midbreak_ignore )
             return --count > 0;
         },p,p,p);
 
-    BOOST_CHECK( res1 == 7 * 3 );
+    REQUIRE( res1 == 7 * 3 );
 
     int sum = 0;
     SM::callEach([&](int i) { sum += i; },p);
 
     int expectedSum = 343 + 686 + 1029 + 1372 + 1715 + 2058 + 2401;
 
-    BOOST_CHECK( sum == expectedSum );
+    REQUIRE( sum == expectedSum );
 }
 
-BOOST_AUTO_TEST_CASE( distributor_tests_foreach_midbreak )
+TEST_CASE( "distributor_tests_foreach_midbreak", "[distributor_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
     int arr[7];
     int res0 = SM::distribute(SF::seqI(1,7),arr);
 
-    BOOST_CHECK( res0 == 7 );
+    REQUIRE( res0 == 7 );
 
     int count = 10;
     int res1 = SM::forEach([&](int& i) {
@@ -251,7 +250,7 @@ BOOST_AUTO_TEST_CASE( distributor_tests_foreach_midbreak )
             return --count > 0;
         },arr,arr,arr);
 
-    BOOST_CHECK( res1 == 10 );
+    REQUIRE( res1 == 10 );
 
     int sum = 0;
     SM::forEach([&](int i) { sum += i; },arr);
@@ -259,16 +258,16 @@ BOOST_AUTO_TEST_CASE( distributor_tests_foreach_midbreak )
     int expectedSum = 49 + 98 + 147 +
         28 + 35 + 42 + 49;
 
-    BOOST_CHECK( sum == expectedSum );
+    REQUIRE( sum == expectedSum );
 }
 
-BOOST_AUTO_TEST_CASE( distributor_tests_foreach_midbreak_ignore )
+TEST_CASE( "distributor_tests_foreach_midbreak_ignore", "[distributor_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
     int arr[7];
     int res0 = SM::distribute(SF::seqI(1,7),arr);
 
-    BOOST_CHECK( res0 == 7 );
+    REQUIRE( res0 == 7 );
 
     int count = 10;
     int res1 = SM::forEach<true>([&](int& i) {
@@ -276,17 +275,17 @@ BOOST_AUTO_TEST_CASE( distributor_tests_foreach_midbreak_ignore )
             return --count > 0;
         },arr,arr,arr);
 
-    BOOST_CHECK( res1 == 7 * 3 );
+    REQUIRE( res1 == 7 * 3 );
 
     int sum = 0;
     SM::forEach([&](int i) { sum += i; },arr);
 
     int expectedSum = 343 + 686 + 1029 + 1372 + 1715 + 2058 + 2401;
 
-    BOOST_CHECK( sum == expectedSum );
+    REQUIRE( sum == expectedSum );
 }
 
-BOOST_AUTO_TEST_CASE( distributor_tests_dummy_var_very_functional )
+TEST_CASE( "distributor_tests_dummy_var_very_functional", "[distributor_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;
 
@@ -311,16 +310,15 @@ BOOST_AUTO_TEST_CASE( distributor_tests_dummy_var_very_functional )
         )
     );
 
-    BOOST_CHECK( r == 7 + 1 + 2 + 3 + 4 + 5 + 6 );
+    REQUIRE( r == 7 + 1 + 2 + 3 + 4 + 5 + 6 );
 
     int sum = 0;
     auto fs = SF::storageFunctor<Sum>(sum);
 
     SM::callEach(fs,a,b,c,d,e,f,g);
 
-    BOOST_CHECK( sum == 84 );
+    REQUIRE( sum == 84 );
 }
 
-BOOST_AUTO_TEST_SUITE_END()
 
 #endif /* end of include guard: DISTRIBUTORTESTS_JA9IEGAL */

@@ -21,9 +21,8 @@
 
 #include "TestDefs.h"
 
-BOOST_AUTO_TEST_SUITE( static_factory_tests );
 
-BOOST_AUTO_TEST_CASE( static_factory_match_functor_basic )
+TEST_CASE( "static_factory_match_functor_basic", "[static_factory_tests]" )
 {
     int a;
     char b;
@@ -33,11 +32,11 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_basic )
         SF::matchLoose<char>([](char i) { return 77;})
     );
 
-    BOOST_CHECK( f(a) == 7 );
-    BOOST_CHECK( f(b) == 77 );
+    REQUIRE( f(a) == 7 );
+    REQUIRE( f(b) == 77 );
 }
 
-BOOST_AUTO_TEST_CASE( static_factory_match_functor_string_to_double )
+TEST_CASE( "static_factory_match_functor_string_to_double", "[static_factory_tests]" )
 {
     auto f = SF::matchFunctor(
         SF::matchLoose<const char*>(
@@ -56,12 +55,12 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_string_to_double )
     const char* str = "7.77";
     std::string stStr = str;
 
-    BOOST_CHECK( f(str) == 7.77 );
-    BOOST_CHECK( f(stStr) == 7.77 );
-    BOOST_CHECK( f('7') == 55 );
+    REQUIRE( f(str) == 7.77 );
+    REQUIRE( f(stStr) == 7.77 );
+    REQUIRE( f('7') == 55 );
 }
 
-BOOST_AUTO_TEST_CASE( static_factory_match_functor_mutate )
+TEST_CASE( "static_factory_match_functor_mutate", "[static_factory_tests]" )
 {
     struct Fctor {
         Fctor() : _cnt(0) {}
@@ -78,16 +77,16 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_mutate )
 
     short s = 7;
     int i = 77;
-    BOOST_CHECK( f(s) == 14 );
-    BOOST_CHECK( f(i) == 77 );
-    BOOST_CHECK( f(s) == 14 );
-    BOOST_CHECK( f(i) == 77 );
-    BOOST_CHECK( f(s) == 14 );
+    REQUIRE( f(s) == 14 );
+    REQUIRE( f(i) == 77 );
+    REQUIRE( f(s) == 14 );
+    REQUIRE( f(i) == 77 );
+    REQUIRE( f(s) == 14 );
 
-    BOOST_CHECK( statFctor._cnt == 2 );
+    REQUIRE( statFctor._cnt == 2 );
 }
 
-BOOST_AUTO_TEST_CASE( static_factory_match_functor_tight_n_loose )
+TEST_CASE( "static_factory_match_functor_tight_n_loose", "[static_factory_tests]" )
 {
     auto f = SF::matchFunctor(
         SF::matchTight<int&>([](int& i) { ++i; return i; }),
@@ -97,19 +96,19 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_tight_n_loose )
     int i = 0;
     const int& cref = i;
 
-    BOOST_CHECK( f(i) == 1 );
-    BOOST_CHECK( f(i) == 2 );
-    BOOST_CHECK( f(i) == 3 );
-    BOOST_CHECK( f(7) == 14 );
-    BOOST_CHECK( f(8) == 16 );
-    BOOST_CHECK( f(i) == 4 );
-    BOOST_CHECK( f(i) == 5 );
-    BOOST_CHECK( f(cref) == 10 );
-    BOOST_CHECK( f(i) == 6 );
-    BOOST_CHECK( f(cref) == 12 );
-    BOOST_CHECK( f(i) == 7 );
+    REQUIRE( f(i) == 1 );
+    REQUIRE( f(i) == 2 );
+    REQUIRE( f(i) == 3 );
+    REQUIRE( f(7) == 14 );
+    REQUIRE( f(8) == 16 );
+    REQUIRE( f(i) == 4 );
+    REQUIRE( f(i) == 5 );
+    REQUIRE( f(cref) == 10 );
+    REQUIRE( f(i) == 6 );
+    REQUIRE( f(cref) == 12 );
+    REQUIRE( f(i) == 7 );
 
-    BOOST_CHECK( std::addressof(i) == std::addressof(cref) );
+    REQUIRE( std::addressof(i) == std::addressof(cref) );
 }
 
 struct AnyFctor {
@@ -117,7 +116,7 @@ struct AnyFctor {
     int operator()(T&&... t) { return 77; }
 };
 
-BOOST_AUTO_TEST_CASE( static_factory_match_functor_composition )
+TEST_CASE( "static_factory_match_functor_composition", "[static_factory_tests]" )
 {
     auto f1 = SF::matchFunctor(
         SF::matchLoose<int>([](int i) { return 1; }),
@@ -140,34 +139,34 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_composition )
     short s;
     long l;
 
-    BOOST_CHECK( f12(i) == 1 );
-    BOOST_CHECK( f12(c) == 2 );
-    BOOST_CHECK( f12(f) == 3 );
-    BOOST_CHECK( f12(s) == 5 );
-    BOOST_CHECK( f12(l) == 6 );
+    REQUIRE( f12(i) == 1 );
+    REQUIRE( f12(c) == 2 );
+    REQUIRE( f12(f) == 3 );
+    REQUIRE( f12(s) == 5 );
+    REQUIRE( f12(l) == 6 );
 
-    BOOST_CHECK( f21(i) == 4 );
-    BOOST_CHECK( f21(c) == 2 );
-    BOOST_CHECK( f21(f) == 3 );
-    BOOST_CHECK( f21(s) == 5 );
-    BOOST_CHECK( f21(l) == 6 );
+    REQUIRE( f21(i) == 4 );
+    REQUIRE( f21(c) == 2 );
+    REQUIRE( f21(f) == 3 );
+    REQUIRE( f21(s) == 5 );
+    REQUIRE( f21(l) == 6 );
 
     auto fAny = SF::matchFunctor(
         f12,
         SF::matchAny(AnyFctor())
     );
 
-    BOOST_CHECK( fAny(i) == 1 );
-    BOOST_CHECK( fAny(c) == 2 );
-    BOOST_CHECK( fAny(f) == 3 );
-    BOOST_CHECK( fAny(s) == 5 );
-    BOOST_CHECK( fAny(l) == 6 );
+    REQUIRE( fAny(i) == 1 );
+    REQUIRE( fAny(c) == 2 );
+    REQUIRE( fAny(f) == 3 );
+    REQUIRE( fAny(s) == 5 );
+    REQUIRE( fAny(l) == 6 );
 
     struct Banana {};
 
-    BOOST_CHECK( fAny("string") == 77 );
-    BOOST_CHECK( fAny(std::string("string")) == 77 );
-    BOOST_CHECK( fAny(Banana()) == 77 );
+    REQUIRE( fAny("string") == 77 );
+    REQUIRE( fAny(std::string("string")) == 77 );
+    REQUIRE( fAny(Banana()) == 77 );
 }
 
 template <class A,int pos>
@@ -211,7 +210,7 @@ struct DummyB {
     }
 };
 
-BOOST_AUTO_TEST_CASE( static_factory_match_functor_custom_function )
+TEST_CASE( "static_factory_match_functor_custom_function", "[static_factory_tests]" )
 {
     auto mf = SF::matchFunctor(
         SF::matchSpecial<DeciderA>([](int i,double d) { return 1; }),
@@ -219,15 +218,15 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_custom_function )
         SF::matchAny(AnyFctor())
     );
 
-    BOOST_CHECK( mf(1,7.7) == 1 );
-    BOOST_CHECK( mf(1,7) == 77 );
-    BOOST_CHECK( mf(1,'7') == 1 );
-    BOOST_CHECK( mf(1,"7") == 2 );
-    BOOST_CHECK( mf(1,"7",7) == 2 );
-    BOOST_CHECK( mf(1,"7",7,7) == 2 );
+    REQUIRE( mf(1,7.7) == 1 );
+    REQUIRE( mf(1,7) == 77 );
+    REQUIRE( mf(1,'7') == 1 );
+    REQUIRE( mf(1,"7") == 2 );
+    REQUIRE( mf(1,"7",7) == 2 );
+    REQUIRE( mf(1,"7",7,7) == 2 );
 }
 
-BOOST_AUTO_TEST_CASE( static_factory_match_functor_loose_first )
+TEST_CASE( "static_factory_match_functor_loose_first", "[static_factory_tests]" )
 {
     // for loose comparison first matches should be enough
     auto mf = SF::matchFunctor(
@@ -236,11 +235,10 @@ BOOST_AUTO_TEST_CASE( static_factory_match_functor_loose_first )
         SF::matchAny(AnyFctor())
     );
 
-    BOOST_CHECK( mf(1,7.7) == 1 );
-    BOOST_CHECK( mf('1',7.7) == 2 );
-    BOOST_CHECK( mf("moo",7.7) == 77 );
+    REQUIRE( mf(1,7.7) == 1 );
+    REQUIRE( mf('1',7.7) == 2 );
+    REQUIRE( mf("moo",7.7) == 77 );
 }
 
-BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STATICFACTORYTESTS_ZJBL62XK */

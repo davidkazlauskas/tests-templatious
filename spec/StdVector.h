@@ -21,61 +21,59 @@
 
 #include "../TestAlgs.h"
 
-BOOST_AUTO_TEST_SUITE( std_vector_tests );
 
-BOOST_AUTO_TEST_CASE( std_vector_tests_basic )
+TEST_CASE( "std_vector_tests_basic", "[std_vector_tests]" )
 {
 
     typedef std::vector<int> V;
     V v;
 
-    BOOST_CHECK(tt::existantCollectionTest(v));
+    REQUIRE(tt::existantCollectionTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( std_vector_tests_proxy )
+TEST_CASE( "std_vector_tests_proxy", "[std_vector_tests]" )
 {
     typedef std::vector<int> V;
     V v;
 
-    BOOST_CHECK(tt::proxyTest(v));
+    REQUIRE(tt::proxyTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( std_vector_tests_proxy_const )
+TEST_CASE( "std_vector_tests_proxy_const", "[std_vector_tests]" )
 {
     typedef std::vector<int> V;
     V v;
 
-    BOOST_CHECK(tt::constProxyTest(v));
+    REQUIRE(tt::constProxyTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( std_vector_tests_proxy_clearance )
+TEST_CASE( "std_vector_tests_proxy_clearance", "[std_vector_tests]" )
 {
     typedef std::vector<int> V;
     V v;
 
-    BOOST_CHECK(tt::proxyDeletionTest(v));
+    REQUIRE(tt::proxyDeletionTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( std_vector_tests_virtual )
+TEST_CASE( "std_vector_tests_virtual", "[std_vector_tests]" )
 {
     typedef std::vector<int> V;
     V v;
 
-    BOOST_CHECK(tt::virtualTest(v));
+    REQUIRE(tt::virtualTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( std_vector_tests_destruction )
+TEST_CASE( "std_vector_tests_destruction", "[std_vector_tests]" )
 {
     struct UniqueToken {};
     typedef tt::ConstructorCountCollection<UniqueToken> ValType;
     typedef std::vector<ValType> V;
     V v;
 
-    BOOST_CHECK(tt::constructionCountCollectionTest<UniqueToken>(v));
-    BOOST_CHECK(ValType::count() == 0);
+    REQUIRE(tt::constructionCountCollectionTest<UniqueToken>(v));
+    REQUIRE(ValType::count() == 0);
 }
 
-BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STDVECTOR_97AM89C */
 

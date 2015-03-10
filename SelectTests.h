@@ -47,9 +47,8 @@ namespace test_templatious {
     }
 }
 
-BOOST_AUTO_TEST_SUITE( select_tests );
 
-BOOST_AUTO_TEST_CASE( select_tests_simple )
+TEST_CASE( "select_tests_simple", "[select_tests]" )
 {
     INIT_BALLER;
 
@@ -61,11 +60,11 @@ BOOST_AUTO_TEST_CASE( select_tests_simple )
 
     SM::forEach(sf,s);
 
-    BOOST_CHECK( sum == tt::CVEC_SIZE * 7 );
-    BOOST_CHECK( SM::areCollectionsEqual(s,sc) );
+    REQUIRE( sum == tt::CVEC_SIZE * 7 );
+    REQUIRE( SM::areCollectionsEqual(s,sc) );
 }
 
-BOOST_AUTO_TEST_CASE( select_tests_mutate )
+TEST_CASE( "select_tests_mutate", "[select_tests]" )
 {
     auto v = tt::compTypeVect();
 
@@ -81,10 +80,10 @@ BOOST_AUTO_TEST_CASE( select_tests_mutate )
         sum += i._a;
     }
 
-    BOOST_CHECK( sum == tt::CVEC_SIZE * 7 * 2 );
+    REQUIRE( sum == tt::CVEC_SIZE * 7 * 2 );
 }
 
-BOOST_AUTO_TEST_CASE( select_tests_const )
+TEST_CASE( "select_tests_const", "[select_tests]" )
 {
     auto v = tt::compTypeVect();
 
@@ -97,10 +96,10 @@ BOOST_AUTO_TEST_CASE( select_tests_const )
     auto sf = templatious::StaticFactory::storageFunctor<Sum>(sum);
     SM::forEach(sf,s);
 
-    BOOST_CHECK( fabs(sum - tt::CVEC_SIZE * 7.77) < 0.00000001 );
+    REQUIRE( fabs(sum - tt::CVEC_SIZE * 7.77) < 0.00000001 );
 }
 
-BOOST_AUTO_TEST_CASE( select_tests_explicit )
+TEST_CASE( "select_tests_explicit", "[select_tests]" )
 {
     auto v = tt::compTypeVect();
 
@@ -117,22 +116,21 @@ BOOST_AUTO_TEST_CASE( select_tests_explicit )
         sizeGood &= sizeof(i) == sizeof(short);
     }
 
-    BOOST_CHECK( sizeGood );
-    BOOST_CHECK( sum == tt::CVEC_SIZE * '7' * '7' );
-    BOOST_CHECK( SM::areCollectionsEqual(s,sc) );
+    REQUIRE( sizeGood );
+    REQUIRE( sum == tt::CVEC_SIZE * '7' * '7' );
+    REQUIRE( SM::areCollectionsEqual(s,sc) );
 }
 
-BOOST_AUTO_TEST_CASE( select_tests_move_semantics )
+TEST_CASE( "select_tests_move_semantics", "[select_tests]" )
 {
     auto v = tt::compTypeVect();
 
     auto l = [](const tt::CompositeType& i) { return i._c * i._c; };
     auto s = SF::select<short>(std::move(v),l);
 
-    BOOST_CHECK( SA::size(v) == 0 );
-    BOOST_CHECK( SA::size(s) == tt::CVEC_SIZE );
+    REQUIRE( SA::size(v) == 0 );
+    REQUIRE( SA::size(s) == tt::CVEC_SIZE );
 }
 
-BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: SELECTTESTS_90V9R4K9 */

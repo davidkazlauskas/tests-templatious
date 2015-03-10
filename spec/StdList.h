@@ -21,59 +21,59 @@
 
 #include "../TestAlgs.h"
 
-BOOST_AUTO_TEST_SUITE( std_list_tests );
 
-BOOST_AUTO_TEST_CASE( std_list_tests_basic )
+
+TEST_CASE( "std_list_tests_basic", "[std_list_tests]" )
 {
     typedef std::list<int> V;
     V v;
 
-    BOOST_CHECK(tt::existantCollectionTest(v));
+    REQUIRE(tt::existantCollectionTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( std_list_tests_proxy )
+
+TEST_CASE( "std_list_tests_proxy", "[std_list_tests]" )
 {
     typedef std::list<int> V;
     V v;
 
-    BOOST_CHECK(tt::proxyTest(v));
+    REQUIRE(tt::proxyTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( std_list_tests_proxy_const )
+TEST_CASE( "std_list_tests_proxy_const", "[std_list_tests]" )
 {
     typedef std::list<int> V;
     V v;
 
-    BOOST_CHECK(tt::constProxyTest(v));
+    REQUIRE(tt::constProxyTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( std_list_tests_proxy_clearance )
+TEST_CASE( "std_list_tests_proxy_clearance", "[std_list_tests]" )
 {
     typedef std::list<int> V;
     V v;
 
-    BOOST_CHECK(tt::proxyDeletionTest(v));
+    REQUIRE(tt::proxyDeletionTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( std_list_tests_virtual )
+TEST_CASE( "std_list_tests_virtual", "[std_list_tests]" )
 {
     typedef std::list<int> V;
     V v;
 
-    BOOST_CHECK(tt::virtualTest(v));
+    REQUIRE(tt::virtualTest(v));
 }
 
-BOOST_AUTO_TEST_CASE( std_list_tests_destruction )
+TEST_CASE( "std_list_tests_destruction", "[std_list_tests]" )
 {
     struct UniqueToken {};
     typedef tt::ConstructorCountCollection<UniqueToken> ValType;
     typedef std::list<ValType> V;
     V v;
 
-    BOOST_CHECK(tt::constructionCountCollectionTest<UniqueToken>(v));
-    BOOST_CHECK(ValType::count() == 0);
+    REQUIRE(tt::constructionCountCollectionTest<UniqueToken>(v));
+    REQUIRE(ValType::count() == 0);
 }
 
-BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: STDLIST_UDCMQSLF */

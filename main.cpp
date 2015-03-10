@@ -16,13 +16,9 @@
  * =====================================================================================
  */
 
-//#define BOOST_TEST_MAIN
-
 #define CATCH_CONFIG_RUNNER
-
-//#include <boost/test/unit_test.hpp>
-
 #include "catch.hpp"
+
 #include "tests.h"
 
 int main( int argc, char* const argv[] )

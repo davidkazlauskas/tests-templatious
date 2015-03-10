@@ -16,9 +16,21 @@
  * =====================================================================================
  */
 
-#define BOOST_TEST_MAIN
+//#define BOOST_TEST_MAIN
 
-#include <boost/test/unit_test.hpp>
+#define CATCH_CONFIG_RUNNER
 
+//#include <boost/test/unit_test.hpp>
+
+#include "catch.hpp"
 #include "tests.h"
+
+int main( int argc, char* const argv[] )
+{
+    test_templatious::IfnCaseCounter c;
+
+    int result = Catch::Session().run( argc, argv );
+
+    return result;
+}
 

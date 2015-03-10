@@ -29,7 +29,7 @@
 //#include "OnceTraversable.h"
 //#include "CollectionRepeater.h"
 //#include "Sequence.h"
-#include "SelectTests.h"
+//#include "SelectTests.h"
 #include "ChainUsageTests.h"
 //#include "StaticManipulatorTests.h"
 //#include "StaticFactoryTests.h"

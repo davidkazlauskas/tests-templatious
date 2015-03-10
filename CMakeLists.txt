@@ -32,6 +32,7 @@ if(Boost_FOUND)
         OnceTraversable.cpp CollectionRepeater.cpp
         Sequence.cpp StaticManipulatorTests.cpp
         StaticFactoryTests.cpp IterDumpTests.cpp
+        SelectTests.cpp
     )
     target_link_libraries(a.out
         ${Boost_FILESYSTEM_LIBRARY}

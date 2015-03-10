@@ -16,9 +16,6 @@
  * =====================================================================================
  */
 
-#ifndef SELECTTESTS_90V9R4K9
-#define SELECTTESTS_90V9R4K9
-
 #include "TestDefs.h"
 
 namespace test_templatious {
@@ -132,5 +129,3 @@ TEST_CASE( "select_tests_move_semantics", "[select_tests]" )
     REQUIRE( SA::size(s) == tt::CVEC_SIZE );
 }
 
-
-#endif /* end of include guard: SELECTTESTS_90V9R4K9 */

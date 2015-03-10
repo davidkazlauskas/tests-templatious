@@ -16,9 +16,6 @@
  * =====================================================================================
  */
 
-#ifndef ONCETRAVERSABLE_3KYC0B8Q
-#define ONCETRAVERSABLE_3KYC0B8Q
-
 #include <vector>
 
 #include "TestDefs.h"
@@ -73,5 +70,3 @@ TEST_CASE( "once_traversable_move_semantics", "[once_traversable]" )
     REQUIRE( sum == 0 );
 }
 
-
-#endif /* end of include guard: ONCETRAVERSABLE_3KYC0B8Q */

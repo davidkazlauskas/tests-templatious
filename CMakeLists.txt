@@ -29,6 +29,7 @@ if(Boost_FOUND)
     add_executable ( a.out
         main.cpp TypeLists.cpp PackTests.cpp
         ChainFunctor.cpp DistributorTests.cpp
+        OnceTraversable.cpp
     )
     target_link_libraries(a.out
         ${Boost_FILESYSTEM_LIBRARY}

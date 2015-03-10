@@ -36,6 +36,7 @@ SET ( generic_tests
 SET ( specific_tests
     spec/StdVector.cpp
     spec/StdList.cpp
+    spec/StaticVector.cpp
 )
 
 if(Boost_FOUND)

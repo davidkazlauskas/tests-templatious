@@ -19,7 +19,7 @@
 #define CATCH_CONFIG_RUNNER
 #include "catch.hpp"
 
-#include "tests.h"
+#include "TestDefs.h"
 
 int test_templatious::IfnCaseCounter::count = 0;
 

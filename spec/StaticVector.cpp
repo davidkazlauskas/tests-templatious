@@ -16,11 +16,7 @@
  * =====================================================================================
  */
 
-#ifndef STATICVECTOR_8L32QS9F
-#define STATICVECTOR_8L32QS9F
-
 #include "../TestAlgs.h"
-
 
 static const int SUM_1_TO_256 = 32896;
 
@@ -416,5 +412,3 @@ TEST_CASE( "static_vector_tests_move_semantics", "[static_vector_tests]" )
     REQUIRE( SA::size(v) == 0 );
 }
 
-
-#endif /* end of include guard: STATICVECTOR_8L32QS9F */

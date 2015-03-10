@@ -23,7 +23,7 @@
 
 #include <iostream>
 
-#include <boost/test/unit_test.hpp>
+#include "catch.hpp"
 
 #include <templatious/adapters/All.hpp>
 #include <templatious/StaticFactory.hpp>
@@ -50,8 +50,6 @@ struct IfnCaseCounter {
 };
 
 int IfnCaseCounter::count = 0;
-
-BOOST_GLOBAL_FIXTURE( IfnCaseCounter );
 
 #define DEF_ADAPTER(cl,name) typedef ta::CollectionAdapter<cl> name
 

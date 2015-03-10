@@ -21,8 +21,6 @@
 
 #include "../TestAlgs.h"
 
-
-
 TEST_CASE( "std_list_tests_basic", "[std_list_tests]" )
 {
     typedef std::list<int> V;

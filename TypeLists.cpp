@@ -16,12 +16,7 @@
  * =====================================================================================
  */
 
-#ifndef TYPELISTS_T8ZGTVM9
-#define TYPELISTS_T8ZGTVM9
-
 #include "TestDefs.h"
-
-
 
 TEST_CASE( "typelist_test_equality_0", "[typelist]" )
 {
@@ -149,5 +144,3 @@ TEST_CASE( "typelist_test_uncontainment_4", "[typelist]" )
     REQUIRE(!res);
 }
 
-
-#endif /* end of include guard: TYPELISTS_T8ZGTVM9 */

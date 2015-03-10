@@ -17,9 +17,6 @@
  * =====================================================================================
  */
 
-#ifndef CHAINUSAGETESTS_C94JK7M5
-#define CHAINUSAGETESTS_C94JK7M5
-
 #include "TestDefs.h"
 
 
@@ -132,5 +129,3 @@ TEST_CASE( "chained_usage_tests_varying_addition", "[chained_usage_tests]" )
 
 }
 
-
-#endif /* end of include guard: CHAINUSAGETESTS_C94JK7M5 */

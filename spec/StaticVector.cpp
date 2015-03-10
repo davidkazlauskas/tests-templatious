@@ -23,7 +23,7 @@ static const int SUM_1_TO_256 = 32896;
 TEST_CASE( "static_vector_tests_basic", "[static_vector_tests]" )
 {
 
-    const size_t SIZE = 256; 
+    const size_t SIZE = 256;
     tt::t::StaticBuffer<int,SIZE> b;
     auto v = b.getStaticVector();
 

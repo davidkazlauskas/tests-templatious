@@ -28,7 +28,7 @@ if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
     add_executable ( a.out
         main.cpp TypeLists.cpp PackTests.cpp
-        ChainFunctor.cpp
+        ChainFunctor.cpp DistributorTests.cpp
     )
     target_link_libraries(a.out
         ${Boost_FILESYSTEM_LIBRARY}

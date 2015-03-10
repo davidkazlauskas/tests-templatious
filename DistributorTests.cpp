@@ -16,11 +16,7 @@
  * =====================================================================================
  */
 
-#ifndef DISTRIBUTORTESTS_JA9IEGAL
-#define DISTRIBUTORTESTS_JA9IEGAL
-
 #include "TestDefs.h"
-
 
 TEST_CASE( "distributor_tests_basic", "[distributor_tests]" )
 {
@@ -320,5 +316,3 @@ TEST_CASE( "distributor_tests_dummy_var_very_functional", "[distributor_tests]" 
     REQUIRE( sum == 84 );
 }
 
-
-#endif /* end of include guard: DISTRIBUTORTESTS_JA9IEGAL */

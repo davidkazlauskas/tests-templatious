@@ -21,7 +21,7 @@
 
 #include "TestDefs.h"
 
-BOOST_AUTO_TEST_SUITE( collection_repeater )
+BOOST_AUTO_TEST_SUITE( collection_repeater );
 
 BOOST_AUTO_TEST_CASE( collection_repeater_abs )
 {
@@ -164,6 +164,6 @@ BOOST_AUTO_TEST_CASE( collection_repeater_item_repeater_exceptions )
     }
 }
 
-BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: COLLECTIONREPEATER_7ZC3F3ES */

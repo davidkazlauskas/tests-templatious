@@ -21,6 +21,7 @@
 
 #include "TestDefs.h"
 
+BOOST_AUTO_TEST_SUITE( typelist );
 
 BOOST_AUTO_TEST_CASE( typelist_test_equality_0 )
 {
@@ -147,5 +148,7 @@ BOOST_AUTO_TEST_CASE( typelist_test_uncontainment_4 )
     static const bool res = tt::t::detail::TypelistContains<AList,BList>::value;
     BOOST_CHECK(!res);
 }
+
+BOOST_AUTO_TEST_SUITE_END();
 
 #endif /* end of include guard: TYPELISTS_T8ZGTVM9 */

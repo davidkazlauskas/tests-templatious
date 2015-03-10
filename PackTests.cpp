@@ -16,13 +16,9 @@
  * =====================================================================================
  */
 
-#ifndef PACKTESTS_1UNIFFZN
-#define PACKTESTS_1UNIFFZN
-
 #include <sstream>
 
 #include "TestDefs.h"
-
 
 TEST_CASE( "pack_basic_test", "[pack_tests]" )
 {
@@ -59,7 +55,8 @@ TEST_CASE( "pack_mutation", "[pack_tests]" )
 
     SM::callEach(Square(),p);
 
-    REQUIRE( a + b == 25 );
+    auto apb = a + b;
+    REQUIRE( apb == 25 );
 }
 
 TEST_CASE( "pack_match_fctor_diff", "[pack_tests]" )
@@ -332,7 +329,4 @@ TEST_CASE( "pack_transform_moar", "[pack_tests]" )
     auto res = ss.str();
     REQUIRE( res == ">7<>7<>7<>7<>7<>7<>7<" );
 }
-
-
-#endif /* end of include guard: PACKTESTS_1UNIFFZN */
 

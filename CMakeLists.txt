@@ -30,6 +30,7 @@ if(Boost_FOUND)
         main.cpp TypeLists.cpp PackTests.cpp
         ChainFunctor.cpp DistributorTests.cpp
         OnceTraversable.cpp CollectionRepeater.cpp
+        Sequence.cpp
     )
     target_link_libraries(a.out
         ${Boost_FILESYSTEM_LIBRARY}

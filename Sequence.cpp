@@ -18,7 +18,6 @@
 
 #include "TestDefs.h"
 
-
 TEST_CASE( "sequence_simple", "[sequence_tests]" )
 {
     TEMPLATIOUS_TRIPLET_STD;

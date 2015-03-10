@@ -16,11 +16,7 @@
  * =====================================================================================
  */
 
-#ifndef ITERDUMPTESTS_XJXLMIV5
-#define ITERDUMPTESTS_XJXLMIV5
-
 #include "TestDefs.h"
-
 
 TEST_CASE( "iter_dump_tests_basic", "[iter_dump_tests]" )
 {
@@ -279,5 +275,3 @@ TEST_CASE( "iter_dump_tests_sort_empty", "[iter_dump_tests]" ) {
     REQUIRE( SA::size(l) == 1 );
 }
 
-
-#endif /* end of include guard: ITERDUMPTESTS_XJXLMIV5 */

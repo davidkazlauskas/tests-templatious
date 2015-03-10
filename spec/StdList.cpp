@@ -16,9 +16,6 @@
  * =====================================================================================
  */
 
-#ifndef STDLIST_UDCMQSLF
-#define STDLIST_UDCMQSLF
-
 #include "../TestAlgs.h"
 
 TEST_CASE( "std_list_tests_basic", "[std_list_tests]" )
@@ -73,5 +70,3 @@ TEST_CASE( "std_list_tests_destruction", "[std_list_tests]" )
     REQUIRE(ValType::count() == 0);
 }
 
-
-#endif /* end of include guard: STDLIST_UDCMQSLF */

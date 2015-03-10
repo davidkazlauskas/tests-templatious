@@ -49,8 +49,6 @@ struct IfnCaseCounter {
     }
 };
 
-int IfnCaseCounter::count = 0;
-
 #define DEF_ADAPTER(cl,name) typedef ta::CollectionAdapter<cl> name
 
 #define IFN_SECTOR_START(name) \

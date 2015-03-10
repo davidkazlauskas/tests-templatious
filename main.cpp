@@ -21,6 +21,8 @@
 
 #include "tests.h"
 
+int test_templatious::IfnCaseCounter::count = 0;
+
 int main( int argc, char* const argv[] )
 {
     test_templatious::IfnCaseCounter c;

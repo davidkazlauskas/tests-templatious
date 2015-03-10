@@ -25,9 +25,9 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <templatious/adapters/All.h>
-#include <templatious/StaticFactory.h>
-#include <templatious/StaticVector.h>
+#include <templatious/adapters/All.hpp>
+#include <templatious/StaticFactory.hpp>
+#include <templatious/StaticVector.hpp>
 
 #include "detail/ConstructorCountCollection.h"
 

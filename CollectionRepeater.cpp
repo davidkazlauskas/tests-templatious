@@ -16,9 +16,6 @@
  * =====================================================================================
  */
 
-#ifndef COLLECTIONREPEATER_7ZC3F3ES
-#define COLLECTIONREPEATER_7ZC3F3ES
-
 #include "TestDefs.h"
 
 
@@ -163,5 +160,3 @@ TEST_CASE( "collection_repeater_item_repeater_exceptions", "[collection_repeater
     }
 }
 
-
-#endif /* end of include guard: COLLECTIONREPEATER_7ZC3F3ES */

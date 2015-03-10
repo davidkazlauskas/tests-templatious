@@ -24,15 +24,24 @@ SET ( CMAKE_CXX_COMPILER "clang++-3.5" )
 
 find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 
+SET ( generic_tests
+    TypeLists.cpp PackTests.cpp
+    ChainFunctor.cpp DistributorTests.cpp
+    OnceTraversable.cpp CollectionRepeater.cpp
+    Sequence.cpp StaticManipulatorTests.cpp
+    StaticFactoryTests.cpp IterDumpTests.cpp
+    SelectTests.cpp ChainUsageTests.cpp
+)
+
+SET ( specific_tests
+    spec/StdVector.cpp
+)
+
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
     add_executable ( a.out
-        main.cpp TypeLists.cpp PackTests.cpp
-        ChainFunctor.cpp DistributorTests.cpp
-        OnceTraversable.cpp CollectionRepeater.cpp
-        Sequence.cpp StaticManipulatorTests.cpp
-        StaticFactoryTests.cpp IterDumpTests.cpp
-        SelectTests.cpp ChainUsageTests.cpp
+        main.cpp
+        ${generic_tests} ${specific_tests}
     )
     target_link_libraries(a.out
         ${Boost_FILESYSTEM_LIBRARY}

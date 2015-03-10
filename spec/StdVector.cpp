@@ -16,11 +16,7 @@
  * =====================================================================================
  */
 
-#ifndef STDVECTOR_97AM89C
-#define STDVECTOR_97AM89C
-
 #include "../TestAlgs.h"
-
 
 TEST_CASE( "std_vector_tests_basic", "[std_vector_tests]" )
 {
@@ -73,7 +69,4 @@ TEST_CASE( "std_vector_tests_destruction", "[std_vector_tests]" )
     REQUIRE(tt::constructionCountCollectionTest<UniqueToken>(v));
     REQUIRE(ValType::count() == 0);
 }
-
-
-#endif /* end of include guard: STDVECTOR_97AM89C */
 

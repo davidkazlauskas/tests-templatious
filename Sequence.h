@@ -85,7 +85,8 @@ TEST_CASE( "sequence_invert_manual", "[sequence_tests]" )
     auto s = SF::seqI(77,7);
     int prev = 78;
     TEMPLATIOUS_FOREACH(auto i,s) {
-        REQUIRE( prev - 1 == i );
+        auto prm1 = prev - 1;
+        REQUIRE( prm1 == i );
         prev = i;
     }
 

@@ -26,7 +26,10 @@ find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
-    add_executable ( a.out main.cpp TypeLists.cpp PackTests.cpp )
+    add_executable ( a.out
+        main.cpp TypeLists.cpp PackTests.cpp
+        ChainFunctor.cpp
+    )
     target_link_libraries(a.out
         ${Boost_FILESYSTEM_LIBRARY}
         ${Boost_SYSTEM_LIBRARY}

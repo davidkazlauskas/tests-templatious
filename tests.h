@@ -24,7 +24,7 @@
 #include "spec/StaticVector.h"
 //#include "TypeLists.h"
 //#include "PackTests.h"
-#include "ChainFunctor.h"
+//#include "ChainFunctor.h"
 #include "DistributorTests.h"
 #include "OnceTraversable.h"
 #include "CollectionRepeater.h"

@@ -16,14 +16,10 @@
  * =====================================================================================
  */
 
-#ifndef CHAINFUNCTOR_QZZUXKYU
-#define CHAINFUNCTOR_QZZUXKYU
-
 #include <string>
 #include <boost/algorithm/string.hpp>
 
 #include "TestDefs.h"
-
 
 std::string profanityFilter(const std::string& s) {
     std::string mutant = s;
@@ -253,7 +249,4 @@ TEST_CASE( "chain_functor_serialize_and_deserialize", "[chain_functor]" )
     auto back = sdFctor.doBwd(gargle);
     REQUIRE( back == d );
 }
-
-
-#endif /* end of include guard: CHAINFUNCTOR_QZZUXKYU */
 

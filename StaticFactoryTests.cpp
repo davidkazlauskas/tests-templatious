@@ -16,9 +16,6 @@
  * =====================================================================================
  */
 
-#ifndef STATICFACTORYTESTS_ZJBL62XK
-#define STATICFACTORYTESTS_ZJBL62XK
-
 #include "TestDefs.h"
 
 
@@ -240,5 +237,3 @@ TEST_CASE( "static_factory_match_functor_loose_first", "[static_factory_tests]" 
     REQUIRE( mf("moo",7.7) == 77 );
 }
 
-
-#endif /* end of include guard: STATICFACTORYTESTS_ZJBL62XK */

@@ -31,6 +31,7 @@ if(Boost_FOUND)
         ChainFunctor.cpp DistributorTests.cpp
         OnceTraversable.cpp CollectionRepeater.cpp
         Sequence.cpp StaticManipulatorTests.cpp
+        StaticFactoryTests.cpp
     )
     target_link_libraries(a.out
         ${Boost_FILESYSTEM_LIBRARY}

@@ -5,7 +5,6 @@ project ( TTEST CXX )
 
 include_directories ( "/home/deividas/Desktop/Dropbox/MyPrj/Templatious" )
 
-
 ADD_DEFINITIONS (
     -std=c++11
     -lstdc++
@@ -22,8 +21,6 @@ ADD_DEFINITIONS (
 SET ( CMAKE_CXX_COMPILER "clang++-3.5" )
 #SET ( CMAKE_CXX_COMPILER "g++" )
 
-find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
-
 SET ( generic_tests
     TypeLists.cpp PackTests.cpp
     ChainFunctor.cpp DistributorTests.cpp
@@ -39,18 +36,13 @@ SET ( specific_tests
     spec/StaticVector.cpp
 )
 
-if(Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS})
-    add_executable ( a.out
-        main.cpp
-        ${generic_tests} ${specific_tests}
-    )
-    target_link_libraries(a.out
-        ${Boost_FILESYSTEM_LIBRARY}
-        ${Boost_SYSTEM_LIBRARY}
-        ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
-else()
-    message( SEND_ERROR "Boost 1.48.0 not found." )
-endif()
+add_executable ( a.out
+    main.cpp
+    ${generic_tests} ${specific_tests}
+)
+target_link_libraries(a.out
+    ${Boost_FILESYSTEM_LIBRARY}
+    ${Boost_SYSTEM_LIBRARY}
+    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
 SET ( CMAKE_EXPORT_COMPILE_COMMANDS ON )

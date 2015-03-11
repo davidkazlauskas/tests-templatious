@@ -19,8 +19,6 @@
 #ifndef COLLECTIONADAPTER_HIPES5LC
 #define COLLECTIONADAPTER_HIPES5LC
 
-#include <boost/test/unit_test.hpp>
-
 #include "TestDefs.h"
 
 namespace test_templatious {

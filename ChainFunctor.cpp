@@ -41,6 +41,16 @@ namespace roost {
         return std::move(val);
     }
 
+    template <class T>
+    std::string to_upper_copy(const T& str,const std::locale& loc) {
+        std::string ret(str);
+
+        for (auto i = ret.begin(); i != ret.end(); ++i) {
+            *i = std::toupper(*i,loc);
+        }
+
+        return std::move(ret);
+    }
 }
 
 std::string profanityFilter(const std::string& s) {
@@ -59,7 +69,7 @@ TEST_CASE( "chain_functor_string_filter", "[chain_functor]" )
     std::string str = "What I'm I doing? Don't shizzle my drizzle yo.";
     auto underSqr = [](std::string s) { return roost::replace_all_copy(s," ","_"); };
     auto func = SF::chainFunctor(
-            boost::to_upper_copy<std::string>,
+            roost::to_upper_copy<std::string>,
             profanityFilter,
             underSqr);
 

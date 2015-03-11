@@ -27,8 +27,6 @@ template <class Token,class T>
 bool constructionCountCollectionTest(T& c) {
     IFN_SECTOR_START( "Construction count collection test." );
 
-    TEMPLATIOUS_TRIPLET_STD;
-
     SA::clear(c);
 
     typedef ConstructorCountCollection<Token> CCC;

@@ -63,8 +63,6 @@ std::string profanityFilter(const std::string& s) {
 
 TEST_CASE( "chain_functor_string_filter", "[chain_functor]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     std::string str = "What I'm I doing? Don't shizzle my drizzle yo.";
     auto underSqr = [](std::string s) { return roost::replace_all_copy(s," ","_"); };
     auto func = SF::chainFunctor(
@@ -81,8 +79,6 @@ TEST_CASE( "chain_functor_string_filter", "[chain_functor]" )
 
 namespace
 {
-TEMPLATIOUS_TRIPLET_STD;
-
 // STATEFUL
 auto mulDo = [](int& a) { a = a * 7; };
 auto mulUndo = [](int& a) { a = a / 7; };

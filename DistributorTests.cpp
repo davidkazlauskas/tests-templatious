@@ -20,8 +20,6 @@
 
 TEST_CASE( "distributor_tests_basic", "[distributor_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
     SM::distribute(SF::seqI(1,7),p);
@@ -33,8 +31,6 @@ TEST_CASE( "distributor_tests_basic", "[distributor_tests]" )
 
 TEST_CASE( "distributor_tests_basic_mixed", "[distributor_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     long a;
     long long b;
     int c;
@@ -61,7 +57,6 @@ TEST_CASE( "distributor_tests_basic_mixed", "[distributor_tests]" )
 
 TEST_CASE( "distributor_tests_special", "[distributor_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
     int a,b,c,d,e,f,g;
 
     auto p = SF::pack(a,b,c,d,e,f,g);
@@ -83,7 +78,6 @@ TEST_CASE( "distributor_tests_special", "[distributor_tests]" )
 
 TEST_CASE( "distributor_tests_midbreak", "[distributor_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
 
@@ -114,7 +108,6 @@ TEST_CASE( "distributor_tests_midbreak", "[distributor_tests]" )
 
 TEST_CASE( "distributor_tests_ignorestop", "[distributor_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
 
@@ -145,7 +138,6 @@ TEST_CASE( "distributor_tests_ignorestop", "[distributor_tests]" )
 
 TEST_CASE( "distributor_tests_ignorestop_reverse", "[distributor_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
     int res0 = SM::distribute(SF::seqI(1,7),p);
@@ -183,7 +175,6 @@ TEST_CASE( "distributor_tests_ignorestop_reverse", "[distributor_tests]" )
 
 TEST_CASE( "distributor_tests_calleach_midbreak", "[distributor_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
     int res0 = SM::distribute(SF::seqI(1,7),p);
@@ -209,7 +200,6 @@ TEST_CASE( "distributor_tests_calleach_midbreak", "[distributor_tests]" )
 
 TEST_CASE( "distributor_tests_calleach_midbreak_ignore", "[distributor_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
     int res0 = SM::distribute(SF::seqI(1,7),p);
@@ -234,7 +224,6 @@ TEST_CASE( "distributor_tests_calleach_midbreak_ignore", "[distributor_tests]" )
 
 TEST_CASE( "distributor_tests_foreach_midbreak", "[distributor_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
     int arr[7];
     int res0 = SM::distribute(SF::seqI(1,7),arr);
 
@@ -259,7 +248,6 @@ TEST_CASE( "distributor_tests_foreach_midbreak", "[distributor_tests]" )
 
 TEST_CASE( "distributor_tests_foreach_midbreak_ignore", "[distributor_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
     int arr[7];
     int res0 = SM::distribute(SF::seqI(1,7),arr);
 
@@ -283,8 +271,6 @@ TEST_CASE( "distributor_tests_foreach_midbreak_ignore", "[distributor_tests]" )
 
 TEST_CASE( "distributor_tests_dummy_var_very_functional", "[distributor_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a,b,c,d,e,f,g;
 
     auto r = SM::distribute(

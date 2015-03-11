@@ -144,8 +144,6 @@ TEST_CASE( "static_vector_tests_destruction", "[static_vector_tests]" )
 
 TEST_CASE( "static_vector_tests_static_buffer_basic", "[static_vector_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     {
         tt::t::StaticBuffer<int,256> b;
 
@@ -265,8 +263,6 @@ TEST_CASE( "static_vector_tests_const_val", "[static_vector_tests]" )
 
 TEST_CASE( "static_vector_tests_exception_correct", "[static_vector_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     struct UniqueToken {};
     typedef tt::ConstructorCountCollection<UniqueToken> ValType;
 

@@ -20,8 +20,6 @@
 
 TEST_CASE( "collection_repeater_abs", "[collection_repeater]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     auto l = SF::seqI(1,7);
 
     auto r = SF::repA(17,l);
@@ -36,8 +34,6 @@ TEST_CASE( "collection_repeater_abs", "[collection_repeater]" )
 
 TEST_CASE( "collection_repeater_mul", "[collection_repeater]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     auto l = SF::seqI(1,7);
 
     auto r = SF::repM(7,l);
@@ -52,8 +48,6 @@ TEST_CASE( "collection_repeater_mul", "[collection_repeater]" )
 
 TEST_CASE( "collection_repeater_rval_epic_oneliner", "[collection_repeater]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int sum = 0;
 
     SM::forEach(
@@ -66,8 +60,6 @@ TEST_CASE( "collection_repeater_rval_epic_oneliner", "[collection_repeater]" )
 
 TEST_CASE( "collection_repeater_rval_move", "[collection_repeater]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     std::vector<int> v;
     SA::add(v,SF::seqI(1,7));
 
@@ -88,8 +80,6 @@ TEST_CASE( "collection_repeater_rval_move", "[collection_repeater]" )
 
 TEST_CASE( "collection_repeater_item_repeater", "[collection_repeater]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     std::vector<int> v;
     SA::add(v,SF::repS(7,7));
 

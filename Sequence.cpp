@@ -20,8 +20,6 @@
 
 TEST_CASE( "sequence_simple", "[sequence_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     SUM_VAR(sum,sf);
 
     auto s = SF::seqI(10);
@@ -52,7 +50,6 @@ TEST_CASE( "sequence_beg_end_step", "[sequence_tests]" )
 
 TEST_CASE( "sequence_beg_end_char", "[sequence_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
     std::string s = "";
 
     auto append = [&](char c) { s += c; };
@@ -64,8 +61,6 @@ TEST_CASE( "sequence_beg_end_char", "[sequence_tests]" )
 
 TEST_CASE( "sequence_throw_include", "[sequence_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     bool caught = false;
 
     try {

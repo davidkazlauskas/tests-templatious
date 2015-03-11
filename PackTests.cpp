@@ -22,8 +22,6 @@
 
 TEST_CASE( "pack_basic_test", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     std::stringstream ss;
 
     auto p =
@@ -46,8 +44,6 @@ TEMPLATIOUS_CALLEACH_FCTOR( Square, i *= i );
 
 TEST_CASE( "pack_mutation", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a = 3;
     int b = 4;
 
@@ -61,8 +57,6 @@ TEST_CASE( "pack_mutation", "[pack_tests]" )
 
 TEST_CASE( "pack_match_fctor_diff", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a = 7;
     char b = '7';
     long c = 77;
@@ -91,8 +85,6 @@ TEST_CASE( "pack_match_fctor_diff", "[pack_tests]" )
 
 TEST_CASE( "pack_integrity", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a = 7;
     char b = '7';
     long c = 77;
@@ -113,8 +105,6 @@ TEST_CASE( "pack_integrity", "[pack_tests]" )
 
 TEST_CASE( "pack_integrity_shared_stor", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a = 7;
     char b = '7';
     long c = 77;
@@ -144,8 +134,6 @@ TEST_CASE( "pack_integrity_shared_stor", "[pack_tests]" )
 
 TEST_CASE( "pack_repeat_test_lval", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a = 5;
 
     int sum = 0;
@@ -160,8 +148,6 @@ TEST_CASE( "pack_repeat_test_lval", "[pack_tests]" )
 
 TEST_CASE( "pack_repeat_test_lval_mul", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a = 5;
     short b = 7;
 
@@ -177,8 +163,6 @@ TEST_CASE( "pack_repeat_test_lval_mul", "[pack_tests]" )
 
 TEST_CASE( "pack_repeat_test_rval_mul", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int sum = 0;
 
     auto func = SF::storageFunctor<Sum>(sum);
@@ -191,8 +175,6 @@ TEST_CASE( "pack_repeat_test_rval_mul", "[pack_tests]" )
 
 TEST_CASE( "pack_storage_semantics_move", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     std::vector<int> i;
     SA::add(i,7,7,7,7,7,7,7);
 
@@ -219,8 +201,6 @@ TEST_CASE( "pack_storage_semantics_move", "[pack_tests]" )
 
 TEST_CASE( "pack_storage_semantics_address", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
 
@@ -235,8 +215,6 @@ TEST_CASE( "pack_storage_semantics_address", "[pack_tests]" )
 
 TEST_CASE( "pack_storage_semantics_const_address", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     const int a = 7;
     const int b = 7;
     const int c = 7;
@@ -258,8 +236,6 @@ TEST_CASE( "pack_storage_semantics_const_address", "[pack_tests]" )
 
 TEST_CASE( "pack_function_mutation", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
 
@@ -290,8 +266,6 @@ TEST_CASE( "pack_function_mutation", "[pack_tests]" )
 
 TEST_CASE( "pack_transform", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
     SM::set(7,p);
@@ -305,8 +279,6 @@ TEST_CASE( "pack_transform", "[pack_tests]" )
 
 TEST_CASE( "pack_transform_moar", "[pack_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a,b,c,d,e,f,g;
     auto p = SF::pack(a,b,c,d,e,f,g);
     SM::set(7,p);

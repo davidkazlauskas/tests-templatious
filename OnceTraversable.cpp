@@ -22,8 +22,6 @@
 
 TEST_CASE( "once_traversable_basic", "[once_traversable]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a,b,c;
     auto p = SF::pack(a,b,c);
     auto ot = SF::onceTraversable(SF::seqI(1,7));
@@ -43,7 +41,6 @@ TEST_CASE( "once_traversable_basic", "[once_traversable]" )
 
 TEST_CASE( "once_traversable_move_semantics", "[once_traversable]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
     typedef std::vector<int> Vect;
 
     Vect v;

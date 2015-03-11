@@ -394,7 +394,6 @@ bool proxyDeletionTest(T&& c) {
 
 template <class T>
 bool moveSemanticsTest(T&& c) {
-    TEMPLATIOUS_TRIPLET_STD;
     IFN_SECTOR_START( "move semantics tests" );
 
     {
@@ -462,7 +461,6 @@ bool moveSemanticsTest(T&& c) {
 
 template <class T>
 bool proxyExceptionTestSuite(T& c) {
-    TEMPLATIOUS_TRIPLET_STD;
     IFN_SECTOR_START( "proxy clearance exception suite" );
 
     {
@@ -520,7 +518,6 @@ bool proxyExceptionTestSuite(T& c) {
 
 template <class T>
 bool clearanceAssertionsTest(T&& c) {
-    TEMPLATIOUS_TRIPLET_STD;
     IFN_SECTOR_START( "clearance assertion tests" );
 
     {
@@ -556,7 +553,6 @@ bool proxySizeTests(T&& c) {
     // as size is not usually clear (like filter)
     // or trivial to calculate, or costly
     // to calculate.
-    TEMPLATIOUS_TRIPLET_STD;
     IFN_SECTOR_START( "proxy sizing tests" );
 
     {

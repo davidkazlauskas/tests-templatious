@@ -20,7 +20,6 @@
 
 TEST_CASE( "static_manipulator_tests_sum_collection", "[static_manipulator_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
     std::vector<int> v;
     SA::add(v,SF::seqI(1,77));
 
@@ -141,8 +140,6 @@ TEST_CASE( "static_manipulator_tests_sum_custom", "[static_manipulator_tests]" )
 
 TEST_CASE( "static_manipulator_tests_avg_basic", "[static_manipulator_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     REQUIRE( SM::avg<int>(SF::seqI(1,99)) == 50 );
 
     REQUIRE( SM::avg<int>(1,2,3,4,5,6,7) == 4 );
@@ -154,8 +151,6 @@ TEST_CASE( "static_manipulator_tests_avg_basic", "[static_manipulator_tests]" )
 
 TEST_CASE( "static_manipulator_tests_avg_all_at_once", "[static_manipulator_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     int a = 7;
     char b = '7';
     auto datPack = SF::pack(
@@ -201,8 +196,6 @@ TEST_CASE( "static_manipulator_tests_avg_custom", "[static_manipulator_tests]" )
 
 TEST_CASE( "static_manipulator_tests_quadro", "[static_manipulator_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     auto s = SF::seqI(1,100);
     std::vector<int> v;
     SA::add(v,SF::seqI(7,77));
@@ -220,8 +213,6 @@ TEST_CASE( "static_manipulator_tests_quadro", "[static_manipulator_tests]" )
 
 TEST_CASE( "static_manipulator_tests_map", "[static_manipulator_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     auto s = SF::seqI(100);
     std::vector<long> v;
     SA::add(v,SF::seqI(7,107));
@@ -246,8 +237,6 @@ TEST_CASE( "static_manipulator_tests_map", "[static_manipulator_tests]" )
 
 TEST_CASE( "static_manipulator_tests_map_size_assertion", "[static_manipulator_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     auto s1 = SF::seqL(100);
     auto s2 = SF::seqI(100);
 
@@ -263,8 +252,6 @@ TEST_CASE( "static_manipulator_tests_map_size_assertion", "[static_manipulator_t
 
 TEST_CASE( "static_manipulator_tests_map_size_assertion_proxy", "[static_manipulator_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     auto s = SF::seqL(100);
     auto l = [](int i) { return i > 77; };
 
@@ -285,8 +272,6 @@ TEST_CASE( "static_manipulator_tests_map_size_assertion_proxy", "[static_manipul
 
 TEST_CASE( "static_manipulator_tests_map_with_pass_index", "[static_manipulator_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     std::vector<long> v;
     SA::add(v,SF::seqI(7,107));
     std::list<short> l;
@@ -310,8 +295,6 @@ TEST_CASE( "static_manipulator_tests_map_with_pass_index", "[static_manipulator_
 
 TEST_CASE( "static_manipulator_tests_traverse", "[static_manipulator_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     auto s = SF::seqI(100);
     std::vector<long> v;
     SA::add(v,SF::seqI(7,107));
@@ -336,8 +319,6 @@ TEST_CASE( "static_manipulator_tests_traverse", "[static_manipulator_tests]" )
 
 TEST_CASE( "static_manipulator_tests_traverse_size_assertion", "[static_manipulator_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     auto s1 = SF::seqL(100);
     auto s2 = SF::seqI(100);
 
@@ -353,8 +334,6 @@ TEST_CASE( "static_manipulator_tests_traverse_size_assertion", "[static_manipula
 
 TEST_CASE( "static_manipulator_tests_traverse_size_assertion_proxy", "[static_manipulator_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     auto s = SF::seqL(100);
     auto l = [](int i) { return i > 77; };
 
@@ -375,8 +354,6 @@ TEST_CASE( "static_manipulator_tests_traverse_size_assertion_proxy", "[static_ma
 
 TEST_CASE( "static_manipulator_tests_traverse_with_pass_index", "[static_manipulator_tests]" )
 {
-    TEMPLATIOUS_TRIPLET_STD;
-
     std::vector<long> v;
     SA::add(v,SF::seqI(7,107));
     std::list<short> l;

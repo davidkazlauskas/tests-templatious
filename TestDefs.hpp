@@ -38,6 +38,7 @@ namespace ta = t::adapters;
 namespace u = t::util;
 typedef t::StaticAdapter SA;
 typedef t::StaticFactory SF;
+typedef t::StaticManipulator SM;
 
 struct IfnCaseCounter {
     static int count;

@@ -18,7 +18,7 @@
 
 #include <sstream>
 
-#include "TestDefs.h"
+#include "TestDefs.hpp"
 
 TEST_CASE( "pack_basic_test", "[pack_tests]" )
 {

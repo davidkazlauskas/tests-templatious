@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include "TestDefs.h"
+#include "TestDefs.hpp"
 
 TEST_CASE( "iter_dump_tests_basic", "[iter_dump_tests]" )
 {

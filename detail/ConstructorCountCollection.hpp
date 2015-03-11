@@ -21,7 +21,7 @@
 
 #include <exception>
 
-#include "../TestDefs.h"
+#include "../TestDefs.hpp"
 
 namespace test_templatious {
 

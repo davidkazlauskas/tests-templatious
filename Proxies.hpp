@@ -19,7 +19,7 @@
 #ifndef PROXIES_SM4YKVBX
 #define PROXIES_SM4YKVBX
 
-#include "TestDefs.h"
+#include "TestDefs.hpp"
 
 namespace test_templatious {
 

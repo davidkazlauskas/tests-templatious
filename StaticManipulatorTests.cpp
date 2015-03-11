@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include "TestDefs.h"
+#include "TestDefs.hpp"
 
 TEST_CASE( "static_manipulator_tests_sum_collection", "[static_manipulator_tests]" )
 {

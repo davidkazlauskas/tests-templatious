@@ -19,10 +19,10 @@
 #ifndef TESTALGS_GMTU7RDA
 #define TESTALGS_GMTU7RDA
 
-#include "CollectionAdapter.h"
-#include "Proxies.h"
-#include "VirtualCollection.h"
-#include "detail/CCountColTest.h"
+#include "CollectionAdapter.hpp"
+#include "Proxies.hpp"
+#include "VirtualCollection.hpp"
+#include "detail/CCountColTest.hpp"
 
 #endif /* end of include guard: TESTALGS_GMTU7RDA */
 

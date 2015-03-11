@@ -29,7 +29,7 @@
 #include <templatious/StaticFactory.hpp>
 #include <templatious/StaticVector.hpp>
 
-#include "detail/ConstructorCountCollection.h"
+#include "detail/ConstructorCountCollection.hpp"
 
 namespace test_templatious {
 

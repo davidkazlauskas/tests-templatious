@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include "../TestAlgs.h"
+#include "../TestAlgs.hpp"
 
 TEST_CASE( "std_vector_tests_basic", "[std_vector_tests]" )
 {

@@ -17,8 +17,7 @@
  * =====================================================================================
  */
 
-#include "TestDefs.h"
-
+#include "TestDefs.hpp"
 
 TEST_CASE( "chained_usage_tests_varying_addition", "[chained_usage_tests]" )
 {

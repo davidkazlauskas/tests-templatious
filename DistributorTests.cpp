@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include "TestDefs.h"
+#include "TestDefs.hpp"
 
 TEST_CASE( "distributor_tests_basic", "[distributor_tests]" )
 {

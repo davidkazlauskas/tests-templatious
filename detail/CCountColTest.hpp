@@ -19,7 +19,7 @@
 #ifndef CCOUNTCOLTEST_NB2GEKN5
 #define CCOUNTCOLTEST_NB2GEKN5
 
-#include "../TestDefs.h"
+#include "../TestDefs.hpp"
 
 namespace test_templatious {
 

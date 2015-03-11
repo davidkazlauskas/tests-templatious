@@ -18,8 +18,7 @@
 
 #include <vector>
 
-#include "TestDefs.h"
-
+#include "TestDefs.hpp"
 
 TEST_CASE( "once_traversable_basic", "[once_traversable]" )
 {

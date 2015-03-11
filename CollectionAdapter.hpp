@@ -19,7 +19,7 @@
 #ifndef COLLECTIONADAPTER_HIPES5LC
 #define COLLECTIONADAPTER_HIPES5LC
 
-#include "TestDefs.h"
+#include "TestDefs.hpp"
 
 namespace test_templatious {
 

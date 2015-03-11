@@ -16,8 +16,7 @@
  * =====================================================================================
  */
 
-#include "TestDefs.h"
-
+#include "TestDefs.hpp"
 
 TEST_CASE( "static_factory_match_functor_basic", "[static_factory_tests]" )
 {

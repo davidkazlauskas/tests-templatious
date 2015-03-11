@@ -19,7 +19,7 @@
 #include <cstring>
 #include <string>
 
-#include "TestDefs.h"
+#include "TestDefs.hpp"
 
 namespace roost {
 

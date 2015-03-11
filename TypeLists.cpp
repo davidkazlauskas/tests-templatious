@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include "TestDefs.h"
+#include "TestDefs.hpp"
 
 TEST_CASE( "typelist_test_equality_0", "[typelist]" )
 {

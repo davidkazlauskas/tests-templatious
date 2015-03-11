@@ -19,8 +19,8 @@
 #ifndef VIRTUALCOLLECTION_8NIGJKYU
 #define VIRTUALCOLLECTION_8NIGJKYU
 
-#include "TestDefs.h"
-#include "CollectionAdapter.h"
+#include "TestDefs.hpp"
+#include "CollectionAdapter.hpp"
 
 namespace test_templatious {
 

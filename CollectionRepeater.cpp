@@ -16,8 +16,7 @@
  * =====================================================================================
  */
 
-#include "TestDefs.h"
-
+#include "TestDefs.hpp"
 
 TEST_CASE( "collection_repeater_abs", "[collection_repeater]" )
 {

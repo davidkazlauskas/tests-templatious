@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include "TestDefs.h"
+#include "TestDefs.hpp"
 
 TEST_CASE( "sequence_simple", "[sequence_tests]" )
 {

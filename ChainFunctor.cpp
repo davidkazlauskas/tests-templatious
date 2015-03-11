@@ -35,6 +35,12 @@ namespace roost {
         }
     }
 
+    std::string replace_all_copy(const std::string& str,const char* find,const char* repl) {
+        std::string val(str);
+        replace_all(val,find,repl);
+        return std::move(val);
+    }
+
 }
 
 std::string profanityFilter(const std::string& s) {
@@ -51,7 +57,7 @@ TEST_CASE( "chain_functor_string_filter", "[chain_functor]" )
     TEMPLATIOUS_TRIPLET_STD;
 
     std::string str = "What I'm I doing? Don't shizzle my drizzle yo.";
-    auto underSqr = [](std::string s) { return boost::replace_all_copy(s," ","_"); };
+    auto underSqr = [](std::string s) { return roost::replace_all_copy(s," ","_"); };
     auto func = SF::chainFunctor(
             boost::to_upper_copy<std::string>,
             profanityFilter,

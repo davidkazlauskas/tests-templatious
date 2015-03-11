@@ -7,7 +7,7 @@ include_directories ( "/home/deividas/Desktop/Dropbox/MyPrj/Templatious" )
 
 ADD_DEFINITIONS (
     -std=c++11
-    -lstdc++
+    #-lstdc++
     -Wall
     -x c++
     -ggdb3
@@ -17,8 +17,8 @@ ADD_DEFINITIONS (
     #-Wno-unused-local-typedefs # keep g++ happy
 )
 
-SET ( CMAKE_CXX_COMPILER "g++-4.9" )
-#SET ( CMAKE_CXX_COMPILER "clang++-3.5" )
+#SET ( CMAKE_CXX_COMPILER "g++-4.9" )
+SET ( CMAKE_CXX_COMPILER "clang++-3.5" )
 #SET ( CMAKE_CXX_COMPILER "g++" )
 
 SET ( generic_tests

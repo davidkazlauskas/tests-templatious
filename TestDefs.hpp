@@ -75,7 +75,6 @@ TEMPLATIOUS_CALLEACH_FCTOR_WSTOR( Sum, _c += i );
     auto fctorname = templatious::StaticFactory::storageFunctor<Sum>(vname);
 
 #define INIT_BALLER \
-    TEMPLATIOUS_TRIPLET_STD; \
     SUM_VAR( sum, sf );
 
 #endif /* end of include guard: TESTDEFS_JD3RBI46 */

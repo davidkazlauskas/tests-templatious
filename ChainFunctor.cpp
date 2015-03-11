@@ -16,17 +16,33 @@
  * =====================================================================================
  */
 
+#include <cstring>
 #include <string>
 #include <boost/algorithm/string.hpp>
 
 #include "TestDefs.h"
 
+namespace roost {
+
+    void replace_all(std::string& str,const char* find,const char* repl) {
+        int lena = strlen(find);
+        int lenb = strlen(repl);
+
+        size_t pos = str.find(find);
+        while (std::string::npos != pos) {
+            str.replace(pos,lena,repl);
+            pos = str.find(find);
+        }
+    }
+
+}
+
 std::string profanityFilter(const std::string& s) {
     std::string mutant = s;
-    boost::replace_all(mutant,"shizzle","*******");
-    boost::replace_all(mutant,"drizzle","*******");
-    boost::replace_all(mutant,"SHIZZLE","*******");
-    boost::replace_all(mutant,"DRIZZLE","*******");
+    roost::replace_all(mutant,"shizzle","*******");
+    roost::replace_all(mutant,"drizzle","*******");
+    roost::replace_all(mutant,"SHIZZLE","*******");
+    roost::replace_all(mutant,"DRIZZLE","*******");
     return mutant;
 }
 

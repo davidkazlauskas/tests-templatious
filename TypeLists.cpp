@@ -144,3 +144,34 @@ TEST_CASE( "typelist_test_uncontainment_4", "[typelist]" )
     REQUIRE(!res);
 }
 
+template <int i>
+struct DummyType {
+    DummyType() : _num(i) {}
+
+    int _num;
+};
+
+TEST_CASE( "TypeList_test_indexing", "[typelist]" )
+{
+    typedef tt::t::TypeList<
+        DummyType<0>,
+        DummyType<1>,
+        DummyType<2>,
+        DummyType<3>
+    > TheList;
+
+    typedef TheList::IndexOf<0>::type AType;
+    typedef TheList::IndexOf<1>::type BType;
+    typedef TheList::IndexOf<2>::type CType;
+    typedef TheList::IndexOf<3>::type DType;
+
+    static const bool aExp = std::is_same< AType,DummyType<0> >::value;
+    static const bool bExp = std::is_same< BType,DummyType<1> >::value;
+    static const bool cExp = std::is_same< CType,DummyType<2> >::value;
+    static const bool dExp = std::is_same< DType,DummyType<3> >::value;
+
+    REQUIRE( aExp );
+    REQUIRE( bExp );
+    REQUIRE( cExp );
+    REQUIRE( dExp );
+}

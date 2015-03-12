@@ -160,10 +160,10 @@ TEST_CASE( "TypeList_test_indexing", "[typelist]" )
         DummyType<3>
     > TheList;
 
-    typedef TheList::IndexOf<0>::type AType;
-    typedef TheList::IndexOf<1>::type BType;
-    typedef TheList::IndexOf<2>::type CType;
-    typedef TheList::IndexOf<3>::type DType;
+    typedef TheList::ByIndex<0>::type AType;
+    typedef TheList::ByIndex<1>::type BType;
+    typedef TheList::ByIndex<2>::type CType;
+    typedef TheList::ByIndex<3>::type DType;
 
     static const bool aExp = std::is_same< AType,DummyType<0> >::value;
     static const bool bExp = std::is_same< BType,DummyType<1> >::value;
@@ -176,11 +176,11 @@ TEST_CASE( "TypeList_test_indexing", "[typelist]" )
     REQUIRE( dExp );
 
     static const bool emp4 = std::is_same<
-        TheList::IndexOf<4>::type, tt::t::NullType >::value;
+        TheList::ByIndex<4>::type, tt::t::NullType >::value;
     static const bool emp5 = std::is_same<
-        TheList::IndexOf<5>::type, tt::t::NullType >::value;
+        TheList::ByIndex<5>::type, tt::t::NullType >::value;
     static const bool emp77 = std::is_same<
-        TheList::IndexOf<77>::type, tt::t::NullType >::value;
+        TheList::ByIndex<77>::type, tt::t::NullType >::value;
 
     REQUIRE( emp4 );
     REQUIRE( emp5 );

@@ -250,7 +250,7 @@ TEST_CASE( "static_factory_match_functor_custom_function_ext", "[static_factory_
     REQUIRE( mf(1,7.7,"s") == 1 );
     REQUIRE( mf(1,7.7f,"s") == 77 );
     REQUIRE( mf('a',7.7,"s") == 1 );
-    REQUIRE( mf('a',7.7,"s",1,2,3,4,5,6,7) == 1 );
+    REQUIRE( mf("go ninja go ninja go",7.7,"s",1,2,3,4,5,6,7) == 1 );
 }
 
 TEST_CASE( "static_factory_match_functor_loose_first", "[static_factory_tests]" )

@@ -222,6 +222,33 @@ TEST_CASE( "static_factory_match_functor_custom_function", "[static_factory_test
     REQUIRE( mf(1,"7",7,7) == 2 );
 }
 
+// Match only when second argument is double
+template <class TypeList>
+struct DeciderC {
+    typedef typename std::decay<
+        typename TypeList::template ByIndex<1>::type >::type TDec;
+    static const bool secondDouble =
+        std::is_same< TDec, double >::value;
+
+    static const bool does_match = secondDouble;
+};
+
+struct AnyFctorCust {
+    template <class... T>
+    int operator()(T&&... t) { return 1; }
+};
+
+TEST_CASE( "static_factory_match_functor_custom_function_ext", "[static_factory_tests]" )
+{
+    auto mf = SF::matchFunctor(
+        SF::matchSpecialExt<DeciderC>(AnyFctorCust()),
+        SF::matchAny(AnyFctor())
+    );
+
+    REQUIRE( mf(1,7.7) == 1 );
+    REQUIRE( mf(1,7.7,"s") == 1 );
+}
+
 TEST_CASE( "static_factory_match_functor_loose_first", "[static_factory_tests]" )
 {
     // for loose comparison first matches should be enough

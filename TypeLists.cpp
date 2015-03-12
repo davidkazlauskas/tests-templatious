@@ -174,4 +174,9 @@ TEST_CASE( "TypeList_test_indexing", "[typelist]" )
     REQUIRE( bExp );
     REQUIRE( cExp );
     REQUIRE( dExp );
+
+    static const bool emp4 = std::is_same<
+        TheList::IndexOf<4>::type, tt::t::NullType >::value;
+
+    REQUIRE( emp4 );
 }

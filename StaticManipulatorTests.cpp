@@ -693,7 +693,7 @@ TEST_CASE( "static_manipulator_tests_max_reference_first", "[static_manipulator_
     }
 }
 
-TEST_CASE( "static_manipulator_tests_max_transition", "[static_manipulator_tests]" ) {
+TEST_CASE( "static_manipulator_tests_min_transition", "[static_manipulator_tests]" ) {
     struct MyPod {
         MyPod(int a,double b) : _a(a), _b(b) {}
         int _a;
@@ -716,4 +716,21 @@ TEST_CASE( "static_manipulator_tests_max_transition", "[static_manipulator_tests
     auto& r = SA::getByIndex(v,1);
     REQUIRE( r._a == 3 );
     REQUIRE( r._b == 777 );
+}
+
+TEST_CASE( "static_manipulator_tests_max_multitype", "[static_manipulator_tests]" ) {
+    std::vector<int> v;
+
+    SA::add(v,3,7,2,1,7,9);
+    auto p = SF::pack(77,2,3,2);
+
+    auto& ref = SM::max<int&>(p,v);
+    auto& pref = p.get<0>();
+    REQUIRE( ref == 77 );
+    pref = 777;
+    REQUIRE( ref == 777 );
+    REQUIRE( std::addressof(ref) == std::addressof(pref) );
+
+    int i = SM::max<int>(v,777,p);
+    REQUIRE( i == 777 );
 }

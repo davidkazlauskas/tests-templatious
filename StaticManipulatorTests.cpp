@@ -668,6 +668,7 @@ TEST_CASE( "static_manipulator_tests_max_reference", "[static_manipulator_tests]
 
     SA::add(v,3,7,2,1,7,9);
 
-    SM::max<int&>(v) = 4;
+    auto& ref = SM::max<int&>(v);
+    ref = 4;
     REQUIRE( SA::getByIndex(v,5) == 4 );
 }

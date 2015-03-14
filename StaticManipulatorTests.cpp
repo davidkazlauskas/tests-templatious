@@ -625,6 +625,16 @@ TEST_CASE( "static_manipulator_tests_max", "[static_manipulator_tests]" ) {
     REQUIRE( r == 9 );
 }
 
+TEST_CASE( "static_manipulator_tests_maxS_lambda", "[static_manipulator_tests]" ) {
+
+    std::vector<int> v;
+
+    SA::add(v,3,7,2,1,7,9);
+
+    int r = SM::maxS<int>([](int a,int b) { return a > b; },v);
+    REQUIRE( r == 9 );
+}
+
 TEST_CASE( "static_manipulator_tests_maxS_mutate", "[static_manipulator_tests]" ) {
 
     std::vector<int> v;

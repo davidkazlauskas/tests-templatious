@@ -711,5 +711,9 @@ TEST_CASE( "static_manipulator_tests_max_transition", "[static_manipulator_tests
             ),
             [](MyPod& c) -> double& { return c._b; }
         )
-    ) = 77;
+    ) = 777;
+
+    auto& r = SA::getByIndex(v,1);
+    REQUIRE( r._a == 3 );
+    REQUIRE( r._b == 777 );
 }

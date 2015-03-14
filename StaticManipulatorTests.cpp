@@ -672,3 +672,14 @@ TEST_CASE( "static_manipulator_tests_max_reference", "[static_manipulator_tests]
     ref = 4;
     REQUIRE( SA::getByIndex(v,5) == 4 );
 }
+
+TEST_CASE( "static_manipulator_tests_max_reference_first", "[static_manipulator_tests]" ) {
+    std::vector<int> v;
+
+    SA::add(v,3,7,2,1,7);
+
+    auto& ref = SM::max<int&>(v);
+    auto& expRef = SA::getByIndex(v,1);
+    REQUIRE( ref == 7 );
+    REQUIRE( std::addressof(ref) == std::addressof(expRef) );
+}

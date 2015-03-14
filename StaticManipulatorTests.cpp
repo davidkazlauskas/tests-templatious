@@ -699,4 +699,17 @@ TEST_CASE( "static_manipulator_tests_max_transition", "[static_manipulator_tests
         int _a;
         double _b;
     };
+
+    std::vector<MyPod> v;
+    SA::add(v,MyPod(1,2),MyPod(3,4),MyPod(5,6),MyPod(7,8));
+
+    SM::min<double&>(
+        SF::select(
+            SF::filter(
+                v,
+                [](const MyPod& c) { return c._a > 1; }
+            ),
+            [](MyPod& c) -> double { return c._b; }
+        )
+    ) = 77;
 }

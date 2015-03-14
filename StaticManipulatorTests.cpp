@@ -663,3 +663,11 @@ TEST_CASE( "static_manipulator_tests_maxS_mutate", "[static_manipulator_tests]" 
     REQUIRE( r == 9 );
 }
 
+TEST_CASE( "static_manipulator_tests_max_reference", "[static_manipulator_tests]" ) {
+    std::vector<int> v;
+
+    SA::add(v,3,7,2,1,7,9);
+
+    SM::max<int&>(v) = 4;
+    REQUIRE( SA::getByIndex(v,5) == 4 );
+}

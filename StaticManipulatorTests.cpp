@@ -605,3 +605,13 @@ TEST_CASE( "static_manipulator_tests_is_sorted_edge_cases", "[static_manipulator
     REQUIRE( SM::isSorted(v) );
 }
 
+TEST_CASE( "static_manipulator_tests_min", "[static_manipulator_tests]" ) {
+
+    std::vector<int> v;
+
+    SA::add(v,3,7,2,1,7,9);
+
+    int r = SM::min<int>(v);
+    REQUIRE( r == 1 );
+}
+

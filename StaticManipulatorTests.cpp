@@ -615,3 +615,35 @@ TEST_CASE( "static_manipulator_tests_min", "[static_manipulator_tests]" ) {
     REQUIRE( r == 1 );
 }
 
+TEST_CASE( "static_manipulator_tests_max", "[static_manipulator_tests]" ) {
+
+    std::vector<int> v;
+
+    SA::add(v,3,7,2,1,7,9);
+
+    int r = SM::max<int>(v);
+    REQUIRE( r == 9 );
+}
+
+TEST_CASE( "static_manipulator_tests_maxS_mutate", "[static_manipulator_tests]" ) {
+
+    std::vector<int> v;
+
+    SA::add(v,3,7,2,1,7,9);
+
+    struct CompFctor {
+        CompFctor() : _cnt(0) {}
+
+        bool operator()(int a,int b) { ++_cnt; return a > b; }
+
+        int _cnt;
+    };
+
+    CompFctor c;
+    int r = SM::maxS<int>(c,v);
+
+    // make sure to use reference on stack
+    REQUIRE( c._cnt == 5 );
+    REQUIRE( r == 9 );
+}
+

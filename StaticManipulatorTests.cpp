@@ -633,6 +633,7 @@ TEST_CASE( "static_manipulator_tests_maxS_mutate", "[static_manipulator_tests]" 
 
     struct CompFctor {
         CompFctor() : _cnt(0) {}
+        CompFctor(const CompFctor& c) : _cnt(c._cnt) {}
 
         bool operator()(int a,int b) { ++_cnt; return a > b; }
 
@@ -643,6 +644,11 @@ TEST_CASE( "static_manipulator_tests_maxS_mutate", "[static_manipulator_tests]" 
     int r = SM::maxS<int>(c,v);
 
     // make sure to use reference on stack
+    REQUIRE( c._cnt == 5 );
+    REQUIRE( r == 9 );
+
+    // don't alter since copy
+    r = SM::maxS<int>(CompFctor(c),v);
     REQUIRE( c._cnt == 5 );
     REQUIRE( r == 9 );
 }

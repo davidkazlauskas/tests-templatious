@@ -692,3 +692,11 @@ TEST_CASE( "static_manipulator_tests_max_reference_first", "[static_manipulator_
         REQUIRE( std::addressof(ref) == std::addressof(expRef) );
     }
 }
+
+TEST_CASE( "static_manipulator_tests_max_transition", "[static_manipulator_tests]" ) {
+    struct MyPod {
+        MyPod(int a,double b) : _a(a), _b(b) {}
+        int _a;
+        double _b;
+    };
+}

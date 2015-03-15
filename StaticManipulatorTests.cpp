@@ -704,7 +704,7 @@ TEST_CASE( "static_manipulator_tests_min_transition", "[static_manipulator_tests
     SA::add(v,MyPod(1,2),MyPod(3,4),MyPod(5,6),MyPod(7,8));
 
     SM::min<double&>(
-        SF::select<double&>(
+        SF::select(
             SF::filter(
                 v,
                 [](const MyPod& c) { return c._a > 1; }

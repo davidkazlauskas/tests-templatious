@@ -25,9 +25,7 @@
 
 #include "catch.hpp"
 
-#include <templatious/adapters/All.hpp>
-#include <templatious/StaticFactory.hpp>
-#include <templatious/StaticVector.hpp>
+#include <templatious/FullPack.hpp>
 
 #include "detail/ConstructorCountCollection.hpp"
 

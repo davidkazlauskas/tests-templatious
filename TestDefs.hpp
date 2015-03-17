@@ -48,6 +48,23 @@ struct IfnCaseCounter {
     }
 };
 
+template <class T,class U,class Prec>
+bool almostEqualPrec(T&& a,U&& b,Prec&& p) {
+    auto diff = b - a;
+    if (diff < 0) {
+        diff = -diff;
+    }
+    return diff < p;
+}
+
+template <class T,class U>
+bool almostEqual(T&& a,U&& b) {
+    return almostEqualPrec(
+        std::forward<T>(a),
+        std::forward<U>(b),
+        0.0000001);
+}
+
 #define DEF_ADAPTER(cl,name) typedef ta::CollectionAdapter<cl> name
 
 #define IFN_SECTOR_START(name) \

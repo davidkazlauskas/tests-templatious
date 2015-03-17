@@ -128,3 +128,33 @@ TEST_CASE( "chained_usage_tests_varying_addition", "[chained_usage_tests]" )
 
 }
 
+static auto toDouble =
+    SF::matchFunctor(
+        SF::matchLoose<std::string>(
+            [](const std::string& str) {
+                return std::atof(str.c_str());
+            }
+        ),
+        SF::matchLoose<const char*>(
+            [](const char* str) {
+                return std::atof(str);
+            }
+        ),
+        SF::matchLoose<double>(
+            [](double d) {
+                return d;
+            }
+        )
+    );
+
+TEST_CASE( "chained_usage_tests_varying_addition_special_match", "[chained_usage_tests]" )
+{
+    auto p = SF::pack(7.6,"7.7",std::string("7.8"));
+
+    std::vector<double> v;
+    SA::addCustom(v,toDouble,p);
+
+    REQUIRE( tt::almostEqual(SA::getByIndex(v,0),7.6) );
+    REQUIRE( tt::almostEqual(SA::getByIndex(v,1),7.7) );
+    REQUIRE( tt::almostEqual(SA::getByIndex(v,2),7.8) );
+}

@@ -296,6 +296,13 @@ bool fakeVirtualTest(T& t) {
         IFN_RET_FALSE( SA::size(t) == 0 );
     }
 
+    { // CLEARABLE
+        SA::add(t,7);
+
+        SA::clear(vc);
+        IFN_RET_FALSE( SA::size(t) == 1 );
+    }
+
 
     return true;
 }

@@ -68,6 +68,21 @@ bool fakeVirtualTest(T& t) {
         //}
     }
 
+    { // CLEARANCE
+        const char* THROW_STRING = "Erasing is disabled in current collection.";
+        {
+            bool caught = false;
+            try {
+                SA::clear(vc);
+            } catch (const tt::t::util::FeatureDisabled& e) {
+                caught = true;
+                caught &= std::string(e.what()) == THROW_STRING;
+            }
+            IFN_RET_FALSE( caught );
+        }
+
+    }
+
     return true;
 }
 

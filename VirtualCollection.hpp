@@ -309,6 +309,16 @@ bool fakeVirtualTest(T& t) {
         IFN_RET_FALSE( SA::size(t) == 1 );
     }
 
+    { // TRAVERSABLE
+        int cnt = 0;
+        TEMPLATIOUS_FOREACH(auto i,vc) {
+            ++cnt;
+        }
+
+        IFN_RET_FALSE( SA::size(t) == 1 );
+        IFN_RET_FALSE( SA::getByIndex(t,0) == 7 );
+    }
+
 
     return true;
 }

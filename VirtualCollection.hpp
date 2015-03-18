@@ -30,15 +30,29 @@ bool fakeVirtualTest(T& t) {
     auto vc = SF::vcollectionCustom(t);
 
     // throw by default
-    {
-        bool caught = false;
-        try {
-            SA::add(vc,7);
-        } catch (const tt::t::util::FeatureDisabled& e) {
-            caught = true;
-            caught &= std::string(e.what()) == "Adding is disabled in current collection.";
+    { // ADDITION
+        const char* THROW_STRING = "Adding is disabled in current collection.";
+        {
+            bool caught = false;
+            try {
+                SA::add(vc,7);
+            } catch (const tt::t::util::FeatureDisabled& e) {
+                caught = true;
+                caught &= std::string(e.what()) == THROW_STRING;
+            }
+            IFN_RET_FALSE( caught );
         }
-        IFN_RET_FALSE( caught );
+
+        {
+            bool caught = false;
+            try {
+                SA::canAdd(vc);
+            } catch (const tt::t::util::FeatureDisabled& e) {
+                caught = true;
+                caught &= std::string(e.what()) == THROW_STRING;
+            }
+            IFN_RET_FALSE( caught );
+        }
     }
 
     return true;

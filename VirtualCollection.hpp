@@ -25,8 +25,8 @@
 namespace test_templatious {
 
 template <class T>
-bool fakeVirtualTest(T& t) {
-    IFN_SECTOR_START( "fake virtual test" );
+bool throwVirtualTest(T& t) {
+    IFN_SECTOR_START( "throw virtual test" );
     auto vc = SF::vcollectionCustom(t);
 
     // throw by default
@@ -282,7 +282,7 @@ bool virtualTest(T&& t) {
 
     bool isGood = true;
     isGood &= existantCollectionTest(vc);
-    isGood &= fakeVirtualTest(vc);
+    isGood &= throwVirtualTest(vc);
 
     return isGood;
 }

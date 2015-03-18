@@ -328,6 +328,11 @@ bool fakeVirtualTest(T& t) {
         IFN_RET_FALSE( SA::getByIndex(t,0) == 7 );
     }
 
+    { // SIZABLE
+        IFN_RET_FALSE( SA::size(vc) == 0 );
+        IFN_RET_FALSE( SA::size(t) == 1 );
+        IFN_RET_FALSE( SA::getByIndex(t,0) == 7 );
+    }
 
     return true;
 }

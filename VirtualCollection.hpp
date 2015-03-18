@@ -315,6 +315,7 @@ bool fakeVirtualTest(T& t) {
             ++cnt;
         }
 
+        IFN_RET_FALSE( cnt == 0 );
         IFN_RET_FALSE( SA::size(t) == 1 );
         IFN_RET_FALSE( SA::getByIndex(t,0) == 7 );
     }

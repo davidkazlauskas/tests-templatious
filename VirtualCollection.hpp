@@ -86,6 +86,25 @@ bool fakeVirtualTest(T& t) {
             }
             IFN_RET_FALSE( caught );
         }
+
+        { // GET ITER
+            auto vcc = SF::vcollectionCustom<
+                t::AP_THROW,
+                t::CP_THROW,
+                t::TP_ENABLED
+            >(t);
+
+            {
+                bool caught = false;
+                try {
+                    SA::erase(vcc,SA::begin(vcc));
+                } catch (const tt::t::util::FeatureDisabled& e) {
+                    caught = true;
+                    caught &= std::string(e.what()) == THROW_STRING;
+                }
+                IFN_RET_FALSE( caught );
+            }
+        }
     }
 
     { // TRAVERSAL

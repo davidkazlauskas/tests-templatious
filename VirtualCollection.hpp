@@ -277,12 +277,35 @@ bool throwVirtualTest(T& t) {
 }
 
 template <class T>
+bool fakeVirtualTest(T& t) {
+    IFN_SECTOR_START( "fake virtual test" );
+    SA::clear(t);
+
+    auto vc = SF::vcollectionCustom<
+        t::AP_FAKE,
+        t::CP_FAKE,
+        t::TP_FAKE,
+        t::ACP_ENABLED,
+        t::SP_FAKE
+    >(t);
+
+    { // ADDABLE
+        SA::add(vc,7);
+
+        IFN_RET_FALSE( SA::size(t) == 0 );
+    }
+
+    return true;
+}
+
+template <class T>
 bool virtualTest(T&& t) {
     auto vc = SF::vcollection(t);
 
     bool isGood = true;
     isGood &= existantCollectionTest(vc);
     isGood &= throwVirtualTest(vc);
+    isGood &= fakeVirtualTest(vc);
 
     return isGood;
 }

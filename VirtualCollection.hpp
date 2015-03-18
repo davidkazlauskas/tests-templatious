@@ -165,6 +165,17 @@ bool fakeVirtualTest(T& t) {
             }
             IFN_RET_FALSE( caught );
         }
+
+        {
+            bool caught = false;
+            try {
+                vc.cgetByIndex(7);
+            } catch (const tt::t::util::FeatureDisabled& e) {
+                caught = true;
+                caught &= std::string(e.what()) == THROW_STRING;
+            }
+            IFN_RET_FALSE( caught );
+        }
     }
 
     return true;

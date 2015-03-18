@@ -84,10 +84,66 @@ bool fakeVirtualTest(T& t) {
 
     { // TRAVERSAL
         const char* THROW_STRING = "Traversal is disabled in current collection.";
+
         {
             bool caught = false;
             try {
                 SA::begin(vc);
+            } catch (const tt::t::util::FeatureDisabled& e) {
+                caught = true;
+                caught &= std::string(e.what()) == THROW_STRING;
+            }
+            IFN_RET_FALSE( caught );
+        }
+
+        {
+            bool caught = false;
+            try {
+                SA::end(vc);
+            } catch (const tt::t::util::FeatureDisabled& e) {
+                caught = true;
+                caught &= std::string(e.what()) == THROW_STRING;
+            }
+            IFN_RET_FALSE( caught );
+        }
+
+        {
+            bool caught = false;
+            try {
+                SA::iterAt(vc,7);
+            } catch (const tt::t::util::FeatureDisabled& e) {
+                caught = true;
+                caught &= std::string(e.what()) == THROW_STRING;
+            }
+            IFN_RET_FALSE( caught );
+        }
+
+        {
+            bool caught = false;
+            try {
+                SA::cbegin(vc);
+            } catch (const tt::t::util::FeatureDisabled& e) {
+                caught = true;
+                caught &= std::string(e.what()) == THROW_STRING;
+            }
+            IFN_RET_FALSE( caught );
+        }
+
+        {
+            bool caught = false;
+            try {
+                SA::cend(vc);
+            } catch (const tt::t::util::FeatureDisabled& e) {
+                caught = true;
+                caught &= std::string(e.what()) == THROW_STRING;
+            }
+            IFN_RET_FALSE( caught );
+        }
+
+        {
+            bool caught = false;
+            try {
+                SA::citerAt(vc,7);
             } catch (const tt::t::util::FeatureDisabled& e) {
                 caught = true;
                 caught &= std::string(e.what()) == THROW_STRING;

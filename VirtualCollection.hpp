@@ -152,6 +152,21 @@ bool fakeVirtualTest(T& t) {
         }
     }
 
+    { // ACCESS
+        const char* THROW_STRING = "Access operations are disabled in current collection.";
+
+        {
+            bool caught = false;
+            try {
+                SA::getByIndex(vc,7);
+            } catch (const tt::t::util::FeatureDisabled& e) {
+                caught = true;
+                caught &= std::string(e.what()) == THROW_STRING;
+            }
+            IFN_RET_FALSE( caught );
+        }
+    }
+
     return true;
 }
 

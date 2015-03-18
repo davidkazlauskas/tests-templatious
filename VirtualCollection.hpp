@@ -25,11 +25,31 @@
 namespace test_templatious {
 
 template <class T>
+bool fakeVirtualTest(T& t) {
+    IFN_SECTOR_START( "fake virtual test" );
+    auto vc = SF::vcollectionCustom(t);
+
+    // throw by default
+    {
+        bool caught = false;
+        try {
+            SA::add(vc,7);
+        } catch (const std::exception& e) {
+            caught = true;
+        }
+        IFN_RET_FALSE( caught );
+    }
+
+    return true;
+}
+
+template <class T>
 bool virtualTest(T&& t) {
     auto vc = SF::vcollection(t);
 
     bool isGood = true;
     isGood &= existantCollectionTest(vc);
+    isGood &= fakeVirtualTest(vc);
 
     return isGood;
 }

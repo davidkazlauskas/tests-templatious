@@ -53,6 +53,19 @@ bool fakeVirtualTest(T& t) {
             }
             IFN_RET_FALSE( caught );
         }
+
+        // FIX THIS - we can't test insertion
+        // because getting iterator also throws.
+        //{
+            //bool caught = false;
+            //try {
+                //SA::insert(vc,templatious::VIterator<int>(nullptr),7);
+            //} catch (const tt::t::util::FeatureDisabled& e) {
+                //caught = true;
+                //caught &= std::string(e.what()) == THROW_STRING;
+            //}
+            //IFN_RET_FALSE( caught );
+        //}
     }
 
     return true;

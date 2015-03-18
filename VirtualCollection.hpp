@@ -318,6 +318,14 @@ bool fakeVirtualTest(T& t) {
         IFN_RET_FALSE( cnt == 0 );
         IFN_RET_FALSE( SA::size(t) == 1 );
         IFN_RET_FALSE( SA::getByIndex(t,0) == 7 );
+
+        for (auto i = SA::cbegin(vc); i != SA::cend(vc); ++i) {
+            ++cnt;
+        }
+
+        IFN_RET_FALSE( cnt == 0 );
+        IFN_RET_FALSE( SA::size(t) == 1 );
+        IFN_RET_FALSE( SA::getByIndex(t,0) == 7 );
     }
 
 

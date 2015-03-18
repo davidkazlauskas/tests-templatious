@@ -301,6 +301,12 @@ bool fakeVirtualTest(T& t) {
 
         SA::clear(vc);
         IFN_RET_FALSE( SA::size(t) == 1 );
+
+        SA::erase(vc,SA::begin(vc));
+        IFN_RET_FALSE( SA::size(t) == 1 );
+
+        SA::erase(vc,SA::begin(vc),SA::end(vc));
+        IFN_RET_FALSE( SA::size(t) == 1 );
     }
 
 

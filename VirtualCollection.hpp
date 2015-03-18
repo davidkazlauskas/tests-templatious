@@ -34,8 +34,9 @@ bool fakeVirtualTest(T& t) {
         bool caught = false;
         try {
             SA::add(vc,7);
-        } catch (const std::exception& e) {
+        } catch (const tt::t::util::FeatureDisabled& e) {
             caught = true;
+            caught &= std::string(e.what()) == "Adding is disabled in current collection.";
         }
         IFN_RET_FALSE( caught );
     }

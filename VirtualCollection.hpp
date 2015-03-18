@@ -291,9 +291,11 @@ bool fakeVirtualTest(T& t) {
 
     { // ADDABLE
         SA::add(vc,7);
+        SA::insert(vc,SA::begin(vc),7);
 
         IFN_RET_FALSE( SA::size(t) == 0 );
     }
+
 
     return true;
 }

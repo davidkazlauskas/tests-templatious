@@ -346,13 +346,13 @@ bool fakeVirtualTest(T& t) {
 }
 
 template <class T>
-bool virtualTest(T&& t) {
+bool virtualTest(T& t) {
     auto vc = SF::vcollection(t);
 
     bool isGood = true;
     isGood &= existantCollectionTest(vc);
     isGood &= throwVirtualTest(t);
-    isGood &= throwVirtualTestReadOnly(t);
+    isGood &= throwVirtualTestReadOnly(static_cast<const T&>(t));
     isGood &= fakeVirtualTest(t);
 
     return isGood;

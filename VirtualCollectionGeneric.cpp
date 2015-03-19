@@ -39,11 +39,19 @@ TEST_CASE( "virtual_collection_move_semantics_existing", "[virtual_collection]" 
 
     REQUIRE( SM::sum<int>(v) == sum );
 
-    {
+    { // BASIC
         auto vc = SF::vcollection(v);
 
         REQUIRE( SM::sum<int>(v) == sum );
         REQUIRE( SM::sum<int>(vc) == sum );
+    }
+
+    { // MUTATION, REFERENCE SAME
+        auto vc = SF::vcollection(v);
+
+        SA::erase(v,SA::begin(v));
+
+        REQUIRE( SM::sum<int>(vc) == sum - 1 );
     }
 
     { // THE MOVE

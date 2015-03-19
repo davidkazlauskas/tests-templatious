@@ -407,3 +407,11 @@ TEST_CASE( "static_vector_tests_move_semantics", "[static_vector_tests]" )
     REQUIRE( SA::size(v) == 0 );
 }
 
+TEST_CASE( "static_vector_element_move", "[static_vector_tests]" )
+{
+    tt::t::StaticBuffer<MovablePod,256> sb;
+    auto v = sb.getStaticVector();
+
+    REQUIRE( moveTest(v) );
+}
+

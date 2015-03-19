@@ -59,6 +59,11 @@ bool moveTest(T& t) {
     SA::add(t,std::move(m));
     IFN_RET_FALSE( m._i == -7 );
 
+    MovablePod m2(77);
+    SA::insert(t,SA::begin(t),m2);
+    IFN_RET_FALSE( m2._i == 77 );
+    IFN_RET_FALSE( SA::getByIndex(t,0)._i == 77 );
+
     return true;
 }
 

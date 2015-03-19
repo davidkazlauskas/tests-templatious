@@ -25,9 +25,31 @@ std::vector<int> rvalVect() {
 }
 
 TEST_CASE( "virtual_collection_move_semantics", "[virtual_collection]" ) {
-    auto vc = SF::vcollection(rvalVect());
-
     int sum = 1 + 2 + 3 + 4 + 5 + 6 + 7;
 
+    auto vc = SF::vcollection(rvalVect());
     REQUIRE( SM::sum<int>(vc) == sum );
+}
+
+TEST_CASE( "virtual_collection_move_semantics_existing", "[virtual_collection]" ) {
+    int sum = 1 + 2 + 3 + 4 + 5 + 6 + 7;
+
+    std::vector<int> v;
+    SA::add(v,1,2,3,4,5,6,7);
+
+    REQUIRE( SM::sum<int>(v) == sum );
+
+    {
+        auto vc = SF::vcollection(v);
+
+        REQUIRE( SM::sum<int>(v) == sum );
+        REQUIRE( SM::sum<int>(vc) == sum );
+    }
+
+    { // THE MOVE
+        auto vc = SF::vcollection(std::move(v));
+
+        REQUIRE( SM::sum<int>(v) == 0 );
+        REQUIRE( SM::sum<int>(vc) == sum );
+    }
 }

@@ -64,6 +64,9 @@ bool moveTest(T& t) {
     IFN_RET_FALSE( m2._i == 77 );
     IFN_RET_FALSE( SA::getByIndex(t,0)._i == 77 );
 
+    SA::insert(t,SA::begin(t),std::move(m2));
+    IFN_RET_FALSE( m2._i == -7 );
+
     return true;
 }
 

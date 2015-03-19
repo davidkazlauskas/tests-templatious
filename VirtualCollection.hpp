@@ -25,98 +25,9 @@
 namespace test_templatious {
 
 template <class T>
-bool throwVirtualTest(T& t) {
+bool throwVirtualTestReadOnly(T& t) {
     IFN_SECTOR_START( "throw virtual test" );
     auto vc = SF::vcollectionCustom(t);
-
-    // throw by default
-    { // ADDITION
-        const char* THROW_STRING = "Adding is disabled in current collection.";
-        {
-            bool caught = false;
-            try {
-                SA::add(vc,7);
-            } catch (const tt::t::util::FeatureDisabled& e) {
-                caught = true;
-                caught &= std::string(e.what()) == THROW_STRING;
-            }
-            IFN_RET_FALSE( caught );
-        }
-
-        {
-            bool caught = false;
-            try {
-                SA::canAdd(vc);
-            } catch (const tt::t::util::FeatureDisabled& e) {
-                caught = true;
-                caught &= std::string(e.what()) == THROW_STRING;
-            }
-            IFN_RET_FALSE( caught );
-        }
-
-        { // GET ITER
-            auto vcc = SF::vcollectionCustom<
-                t::AP_THROW,
-                t::CP_THROW,
-                t::TP_ENABLED
-            >(t);
-
-            {
-                bool caught = false;
-                try {
-                    SA::insert(vcc,SA::begin(vcc),7);
-                } catch (const tt::t::util::FeatureDisabled& e) {
-                    caught = true;
-                    caught &= std::string(e.what()) == THROW_STRING;
-                }
-                IFN_RET_FALSE( caught );
-            }
-        }
-    }
-
-    { // CLEARANCE
-        const char* THROW_STRING = "Erasing is disabled in current collection.";
-        {
-            bool caught = false;
-            try {
-                SA::clear(vc);
-            } catch (const tt::t::util::FeatureDisabled& e) {
-                caught = true;
-                caught &= std::string(e.what()) == THROW_STRING;
-            }
-            IFN_RET_FALSE( caught );
-        }
-
-        { // GET ITER
-            auto vcc = SF::vcollectionCustom<
-                t::AP_THROW,
-                t::CP_THROW,
-                t::TP_ENABLED
-            >(t);
-
-            {
-                bool caught = false;
-                try {
-                    SA::erase(vcc,SA::begin(vcc));
-                } catch (const tt::t::util::FeatureDisabled& e) {
-                    caught = true;
-                    caught &= std::string(e.what()) == THROW_STRING;
-                }
-                IFN_RET_FALSE( caught );
-            }
-
-            {
-                bool caught = false;
-                try {
-                    SA::erase(vcc,SA::begin(vcc),SA::end(vcc));
-                } catch (const tt::t::util::FeatureDisabled& e) {
-                    caught = true;
-                    caught &= std::string(e.what()) == THROW_STRING;
-                }
-                IFN_RET_FALSE( caught );
-            }
-        }
-    }
 
     { // TRAVERSAL
         const char* THROW_STRING = "Traversal is disabled in current collection.";
@@ -274,6 +185,103 @@ bool throwVirtualTest(T& t) {
     }
 
     return true;
+}
+
+template <class T>
+bool throwVirtualTest(T& t) {
+    IFN_SECTOR_START( "throw virtual test" );
+    auto vc = SF::vcollectionCustom(t);
+
+    // throw by default
+    { // ADDITION
+        const char* THROW_STRING = "Adding is disabled in current collection.";
+        {
+            bool caught = false;
+            try {
+                SA::add(vc,7);
+            } catch (const tt::t::util::FeatureDisabled& e) {
+                caught = true;
+                caught &= std::string(e.what()) == THROW_STRING;
+            }
+            IFN_RET_FALSE( caught );
+        }
+
+        {
+            bool caught = false;
+            try {
+                SA::canAdd(vc);
+            } catch (const tt::t::util::FeatureDisabled& e) {
+                caught = true;
+                caught &= std::string(e.what()) == THROW_STRING;
+            }
+            IFN_RET_FALSE( caught );
+        }
+
+        { // GET ITER
+            auto vcc = SF::vcollectionCustom<
+                t::AP_THROW,
+                t::CP_THROW,
+                t::TP_ENABLED
+            >(t);
+
+            {
+                bool caught = false;
+                try {
+                    SA::insert(vcc,SA::begin(vcc),7);
+                } catch (const tt::t::util::FeatureDisabled& e) {
+                    caught = true;
+                    caught &= std::string(e.what()) == THROW_STRING;
+                }
+                IFN_RET_FALSE( caught );
+            }
+        }
+    }
+
+    { // CLEARANCE
+        const char* THROW_STRING = "Erasing is disabled in current collection.";
+        {
+            bool caught = false;
+            try {
+                SA::clear(vc);
+            } catch (const tt::t::util::FeatureDisabled& e) {
+                caught = true;
+                caught &= std::string(e.what()) == THROW_STRING;
+            }
+            IFN_RET_FALSE( caught );
+        }
+
+        { // GET ITER
+            auto vcc = SF::vcollectionCustom<
+                t::AP_THROW,
+                t::CP_THROW,
+                t::TP_ENABLED
+            >(t);
+
+            {
+                bool caught = false;
+                try {
+                    SA::erase(vcc,SA::begin(vcc));
+                } catch (const tt::t::util::FeatureDisabled& e) {
+                    caught = true;
+                    caught &= std::string(e.what()) == THROW_STRING;
+                }
+                IFN_RET_FALSE( caught );
+            }
+
+            {
+                bool caught = false;
+                try {
+                    SA::erase(vcc,SA::begin(vcc),SA::end(vcc));
+                } catch (const tt::t::util::FeatureDisabled& e) {
+                    caught = true;
+                    caught &= std::string(e.what()) == THROW_STRING;
+                }
+                IFN_RET_FALSE( caught );
+            }
+        }
+    }
+
+    return throwVirtualTestReadOnly(t);
 }
 
 template <class T>

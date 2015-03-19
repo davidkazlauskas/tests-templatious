@@ -23,6 +23,7 @@
 #include "Proxies.hpp"
 #include "VirtualCollection.hpp"
 #include "detail/CCountColTest.hpp"
+#include "MoveTests.hpp"
 
 #endif /* end of include guard: TESTALGS_GMTU7RDA */
 

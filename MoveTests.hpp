@@ -52,6 +52,11 @@ bool moveTest(T& t) {
     SA::add(t,m);
 
     IFN_RET_FALSE( m._i == 7 );
+    auto& r = SA::getByIndex(t,0);
+    IFN_RET_FALSE( std::addressof(r) != std::addressof(m) );
+    IFN_RET_FALSE( r._i == 7 );
+
+    return true;
 }
 
 

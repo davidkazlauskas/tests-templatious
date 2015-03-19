@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include "TestDefs.hpp"
+#include "TestAlgs.hpp"
 
 std::vector<int> rvalVect() {
     std::vector<int> res;
@@ -66,39 +66,20 @@ TEST_CASE( "virtual_collection_move_semantics_existing", "[virtual_collection]" 
     }
 }
 
-struct SomePod {
-    SomePod(int i) : _i(i) {}
-    SomePod(const SomePod& c) : _i(c._i) {}
-    SomePod(SomePod&& c) : _i(c._i) {
-        c._i = -7;
-    }
-
-    SomePod& operator=(const SomePod& c) {
-        _i = c._i;
-        return *this;
-    }
-
-    SomePod& operator=(SomePod&& c) {
-        _i = c._i;
-        c._i = -7;
-        return *this;
-    }
-
-    int _i;
-};
-
 TEST_CASE( "virtual_collection_move_add", "[virtual_collection]" ) {
-    std::vector<SomePod> v;
+    std::vector<MovablePod> v;
 
     auto vc = SF::vcollection(v);
 
-    SomePod s(7);
-    SA::add(vc,s);
+    REQUIRE( moveTest(vc) );
 
-    REQUIRE( s._i == 7 );
-    REQUIRE( SA::getByIndex(vc,0)._i == 7 );
-    REQUIRE( std::addressof(SA::getByIndex(vc,0)) != std::addressof(s) );
+    //SomePod s(7);
+    //SA::add(vc,s);
 
-    SA::add(vc,std::move(s));
-    REQUIRE( s._i == -7 );
+    //REQUIRE( s._i == 7 );
+    //REQUIRE( SA::getByIndex(vc,0)._i == 7 );
+    //REQUIRE( std::addressof(SA::getByIndex(vc,0)) != std::addressof(s) );
+
+    //SA::add(vc,std::move(s));
+    //REQUIRE( s._i == -7 );
 }

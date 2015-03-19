@@ -55,6 +55,7 @@ TEST_CASE( "virtual_collection_move_semantics_existing", "[virtual_collection]" 
 
         SA::insert(vc,SA::begin(vc),1);
         REQUIRE( SM::sum<int>(v) == sum );
+        REQUIRE( SM::areCollectionsEqual(v,SF::seqI(1,7)) );
     }
 
     { // THE MOVE

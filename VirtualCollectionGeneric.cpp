@@ -92,4 +92,10 @@ TEST_CASE( "virtual_collection_move_add", "[virtual_collection]" ) {
 
     auto vc = SF::vcollection(v);
 
+    SomePod s(7);
+    SA::add(vc,s);
+
+    REQUIRE( s._i == 7 );
+    REQUIRE( SA::getByIndex(vc,0)._i == 7 );
+    REQUIRE( std::addressof(SA::getByIndex(vc,0)) != std::addressof(s) );
 }

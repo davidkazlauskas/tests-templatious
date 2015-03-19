@@ -351,8 +351,9 @@ bool virtualTest(T&& t) {
 
     bool isGood = true;
     isGood &= existantCollectionTest(vc);
-    isGood &= throwVirtualTest(vc);
-    isGood &= fakeVirtualTest(vc);
+    isGood &= throwVirtualTest(t);
+    isGood &= throwVirtualTestReadOnly(t);
+    isGood &= fakeVirtualTest(t);
 
     return isGood;
 }

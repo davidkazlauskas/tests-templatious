@@ -56,6 +56,9 @@ bool moveTest(T& t) {
     IFN_RET_FALSE( std::addressof(r) != std::addressof(m) );
     IFN_RET_FALSE( r._i == 7 );
 
+    SA::add(t,std::move(m));
+    IFN_RET_FALSE( m._i == -7 );
+
     return true;
 }
 

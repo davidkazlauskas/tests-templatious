@@ -65,3 +65,31 @@ TEST_CASE( "virtual_collection_move_semantics_existing", "[virtual_collection]" 
         REQUIRE( SM::sum<int>(vc) == sum );
     }
 }
+
+struct SomePod {
+    SomePod(int i) : _i(i) {}
+    SomePod(const SomePod& c) : _i(c._i) {}
+    SomePod(SomePod&& c) : _i(c._i) {
+        c._i = -7;
+    }
+
+    SomePod& operator=(const SomePod& c) {
+        _i = c._i;
+        return *this;
+    }
+
+    SomePod& operator=(SomePod&& c) {
+        _i = c._i;
+        c._i = -7;
+        return *this;
+    }
+
+    int _i;
+};
+
+TEST_CASE( "virtual_collection_move_add", "[virtual_collection]" ) {
+    std::vector<SomePod> v;
+
+    auto vc = SF::vcollection(v);
+
+}

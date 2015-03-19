@@ -28,6 +28,7 @@ SET ( generic_tests
     Sequence.cpp StaticManipulatorTests.cpp
     StaticFactoryTests.cpp IterDumpTests.cpp
     SelectTests.cpp ChainUsageTests.cpp
+    VirtualCollectionGeneric.cpp
 )
 
 SET ( specific_tests

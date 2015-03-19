@@ -70,3 +70,10 @@ TEST_CASE( "std_list_tests_destruction", "[std_list_tests]" )
     REQUIRE(ValType::count() == 0);
 }
 
+TEST_CASE( "std_list_element_move", "[std_list_tests]" )
+{
+    std::list< MovablePod > v;
+
+    REQUIRE( moveTest(v) );
+}
+

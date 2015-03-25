@@ -32,7 +32,7 @@ TEST_CASE( "pack_basic_test", "[pack_tests]" )
             "\n"
         );
 
-    auto f = SF::streamFunctor(ss);
+    auto f = SF::streamOutFunctor(ss);
 
     SM::callEach(f,p);
 
@@ -295,7 +295,7 @@ TEST_CASE( "pack_transform_moar", "[pack_tests]" )
     auto trP = SF::packTransformWithin(trFunc,p);
 
     std::stringstream ss;
-    auto sf = SF::streamFunctor(ss);
+    auto sf = SF::streamOutFunctor(ss);
     SM::callEach(sf,trP);
 
     auto res = ss.str();

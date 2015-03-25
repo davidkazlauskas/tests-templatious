@@ -45,7 +45,7 @@ TEST_CASE( "distributor_tests_basic_mixed", "[distributor_tests]" )
     REQUIRE( res == 7 );
 
     std::stringstream ss;
-    auto func = SF::streamFunctor(ss);
+    auto func = SF::streamOutFunctor(ss);
 
     auto prnt = SF::packInsert(p,' ');
     int res2 = SM::callEach(func,prnt);

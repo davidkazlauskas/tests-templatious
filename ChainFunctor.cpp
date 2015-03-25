@@ -255,7 +255,7 @@ namespace
     );
 
 // PR UTIL
-    auto prnt = SF::streamFunctor(std::cout);
+    auto prnt = SF::streamOutFunctor(std::cout);
 
     auto prSomeData =
     [](const SomeData& s) {

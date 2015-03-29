@@ -125,3 +125,55 @@ TEST_CASE( "virtual_collection_custom_destructor_cval", "[virtual_collection]" )
 
     REQUIRE( SA::size(v) == 0 );
 }
+
+TEST_CASE( "virtual_collection_destructor_rval", "[virtual_collection]" ) {
+    std::vector< int > v;
+    SA::add(v,1,2,3,4,5,6,7);
+
+    {
+        auto h = SF::vcollectionWDtor(
+            v,
+            [&]() {
+                SA::clear(v);
+            }
+        );
+    }
+
+    REQUIRE( SA::size(v) == 0 );
+}
+
+TEST_CASE( "virtual_collection_destructor_lval", "[virtual_collection]" ) {
+    std::vector< int > v;
+    SA::add(v,1,2,3,4,5,6,7);
+
+    auto lval =
+        [&]() {
+            SA::clear(v);
+        };
+    {
+        auto h = SF::vcollectionWDtor(
+            v,
+            lval
+        );
+    }
+
+    REQUIRE( SA::size(v) == 0 );
+}
+
+TEST_CASE( "virtual_collection_destructor_cval", "[virtual_collection]" ) {
+    std::vector< int > v;
+    SA::add(v,1,2,3,4,5,6,7);
+
+    auto lval =
+        [&]() {
+            SA::clear(v);
+        };
+    {
+        auto h = SF::vcollectionWDtor(
+            v,
+            static_cast<const decltype(lval)&>(lval)
+        );
+    }
+
+    REQUIRE( SA::size(v) == 0 );
+}

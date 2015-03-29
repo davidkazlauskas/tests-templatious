@@ -74,14 +74,36 @@ TEST_CASE( "virtual_collection_move_add", "[virtual_collection]" ) {
     REQUIRE( moveTest(vc) );
 }
 
-TEST_CASE( "virtual_collection_custom_destructor", "[virtual_collection]" ) {
+TEST_CASE( "virtual_collection_custom_destructor_rval", "[virtual_collection]" ) {
     std::vector< int > v;
     SA::add(v,1,2,3,4,5,6,7);
 
     {
         auto h = SF::vcollectionCustomWDtor(
             v,
-            [&]() { SA::clear(v); }
+            [&]() {
+                SA::clear(v);
+            }
         );
     }
+
+    REQUIRE( SA::size(v) == 0 );
+}
+
+TEST_CASE( "virtual_collection_custom_destructor_lval", "[virtual_collection]" ) {
+    std::vector< int > v;
+    SA::add(v,1,2,3,4,5,6,7);
+
+    auto lval =
+        [&]() {
+            SA::clear(v);
+        };
+    {
+        auto h = SF::vcollectionCustomWDtor(
+            v,
+            lval
+        );
+    }
+
+    REQUIRE( SA::size(v) == 0 );
 }

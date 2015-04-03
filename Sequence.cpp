@@ -134,3 +134,14 @@ TEST_CASE( "sequence_unsigned_backwards", "[sequence_tests]" )
     REQUIRE( caught );
 }
 
+TEST_CASE( "sequence_neg_step", "[sequence_tests]")
+{
+    bool caught = false;
+    try {
+        SF::seqL<int>(77,7,-7);
+    } catch (templatious::NegativeStepException e) {
+        caught = true;
+    }
+
+    REQUIRE( caught );
+}

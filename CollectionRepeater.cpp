@@ -149,3 +149,16 @@ TEST_CASE( "collection_repeater_item_repeater_exceptions", "[collection_repeater
     }
 }
 
+TEST_CASE( "collection_repeater_copyable_iterator", "[collection_repeater]" )
+{
+    auto r = SF::repS(2,7);
+
+    int sum = 0;
+    SM::quadro([&](int a,int b) {
+        sum += a;
+        sum += b;
+    },r,r);
+
+    REQUIRE( sum == 7 * 2 * 4 );
+}
+

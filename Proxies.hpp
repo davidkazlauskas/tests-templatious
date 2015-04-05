@@ -650,7 +650,9 @@ bool exceptionTests(T&& c) {
         bool caught = false;
         try {
             SF::skip(c,0);
-        } catch (const std::exception& e) {
+        } catch (const templatious::
+            SkipperNonPositiveStepException& e)
+        {
             caught = true;
         }
         REQUIRE(caught);

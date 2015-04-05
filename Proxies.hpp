@@ -701,6 +701,28 @@ bool exceptionTests(T&& c) {
         REQUIRE( sum == 0 );
     }
 
+    // Passing begin iterator greater
+    // than end causes undefined
+    // behaviour. Range class has
+    // no way of checking if iterators
+    // passed satisfy this rule without
+    // shenaningans like checking if
+    // we have random access iterator,
+    // using std::distance, querying
+    // end iterator of original collection,
+    // constantly checking if we reached
+    // end, etc.
+
+    //{
+        //setCollection_prx(c);
+        //auto r = SF::range(c,
+            //SA::iterAt(c,9),
+            //SA::iterAt(c,3));
+
+        //int sum = SM::sum<int>(r);
+        //REQUIRE( sum == 0 );
+    //}
+
     return true;
 }
 

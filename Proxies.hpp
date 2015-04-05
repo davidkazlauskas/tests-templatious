@@ -695,6 +695,12 @@ bool exceptionTests(T&& c) {
         REQUIRE(caught);
     }
 
+    {
+        setCollection_prx(c);
+        int sum = SM::sum<int>(SF::range(c,7,7));
+        REQUIRE( sum == 0 );
+    }
+
     return true;
 }
 

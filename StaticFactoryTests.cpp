@@ -267,3 +267,17 @@ TEST_CASE( "static_factory_match_functor_loose_first", "[static_factory_tests]" 
     REQUIRE( mf("moo",7.7) == 77 );
 }
 
+TEST_CASE( "static_factory_match_functor_loose_base", "[static_factory_tests]" )
+{
+    struct A {};
+    struct B : public A {};
+
+    auto mf = SF::matchFunctor(
+        SF::matchLoose<A>([](A a) { return 1; }),
+        SF::matchLoose<B>([](B a) { return 2; }),
+        SF::matchAny(AnyFctor())
+    );
+
+    REQUIRE( mf(B()) == 1 );
+}
+

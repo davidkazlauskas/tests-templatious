@@ -158,3 +158,49 @@ TEST_CASE( "chained_usage_tests_varying_addition_special_match", "[chained_usage
     REQUIRE( tt::almostEqual(SA::getByIndex(v,1),7.7) );
     REQUIRE( tt::almostEqual(SA::getByIndex(v,2),7.8) );
 }
+
+TEST_CASE( "chained_usage_quadro_proxies", "[chain_usage_tests]" )
+{
+    std::vector<long> v;
+    SA::add(v,SF::seqL(100));
+
+    auto flt = SF::filter(v,[](int i) { return i > 50; });
+    auto skip = SF::skip(v,3);
+    auto range = SF::range(v,10,20);
+
+    long sum = 0;
+    SM::quadro(
+        [&](long i,long j,long k) {
+            sum += i + j + k;
+        },flt,skip,range);
+
+    const int EXPECTED = 2315740;
+    REQUIRE( EXPECTED == sum );
+    REQUIRE( SM::areCollectionsEqual(v,SF::seqL(100)) );
+}
+
+TEST_CASE( "chained_usage_quadro_deep_nest", "[chain_usage_tests]" )
+{
+    std::vector<long> v;
+    SA::add(v,SF::seqL(100));
+
+    auto flt =
+        SF::skip(
+            SF::range(
+                SF::filter(
+                    v,
+                    [](long i) { return i > 50; }
+                ),
+                17,37
+            ),
+            3
+        );
+
+    long sum = 0;
+    SM::quadro([&](long i,long j) {
+            sum += i + j;
+        },flt,flt);
+
+    const int EXPECTED = 539 * 7 + 539 * 7;
+    REQUIRE( EXPECTED == sum );
+}

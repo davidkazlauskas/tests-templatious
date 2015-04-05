@@ -206,6 +206,10 @@ bool proxySizeTests(T&& c);
 template <class T>
 bool proxyEmptyCollectionTests(T&& c);
 
+// EXCEPTION TESTS
+template <class T>
+bool exceptionTests(T&& c);
+
 //
 //
 // VARIATIONS
@@ -389,6 +393,9 @@ bool proxyDeletionTest(T&& c) {
 
     // empty proxies
     IFN_RET_FALSE(proxyEmptyCollectionTests(c));
+
+    // exceptions
+    IFN_RET_FALSE(exceptionTests(c));
     return true;
 }
 
@@ -632,6 +639,21 @@ bool proxyEmptyCollectionTests(T&& c) {
                 )
             ,2);
         IFN_RET_FALSE( SA::trueSize(f) == 0 );
+    }
+
+    return true;
+}
+
+template <class T>
+bool exceptionTests(T&& c) {
+    {
+        bool caught = false;
+        try {
+            SF::skip(c,0);
+        } catch (const std::exception& e) {
+            caught = true;
+        }
+        REQUIRE(caught);
     }
 
     return true;

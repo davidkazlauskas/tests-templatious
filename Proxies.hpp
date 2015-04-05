@@ -682,6 +682,18 @@ bool exceptionTests(T&& c) {
         REQUIRE(caught);
     }
 
+    {
+        setCollection_prx(c);
+        bool caught = false;
+        try {
+            SF::range(c,7,2);
+        } catch (const std::exception& e)
+        {
+            caught = true;
+        }
+        REQUIRE(caught);
+    }
+
     return true;
 }
 

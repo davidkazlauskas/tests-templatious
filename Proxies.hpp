@@ -687,7 +687,8 @@ bool exceptionTests(T&& c) {
         bool caught = false;
         try {
             SF::range(c,7,2);
-        } catch (const std::exception& e)
+        } catch (const templatious::
+            RangeBeginMoreThanEndException& e)
         {
             caught = true;
         }

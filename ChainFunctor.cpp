@@ -11,7 +11,6 @@
  *       Compiler:  gcc
  *
  *         Author:  Deividas Kazlauskas (dk), ne-bobu@reikalas.lt
- *        Company:  Company and shit
  *
  * =====================================================================================
  */

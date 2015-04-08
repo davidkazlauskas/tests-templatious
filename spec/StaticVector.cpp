@@ -420,6 +420,14 @@ struct DummyDefVar {
     int _memb;
 };
 
+struct DummyNoDefCtor {
+    DummyNoDefCtor() = delete;
+
+    DummyNoDefCtor(int val) : _memb(val) {}
+
+    int _memb;
+};
+
 TEST_CASE( "static_vector_preallocate", "[static_vector_tests]" )
 {
     std::aligned_storage<sizeof(DummyDefVar),alignof(DummyDefVar)> stor[16];
@@ -429,4 +437,18 @@ TEST_CASE( "static_vector_preallocate", "[static_vector_tests]" )
     int sum = SM::fold(0,[](int i,const DummyDefVar& d) { return i + d._memb; },vct);
 
     REQUIRE( sum == 7 * 8 );
+}
+
+TEST_CASE( "static_vector_no_def_ctor_alloc", "[static_vector_tests]" )
+{
+    tt::t::StaticBuffer<DummyNoDefCtor,16> b;
+
+    auto v = b.getStaticVector();
+    auto val = DummyNoDefCtor(7);
+    SA::add(v,val,val,val,val,val,val,val);
+
+    int sum = SM::fold(0,[](int i,const DummyNoDefCtor& d)
+            { return i + d._memb; },v);
+
+    REQUIRE( sum == 7 * 7 );
 }

@@ -414,3 +414,19 @@ TEST_CASE( "static_vector_element_move", "[static_vector_tests]" )
     REQUIRE( moveTest(v) );
 }
 
+struct DummyDefVar {
+    DummyDefVar() : _memb(7) {}
+
+    int _memb;
+};
+
+TEST_CASE( "static_vector_preallocate", "[static_vector_tests]" )
+{
+    std::aligned_storage<sizeof(DummyDefVar),alignof(DummyDefVar)> stor[16];
+
+    tt::t::StaticVector<DummyDefVar> vct(reinterpret_cast<DummyDefVar*>(stor),16,8);
+
+    int sum = SM::fold(0,[](int i,const DummyDefVar& d) { return i + d._memb; },vct);
+
+    REQUIRE( sum == 7 * 8 );
+}

@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  TestAlgs.h
+ *       Filename:  TestAlgs.hpp
  *
  *    Description:  General test algorithms
  *

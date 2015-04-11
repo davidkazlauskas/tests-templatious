@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  TestDefs.h
+ *       Filename:  TestDefs.hpp
  *
  *    Description:  Test utilities and definitions
  *

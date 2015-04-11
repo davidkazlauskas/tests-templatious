@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  CCountColTest.h
+ *       Filename:  CCountColTest.hpp
  *
  *    Description:  test routine for destruction count
  *

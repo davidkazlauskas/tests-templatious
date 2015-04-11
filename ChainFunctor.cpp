@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  ChainFunctor.h
+ *       Filename:  ChainFunctor.hpp
  *
  *    Description:  Chain functor tests
  *

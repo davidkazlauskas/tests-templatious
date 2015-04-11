@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  StaticManipulatorTests.h
+ *       Filename:  StaticManipulatorTests.hpp
  *
  *    Description:  Static manipulator tests
  *

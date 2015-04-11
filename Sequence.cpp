@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Sequence.h
+ *       Filename:  Sequence.hpp
  *
  *    Description:  Sequence tests
  *

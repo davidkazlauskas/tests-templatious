@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  ChainUsageTests.h
+ *       Filename:  ChainUsageTests.hpp
  *
  *    Description:  This header contains various chained usages
  *                  of templatious classes

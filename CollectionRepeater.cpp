@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  CollectionRepeater.h
+ *       Filename:  CollectionRepeater.hpp
  *
  *    Description:  Collection repeater tests
  *

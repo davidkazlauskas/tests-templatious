@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  SelectTests.h
+ *       Filename:  SelectTests.hpp
  *
  *    Description:  Select statement tests
  *

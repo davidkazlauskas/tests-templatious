@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  CollectionAdapter.h
+ *       Filename:  CollectionAdapter.hpp
  *
  *    Description:  Collection adapter tests
  *

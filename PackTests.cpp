@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  PackTests.h
+ *       Filename:  PackTests.hpp
  *
  *    Description:  test for packs
  *

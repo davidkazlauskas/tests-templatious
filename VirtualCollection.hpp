@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  VirtualCollection.h
+ *       Filename:  VirtualCollection.hpp
  *
  *    Description:  Virtual collection test reusing old tests
  *

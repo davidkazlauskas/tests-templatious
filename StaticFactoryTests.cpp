@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  StaticFactoryTests.h
+ *       Filename:  StaticFactoryTests.hpp
  *
  *    Description:  Static factory tests
  *

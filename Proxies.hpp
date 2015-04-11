@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Proxies.h
+ *       Filename:  Proxies.hpp
  *
  *    Description:  Proxy tests
  *

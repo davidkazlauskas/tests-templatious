@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  ConstructorCountCollection.h
+ *       Filename:  ConstructorCountCollection.hpp
  *
  *    Description:  Collection that counts construction and destruction of objects
  *

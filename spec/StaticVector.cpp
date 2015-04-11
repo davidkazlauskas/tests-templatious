@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  StaticVector.h
+ *       Filename:  StaticVector.hpp
  *
  *    Description:  Static vector test
  *

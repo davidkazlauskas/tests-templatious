@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  DistributorTests.h
+ *       Filename:  DistributorTests.hpp
  *
  *    Description:  Distributor tests
  *

@@ -316,9 +316,13 @@ bool iterAtIntegrityTest(T&& c) {
         auto it = SA::iterAt(c,cnt);
         auto cIt = SA::citerAt(c,cnt);
         auto itC = Ad::iterAt(static_cast<typename Ad::ConstCol&>(c),cnt);
+        auto &rAt = SA::getByIndex(c,cnt);
+        auto &rcAt = SA::getByIndex(static_cast<typename Ad::ConstCol&>(c),cnt);
         testPassed &= *it == *beg;
         testPassed &= *cIt == *beg;
         testPassed &= *itC == *beg;
+        testPassed &= rAt == *beg;
+        testPassed &= rcAt == *beg;
         ++cnt;
 
         prVal = *beg;
@@ -327,7 +331,10 @@ bool iterAtIntegrityTest(T&& c) {
 
     IFN_RET_FALSE(testPassed);
 
-    IFN_RET_FALSE( *SA::cend(c) == *SA::citerAt(c,size) )
+    // invalid comparison,
+    // nobody said cend has to refer to a valid
+    // element, nevertheless, at the end of the sequence
+    //IFN_RET_FALSE( *SA::cend(c) == *SA::citerAt(c,size) )
 
     {
         bool caught = false;

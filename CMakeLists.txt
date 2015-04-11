@@ -34,6 +34,7 @@ SET ( generic_tests
 SET ( specific_tests
     spec/StdVector.cpp
     spec/StdList.cpp
+    spec/StdForwardList.cpp
     spec/StaticVector.cpp
 )
 

@@ -299,6 +299,7 @@ bool iterAtIntegrityTest(T&& c) {
     IFN_RET_FALSE(size == 100);
 
     typedef t::adapters::CollectionAdapter<T> Ad;
+    typedef t::adapters::CollectionAdapter<typename Ad::ConstCol> CAd;
 
     std::vector< typename Ad::ValueType > v;
 
@@ -318,9 +319,11 @@ bool iterAtIntegrityTest(T&& c) {
         auto itC = Ad::iterAt(static_cast<typename Ad::ConstCol&>(c),cnt);
         auto &rAt = SA::getByIndex(c,cnt);
         auto &rcAt = SA::getByIndex(static_cast<typename Ad::ConstCol&>(c),cnt);
+        auto itCC = CAd::iterAt(c,cnt);
         testPassed &= *it == *beg;
         testPassed &= *cIt == *beg;
         testPassed &= *itC == *beg;
+        testPassed &= *itCC == *beg;
         testPassed &= rAt == *beg;
         testPassed &= rcAt == *beg;
         ++cnt;

@@ -313,8 +313,12 @@ bool iterAtIntegrityTest(T&& c) {
     int cnt = 0;
     while (beg != end) {
         testPassed &= *beg - 1 == prVal;
+        auto it = SA::iterAt(c,cnt);
         auto cIt = SA::citerAt(c,cnt);
+        auto itC = Ad::iterAt(static_cast<typename Ad::ConstCol&>(c),cnt);
+        testPassed &= *it == *beg;
         testPassed &= *cIt == *beg;
+        testPassed &= *itC == *beg;
         ++cnt;
 
         prVal = *beg;

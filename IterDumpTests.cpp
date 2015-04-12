@@ -274,3 +274,13 @@ TEST_CASE( "iter_dump_tests_sort_empty", "[iter_dump_tests]" ) {
     REQUIRE( SA::size(l) == 1 );
 }
 
+TEST_CASE( "iter_dump_tests_sort_special", "[iter_dump_tests]" ) {
+    std::list<int> l;
+    SA::add(l,1,2,3);
+
+    SM::sortS(l,[](int a,int b) { return a > b; });
+    REQUIRE( SA::getByIndex(l,0) == 3 );
+    REQUIRE( SA::getByIndex(l,1) == 2 );
+    REQUIRE( SA::getByIndex(l,2) == 1 );
+}
+

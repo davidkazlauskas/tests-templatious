@@ -43,9 +43,5 @@ add_executable ( a.out
     main.cpp
     ${generic_tests} ${specific_tests}
 )
-target_link_libraries(a.out
-    ${Boost_FILESYSTEM_LIBRARY}
-    ${Boost_SYSTEM_LIBRARY}
-    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
 SET ( CMAKE_EXPORT_COMPILE_COMMANDS ON )

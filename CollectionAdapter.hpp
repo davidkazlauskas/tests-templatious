@@ -51,6 +51,8 @@ template <class T>
 bool iterAtIntegrityTest(T&& c);
 template <class T>
 bool sizeTest(T&& c);
+template <class T>
+bool sortTest(T&& c);
 
 template <class T>
 bool existantCollectionTest(T&& c) {
@@ -72,6 +74,7 @@ bool existantCollectionTest(T&& c) {
     IFN_RET_FALSE(iterAssigmentTest(c));
     IFN_RET_FALSE(iterAtIntegrityTest(c));
     IFN_RET_FALSE(sizeTest(c));
+    IFN_RET_FALSE(sortTest(c));
 
     return true;
 }
@@ -379,6 +382,33 @@ bool sizeTest(T&& c) {
     }
     IFN_RET_FALSE( SA::trueSize(c) == j );
     IFN_RET_FALSE( j == 100 );
+
+    return true;
+}
+
+template <class T>
+bool sortTest(T&& c) {
+    IFN_SECTOR_START( "sorting test" );
+
+    { // Simple
+        SA::clear(c);
+        SA::add(c,3,2,1);
+        SM::sort(c);
+
+        IFN_RET_FALSE( SA::getByIndex(c,0) == 1 );
+        IFN_RET_FALSE( SA::getByIndex(c,1) == 2 );
+        IFN_RET_FALSE( SA::getByIndex(c,2) == 3 );
+    }
+
+    { // Custom
+        SA::clear(c);
+        SA::add(c,1,2,3);
+        SM::sortS(c,[](int a,int b) { return a > b; });
+
+        IFN_RET_FALSE( SA::getByIndex(c,0) == 3 );
+        IFN_RET_FALSE( SA::getByIndex(c,1) == 2 );
+        IFN_RET_FALSE( SA::getByIndex(c,2) == 1 );
+    }
 
     return true;
 }

@@ -12,7 +12,6 @@ ADD_DEFINITIONS (
     -x c++
     -ggdb3
     -O0
-    -DBOOST_TEST_DYN_LINK
     #-fcolor-diagnostics
     #-Wno-unused-local-typedefs # keep g++ happy
 )

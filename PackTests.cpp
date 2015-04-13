@@ -307,4 +307,5 @@ TEST_CASE( "virtual_pack_impl", "[virtual_pack_tests]" )
 
     bool matches = impl.matchesSignature<int,int>();
     REQUIRE( matches );
+    REQUIRE( impl.size() == 2 );
 }

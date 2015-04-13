@@ -301,3 +301,10 @@ TEST_CASE( "pack_transform_moar", "[pack_tests]" )
     REQUIRE( res == ">7<>7<>7<>7<>7<>7<>7<" );
 }
 
+TEST_CASE( "virtual_pack_impl", "[virtual_pack_tests]" )
+{
+    tt::t::VirtualPackImpl<int,int> impl(1,2);
+
+    bool matches = impl.matchesSignature<int,int>();
+    REQUIRE( matches );
+}

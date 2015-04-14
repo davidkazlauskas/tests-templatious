@@ -109,3 +109,28 @@ TEST_CASE( "virtual_pack_impl_call_success", "[virtual_pack_tests]" )
     REQUIRE( outA == 1 );
     REQUIRE( outB == 2 );
 }
+
+TEST_CASE( "virtual_pack_impl_call_mod_contents", "[virtual_pack_tests]" )
+{
+    tt::t::VirtualPackImpl<int,int> impl(1,2);
+
+    int outA,outB;
+    outA = outB = -7;
+    auto testLambda =
+        [&](int& a,int& b) {
+            ++a;
+            ++b;
+            outA = a;
+            outB = b;
+        };
+
+    bool tryCall = impl.tryCallFunction<int,int>(testLambda);
+    REQUIRE( tryCall );
+    REQUIRE( outA == 2 );
+    REQUIRE( outB == 3 );
+
+    outA = outB = -7;
+    impl.callFunction<int,int>(testLambda);
+    REQUIRE( outA == 3 );
+    REQUIRE( outB == 4 );
+}

@@ -49,7 +49,7 @@ TEST_CASE( "virtual_pack_impl_const_correct", "[virtual_pack_tests]" )
     REQUIRE( matches );
 }
 
-TEST_CASE( "virtual_pack_impl_call_correct", "[virtual_pack_tests]" )
+TEST_CASE( "virtual_pack_impl_call_correct_fails", "[virtual_pack_tests]" )
 {
     tt::t::VirtualPackImpl<int,const int> impl(1,2);
 
@@ -85,4 +85,20 @@ TEST_CASE( "virtual_pack_impl_call_correct", "[virtual_pack_tests]" )
         caught = true;
     }
     REQUIRE( caught );
+}
+
+TEST_CASE( "virtual_pack_impl_call_success", "[virtual_pack_tests]" )
+{
+    tt::t::VirtualPackImpl<int,const int> impl(1,2);
+
+    int outA,outB;
+    outA = outB = -7;
+    auto testLambda =
+        [&](const int& a,const int& b) {
+            outA = a;
+            outB = b;
+        };
+
+    bool tryCall = impl.tryCallFunction<int,const int>(testLambda);
+    REQUIRE( tryCall );
 }

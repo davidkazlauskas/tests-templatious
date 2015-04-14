@@ -311,4 +311,22 @@ TEST_CASE( "virtual_pack_impl", "[virtual_pack_tests]" )
     matches = impl.matchesSignature<int,char>();
     REQUIRE( !matches );
     matches = impl.matchesSignature<char,int>();
+    REQUIRE( !matches );
+    matches = impl.matchesSignature<int,const int>();
+    REQUIRE( matches );
+    matches = impl.matchesSignature<int,int&>();
+    REQUIRE( matches );
+    matches = impl.matchesSignature<int,int*>();
+    REQUIRE( !matches );
+}
+
+TEST_CASE( "virtual_pack_impl_const_correct", "[virtual_pack_tests]" )
+{
+    tt::t::VirtualPackImpl<int,const int> impl(1,2);
+    bool matches = impl.matchesSignature<int,int>();
+    REQUIRE( !matches );
+    matches = impl.matchesSignature<int,const int>();
+    REQUIRE( matches );
+    matches = impl.matchesSignature<const int,const int>();
+    REQUIRE( matches );
 }

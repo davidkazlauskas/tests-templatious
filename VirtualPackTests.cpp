@@ -51,5 +51,17 @@ TEST_CASE( "virtual_pack_impl_const_correct", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_impl_call_correct", "[virtual_pack_tests]" )
 {
+    tt::t::VirtualPackImpl<int,const int> impl(1,2);
 
+    int outA,outB;
+    outA = outB = -7;
+    auto testLambda =
+        [&](const int& a,const int& b) {
+            outA = a;
+            outB = b;
+        };
+    bool tryCall = impl.tryCallFunction<int,int>(testLambda);
+    REQUIRE( !tryCall );
+    REQUIRE( outA == -7 );
+    REQUIRE( outA == outB );
 }

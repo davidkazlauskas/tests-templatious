@@ -17,7 +17,7 @@ ADD_DEFINITIONS (
 )
 
 SET ( CMAKE_CXX_COMPILER "g++-4.9" )
-#SET ( CMAKE_CXX_COMPILER "clang++-3.5" )
+#SET ( CMAKE_CXX_COMPILER "clang++-3.7" )
 #SET ( CMAKE_CXX_COMPILER "g++" )
 
 SET ( generic_tests

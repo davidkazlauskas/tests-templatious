@@ -327,6 +327,8 @@ TEST_CASE( "virtual_pack_impl_const_correct", "[virtual_pack_tests]" )
     REQUIRE( !matches );
     matches = impl.matchesSignature<int,const int>();
     REQUIRE( matches );
+    // if element is non const but
+    // we need const it's okay
     matches = impl.matchesSignature<const int,const int>();
     REQUIRE( matches );
 }

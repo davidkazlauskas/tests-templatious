@@ -101,4 +101,6 @@ TEST_CASE( "virtual_pack_impl_call_success", "[virtual_pack_tests]" )
 
     bool tryCall = impl.tryCallFunction<int,const int>(testLambda);
     REQUIRE( tryCall );
+    REQUIRE( outA == 1 );
+    REQUIRE( outB == 2 );
 }

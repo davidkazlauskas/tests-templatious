@@ -76,4 +76,16 @@ TEST_CASE( "virtual_pack_impl_call_correct", "[virtual_pack_tests]" )
     REQUIRE( caught );
     REQUIRE( outA == -7 );
     REQUIRE( outA == outB );
+
+    caught = false;
+    try {
+        impl.callFunction<int>(testLambda);
+    } catch (const templatious::
+            VirtualPackWrongTypeSignatureException& e) {
+        caught = true;
+    }
+
+    REQUIRE( caught );
+    REQUIRE( outA == -7 );
+    REQUIRE( outA == outB );
 }

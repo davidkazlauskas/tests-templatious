@@ -208,3 +208,18 @@ TEST_CASE( "virtual_pack_impl_const_ref_notry", "[virtual_pack_tests]" )
     REQUIRE( outA == outB );
 }
 
+TEST_CASE( "virtual_pack_match_test", "[virtual_pack_tests]" )
+{
+    int outA,outB;
+    outA = outB = -7;
+    auto l = [&](int& a,int& b) {
+        outA = a;
+        outB = a;
+    };
+
+    tt::t::VirtualMatch<
+        decltype(l),
+        templatious::util::DefaultStoragePolicy,
+        int, int
+    > m(l);
+}

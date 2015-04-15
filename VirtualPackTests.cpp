@@ -145,12 +145,13 @@ TEST_CASE( "virtual_pack_impl_const_ref", "[virtual_pack_tests]" )
     int outA,outB;
     outA = outB = -7;
     auto testLambda =
-        [&](int& a,int& b) {
-            ++a;
-            ++b;
+        [&](const int& a,const int& b) {
             outA = a;
             outB = b;
         };
 
-    cref.tryCallFunction<int,int>(testLambda);
+    bool success = cref.tryCallFunction<
+        const int,const int>(testLambda);
+
+    REQUIRE( success );
 }

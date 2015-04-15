@@ -208,13 +208,13 @@ TEST_CASE( "virtual_pack_impl_const_ref_notry", "[virtual_pack_tests]" )
     REQUIRE( outA == outB );
 }
 
-TEST_CASE( "virtual_pack_match_test", "[virtual_pack_tests]" )
+TEST_CASE( "virtual_pack_match_test_const_fail", "[virtual_pack_tests]" )
 {
     int outA,outB;
     outA = outB = -7;
     auto l = [&](int& a,int& b) {
         outA = a;
-        outB = a;
+        outB = b;
     };
 
     tt::t::VirtualMatch<
@@ -222,4 +222,32 @@ TEST_CASE( "virtual_pack_match_test", "[virtual_pack_tests]" )
         templatious::util::DefaultStoragePolicy,
         int, int
     > m(l);
+
+    tt::t::VirtualPackImpl<int,const int> impl(1,2);
+
+    bool isGood = m(impl);
+    REQUIRE( !isGood );
+}
+
+TEST_CASE( "virtual_pack_match_test_const_pass", "[virtual_pack_tests]" )
+{
+    int outA,outB;
+    outA = outB = -7;
+    auto l = [&](int& a,const int& b) {
+        outA = a;
+        outB = b;
+    };
+
+    tt::t::VirtualMatch<
+        decltype(l),
+        templatious::util::DefaultStoragePolicy,
+        int, const int
+    > m(l);
+
+    tt::t::VirtualPackImpl<int,const int> impl(1,2);
+
+    bool isGood = m(impl);
+    REQUIRE( isGood );
+    REQUIRE( outA == 1 );
+    REQUIRE( outB == 2 );
 }

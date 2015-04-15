@@ -168,3 +168,43 @@ TEST_CASE( "virtual_pack_impl_const_ref", "[virtual_pack_tests]" )
     REQUIRE( outA == -7 );
     REQUIRE( outA == outB );
 }
+
+TEST_CASE( "virtual_pack_impl_const_ref_notry", "[virtual_pack_tests]" )
+{
+    typedef tt::t::VirtualPackImpl<int,int> TheImpl;
+    TheImpl impl(1,2);
+
+    const TheImpl& cref(impl);
+
+    int outA,outB;
+    outA = outB = -7;
+    auto testLambda =
+        [&](const int& a,const int& b) {
+            outA = a;
+            outB = b;
+        };
+
+    cref.callFunction<
+        const int,const int>(testLambda);
+
+    REQUIRE( outA == 1 );
+    REQUIRE( outB == 2 );
+
+    outA = outB = -7;
+
+    bool caught = false;
+    try {
+        cref.callFunction<
+            const int,const long>([&](int a,long b) {
+                    outA = a; outB = b;
+            });
+    } catch (const templatious::
+            VirtualPackWrongTypeSignatureException& e) {
+        caught = true;
+    }
+
+    REQUIRE( caught );
+    REQUIRE( outA == -7 );
+    REQUIRE( outA == outB );
+}
+

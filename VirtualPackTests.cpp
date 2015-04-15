@@ -227,6 +227,8 @@ TEST_CASE( "virtual_pack_match_test_const_fail", "[virtual_pack_tests]" )
 
     bool isGood = m(impl);
     REQUIRE( !isGood );
+    REQUIRE( outA == -7 );
+    REQUIRE( outA == outB );
 }
 
 TEST_CASE( "virtual_pack_match_test_const_pass", "[virtual_pack_tests]" )

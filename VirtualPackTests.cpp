@@ -134,3 +134,11 @@ TEST_CASE( "virtual_pack_impl_call_mod_contents", "[virtual_pack_tests]" )
     REQUIRE( outA == 3 );
     REQUIRE( outB == 4 );
 }
+
+TEST_CASE( "virtual_pack_impl_const_ref", "[virtual_pack_tests]" )
+{
+    typedef tt::t::VirtualPackImpl<int,int> TheImpl;
+    TheImpl impl(1,2);
+
+    const TheImpl& cref(impl);
+}

@@ -141,4 +141,16 @@ TEST_CASE( "virtual_pack_impl_const_ref", "[virtual_pack_tests]" )
     TheImpl impl(1,2);
 
     const TheImpl& cref(impl);
+
+    int outA,outB;
+    outA = outB = -7;
+    auto testLambda =
+        [&](int& a,int& b) {
+            ++a;
+            ++b;
+            outA = a;
+            outB = b;
+        };
+
+    cref.tryCallFunction<int,int>(testLambda);
 }

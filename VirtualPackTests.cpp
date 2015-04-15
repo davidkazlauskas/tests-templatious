@@ -154,4 +154,6 @@ TEST_CASE( "virtual_pack_impl_const_ref", "[virtual_pack_tests]" )
         const int,const int>(testLambda);
 
     REQUIRE( success );
+    REQUIRE( outA == 1 );
+    REQUIRE( outB == 2 );
 }

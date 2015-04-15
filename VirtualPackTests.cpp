@@ -156,4 +156,15 @@ TEST_CASE( "virtual_pack_impl_const_ref", "[virtual_pack_tests]" )
     REQUIRE( success );
     REQUIRE( outA == 1 );
     REQUIRE( outB == 2 );
+
+    outA = outB = -7;
+
+    success = cref.tryCallFunction<
+        const int,const long>([&](int a,long b) {
+                outA = a; outB = b;
+        });
+
+    REQUIRE( !success );
+    REQUIRE( outA == -7 );
+    REQUIRE( outA == outB );
 }

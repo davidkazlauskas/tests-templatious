@@ -266,4 +266,35 @@ TEST_CASE( "virtual_pack_fget", "[virtual_pack_tests]" )
 TEST_CASE( "virtual_pack_match_functor", "[virtual_pack_tests]" )
 {
     auto pack = SF::vpack<long,long>(1,2);
+
+    int outResult = -7;
+    auto func =
+        SF::virtualMatchFunctor(
+            SF::virtualMatch<long,int>(
+                [&](long l,int i) {
+                    outResult = 1;
+                }
+            )
+        );
+
+    bool matched = func.tryMatch(pack);
+    REQUIRE( !matched );
+    REQUIRE( outResult == -7 );
+
+    auto func2 =
+        SF::virtualMatchFunctor(
+            SF::virtualMatch<long,int>(
+                [&](long l,int i) {
+                    outResult = 1;
+                }
+            ),
+            SF::virtualMatch<long,long>(
+                [&](long l,long i) {
+                    outResult = 2;
+                }
+            )
+        );
+
+    matched = func2.tryMatch(pack);
+    REQUIRE( matched );
 }

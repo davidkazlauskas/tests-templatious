@@ -343,4 +343,5 @@ TEST_CASE( "virtual_pack_match_functor_composition", "[virtual_pack_tests]" )
 
     matched = func3.tryMatch(pack);
     REQUIRE( matched );
+    REQUIRE( outResult == 1 );
 }

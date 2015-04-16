@@ -253,3 +253,17 @@ TEST_CASE( "virtual_pack_match_test_const_pass", "[virtual_pack_tests]" )
     REQUIRE( outA == 1 );
     REQUIRE( outB == 2 );
 }
+
+TEST_CASE( "virtual_pack_fget", "[virtual_pack_tests]" )
+{
+    tt::t::VirtualPackImpl<int,const int,double> impl(1,2,7.7);
+
+    REQUIRE( impl.fGet<0>() == 1 );
+    REQUIRE( impl.fGet<1>() == 2 );
+    REQUIRE( std::fabs( impl.fGet<2>() - 7.7 ) < 0.00000001 );
+}
+
+TEST_CASE( "virtual_pack_match_functor", "[virtual_pack_tests]" )
+{
+    auto pack = SF::vpack<long,long>(1,2);
+}

@@ -297,4 +297,5 @@ TEST_CASE( "virtual_pack_match_functor", "[virtual_pack_tests]" )
 
     matched = func2.tryMatch(pack);
     REQUIRE( matched );
+    REQUIRE( outResult == 2 );
 }

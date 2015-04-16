@@ -345,3 +345,27 @@ TEST_CASE( "virtual_pack_match_functor_composition", "[virtual_pack_tests]" )
     REQUIRE( matched );
     REQUIRE( outResult == 1 );
 }
+
+TEST_CASE( "virtual_pack_match_functor_priorities", "[virtual_pack_tests]" )
+{
+    auto pack = SF::vpack<long,long>(1,2);
+
+    int outResult = -7;
+    auto func =
+        SF::virtualMatchFunctor(
+            SF::virtualMatch<long,long>(
+                [&](long l,long i) {
+                    outResult = 1;
+                }
+            ),
+            SF::virtualMatch<long,long>(
+                [&](long l,long i) {
+                    outResult = 2;
+                }
+            )
+        );
+
+    bool matched = func.tryMatch(pack);
+    REQUIRE( matched );
+    REQUIRE( outResult == 1 );
+}

@@ -439,3 +439,23 @@ TEST_CASE( "virtual_pack_match_functor_transparency", "[virtual_pack_tests]" )
     REQUIRE( outResultA == 1 );
     REQUIRE( outResultB == 2 );
 }
+
+TEST_CASE( "virtual_pack_match_functor_vptr", "[virtual_pack_tests]" )
+{
+    auto pack = SF::vpack<long,long>(1,2);
+    int outResultA = -7;
+
+    auto func =
+        SF::virtualMatchFunctorPtr(
+            SF::virtualMatch<long,long>(
+                [&](long l,long i) {
+                    outResultA = 1;
+                }
+            )
+        );
+
+    bool matched = func->tryMatch(pack);
+
+    REQUIRE( matched );
+    REQUIRE( outResultA == 1 );
+}

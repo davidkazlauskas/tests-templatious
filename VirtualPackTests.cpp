@@ -328,4 +328,19 @@ TEST_CASE( "virtual_pack_match_functor_composition", "[virtual_pack_tests]" )
 
     REQUIRE( matched );
     REQUIRE( outResult == 1 );
+
+    outResult = -7;
+
+    auto func3 =
+        SF::virtualMatchFunctor(
+            func,
+            SF::virtualMatch<long,int>(
+                [&](long l,long i) {
+                    outResult = 3;
+                }
+            )
+        );
+
+    matched = func3.tryMatch(pack);
+    REQUIRE( matched );
 }

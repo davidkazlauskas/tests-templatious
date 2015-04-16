@@ -299,3 +299,33 @@ TEST_CASE( "virtual_pack_match_functor", "[virtual_pack_tests]" )
     REQUIRE( matched );
     REQUIRE( outResult == 2 );
 }
+
+TEST_CASE( "virtual_pack_match_functor_composition", "[virtual_pack_tests]" )
+{
+    auto pack = SF::vpack<long,long>(1,2);
+
+    int outResult = -7;
+    auto func =
+        SF::virtualMatchFunctor(
+            SF::virtualMatch<long,long>(
+                [&](long l,long i) {
+                    outResult = 1;
+                }
+            )
+        );
+
+    auto func2 =
+        SF::virtualMatchFunctor(
+            SF::virtualMatch<long,int>(
+                [&](long l,long i) {
+                    outResult = 2;
+                }
+            ),
+            func
+        );
+
+    bool matched = func2.tryMatch(pack);
+
+    REQUIRE( matched );
+    REQUIRE( outResult == 1 );
+}

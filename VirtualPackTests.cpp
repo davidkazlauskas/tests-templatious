@@ -219,6 +219,7 @@ TEST_CASE( "virtual_pack_match_test_const_fail", "[virtual_pack_tests]" )
 
     tt::t::VirtualMatch<
         decltype(l),
+        false,
         templatious::util::DefaultStoragePolicy,
         int, int
     > m(l);
@@ -242,6 +243,7 @@ TEST_CASE( "virtual_pack_match_test_const_pass", "[virtual_pack_tests]" )
 
     tt::t::VirtualMatch<
         decltype(l),
+        false,
         templatious::util::DefaultStoragePolicy,
         int, const int
     > m(l);

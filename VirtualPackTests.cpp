@@ -487,7 +487,6 @@ TEST_CASE( "virtual_pack_vptr", "[virtual_pack_tests]" )
     long outResultA = -7;
     long outResultB = -7;
     REQUIRE( vpack->useCount() == 0 );
-
     bool matched = vpack->tryCallFunction<long,long>(
         [&](long a,long b) {
             outResultA = a;
@@ -496,4 +495,5 @@ TEST_CASE( "virtual_pack_vptr", "[virtual_pack_tests]" )
     );
 
     REQUIRE( matched );
+    REQUIRE( vpack->useCount() == 1 );
 }

@@ -379,7 +379,7 @@ TEST_CASE( "virtual_pack_match_functor_throw", "[virtual_pack_tests]" )
     int outResult = -7;
 
     auto func =
-        SF::virtualMatchFunctor(
+        SF::virtualMatchFunctorPtr(
             SF::virtualMatch<long,long>(
                 [&](long l,long i) {
                     outResult = 1;
@@ -387,13 +387,13 @@ TEST_CASE( "virtual_pack_match_functor_throw", "[virtual_pack_tests]" )
             )
         );
 
-    func(pack);
+    (*func)(pack);
 
     REQUIRE( outResult == 1 );
     outResult = -7;
 
     auto func2 =
-        SF::virtualMatchFunctor(
+        SF::virtualMatchFunctorPtr(
             SF::virtualMatch<long,int>(
                 [&](long l,int i) {
                     outResult = 2;
@@ -403,7 +403,7 @@ TEST_CASE( "virtual_pack_match_functor_throw", "[virtual_pack_tests]" )
 
     bool caught = false;
     try {
-        func2(pack);
+        (*func2)(pack);
     } catch (const templatious::
         VirtualPackMatcherNoMatchException& e) {
         caught = true;

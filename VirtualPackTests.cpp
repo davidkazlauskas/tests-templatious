@@ -459,3 +459,23 @@ TEST_CASE( "virtual_pack_match_functor_vptr", "[virtual_pack_tests]" )
     REQUIRE( matched );
     REQUIRE( outResultA == 1 );
 }
+
+TEST_CASE( "virtual_pack_use_count", "[virtual_pack_tests]" )
+{
+    auto pack = SF::vpack<long,long>(1,2);
+
+    auto func =
+        SF::virtualMatchFunctor(
+            SF::virtualTransparentMatch<long,long>(
+                [&](long l,long i) {}
+            ),
+            SF::virtualMatch<long,long>(
+                [&](long l,long i) {}
+            )
+        );
+
+    bool matched = func.tryMatch(pack);
+
+    REQUIRE( matched );
+    REQUIRE( pack.useCount() == 2 );
+}

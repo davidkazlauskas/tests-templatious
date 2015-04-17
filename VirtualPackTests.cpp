@@ -479,3 +479,21 @@ TEST_CASE( "virtual_pack_use_count", "[virtual_pack_tests]" )
     REQUIRE( matched );
     REQUIRE( pack.useCount() == 2 );
 }
+
+TEST_CASE( "virtual_pack_vptr", "[virtual_pack_tests]" )
+{
+    auto vpack = SF::vpackPtr<long,long>(1,2);
+
+    long outResultA = -7;
+    long outResultB = -7;
+    REQUIRE( vpack->useCount() == 0 );
+
+    bool matched = vpack->tryCallFunction<long,long>(
+        [&](long a,long b) {
+            outResultA = a;
+            outResultB = b;
+        }
+    );
+
+    REQUIRE( matched );
+}

@@ -308,7 +308,7 @@ TEST_CASE( "virtual_pack_match_functor_composition", "[virtual_pack_tests]" )
 
     int outResult = -7;
     auto func =
-        SF::virtualMatchFunctor(
+        SF::virtualMatchFunctorPtr(
             SF::virtualMatch<long,long>(
                 [&](long l,long i) {
                     outResult = 1;
@@ -323,7 +323,7 @@ TEST_CASE( "virtual_pack_match_functor_composition", "[virtual_pack_tests]" )
                     outResult = 2;
                 }
             ),
-            func
+            std::move(func)
         );
 
     bool matched = func2.tryMatch(pack);
@@ -335,7 +335,7 @@ TEST_CASE( "virtual_pack_match_functor_composition", "[virtual_pack_tests]" )
 
     auto func3 =
         SF::virtualMatchFunctor(
-            func,
+            func2,
             SF::virtualMatch<long,int>(
                 [&](long l,long i) {
                     outResult = 3;

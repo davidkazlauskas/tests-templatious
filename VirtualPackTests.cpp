@@ -557,18 +557,25 @@ TEST_CASE( "virtual_pack_dynamic_match_functor_priority", "[virtual_pack_tests]"
             )
         );
 
-    dvmf.attach(std::move(func));
-    int id = dvmf.attach(std::move(func2),129);
+    int idA = dvmf.attach(std::move(func));
+    int idB = dvmf.attach(std::move(func2),129);
 
     bool matched = dvmf.tryMatch(pack);
 
     REQUIRE( matched );
     REQUIRE( outResultA == 2 );
 
-    func2 = dvmf.detach(id);
+    func2 = dvmf.detach(idB);
     dvmf.attach(std::move(func2),128);
 
     matched = dvmf.tryMatch(pack);
     REQUIRE( matched );
     REQUIRE( outResultA == 1 );
+
+    func = dvmf.detach(idA);
+    dvmf.attach(std::move(func),127);
+
+    matched = dvmf.tryMatch(pack);
+    REQUIRE( matched );
+    REQUIRE( outResultA == 2 );
 }

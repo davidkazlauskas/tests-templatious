@@ -497,3 +497,35 @@ TEST_CASE( "virtual_pack_vptr", "[virtual_pack_tests]" )
     REQUIRE( matched );
     REQUIRE( vpack->useCount() == 1 );
 }
+
+TEST_CASE( "virtual_pack_dynamic_match_functor", "[virtual_pack_tests]" )
+{
+    templatious::DynamicVMatchFunctor dvmf;
+
+    auto pack = SF::vpack<long,long>(1,2);
+    int outResultA = -7;
+
+    auto func =
+        SF::virtualMatchFunctorPtr(
+            SF::virtualMatch<long,long>(
+                [&](long l,long i) {
+                    outResultA = 1;
+                }
+            )
+        );
+
+    auto preAddr = func.get();
+
+    bool matched = dvmf.tryMatch(pack);
+    REQUIRE( !matched );
+    REQUIRE( outResultA == -7 );
+
+    int id = dvmf.attach(std::move(func));
+    matched = dvmf.tryMatch(pack);
+    REQUIRE( matched );
+
+    auto backPtr = dvmf.detach(id);
+    auto postAddr = backPtr.get();
+
+    REQUIRE( preAddr == postAddr );
+}

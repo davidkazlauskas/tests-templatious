@@ -430,7 +430,7 @@ struct DummyNoDefCtor {
 
 TEST_CASE( "static_vector_preallocate", "[static_vector_tests]" )
 {
-    std::aligned_storage<sizeof(DummyDefVar),alignof(DummyDefVar)> stor[16];
+    std::aligned_storage<sizeof(DummyDefVar),alignof(DummyDefVar)>::type stor[16];
 
     tt::t::StaticVector<DummyDefVar> vct(reinterpret_cast<DummyDefVar*>(stor),16,8);
 

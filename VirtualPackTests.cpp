@@ -17,9 +17,11 @@
 
 #include "TestDefs.hpp"
 
+static const int DefaultCoreSettings = tt::t::VPACK_DEF_MASK;
+
 TEST_CASE( "virtual_pack_impl", "[virtual_pack_tests]" )
 {
-    tt::t::VirtualPackImpl<int,int> impl(1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,int,int> impl(1,2);
 
     bool matches = impl.matchesSignature<int,int>();
     REQUIRE( matches );
@@ -38,7 +40,7 @@ TEST_CASE( "virtual_pack_impl", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_impl_const_correct", "[virtual_pack_tests]" )
 {
-    tt::t::VirtualPackImpl<int,const int> impl(1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,int,const int> impl(1,2);
     bool matches = impl.matchesSignature<int,int>();
     REQUIRE( !matches );
     matches = impl.matchesSignature<int,const int>();
@@ -51,7 +53,7 @@ TEST_CASE( "virtual_pack_impl_const_correct", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_impl_call_correct_fails", "[virtual_pack_tests]" )
 {
-    tt::t::VirtualPackImpl<int,const int> impl(1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,int,const int> impl(1,2);
 
     int outA,outB;
     outA = outB = -7;
@@ -89,7 +91,7 @@ TEST_CASE( "virtual_pack_impl_call_correct_fails", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_impl_call_success", "[virtual_pack_tests]" )
 {
-    tt::t::VirtualPackImpl<int,const int> impl(1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,int,const int> impl(1,2);
 
     int outA,outB;
     outA = outB = -7;
@@ -112,7 +114,7 @@ TEST_CASE( "virtual_pack_impl_call_success", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_impl_call_mod_contents", "[virtual_pack_tests]" )
 {
-    tt::t::VirtualPackImpl<int,int> impl(1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,int,int> impl(1,2);
 
     int outA,outB;
     outA = outB = -7;
@@ -137,7 +139,7 @@ TEST_CASE( "virtual_pack_impl_call_mod_contents", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_impl_const_ref", "[virtual_pack_tests]" )
 {
-    typedef tt::t::VirtualPackImpl<int,int> TheImpl;
+    typedef tt::t::VirtualPackImpl<DefaultCoreSettings,int,int> TheImpl;
     TheImpl impl(1,2);
 
     const TheImpl& cref(impl);
@@ -171,7 +173,7 @@ TEST_CASE( "virtual_pack_impl_const_ref", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_impl_const_ref_notry", "[virtual_pack_tests]" )
 {
-    typedef tt::t::VirtualPackImpl<int,int> TheImpl;
+    typedef tt::t::VirtualPackImpl<DefaultCoreSettings,int,int> TheImpl;
     TheImpl impl(1,2);
 
     const TheImpl& cref(impl);
@@ -224,7 +226,7 @@ TEST_CASE( "virtual_pack_match_test_const_fail", "[virtual_pack_tests]" )
         int, int
     > m(l);
 
-    tt::t::VirtualPackImpl<int,const int> impl(1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,int,const int> impl(1,2);
 
     bool isGood = m(impl);
     REQUIRE( !isGood );
@@ -248,7 +250,7 @@ TEST_CASE( "virtual_pack_match_test_const_pass", "[virtual_pack_tests]" )
         int, const int
     > m(l);
 
-    tt::t::VirtualPackImpl<int,const int> impl(1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,int,const int> impl(1,2);
 
     bool isGood = m(impl);
     REQUIRE( isGood );
@@ -258,7 +260,7 @@ TEST_CASE( "virtual_pack_match_test_const_pass", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_fget", "[virtual_pack_tests]" )
 {
-    tt::t::VirtualPackImpl<int,const int,double> impl(1,2,7.7);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,int,const int,double> impl(1,2,7.7);
 
     REQUIRE( impl.fGet<0>() == 1 );
     REQUIRE( impl.fGet<1>() == 2 );

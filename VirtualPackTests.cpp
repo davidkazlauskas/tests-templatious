@@ -15,6 +15,9 @@
  * =====================================================================================
  */
 
+#include <chrono>
+#include <thread>
+
 #include "TestDefs.hpp"
 
 static const int DefaultCoreSettings = tt::t::VPACK_DEF_MASK;
@@ -606,4 +609,29 @@ TEST_CASE( "virtual_pack_with_callback", "[virtual_pack_tests]" )
 
     REQUIRE( matched );
     REQUIRE( sum == 6 );
+}
+
+TEST_CASE( "virtual_pack_custom", "[virtual_pack_tests]" )
+{
+    auto pack = SF::vpackPtrCustom<
+        tt::t::VPACK_WAIT | tt::t::VPACK_SYNCED,
+        int,int
+    >(1,2);
+
+    auto handle = std::async(std::launch::async,
+        [=]() {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            pack->tryCallFunction<int,int>(
+                [](int& a,int& b) {
+                    a *= 2;
+                    b *= 2;
+                }
+            );
+        });
+    pack->wait();
+    int outA = pack->fGet<0>();
+    int outB = pack->fGet<1>();
+
+    REQUIRE( outA == 2 );
+    REQUIRE( outB == 4 );
 }

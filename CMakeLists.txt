@@ -12,6 +12,7 @@ ADD_DEFINITIONS (
     -x c++
     -ggdb3
     -O0
+    -pthread
     #-fcolor-diagnostics
     #-Wno-unused-local-typedefs # keep g++ happy
 )
@@ -43,5 +44,7 @@ add_executable ( a.out
     main.cpp
     ${generic_tests} ${specific_tests}
 )
+
+target_link_libraries( a.out pthread )
 
 SET ( CMAKE_EXPORT_COMPILE_COMMANDS ON )

@@ -753,3 +753,29 @@ TEST_CASE( "virtual_pack_custom_unsynchronized", "[virtual_pack_tests]" )
     REQUIRE( outA != expA );
     REQUIRE( outB != expB );
 }
+
+TEST_CASE( "virtual_pack_counted", "[virtual_pack_tests]" )
+{
+    auto packA = SF::vpackPtrCustom<
+        tt::t::VPACK_COUNT,
+        int,int
+    >(1,2);
+
+    auto packB = SF::vpackPtrCustom<
+        0,
+        int,int
+    >(1,2);
+
+    REQUIRE( packA->useCount() == 0 );
+    REQUIRE( packB->useCount() == -1 );
+
+    packA->tryCallFunction<int,int>(
+        [](int a,int b) {}
+    );
+    packB->tryCallFunction<int,int>(
+        [](int a,int b) {}
+    );
+
+    REQUIRE( packA->useCount() == 1 );
+    REQUIRE( packB->useCount() == -1 );
+}

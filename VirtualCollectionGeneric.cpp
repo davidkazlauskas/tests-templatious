@@ -176,3 +176,27 @@ TEST_CASE( "virtual_collection_destructor_cval", "[virtual_collection]" ) {
 
     REQUIRE( SA::size(v) == 0 );
 }
+
+TEST_CASE( "vcollection_allow", "[virtual_collection]" )
+{
+    std::vector< int > v;
+
+    auto h = SF::allow< tt::t::VCOL_ADD | tt::t::VCOL_TRAVERSE | tt::t::VCOL_SIZE >(v);
+
+    SA::add(h,1,2,3);
+
+    bool areEqual = SM::areCollectionsEqual(h,SF::seqI(1,3));
+    REQUIRE( areEqual );
+}
+
+TEST_CASE( "vcollection_prevent", "[virtual_collection]" )
+{
+    std::vector< int > v;
+
+    auto h = SF::prevent< tt::t::VCOL_CLEAR | tt::t::VCOL_ACCESS >(v);
+
+    SA::add(h,1,2,3);
+
+    bool areEqual = SM::areCollectionsEqual(h,SF::seqI(1,3));
+    REQUIRE( areEqual );
+}

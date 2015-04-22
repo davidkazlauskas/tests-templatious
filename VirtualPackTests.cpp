@@ -673,7 +673,6 @@ TEST_CASE( "virtual_pack_custom_synchronized", "[virtual_pack_tests]" )
 
     auto handleA = std::async(std::launch::async,
         [=]() {
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
             TEMPLATIOUS_REPEAT( ROUNDS ) {
                 pack->tryCallFunction<int,int>(
                     [](int& a,int& b) {
@@ -686,7 +685,6 @@ TEST_CASE( "virtual_pack_custom_synchronized", "[virtual_pack_tests]" )
 
     auto handleB = std::async(std::launch::async,
         [=]() {
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
             TEMPLATIOUS_REPEAT( ROUNDS ) {
                 pack->tryCallFunction<int,int>(
                     [](int& a,int& b) {
@@ -721,7 +719,6 @@ TEST_CASE( "virtual_pack_custom_unsynchronized", "[virtual_pack_tests]" )
 
     auto handleA = std::async(std::launch::async,
         [=]() {
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
             TEMPLATIOUS_REPEAT( ROUNDS ) {
                 pack->tryCallFunction<int,int>(
                     [](int& a,int& b) {
@@ -734,7 +731,6 @@ TEST_CASE( "virtual_pack_custom_unsynchronized", "[virtual_pack_tests]" )
 
     auto handleB = std::async(std::launch::async,
         [=]() {
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
             TEMPLATIOUS_REPEAT( ROUNDS ) {
                 pack->tryCallFunction<int,int>(
                     [](int& a,int& b) {

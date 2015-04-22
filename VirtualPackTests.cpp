@@ -581,3 +581,29 @@ TEST_CASE( "virtual_pack_dynamic_match_functor_priority", "[virtual_pack_tests]"
     REQUIRE( matched );
     REQUIRE( outResultA == 2 );
 }
+
+TEST_CASE( "virtual_pack_with_callback", "[virtual_pack_tests]" )
+{
+    volatile int sum = 0;
+    auto pack = SF::vpackPtrWCallback<int,int>(
+        [&](const TEMPLATIOUS_VPCORE<int,int>& vcore) {
+            sum += vcore.fGet<0>();
+            sum += vcore.fGet<1>();
+        },
+        1,2
+    );
+
+    auto mf = SF::virtualMatchFunctor(
+        SF::virtualMatch<int,int>(
+            [](int& a,int& b) {
+                a *= 2;
+                b *= 2;
+            }
+        )
+    );
+
+    bool matched = mf.tryMatch(*pack);
+
+    REQUIRE( matched );
+    REQUIRE( sum == 6 );
+}

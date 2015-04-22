@@ -611,10 +611,62 @@ TEST_CASE( "virtual_pack_with_callback", "[virtual_pack_tests]" )
     REQUIRE( sum == 6 );
 }
 
-TEST_CASE( "virtual_pack_custom", "[virtual_pack_tests]" )
+TEST_CASE( "virtual_pack_custom_wait", "[virtual_pack_tests]" )
 {
     auto pack = SF::vpackPtrCustom<
-        tt::t::VPACK_WAIT | tt::t::VPACK_SYNCED,
+        tt::t::VPACK_WAIT,
+        int,int
+    >(1,2);
+
+    auto handle = std::async(std::launch::async,
+        [=]() {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            pack->tryCallFunction<int,int>(
+                [](int& a,int& b) {
+                    a *= 2;
+                    b *= 2;
+                }
+            );
+        });
+
+    pack->wait();
+    int outA = pack->fGet<0>();
+    int outB = pack->fGet<1>();
+
+    REQUIRE( outA == 2 );
+    REQUIRE( outB == 4 );
+
+    //auto handleA = std::async(std::launch::async,
+        //[=]() {
+            //std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            //TEMPLATIOUS_REPEAT( ROUNDS ) {
+                //pack->tryCallFunction<int,int>(
+                    //[](int& a,int& b) {
+                        //a *= 2;
+                        //b *= 2;
+                    //}
+                //);
+            //}
+        //});
+
+    //auto handleB = std::async(std::launch::async,
+        //[=]() {
+            //std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            //TEMPLATIOUS_REPEAT( ROUNDS ) {
+                //pack->tryCallFunction<int,int>(
+                    //[](int& a,int& b) {
+                        //a *= 2;
+                        //b *= 2;
+                    //}
+                //);
+            //}
+        //});
+}
+
+TEST_CASE( "virtual_pack_custom_nowait", "[virtual_pack_tests]" )
+{
+    auto pack = SF::vpackPtrCustom<
+        0,
         int,int
     >(1,2);
 
@@ -632,6 +684,6 @@ TEST_CASE( "virtual_pack_custom", "[virtual_pack_tests]" )
     int outA = pack->fGet<0>();
     int outB = pack->fGet<1>();
 
-    REQUIRE( outA == 2 );
-    REQUIRE( outB == 4 );
+    REQUIRE( outA == 1 );
+    REQUIRE( outB == 2 );
 }

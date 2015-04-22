@@ -709,3 +709,51 @@ TEST_CASE( "virtual_pack_custom_synchronized", "[virtual_pack_tests]" )
     REQUIRE( outA == expA );
     REQUIRE( outB == expB );
 }
+
+TEST_CASE( "virtual_pack_custom_unsynchronized", "[virtual_pack_tests]" )
+{
+    auto pack = SF::vpackPtrCustom<
+        0,
+        int,int
+    >(1,2);
+
+    const int ROUNDS = 100000;
+
+    auto handleA = std::async(std::launch::async,
+        [=]() {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            TEMPLATIOUS_REPEAT( ROUNDS ) {
+                pack->tryCallFunction<int,int>(
+                    [](int& a,int& b) {
+                        ++a;
+                        ++b;
+                    }
+                );
+            }
+        });
+
+    auto handleB = std::async(std::launch::async,
+        [=]() {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            TEMPLATIOUS_REPEAT( ROUNDS ) {
+                pack->tryCallFunction<int,int>(
+                    [](int& a,int& b) {
+                        ++a;
+                        ++b;
+                    }
+                );
+            }
+        });
+
+    handleA.wait();
+    handleB.wait();
+
+    int outA = pack->fGet<0>();
+    int outB = pack->fGet<1>();
+
+    int expA = 1 + ROUNDS * 2;
+    int expB = 2 + ROUNDS * 2;
+
+    REQUIRE( outA != expA );
+    REQUIRE( outB != expB );
+}

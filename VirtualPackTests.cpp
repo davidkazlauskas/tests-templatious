@@ -779,3 +779,44 @@ TEST_CASE( "virtual_pack_counted", "[virtual_pack_tests]" )
     REQUIRE( packA->useCount() == 1 );
     REQUIRE( packB->useCount() == -1 );
 }
+
+TEST_CASE( "virtual_pack_custom_synchronized_with_callback", "[virtual_pack_tests]" )
+{
+    // increment this from threads
+    auto iPtr = std::make_shared< int >( 0 );
+
+    auto pack = SF::vpackPtrCustomWCallback<
+        tt::t::VPACK_SYNCED,
+        int,int
+    >([=](const TEMPLATIOUS_VPCORE<int,int>& vp) {
+        *iPtr += vp.fGet<0>();
+        *iPtr += vp.fGet<1>();
+    },1,2);
+
+    const int ROUNDS = 100000;
+
+    // callbacks must also be synchronized
+    auto handleA = std::async(std::launch::async,
+        [=]() {
+            TEMPLATIOUS_REPEAT( ROUNDS ) {
+                pack->tryCallFunction<int,int>(
+                    [](int& a,int& b) {}
+                );
+            }
+        });
+
+    auto handleB = std::async(std::launch::async,
+        [=]() {
+            TEMPLATIOUS_REPEAT( ROUNDS ) {
+                pack->tryCallFunction<int,int>(
+                    [](int& a,int& b) {}
+                );
+            }
+        });
+
+    handleA.wait();
+    handleB.wait();
+
+    int outExpected = (ROUNDS * 2) * (1 + 2);
+    REQUIRE( *iPtr == outExpected );
+}

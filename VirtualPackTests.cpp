@@ -715,7 +715,7 @@ TEST_CASE( "virtual_pack_custom_unsynchronized", "[virtual_pack_tests]" )
         int,int
     >(1,2);
 
-    const int ROUNDS = 100000;
+    const int ROUNDS = 1000000;
 
     auto handleA = std::async(std::launch::async,
         [=]() {

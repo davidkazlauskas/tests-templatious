@@ -861,3 +861,43 @@ TEST_CASE( "virtual_pack_custom_unsynchronized_with_callback", "[virtual_pack_te
     int outExpected = (ROUNDS * 2) * (1 + 2);
     REQUIRE( *iPtr != outExpected );
 }
+
+typedef std::unique_ptr<
+    templatious::VirtualMatchFunctor > VmfPtr;
+
+VmfPtr aHandler() {
+    return SF::virtualMatchFunctorPtr(
+        SF::virtualMatch<int,char>(
+            [](int a,char b) {}
+        ),
+        SF::virtualMatch<char,int>(
+            [](char a,int b) {}
+        )
+    );
+}
+
+VmfPtr bHandler() {
+    return SF::virtualMatchFunctorPtr(
+        SF::virtualMatch<short,long>(
+            [](short a,long b) {}
+        ),
+        SF::virtualMatch<long,short>(
+            [](long a,short b) {}
+        )
+    );
+}
+
+VmfPtr cHandler() {
+    return SF::virtualMatchFunctorPtr(
+        aHandler(),bHandler()
+    );
+}
+
+TEST_CASE( "virtual_match_functor_composition", "[virtual_pack_tests]" )
+{
+    auto hndl = cHandler();
+    auto p = SF::vpack<short,long>(1,2);
+    bool success = hndl->tryMatch(p);
+
+    REQUIRE( success );
+}

@@ -13,7 +13,7 @@ ADD_DEFINITIONS (
     -ggdb3
     -O0
     -pthread
-    #-fcolor-diagnostics
+    -fcolor-diagnostics
     #-Wno-unused-local-typedefs # keep g++ happy
 )
 

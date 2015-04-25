@@ -340,7 +340,7 @@ TEST_CASE( "virtual_pack_match_functor_composition", "[virtual_pack_tests]" )
 
     auto func3 =
         SF::virtualMatchFunctor(
-            func2,
+            std::move(func2),
             SF::virtualMatch<long,int>(
                 [&](long l,long i) {
                     outResult = 3;
@@ -865,6 +865,9 @@ TEST_CASE( "virtual_pack_custom_unsynchronized_with_callback", "[virtual_pack_te
 typedef std::unique_ptr<
     templatious::VirtualMatchFunctor > VmfPtr;
 
+static long someOutVarA = -1;
+static long someOutVarB = -1;
+
 VmfPtr aHandler() {
     return SF::virtualMatchFunctorPtr(
         SF::virtualMatch<int,char>(
@@ -879,7 +882,10 @@ VmfPtr aHandler() {
 VmfPtr bHandler() {
     return SF::virtualMatchFunctorPtr(
         SF::virtualMatch<short,long>(
-            [](short a,long b) {}
+            [](short a,long b) {
+                someOutVarA = a;
+                someOutVarB = b;
+            }
         ),
         SF::virtualMatch<long,short>(
             [](long a,short b) {}
@@ -900,4 +906,34 @@ TEST_CASE( "virtual_match_functor_composition", "[virtual_pack_tests]" )
     bool success = hndl->tryMatch(p);
 
     REQUIRE( success );
+
+    REQUIRE( someOutVarA == 1 );
+    REQUIRE( someOutVarB == 2 );
+}
+
+TEST_CASE( "virtual_match_functor_dyn_broadcast", "[virtual_pack_tests]" )
+{
+    int outA = -1;
+    int outB = -1;
+    auto vmfPtrA = SF::virtualMatchFunctorPtr(
+        SF::virtualMatch<int>([&](int i) {
+            outA = i;
+        })
+    );
+    auto vmfPtrB = SF::virtualMatchFunctorPtr(
+        SF::virtualMatch<int>([&](int i) {
+            outB = i;
+        })
+    );
+
+    tt::t::DynamicVMatchFunctor dvmf(true);
+    dvmf.attach(std::move(vmfPtrA));
+    dvmf.attach(std::move(vmfPtrB));
+
+    auto vpack = SF::vpack<int>(7);
+    bool success = dvmf.tryMatch(vpack);
+
+    REQUIRE( success );
+    REQUIRE( outA == 7 );
+    REQUIRE( outB == 7 );
 }

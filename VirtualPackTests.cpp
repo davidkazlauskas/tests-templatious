@@ -957,3 +957,44 @@ TEST_CASE( "virtual_pack_only_movable_assign", "[virtual_pack_tests]" )
     REQUIRE( *vpack.fGet<0>() == 7 );
     REQUIRE( toMove.get() == nullptr );
 }
+
+TEST_CASE( "virtual_pack_synced_use_count", "[virtual_pack_tests]" )
+{
+    auto vpack = SF::vpackPtrCustom<
+        templatious::VPACK_COUNT | // pack bitmask
+        templatious::VPACK_SYNCED,
+        int // the signature
+    >(0);
+
+    const int ROUNDS  = 100000;
+
+    auto h1 = std::async(std::launch::async,
+        [=]() {
+            TEMPLATIOUS_REPEAT( ROUNDS ) {
+                vpack->tryCallFunction<int>(
+                    [](int& i) {
+                        ++i;
+                    }
+                );
+            }
+        });
+
+    auto h2 = std::async(std::launch::async,
+        [=]() {
+            TEMPLATIOUS_REPEAT( ROUNDS ) {
+                vpack->tryCallFunction<int>(
+                    [](int& i) {
+                        i += 2;
+                    }
+                );
+            }
+        });
+
+    h1.wait();
+    h2.wait();
+
+    int outResult = vpack->fGet<0>();
+    int useCount = vpack->useCount();
+    REQUIRE( outResult == ROUNDS * (1 + 2) );
+    REQUIRE( useCount == ROUNDS * 2 );
+}

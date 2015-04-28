@@ -3,17 +3,17 @@ cmake_minimum_required( VERSION 2.6 )
 
 project ( TTEST CXX )
 
-include_directories ( "/home/deividas/Desktop/Dropbox/MyPrj/Templatious" )
+include_directories ( $ENV{TEMPLATIOUS_DIR} )
 
 ADD_DEFINITIONS (
     -std=c++11
     #-lstdc++
     -Wall
     -x c++
-    -ggdb3
-    -O0
-    -pthread
-    -fcolor-diagnostics
+    #-ggdb3
+    #-O0
+    #-pthread
+    #-fcolor-diagnostics
     #-Wno-unused-local-typedefs # keep g++ happy
 )
 

@@ -314,6 +314,7 @@ bool iterAtIntegrityTest(T&& c) {
 
     IFN_RET_FALSE(SA::size(v) == size);
     auto realBeg = Ad::begin(cref);
+    auto crealBeg = CAd::begin(cref);
 
     auto beg = v.cbegin();
     auto end = v.cend();
@@ -339,14 +340,17 @@ bool iterAtIntegrityTest(T&& c) {
         testPassed &= rcAt == *beg;
         testPassed &= cAdIdx == *beg;
         testPassed &= *realBeg == *beg;
+        testPassed &= *crealBeg == *beg;
         ++cnt;
 
         prVal = *beg;
         ++beg;
         ++realBeg;
+        ++crealBeg;
     }
 
     testPassed &= Ad::end(cref) == realBeg;
+    testPassed &= CAd::end(cref) == crealBeg;
     testPassed &= Ad::first(c) == 0;
     testPassed &= Ad::last(c) == 99;
     testPassed &= Ad::first(cref) == 0;

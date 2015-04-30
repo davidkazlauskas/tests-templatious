@@ -295,14 +295,17 @@ template <class T>
 bool iterAtIntegrityTest(T&& c) {
     IFN_SECTOR_START( "iter at integrity test" );
 
+    typedef t::adapters::CollectionAdapter<T> Ad;
+    typedef t::adapters::CollectionAdapter<typename Ad::ConstCol> CAd;
+    auto& cref = static_cast<typename Ad::ConstCol&>(c);
+
+    IFN_RET_FALSE( Ad::canAdd(c) );
+
     SA::clear(c);
     SA::add(c,SF::seqL(100));
 
     int size = SA::size(c);
     IFN_RET_FALSE(size == 100);
-
-    typedef t::adapters::CollectionAdapter<T> Ad;
-    typedef t::adapters::CollectionAdapter<typename Ad::ConstCol> CAd;
 
     std::vector< typename Ad::ValueType > v;
 
@@ -315,7 +318,6 @@ bool iterAtIntegrityTest(T&& c) {
     int prVal = -1;
     bool testPassed = true;
     int cnt = 0;
-    auto& cref = static_cast<typename Ad::ConstCol&>(c);
     while (beg != end) {
         testPassed &= *beg - 1 == prVal;
         auto it = SA::iterAt(c,cnt);

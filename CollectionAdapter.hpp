@@ -338,6 +338,9 @@ bool iterAtIntegrityTest(T&& c) {
         ++beg;
     }
 
+    testPassed &= Ad::first(cref) == 0;
+    testPassed &= Ad::last(cref) == 99;
+
     IFN_RET_FALSE(testPassed);
 
     // invalid comparison,

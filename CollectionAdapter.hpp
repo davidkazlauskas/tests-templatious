@@ -306,7 +306,9 @@ bool iterAtIntegrityTest(T&& c) {
     SA::add(c,SF::seqL(100));
 
     int size = SA::size(c);
+    long sizeConst = CAd::size(cref);
     IFN_RET_FALSE(size == 100);
+    IFN_RET_FALSE(sizeConst == 100);
 
     std::vector< typename Ad::ValueType > v;
 
@@ -379,6 +381,16 @@ bool iterAtIntegrityTest(T&& c) {
         bool caught = false;
         try {
             SA::citerAt(c,-1);
+        } catch (std::exception e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
+    {
+        bool caught = false;
+        try {
+            CAd::getByIndex(cref,-1);
         } catch (std::exception e) {
             caught = true;
         }

@@ -300,6 +300,7 @@ bool iterAtIntegrityTest(T&& c) {
     auto& cref = static_cast<typename Ad::ConstCol&>(c);
 
     IFN_RET_FALSE( Ad::canAdd(c) );
+    IFN_RET_FALSE( !CAd::canAdd(cref) );
 
     SA::clear(c);
     SA::add(c,SF::seqL(100));
@@ -327,10 +328,12 @@ bool iterAtIntegrityTest(T&& c) {
         auto &rcAt = SA::getByIndex(cref,cnt);
         auto &cAdIdx = Ad::getByIndex(cref,cnt);
         auto itCC = CAd::iterAt(c,cnt);
+        auto citCC = CAd::citerAt(c,cnt);
         testPassed &= *it == *beg;
         testPassed &= *cIt == *beg;
         testPassed &= *itC == *beg;
         testPassed &= *itCC == *beg;
+        testPassed &= *citCC == *beg;
         testPassed &= rAt == *beg;
         testPassed &= rcAt == *beg;
         testPassed &= cAdIdx == *beg;
@@ -340,8 +343,12 @@ bool iterAtIntegrityTest(T&& c) {
         ++beg;
     }
 
+    testPassed &= Ad::first(c) == 0;
+    testPassed &= Ad::last(c) == 99;
     testPassed &= Ad::first(cref) == 0;
     testPassed &= Ad::last(cref) == 99;
+    testPassed &= CAd::first(cref) == 0;
+    testPassed &= CAd::last(cref) == 99;
 
     IFN_RET_FALSE(testPassed);
 

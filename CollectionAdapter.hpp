@@ -315,13 +315,15 @@ bool iterAtIntegrityTest(T&& c) {
     int prVal = -1;
     bool testPassed = true;
     int cnt = 0;
+    auto& cref = static_cast<typename Ad::ConstCol&>(c);
     while (beg != end) {
         testPassed &= *beg - 1 == prVal;
         auto it = SA::iterAt(c,cnt);
         auto cIt = SA::citerAt(c,cnt);
-        auto itC = Ad::iterAt(static_cast<typename Ad::ConstCol&>(c),cnt);
+        auto itC = Ad::iterAt(cref,cnt);
         auto &rAt = SA::getByIndex(c,cnt);
-        auto &rcAt = SA::getByIndex(static_cast<typename Ad::ConstCol&>(c),cnt);
+        auto &rcAt = SA::getByIndex(cref,cnt);
+        auto &cAdIdx = Ad::getByIndex(cref,cnt);
         auto itCC = CAd::iterAt(c,cnt);
         testPassed &= *it == *beg;
         testPassed &= *cIt == *beg;
@@ -329,6 +331,7 @@ bool iterAtIntegrityTest(T&& c) {
         testPassed &= *itCC == *beg;
         testPassed &= rAt == *beg;
         testPassed &= rcAt == *beg;
+        testPassed &= cAdIdx == *beg;
         ++cnt;
 
         prVal = *beg;

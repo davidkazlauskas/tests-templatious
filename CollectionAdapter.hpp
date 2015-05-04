@@ -397,7 +397,7 @@ bool iterAtIntegrityTest(T&& c) {
     {
         bool caught = false;
         try {
-            CAd::getByIndex(cref,100);
+            CAd::getByIndex(cref,size);
         } catch (std::exception e) {
             caught = true;
         }
@@ -417,7 +417,27 @@ bool iterAtIntegrityTest(T&& c) {
     {
         bool caught = false;
         try {
-            Ad::getByIndex(cref,100);
+            Ad::getByIndex(cref,size);
+        } catch (std::exception e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
+    {
+        bool caught = false;
+        try {
+            Ad::getByIndex(c,-1);
+        } catch (std::exception e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
+    {
+        bool caught = false;
+        try {
+            Ad::getByIndex(c,size);
         } catch (std::exception e) {
             caught = true;
         }

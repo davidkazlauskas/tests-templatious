@@ -1118,6 +1118,14 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
     typedef decltype(ptr) PtrType;
     const PtrType& cref(ptr);
 
+    auto ncptr = makeVImpl(
+        SF::virtualMatch<int>(
+            [&](int& inc) { sum += inc; }
+        )
+    );
+    typedef decltype(ncptr) NCPtrType;
+    const NCPtrType& crefNc(ncptr);
+
     auto vp = SF::vpack<char>('7');
     typedef decltype(vp) VPType;
     const VPType& cvp(vp);
@@ -1125,6 +1133,10 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
     auto vpm = SF::vpack<int>(1);
     typedef decltype(vpm) VPMType;
     const VPMType& cvpm(vpm);
+
+    auto ccvpm = SF::vpack<const int>(1);
+    typedef decltype(ccvpm) CVPMType;
+    const CVPMType& cccvpm(ccvpm);
 
     {
         bool caught = false;
@@ -1160,6 +1172,46 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
         bool caught = false;
         try {
             cref(cvp);
+        } catch (const tt::t::VirtualPackMatcherNoMatchException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
+
+    {
+        bool caught = false;
+        try {
+            ncptr(ccvpm);
+        } catch (const tt::t::VirtualPackMatcherNoMatchException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
+
+    {
+        bool caught = false;
+        try {
+            ncptr(cccvpm);
+        } catch (const tt::t::VirtualPackMatcherNoMatchException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
+
+    {
+        bool caught = false;
+        try {
+            crefNc(ccvpm);
+        } catch (const tt::t::VirtualPackMatcherNoMatchException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
+
+    {
+        bool caught = false;
+        try {
+            crefNc(cccvpm);
         } catch (const tt::t::VirtualPackMatcherNoMatchException& e) {
             caught = true;
         }

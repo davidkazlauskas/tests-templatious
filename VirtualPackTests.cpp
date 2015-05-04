@@ -1034,3 +1034,16 @@ TEST_CASE( "virtual_match_functor_dyn_const_coverage", "[virtual_pack_tests]" )
     REQUIRE( !nosucc );
     REQUIRE( sum == 4 );
 }
+
+TEST_CASE( "virtual_match_functor_dyn_no_detach_exception", "[virtual_pack_tests]" )
+{
+    templatious::DynamicVMatchFunctor dvmf;
+
+    bool caught = false;
+    try {
+        dvmf.detach(7);
+    } catch (const tt::t::DynamicVMatchFunctorNoIdToRemoveException& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
+}

@@ -464,6 +464,46 @@ bool iterAtIntegrityTest(T&& c) {
         IFN_RET_FALSE(caught);
     }
 
+    {
+        bool caught = false;
+        try {
+            Ad::iterAt(cref,-1);
+        } catch (std::exception e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
+    {
+        bool caught = false;
+        try {
+            Ad::iterAt(cref,size + 1);
+        } catch (std::exception e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
+    {
+        bool caught = false;
+        try {
+            CAd::iterAt(cref,-1);
+        } catch (std::exception e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
+    {
+        bool caught = false;
+        try {
+            CAd::iterAt(cref,size + 1);
+        } catch (std::exception e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
     return true;
 }
 

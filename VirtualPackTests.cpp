@@ -1123,6 +1123,14 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
     typedef decltype(ptr) PtrType;
     const PtrType& cref(ptr);
 
+    auto constVimpl = makeVImpl(
+        SF::virtualMatch<const int>(
+            [&](const int& inc) { sum += inc; }
+        )
+    );
+    typedef decltype(constVimpl) CVImplType;
+    const CVImplType& constVimplRef(constVimpl);
+
     auto ncptr = makeVImpl(
         SF::virtualMatch<int>(
             [&](int& inc) { sum += inc; }
@@ -1229,6 +1237,7 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
     ptr(cvpm);
     cref(vpm);
     cref(cvpm);
+    constVimplRef(cccvpm);
 
-    REQUIRE( sum == 4 );
+    REQUIRE( sum == 5 );
 }

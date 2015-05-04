@@ -1031,5 +1031,6 @@ TEST_CASE( "virtual_match_functor_dyn_const_coverage", "[virtual_pack_tests]" )
     nosucc |= cref.tryMatch(const_cast<const VPNoType&>(vpNo));
 
     REQUIRE( succ );
+    REQUIRE( !nosucc );
     REQUIRE( sum == 4 );
 }

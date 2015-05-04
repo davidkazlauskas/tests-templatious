@@ -404,6 +404,26 @@ bool iterAtIntegrityTest(T&& c) {
         IFN_RET_FALSE(caught);
     }
 
+    {
+        bool caught = false;
+        try {
+            Ad::getByIndex(cref,-1);
+        } catch (std::exception e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
+    {
+        bool caught = false;
+        try {
+            Ad::getByIndex(cref,100);
+        } catch (std::exception e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
     return true;
 }
 

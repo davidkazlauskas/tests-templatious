@@ -1094,10 +1094,23 @@ TEST_CASE( "virtual_match_functor_dyn_clear", "[virtual_pack_tests]" )
     REQUIRE( sum == 1 );
 }
 
+template <class... T>
+auto makeVImpl(T&&... t)
+    -> tt::t::VirtualMatchFunctorVImpl<
+        tt::t::util::CopyOnlyStoragePolicy,
+        decltype(std::forward<T>(t))...
+    >
+{
+    return tt::t::VirtualMatchFunctorVImpl<
+        tt::t::util::CopyOnlyStoragePolicy,
+        decltype(std::forward<T>(t))...
+    >(std::forward<T>(t)...);
+}
+
 TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
 {
     int sum = 0;
-    auto ptr = SF::virtualMatchFunctorPtr(
+    auto ptr = makeVImpl(
         SF::virtualMatch<const int>(
             [&](const int& inc) { sum += inc; }
         )
@@ -1116,7 +1129,7 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
     {
         bool caught = false;
         try {
-            (*ptr)(vp);
+            ptr(vp);
         } catch (const tt::t::VirtualPackMatcherNoMatchException& e) {
             caught = true;
         }
@@ -1126,7 +1139,7 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
     {
         bool caught = false;
         try {
-            (*ptr)(cvp);
+            ptr(cvp);
         } catch (const tt::t::VirtualPackMatcherNoMatchException& e) {
             caught = true;
         }
@@ -1136,7 +1149,7 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
     {
         bool caught = false;
         try {
-            (*cref)(vp);
+            cref(vp);
         } catch (const tt::t::VirtualPackMatcherNoMatchException& e) {
             caught = true;
         }
@@ -1146,7 +1159,7 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
     {
         bool caught = false;
         try {
-            (*cref)(cvp);
+            cref(cvp);
         } catch (const tt::t::VirtualPackMatcherNoMatchException& e) {
             caught = true;
         }
@@ -1155,10 +1168,10 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
 
     REQUIRE( sum == 0 );
 
-    (*ptr)(vpm);
-    (*ptr)(cvpm);
-    (*cref)(vpm);
-    (*cref)(cvpm);
+    ptr(vpm);
+    ptr(cvpm);
+    cref(vpm);
+    cref(cvpm);
 
     REQUIRE( sum == 4 );
 }

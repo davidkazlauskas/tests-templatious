@@ -1113,6 +1113,9 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
     auto ptr = makeVImpl(
         SF::virtualMatch<const int>(
             [&](const int& inc) { sum += inc; }
+        ), // two matches for linked list testing
+        SF::virtualMatch<const int>(
+            [&](const int& inc) { sum += inc; }
         )
     );
     typedef decltype(ptr) PtrType;

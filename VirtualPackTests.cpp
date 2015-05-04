@@ -1105,7 +1105,7 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
     typedef decltype(ptr) PtrType;
     const PtrType& cref(ptr);
 
-    auto vp = SF::vpack<int>(1);
+    auto vp = SF::vpack<char>('7');
 
     {
         bool caught = false;
@@ -1116,4 +1116,6 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
         }
         REQUIRE( caught );
     }
+
+    REQUIRE( sum == 0 );
 }

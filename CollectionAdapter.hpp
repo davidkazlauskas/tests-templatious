@@ -504,6 +504,46 @@ bool iterAtIntegrityTest(T&& c) {
         IFN_RET_FALSE(caught);
     }
 
+    {
+        bool caught = false;
+        try {
+            Ad::citerAt(cref,-1);
+        } catch (std::exception e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
+    {
+        bool caught = false;
+        try {
+            Ad::citerAt(cref,size + 1);
+        } catch (std::exception e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
+    {
+        bool caught = false;
+        try {
+            CAd::citerAt(cref,-1);
+        } catch (std::exception e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
+    {
+        bool caught = false;
+        try {
+            CAd::citerAt(cref,size + 1);
+        } catch (std::exception e) {
+            caught = true;
+        }
+        IFN_RET_FALSE(caught);
+    }
+
     return true;
 }
 

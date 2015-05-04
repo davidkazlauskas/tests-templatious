@@ -1010,7 +1010,7 @@ TEST_CASE( "virtual_match_functor_dyn_const_coverage", "[virtual_pack_tests]" )
     int sum = 0;
     dvmf.attach(
         SF::virtualMatchFunctorPtr(
-            SF::virtualMatch<int>(
+            SF::virtualMatch<const int>(
                 [&](const int& inc) { sum += inc; }
             )
         )

@@ -10,7 +10,8 @@ ADD_DEFINITIONS (
     #-lstdc++
     -Wall
     -x c++
-    #-ggdb3
+    --coverage
+    -ggdb3
     #-O0
     #-pthread
     #-fcolor-diagnostics
@@ -45,6 +46,6 @@ add_executable ( a.out
     ${generic_tests} ${specific_tests}
 )
 
-target_link_libraries( a.out pthread )
+target_link_libraries( a.out pthread gcov )
 
 SET ( CMAKE_EXPORT_COMPILE_COMMANDS ON )

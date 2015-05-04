@@ -1005,7 +1005,9 @@ TEST_CASE( "virtual_match_functor_dyn_const_coverage", "[virtual_pack_tests]" )
     const templatious::DynamicVMatchFunctor& cref(dvmf);
 
     auto vp = SF::vpack<int>(1);
+    auto vpNo = SF::vpack<char>('7');
     typedef decltype(vp) VPType;
+    typedef decltype(vpNo) VPNoType;
 
     int sum = 0;
     dvmf.attach(
@@ -1022,7 +1024,12 @@ TEST_CASE( "virtual_match_functor_dyn_const_coverage", "[virtual_pack_tests]" )
     succ &= cref.tryMatch(vp);
     succ &= cref.tryMatch(const_cast<const VPType&>(vp));
 
+    bool nosucc = false;
+    nosucc |= dvmf.tryMatch(vpNo);
+    nosucc |= dvmf.tryMatch(const_cast<const VPNoType&>(vpNo));
+    nosucc |= cref.tryMatch(vpNo);
+    nosucc |= cref.tryMatch(const_cast<const VPNoType&>(vpNo));
+
     REQUIRE( succ );
     REQUIRE( sum == 4 );
 }
-

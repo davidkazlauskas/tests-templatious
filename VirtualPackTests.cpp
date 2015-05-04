@@ -1093,3 +1093,27 @@ TEST_CASE( "virtual_match_functor_dyn_clear", "[virtual_pack_tests]" )
     REQUIRE( !succ );
     REQUIRE( sum == 1 );
 }
+
+TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
+{
+    int sum = 0;
+    auto ptr = SF::virtualMatchFunctorPtr(
+        SF::virtualMatch<const int>(
+            [&](const int& inc) { sum += inc; }
+        )
+    );
+    typedef decltype(ptr) PtrType;
+    const PtrType& cref(ptr);
+
+    auto vp = SF::vpack<int>(1);
+
+    {
+        bool caught = false;
+        try {
+            (*cref)(vp);
+        } catch (const tt::t::VirtualPackMatcherNoMatchException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
+}

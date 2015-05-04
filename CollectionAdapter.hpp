@@ -362,10 +362,7 @@ bool iterAtIntegrityTest(T&& c) {
 
     IFN_RET_FALSE(testPassed);
 
-    // invalid comparison,
-    // nobody said cend has to refer to a valid
-    // element, nevertheless, at the end of the sequence
-    //IFN_RET_FALSE( *SA::cend(c) == *SA::citerAt(c,size) )
+    IFN_RET_FALSE( SA::cend(c) == SA::citerAt(c,size) )
 
     {
         bool caught = false;

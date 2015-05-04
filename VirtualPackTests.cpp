@@ -1106,6 +1106,32 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
     const PtrType& cref(ptr);
 
     auto vp = SF::vpack<char>('7');
+    typedef decltype(vp) VPType;
+    const VPType& cvp(vp);
+
+    auto vpm = SF::vpack<int>(1);
+    typedef decltype(vpm) VPMType;
+    const VPMType& cvpm(vpm);
+
+    {
+        bool caught = false;
+        try {
+            (*ptr)(vp);
+        } catch (const tt::t::VirtualPackMatcherNoMatchException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
+
+    {
+        bool caught = false;
+        try {
+            (*ptr)(cvp);
+        } catch (const tt::t::VirtualPackMatcherNoMatchException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
 
     {
         bool caught = false;
@@ -1117,5 +1143,22 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
         REQUIRE( caught );
     }
 
+    {
+        bool caught = false;
+        try {
+            (*cref)(cvp);
+        } catch (const tt::t::VirtualPackMatcherNoMatchException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
+
     REQUIRE( sum == 0 );
+
+    (*ptr)(vpm);
+    (*ptr)(cvpm);
+    (*cref)(vpm);
+    (*cref)(cvpm);
+
+    REQUIRE( sum == 4 );
 }

@@ -1068,3 +1068,28 @@ TEST_CASE( "virtual_match_functor_dyn_move_semantics", "[virtual_pack_tests]" )
     REQUIRE( succ );
     REQUIRE( sum == 1 );
 }
+
+TEST_CASE( "virtual_match_functor_dyn_clear", "[virtual_pack_tests]" )
+{
+    templatious::DynamicVMatchFunctor dvmf;
+
+    auto vp = SF::vpack<int>(1);
+    int sum = 0;
+    dvmf.attach(
+        SF::virtualMatchFunctorPtr(
+            SF::virtualMatch<const int>(
+                [&](const int& inc) { sum += inc; }
+            )
+        )
+    );
+
+    bool succ = dvmf.tryMatch(vp);
+    REQUIRE( succ );
+    REQUIRE( sum == 1 );
+
+    dvmf.clear();
+
+    succ = dvmf.tryMatch(vp);
+    REQUIRE( !succ );
+    REQUIRE( sum == 1 );
+}

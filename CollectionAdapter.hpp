@@ -400,7 +400,7 @@ bool iterAtIntegrityTest(T&& c) {
     {
         bool caught = false;
         try {
-            CAd::getByIndex(cref,100);
+            CAd::getByIndex(cref,101);
         } catch (std::exception e) {
             caught = true;
         }

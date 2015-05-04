@@ -998,3 +998,31 @@ TEST_CASE( "virtual_pack_synced_use_count", "[virtual_pack_tests]" )
     REQUIRE( outResult == ROUNDS * (1 + 2) );
     REQUIRE( useCount == ROUNDS * 2 );
 }
+
+TEST_CASE( "virtual_match_functor_dyn_const_coverage", "[virtual_pack_tests]" )
+{
+    templatious::DynamicVMatchFunctor dvmf;
+    const templatious::DynamicVMatchFunctor& cref(dvmf);
+
+    auto vp = SF::vpack<int>(1);
+    typedef decltype(vp) VPType;
+
+    int sum = 0;
+    dvmf.attach(
+        SF::virtualMatchFunctorPtr(
+            SF::virtualMatch<int>(
+                [&](const int& inc) { sum += inc; }
+            )
+        )
+    );
+
+    bool succ = true;
+    succ &= dvmf.tryMatch(vp);
+    succ &= dvmf.tryMatch(const_cast<const VPType&>(vp));
+    succ &= cref.tryMatch(vp);
+    succ &= cref.tryMatch(const_cast<const VPType&>(vp));
+
+    REQUIRE( succ );
+    REQUIRE( sum == 4 );
+}
+

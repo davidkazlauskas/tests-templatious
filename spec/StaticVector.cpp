@@ -561,3 +561,36 @@ TEST_CASE( "static_vector_stateful_pop", "[static_vector_tests]" )
     REQUIRE( result );
     REQUIRE( s2.use_count() == 1 );
 }
+
+TEST_CASE( "static_vector_stateful_pop_first", "[static_vector_tests]" )
+{
+    typedef std::shared_ptr<int> Share;
+
+    tt::t::StaticBuffer<Share,16> b;
+    auto v = b.getStaticVector();
+
+    {
+        Share s1 = std::make_shared<int>(7);
+        Share s2 = std::make_shared<int>(77);
+        v.pushFirst(s1);
+        REQUIRE( s1.use_count() == 2 );
+        v.pushFirst(s2);
+        REQUIRE( s2.use_count() == 2 );
+    }
+
+    REQUIRE( v.at(0).use_count() == 1 );
+    REQUIRE( *v.at(0) == 77 );
+    REQUIRE( *v.at(1) == 7 );
+
+    Share s2;
+
+    bool result = v.popFirst(s2);
+    REQUIRE( result );
+    REQUIRE( s2.use_count() == 1 );
+    REQUIRE( *s2 == 77 );
+
+    result = v.popFirst(s2);
+    REQUIRE( result );
+    REQUIRE( s2.use_count() == 1 );
+    REQUIRE( *s2 == 7 );
+}

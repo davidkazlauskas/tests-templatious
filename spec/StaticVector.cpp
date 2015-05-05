@@ -714,5 +714,5 @@ TEST_CASE( "static_vector_ptr_deref_coverage", "[static_vector_tests]" )
     } catch (const tt::t::StaticVectorOutOfBoundsException& e) {
         caught = true;
     }
-    REQUIRE( !caught );
+    REQUIRE( caught );
 }

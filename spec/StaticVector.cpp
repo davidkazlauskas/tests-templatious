@@ -626,3 +626,31 @@ TEST_CASE( "static_vector_empty_top", "[static_vector_tests]" )
     v.push(7);
     REQUIRE( ref.top() == 7 );
 }
+
+TEST_CASE( "static_vector_emplace_back", "[static_vector_tests]" )
+{
+    typedef std::unique_ptr<int> UniqPtr;
+    tt::t::StaticBuffer<UniqPtr,1> b;
+    auto v = b.getStaticVector();
+
+    v.emplaceBack(new int(7));
+    REQUIRE( *v.at(0) == 7 );
+
+    auto moved = std::move(v);
+
+    bool caught = false;
+    try {
+        v.emplaceBack(nullptr);
+    } catch (const tt::t::StaticVectorMovedOperationException& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
+
+    caught = false;
+    try {
+        moved.emplaceBack(nullptr);
+    } catch (const tt::t::StaticVectorFullAddException& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
+}

@@ -622,4 +622,7 @@ TEST_CASE( "static_vector_empty_top", "[static_vector_tests]" )
         caught = true;
     }
     REQUIRE( caught );
+
+    v.push(7);
+    REQUIRE( ref.top() == 7 );
 }

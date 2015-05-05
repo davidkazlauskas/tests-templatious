@@ -773,5 +773,15 @@ TEST_CASE( "static_vector_erase_assertions", "[static_vector_tests]" )
         }
         REQUIRE( caught );
     }
+
+    {
+        bool caught = false;
+        try {
+            SA::erase(v1,SA::begin(v1),SA::end(v1) + 1);
+        } catch (const tt::t::StaticVectorEraseException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
 }
 

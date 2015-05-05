@@ -505,3 +505,25 @@ TEST_CASE( "static_vector_moved_insert", "[static_vector_tests]" )
 
     REQUIRE( caught );
 }
+
+TEST_CASE( "static_vector_out_of_bounds_insert", "[static_vector_tests]" )
+{
+    tt::t::StaticBuffer<int,16> b;
+    auto v = b.getStaticVector();
+
+    bool caught = false;
+    try {
+        v.insert(-1,7);
+    } catch (const tt::t::StaticVectorOutOfBoundsException& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
+
+    caught = false;
+    try {
+        v.insert(1,7);
+    } catch (const tt::t::StaticVectorOutOfBoundsException& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
+}

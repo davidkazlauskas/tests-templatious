@@ -481,3 +481,20 @@ TEST_CASE( "static_vector_ctor_overshoot", "[static_vector_tests]" )
     }
     REQUIRE( caught );
 }
+
+TEST_CASE( "static_vector_moved_insert", "[static_vector_tests]" )
+{
+    tt::t::StaticBuffer<int,16> b;
+    auto v = b.getStaticVector();
+
+    auto m = std::move(v);
+
+    bool caught = false;
+    try {
+        SA::add(v,7);
+    } catch (const tt::t::StaticVectorMovedOperationException& e) {
+        caught = true;
+    }
+
+    REQUIRE( caught );
+}

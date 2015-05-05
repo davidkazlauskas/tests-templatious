@@ -593,4 +593,9 @@ TEST_CASE( "static_vector_stateful_pop_first", "[static_vector_tests]" )
     REQUIRE( result );
     REQUIRE( s2.use_count() == 1 );
     REQUIRE( *s2 == 7 );
+
+    result = v.popFirst(s2);
+    REQUIRE( !result );
+    REQUIRE( s2.use_count() == 1 );
+    REQUIRE( *s2 == 7 );
 }

@@ -527,3 +527,15 @@ TEST_CASE( "static_vector_out_of_bounds_insert", "[static_vector_tests]" )
     }
     REQUIRE( caught );
 }
+
+TEST_CASE( "static_vector_empty_pop", "[static_vector_tests]" )
+{
+    tt::t::StaticBuffer<int,16> b;
+    auto v = b.getStaticVector();
+
+    int out = 7;
+    bool result = v.pop(out);
+
+    REQUIRE( !result );
+    REQUIRE( out == 7 );
+}

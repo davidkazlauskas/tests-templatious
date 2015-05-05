@@ -690,4 +690,9 @@ TEST_CASE( "static_vector_rand_access_iter", "[static_vector_tests]" )
     }
     REQUIRE( !caught );
     REQUIRE( b >= SA::begin(v) );
+
+    auto genEnd = b + 1;
+    REQUIRE( genEnd == SA::end(v) );
+    auto genBeg = genEnd - 1;
+    REQUIRE( genBeg == SA::begin(v) );
 }

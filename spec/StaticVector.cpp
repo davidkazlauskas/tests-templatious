@@ -465,7 +465,14 @@ TEST_CASE( "static_vector_full_throw", "[static_vector_tests]" )
     } catch (const tt::t::StaticVectorFullAddException& e) {
         caught = true;
     }
+    REQUIRE( caught );
 
+    caught = false;
+    try {
+        SA::insert(v,SA::begin(v),7);
+    } catch (const tt::t::StaticVectorFullAddException& e) {
+        caught = true;
+    }
     REQUIRE( caught );
 }
 

@@ -539,3 +539,25 @@ TEST_CASE( "static_vector_empty_pop", "[static_vector_tests]" )
     REQUIRE( !result );
     REQUIRE( out == 7 );
 }
+
+TEST_CASE( "static_vector_stateful_pop", "[static_vector_tests]" )
+{
+    typedef std::shared_ptr<int> Share;
+
+    tt::t::StaticBuffer<Share,16> b;
+    auto v = b.getStaticVector();
+
+    {
+        Share s = std::make_shared<int>(7);
+        v.push(s);
+        REQUIRE( s.use_count() == 2 );
+    }
+
+    REQUIRE( v.at(0).use_count() == 1 );
+
+    Share s2;
+
+    bool result = v.pop(s2);
+    REQUIRE( result );
+    REQUIRE( s2.use_count() == 1 );
+}

@@ -659,6 +659,7 @@ TEST_CASE( "static_vector_rand_access_iter", "[static_vector_tests]" )
 {
     tt::t::StaticBuffer<int,16> buf;
     auto v = buf.getStaticVector();
+    SA::add(v,7);
 
     auto b = SA::begin(v);
     --b;
@@ -679,4 +680,14 @@ TEST_CASE( "static_vector_rand_access_iter", "[static_vector_tests]" )
         caught = true;
     }
     REQUIRE( caught );
+
+    b += 3;
+    caught = false;
+    try {
+        *b;
+    } catch (const tt::t::StaticVectorOutOfBoundsException& e) {
+        caught = true;
+    }
+    REQUIRE( !caught );
+    REQUIRE( b >= SA::begin(v) );
 }

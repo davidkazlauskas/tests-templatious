@@ -452,3 +452,19 @@ TEST_CASE( "static_vector_no_def_ctor_alloc", "[static_vector_tests]" )
 
     REQUIRE( sum == 7 * 7 );
 }
+
+TEST_CASE( "static_vector_full_throw", "[static_vector_tests]" )
+{
+    tt::t::StaticBuffer<int,16> b;
+    auto v = b.getStaticVector();
+    SA::add(v,SF::seqL(16));
+
+    bool caught = false;
+    try {
+        SA::add(v,7);
+    } catch (const tt::t::StaticVectorFullAddException& e) {
+        caught = true;
+    }
+
+    REQUIRE( caught );
+}

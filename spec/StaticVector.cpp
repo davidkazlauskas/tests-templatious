@@ -696,3 +696,23 @@ TEST_CASE( "static_vector_rand_access_iter", "[static_vector_tests]" )
     auto genBeg = genEnd - 1;
     REQUIRE( genBeg == SA::begin(v) );
 }
+
+TEST_CASE( "static_vector_ptr_deref_coverage", "[static_vector_tests]" )
+{
+    typedef std::vector<int> ColType;
+    tt::t::StaticBuffer<ColType,16> b;
+
+    auto v = b.getStaticVector();
+
+    v.emplaceBack(std::vector<int>());
+
+    REQUIRE( SA::begin(v)->size() == 0 );
+
+    bool caught = false;
+    try {
+        SA::end(v)->size();
+    } catch (const tt::t::StaticVectorOutOfBoundsException& e) {
+        caught = true;
+    }
+    REQUIRE( !caught );
+}

@@ -724,3 +724,24 @@ TEST_CASE( "static_vector_ptr_deref_coverage", "[static_vector_tests]" )
     }
     REQUIRE( caught );
 }
+
+TEST_CASE( "static_vector_erase_assertions", "[static_vector_tests]" )
+{
+    tt::t::StaticBuffer<int,16> buf;
+    auto v1 = buf.getStaticVector(8);
+    auto v2 = buf.getStaticVector(8);
+
+    SA::add(v1,SF::seqL(8));
+    SA::add(v2,v1);
+
+    {
+        bool caught = false;
+        try {
+            SA::erase(v1,SA::begin(v2));
+        } catch (const tt::t::StaticVectorEraseException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
+}
+

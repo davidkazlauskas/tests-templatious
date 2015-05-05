@@ -599,3 +599,18 @@ TEST_CASE( "static_vector_stateful_pop_first", "[static_vector_tests]" )
     REQUIRE( s2.use_count() == 1 );
     REQUIRE( *s2 == 7 );
 }
+
+TEST_CASE( "static_vector_empty_top", "[static_vector_tests]" )
+{
+    tt::t::StaticBuffer<int,16> b;
+    auto v = b.getStaticVector();
+
+    bool caught = false;
+    try {
+        v.top();
+    } catch (const tt::t::StaticVectorOutOfBoundsException& e) {
+        caught = true;
+    }
+
+    REQUIRE( caught );
+}

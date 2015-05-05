@@ -669,6 +669,14 @@ TEST_CASE( "static_vector_rand_access_iter", "[static_vector_tests]" )
     } catch (const tt::t::StaticVectorOutOfBoundsException& e) {
         caught = true;
     }
+    REQUIRE( caught );
 
+    b -= 2;
+    caught = false;
+    try {
+        *b;
+    } catch (const tt::t::StaticVectorOutOfBoundsException& e) {
+        caught = true;
+    }
     REQUIRE( caught );
 }

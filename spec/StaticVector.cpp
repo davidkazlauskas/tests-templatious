@@ -468,3 +468,16 @@ TEST_CASE( "static_vector_full_throw", "[static_vector_tests]" )
 
     REQUIRE( caught );
 }
+
+TEST_CASE( "static_vector_ctor_overshoot", "[static_vector_tests]" )
+{
+    char c[64];
+
+    bool caught = false;
+    try {
+        templatious::StaticVector<char> sv(c,16,17);
+    } catch (const tt::t::StaticVectorSpaceException& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
+}

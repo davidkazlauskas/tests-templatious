@@ -491,7 +491,7 @@ TEST_CASE( "static_vector_moved_insert", "[static_vector_tests]" )
 
     bool caught = false;
     try {
-        SA::add(v,7);
+        SA::insert(v,SA::begin(v),7);
     } catch (const tt::t::StaticVectorMovedOperationException& e) {
         caught = true;
     }

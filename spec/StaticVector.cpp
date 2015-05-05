@@ -654,3 +654,21 @@ TEST_CASE( "static_vector_emplace_back", "[static_vector_tests]" )
     }
     REQUIRE( caught );
 }
+
+TEST_CASE( "static_vector_rand_access_iter", "[static_vector_tests]" )
+{
+    tt::t::StaticBuffer<int,16> buf;
+    auto v = buf.getStaticVector();
+
+    auto b = SA::begin(v);
+    --b;
+
+    bool caught = false;
+    try {
+        *b;
+    } catch (const tt::t::StaticVectorOutOfBoundsException& e) {
+        caught = true;
+    }
+
+    REQUIRE( caught );
+}

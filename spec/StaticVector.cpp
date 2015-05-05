@@ -604,6 +604,8 @@ TEST_CASE( "static_vector_empty_top", "[static_vector_tests]" )
 {
     tt::t::StaticBuffer<int,16> b;
     auto v = b.getStaticVector();
+    typedef decltype(v) VType;
+    const VType& ref(v);
 
     bool caught = false;
     try {
@@ -611,6 +613,13 @@ TEST_CASE( "static_vector_empty_top", "[static_vector_tests]" )
     } catch (const tt::t::StaticVectorOutOfBoundsException& e) {
         caught = true;
     }
+    REQUIRE( caught );
 
+    caught = false;
+    try {
+        ref.top();
+    } catch (const tt::t::StaticVectorOutOfBoundsException& e) {
+        caught = true;
+    }
     REQUIRE( caught );
 }

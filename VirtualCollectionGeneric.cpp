@@ -340,3 +340,18 @@ TEST_CASE( "vcollection_access", "[virtual_collection]" )
     }
     REQUIRE( sum == 1 + 2 + 3 + 4 + 5 + 6 );
 }
+
+TEST_CASE( "vcollection_adddable_fake_canadd", "[virtual_collection]" )
+{
+    std::vector<int> v;
+
+    auto vct = SF::vcollectionCustom<
+        templatious::AP_FAKE,
+        templatious::CP_THROW,
+        templatious::TP_ENABLED,
+        templatious::ACP_THROW,
+        templatious::SP_ENABLED
+    >(v);
+
+    REQUIRE( !vct.canAdd() );
+}

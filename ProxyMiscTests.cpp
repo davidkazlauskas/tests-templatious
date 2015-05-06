@@ -99,3 +99,23 @@ TEST_CASE( "proxy_skipper_diff_parent_assignment", "[proxy_tests]" )
     SA::clear(s1);
     REQUIRE( SA::size(s1) == 0 );
 }
+
+struct IntPod {
+    IntPod(int i) : _i(i) {}
+
+    int _i;
+};
+
+TEST_CASE( "proxy_ptr_dereference", "[proxy_tests]" )
+{
+    std::vector< IntPod > v;
+    SA::add(v,SF::seqL(100));
+
+    auto r = SF::range(v,7,17);
+    auto f = SF::filter(v,[](const IntPod& p) { return p._i % 2 != 0; });
+    auto s = SF::skip(v,2);
+
+    REQUIRE( SA::begin(r)->_i == 7 );
+    REQUIRE( SA::iterAt(f,2)->_i == 5 );
+    REQUIRE( SA::iterAt(s,3)->_i == 6 );
+}

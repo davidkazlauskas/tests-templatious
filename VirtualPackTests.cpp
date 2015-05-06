@@ -288,6 +288,46 @@ TEST_CASE( "virtual_pack_basic_inf", "[virtual_pack_tests]" )
 
     REQUIRE( !vp->constAt(0) );
     REQUIRE( vp->constAt(1) );
+
+    {
+        bool caught = false;
+        try {
+            vp->typeAt(-1);
+        } catch (const tt::t::VirtualPackTypeOutOfBoundsException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
+
+    {
+        bool caught = false;
+        try {
+            vp->typeAt(2);
+        } catch (const tt::t::VirtualPackTypeOutOfBoundsException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
+
+    {
+        bool caught = false;
+        try {
+            vp->constAt(-1);
+        } catch (const tt::t::VirtualPackTypeOutOfBoundsException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
+
+    {
+        bool caught = false;
+        try {
+            vp->constAt(2);
+        } catch (const tt::t::VirtualPackTypeOutOfBoundsException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
 }
 
 TEST_CASE( "virtual_pack_match_functor", "[virtual_pack_tests]" )

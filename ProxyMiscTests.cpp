@@ -69,5 +69,33 @@ TEST_CASE( "proxy_filter_past_end_iter", "[proxy_tests]" )
         caught = true;
     }
     REQUIRE( caught );
+
+    SA::clear(flt);
+    REQUIRE( SA::size(flt) == 0 );
 }
 
+TEST_CASE( "proxy_skipper_diff_parent_assignment", "[proxy_tests]" )
+{
+    std::vector<int> v1;
+    std::vector<int> v2;
+    SA::add(v1,SF::seqL(100));
+    SA::add(v2,v1);
+
+    auto s1 = SF::skip(v1,2);
+    auto s2 = SF::skip(v2,2);
+
+    auto b1 = SA::begin(s1);
+    auto b2 = SA::begin(s2);
+
+    bool caught = false;
+    try {
+        b1 = b2;
+    } catch (const tt::t::SkipperInvalidAssignmentException& e) {
+        caught = true;
+    }
+
+    REQUIRE( caught );
+
+    SA::clear(s1);
+    REQUIRE( SA::size(s1) == 0 );
+}

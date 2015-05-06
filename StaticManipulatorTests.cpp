@@ -225,6 +225,31 @@ TEST_CASE( "static_manipulator_tests_quadro_single_mutate", "[static_manipulator
     REQUIRE( 0 == SM::sum<long>(v) );
 }
 
+TEST_CASE( "static_manipulator_tests_quadro_mutate_w_index", "[static_manipulator_tests]" )
+{
+    auto s = SF::seqI(1,100);
+    std::vector<int> v;
+    std::list<int> l;
+    SA::add(v,s);
+    SA::add(l,s);
+
+    long sum = 0;
+    SM::quadro<true>([&](long idx,int& x,int& y) {
+        sum += x;
+        sum += y;
+        sum += idx;
+        x = 0;
+        y = 0;
+    },v,l);
+
+    long singleSum = SM::sum<int>(s);
+    long idxSum = SM::sum<int>(SF::seqL(100*100));
+
+    long expSum = singleSum * 2 + idxSum;
+
+    REQUIRE( sum == expSum );
+}
+
 TEST_CASE( "static_manipulator_tests_map", "[static_manipulator_tests]" )
 {
     auto s = SF::seqI(100);

@@ -268,8 +268,13 @@ TEST_CASE( "vcollection_equality", "[virtual_collection]" )
 
     auto vv1 = SF::vcollection(v);
     auto vv2 = SF::vcollection(v);
-    auto vl = SF::vcollection(l);
+    auto vl1 = SF::vcollection(l);
+    auto vl2 = SF::vcollection(l);
 
     REQUIRE( vv1 == vv2 );
-    REQUIRE( vv1 != vl );
+    REQUIRE( vv1 != vl1 );
+
+    vv1 = std::move(vl1);
+    REQUIRE( vv1 == vl2 );
+    REQUIRE( vl1 != vl2 );
 }

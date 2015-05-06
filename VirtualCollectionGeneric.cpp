@@ -220,14 +220,25 @@ TEST_CASE( "vcollection_no_decrement_iter", "[virtual_collection]" )
 
 TEST_CASE( "vcollection_decrement_iter", "[virtual_collection]" )
 {
-    std::vector<int> fwd;
-    SA::add(fwd,SF::seqL(7));
+    std::vector<int> v;
+    SA::add(v,SF::seqL(7));
 
-    auto vcol = SF::vcollection(fwd);
+    auto vcol = SF::vcollection(v);
     auto iter = SA::begin(vcol);
 
     ++iter;
     REQUIRE( *iter == 1 );
     --iter;
     REQUIRE( *iter == 0 );
+}
+
+TEST_CASE( "vcollection_distinct_iterator_comparison", "[virtual_collection]" )
+{
+    std::vector<int> v;
+    std::list<int> l;
+
+    auto vv = SF::vcollection(v);
+    auto vl = SF::vcollection(l);
+
+    REQUIRE( SA::begin(vv) != SA::begin(vl) );
 }

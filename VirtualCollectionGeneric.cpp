@@ -330,7 +330,7 @@ TEST_CASE( "vcollection_access", "[virtual_collection]" )
         templatious::CP_THROW,
         templatious::TP_ENABLED,
         templatious::ACP_THROW,
-        templatious::SP_ENABLED
+        templatious::SP_THROW
     >(v);
 
     long sum = 0;

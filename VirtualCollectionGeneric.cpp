@@ -310,3 +310,33 @@ TEST_CASE( "vcollection_concurrent_wdtor", "[virtual_collection]" )
     }
     REQUIRE( v == nullptr );
 }
+
+TEST_CASE( "vcollection_access", "[virtual_collection]" )
+{
+    std::vector<int> v;
+    SA::add(v,SF::seqL(7));
+
+    auto vc = SF::prevent<0>(v);
+
+    REQUIRE( vc.first() == 0 );
+    REQUIRE( vc.last() == 6 );
+    REQUIRE( vc.cfirst() == 0 );
+    REQUIRE( vc.clast() == 6 );
+    REQUIRE( vc.getByIndex(1) == 1 );
+    REQUIRE( vc.cgetByIndex(1) == 1 );
+
+    auto vct = SF::vcollectionCustom<
+        templatious::AP_THROW,
+        templatious::CP_THROW,
+        templatious::TP_ENABLED,
+        templatious::ACP_THROW,
+        templatious::SP_ENABLED
+    >(v);
+
+    long sum = 0;
+    const decltype(vct)& vctRef(vct);
+    for (auto i = vctRef.cbegin(); i != vctRef.cend(); ++i) {
+        sum += *i;
+    }
+    REQUIRE( sum == 1 + 2 + 3 + 4 + 5 + 6 );
+}

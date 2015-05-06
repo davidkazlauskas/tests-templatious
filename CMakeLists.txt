@@ -30,7 +30,7 @@ SET ( generic_tests
     StaticFactoryTests.cpp IterDumpTests.cpp
     SelectTests.cpp ChainUsageTests.cpp
     VirtualCollectionGeneric.cpp
-    VirtualPackTests.cpp
+    VirtualPackTests.cpp ProxyMiscTests.cpp
 )
 
 SET ( specific_tests

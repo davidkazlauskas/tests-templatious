@@ -201,13 +201,28 @@ TEST_CASE( "static_manipulator_tests_quadro", "[static_manipulator_tests]" )
 
     unsigned long long sum = 0;
     SM::quadro([&](int x,int y,int z) {
-        sum += x * y * z; }, s,v,s);
+        sum += x * y * z; },s,v,s);
 
     const unsigned long long QUADRO_SUM = 76048455000;
 
     REQUIRE( std::numeric_limits<
         unsigned long long>::max() > QUADRO_SUM );
     REQUIRE( sum == QUADRO_SUM);
+}
+
+TEST_CASE( "static_manipulator_tests_quadro_single_mutate", "[static_manipulator_tests]" )
+{
+    auto s = SF::seqI(1,100);
+    std::vector<int> v;
+    SA::add(v,s);
+    long sum = 0;
+    SM::quadro([&](int& x) {
+        sum += x;
+        x = 0;
+    },v);
+
+    REQUIRE( sum == SM::sum<long>(s) );
+    REQUIRE( 0 == SM::sum<long>(v) );
 }
 
 TEST_CASE( "static_manipulator_tests_map", "[static_manipulator_tests]" )

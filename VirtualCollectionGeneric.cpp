@@ -242,3 +242,21 @@ TEST_CASE( "vcollection_distinct_iterator_comparison", "[virtual_collection]" )
 
     REQUIRE( SA::begin(vv) != SA::begin(vl) );
 }
+
+struct IntPod {
+    IntPod(int i) : _i(i) {}
+    int _i;
+};
+
+TEST_CASE( "vcollection_iter_move", "[virtual_collection]" )
+{
+
+    std::vector<IntPod> v;
+    SA::add(v,7);
+    auto vv = SF::vcollection(v);
+
+    auto beg = SA::begin(vv);
+    auto mov = std::move(beg);
+
+    REQUIRE( mov->_i == 7 );
+}

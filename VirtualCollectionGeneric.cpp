@@ -217,3 +217,17 @@ TEST_CASE( "vcollection_no_decrement_iter", "[virtual_collection]" )
     }
     REQUIRE( caught );
 }
+
+TEST_CASE( "vcollection_decrement_iter", "[virtual_collection]" )
+{
+    std::vector<int> fwd;
+    SA::add(fwd,SF::seqL(7));
+
+    auto vcol = SF::vcollection(fwd);
+    auto iter = SA::begin(vcol);
+
+    ++iter;
+    REQUIRE( *iter == 1 );
+    --iter;
+    REQUIRE( *iter == 0 );
+}

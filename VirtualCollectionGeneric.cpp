@@ -355,3 +355,31 @@ TEST_CASE( "vcollection_adddable_fake_canadd", "[virtual_collection]" )
 
     REQUIRE( !vct.canAdd() );
 }
+
+TEST_CASE( "vcollection_traversable_test", "[virtual_collection]" )
+{
+    std::vector<int> v;
+    SA::add(v,SF::seqL(7));
+
+    auto vctA = SF::vcollectionCustom<
+        templatious::AP_FAKE,
+        templatious::CP_THROW,
+        templatious::TP_ENABLED,
+        templatious::ACP_THROW,
+        templatious::SP_ENABLED
+    >(v);
+
+    auto vctB = SF::vcollectionCustom<
+        templatious::AP_FAKE,
+        templatious::CP_THROW,
+        templatious::TP_FAKE,
+        templatious::ACP_THROW,
+        templatious::SP_ENABLED
+    >(v);
+
+    REQUIRE( *vctA.iterAt(6) == 6 );
+    REQUIRE( *vctA.citerAt(6) == 6 );
+
+    REQUIRE( vctB.iterAt(6) == vctB.end() );
+    REQUIRE( vctB.citerAt(6) == vctB.cend() );
+}

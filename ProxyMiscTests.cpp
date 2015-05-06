@@ -45,3 +45,29 @@ TEST_CASE( "proxy_range_iter_only_beg", "[proxy_tests]" )
     REQUIRE( *SA::iterAt(r,89) == 99 );
 }
 
+TEST_CASE( "proxy_range_iter_no_rand", "[proxy_tests]" )
+{
+    std::list<int> v;
+    SA::add(v,SF::seqL(100));
+
+    auto r = SF::range(v,10,20);
+    REQUIRE( *SA::iterAt(r,7) == 17 );
+}
+
+TEST_CASE( "proxy_filter_past_end_iter", "[proxy_tests]" )
+{
+    std::vector<int> v;
+    SA::add(v,SF::seqL(100));
+
+    auto flt = SF::filter(v,[](int i) { return i % 2 != 0; });
+    auto iter = SA::iterAt(flt,50);
+
+    bool caught = false;
+    try {
+        ++iter;
+    } catch (const tt::t::FilterPastEndIterationException& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
+}
+

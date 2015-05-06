@@ -279,6 +279,17 @@ TEST_CASE( "virtual_pack_fget", "[virtual_pack_tests]" )
     REQUIRE( std::fabs( impl.fGet<2>() - 7.7 ) < 0.00000001 );
 }
 
+TEST_CASE( "virtual_pack_basic_inf", "[virtual_pack_tests]" )
+{
+    auto vp = SF::vpackPtr<int,const char>(7,'7');
+
+    REQUIRE( vp->typeAt(0) == std::type_index(typeid(int)) );
+    REQUIRE( vp->typeAt(1) == std::type_index(typeid(char)) );
+
+    REQUIRE( !vp->constAt(0) );
+    REQUIRE( vp->constAt(1) );
+}
+
 TEST_CASE( "virtual_pack_match_functor", "[virtual_pack_tests]" )
 {
     auto pack = SF::vpack<long,long>(1,2);

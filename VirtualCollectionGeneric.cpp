@@ -260,3 +260,16 @@ TEST_CASE( "vcollection_iter_move", "[virtual_collection]" )
 
     REQUIRE( mov->_i == 7 );
 }
+
+TEST_CASE( "vcollection_equality", "[virtual_collection]" )
+{
+    std::vector<int> v;
+    std::list<int> l;
+
+    auto vv1 = SF::vcollection(v);
+    auto vv2 = SF::vcollection(v);
+    auto vl = SF::vcollection(l);
+
+    REQUIRE( vv1 == vv2 );
+    REQUIRE( vv1 != vl );
+}

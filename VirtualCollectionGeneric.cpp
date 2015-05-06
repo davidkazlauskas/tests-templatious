@@ -277,4 +277,5 @@ TEST_CASE( "vcollection_equality", "[virtual_collection]" )
     vv1 = std::move(vl1);
     REQUIRE( vv1 == vl2 );
     REQUIRE( vl1 != vl2 );
+    REQUIRE( vl2 != vl1 );
 }

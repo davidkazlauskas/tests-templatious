@@ -279,3 +279,34 @@ TEST_CASE( "vcollection_equality", "[virtual_collection]" )
     REQUIRE( vl1 != vl2 );
     REQUIRE( vl2 != vl1 );
 }
+
+TEST_CASE( "vcollection_concurrent_wdtor", "[virtual_collection]" )
+{
+    std::vector<int>* v = new std::vector<int>();
+    {
+        auto vv = SF::vcollectionWDtor(*v,[&]() {
+            delete v;
+            v = nullptr;
+        });
+
+        SA::add(vv,1,2,3,4,5,6,7);
+
+        REQUIRE( SA::size(vv) == 7 );
+        REQUIRE( SA::getByIndex(vv,6) == 7 );
+
+        typedef const templatious::VCollection<int> CVCol;
+        CVCol& cvref(vv);
+
+        long expSum = SM::sum<int>(1,2,3,4,5,6,7);
+        typedef templatious::adapters::
+            CollectionAdapter< CVCol > Ad;
+        auto cbeg = Ad::cbegin(cvref);
+        auto cend = Ad::cend(cvref);
+        long sum = 0;
+        for (; cbeg != cend; ++cbeg) {
+            sum += *cbeg;
+        }
+        REQUIRE( sum == expSum );
+    }
+    REQUIRE( v == nullptr );
+}

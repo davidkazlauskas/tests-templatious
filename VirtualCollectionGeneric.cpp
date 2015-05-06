@@ -200,3 +200,20 @@ TEST_CASE( "vcollection_prevent", "[virtual_collection]" )
     bool areEqual = SM::areCollectionsEqual(h,SF::seqI(1,3));
     REQUIRE( areEqual );
 }
+
+TEST_CASE( "vcollection_no_decrement_iter", "[virtual_collection]" )
+{
+    std::forward_list<int> fwd;
+    SA::add(fwd,SF::seqL(7));
+
+    auto vcol = SF::vcollection(fwd);
+    auto iter = SA::begin(vcol);
+
+    bool caught = false;
+    try {
+        --iter;
+    } catch (const tt::t::VirtualIteratorNoDecrementException& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
+}

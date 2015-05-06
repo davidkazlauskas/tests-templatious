@@ -25,5 +25,8 @@ TEST_CASE( "proxy_range_iter_at_rand_access", "[proxy_tests]" )
     auto r = SF::range(v,10,20);
 
     REQUIRE( *SA::iterAt(r,7) == 17 );
+
+    r.clear();
+    REQUIRE( r.size() == 0 );
 }
 

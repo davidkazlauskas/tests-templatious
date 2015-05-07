@@ -250,6 +250,27 @@ TEST_CASE( "static_manipulator_tests_quadro_mutate_w_index", "[static_manipulato
     REQUIRE( sum == expSum );
 }
 
+TEST_CASE( "static_manipulator_tests_quadro_stop", "[static_manipulator_tests]" )
+{
+    auto s = SF::seqI(1,100);
+    std::vector<int> v;
+    std::list<int> l;
+    SA::add(v,s);
+    SA::add(l,s);
+
+    long sum = 0;
+    int cnt = 3;
+    SM::quadro([&](int x,int y) {
+        sum += x;
+        sum += y;
+        --cnt;
+        return cnt > 0;
+    },v,l);
+
+    long expSum = 1 + 1 + 1 + 1 + 2 + 3;
+    REQUIRE( sum == expSum );
+}
+
 TEST_CASE( "static_manipulator_tests_map", "[static_manipulator_tests]" )
 {
     auto s = SF::seqI(100);

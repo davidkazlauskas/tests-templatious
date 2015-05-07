@@ -190,14 +190,30 @@ TEST_CASE( "sequence_const_traversal", "[sequence_tests]" )
     REQUIRE( caught );
 }
 
-TEST_CASE( "sequence_raw_qualities", "[sequence_tests]" )
+TEST_CASE( "sequence_null_step", "[sequence_tests]" )
 {
     bool caught = false;
     try {
-        tt::t::SeqL<int,false> s(7,9,-1);
-    } catch (const tt::t::NegativeStepException& e) {
+        SF::seqL(1,2,0);
+    } catch (const tt::t::NullStepException& e) {
         caught = true;
     }
-
     REQUIRE( caught );
+}
+
+TEST_CASE( "sequence_decr_iter_neg_step", "[sequence_tests]" )
+{
+    {
+        auto s = SF::seqL(3,7);
+        auto iter = SA::iterAt(s,1);
+        --iter;
+        REQUIRE( *iter == 3 );
+    }
+
+    {
+        auto s = SF::seqL(7,3);
+        auto iter = SA::iterAt(s,1);
+        --iter;
+        REQUIRE( *iter == 7 );
+    }
 }

@@ -563,6 +563,18 @@ TEST_CASE( "static_manipulator_collection_equality_almost_equal", "[static_manip
     REQUIRE( !SM::areCollectionsEqual(aFlt,bFlt) );
 }
 
+TEST_CASE( "static_manipulator_collection_equality_first_two_fail", "[static_manipulator_tests]" )
+{
+    bool result = SM::areCollectionsEqualS(
+        [](int a,int b) { return a == b; },
+        SF::seqL(3),
+        SF::seqL(4),
+        SF::seqL(3)
+    );
+
+    REQUIRE( !result );
+}
+
 TEST_CASE( "static_manipulator_forall", "[static_manipulator_tests]" )
 {
     auto s = SF::seqL(100);

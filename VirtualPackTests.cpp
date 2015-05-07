@@ -56,6 +56,14 @@ TEST_CASE( "virtual_pack_impl_const_correct", "[virtual_pack_tests]" )
     REQUIRE( matches );
 }
 
+TEST_CASE( "virtual_pack_impl_const_correct_p2", "[virtual_pack_tests]" )
+{
+    tt::t::VirtualPackImpl<DefaultCoreSettings,const int,const int>
+        impl(tt::t::ExpVpackConInvoke(),1,2);
+    bool matches = impl.matchesSignature<int,int>();
+    REQUIRE( !matches );
+}
+
 TEST_CASE( "virtual_pack_impl_call_correct_fails", "[virtual_pack_tests]" )
 {
     tt::t::VirtualPackImpl<DefaultCoreSettings,int,const int>

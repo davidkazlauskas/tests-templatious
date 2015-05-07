@@ -263,11 +263,23 @@ TEST_CASE( "sequence_include_neg_test", "[sequence_tests]" )
 
 TEST_CASE( "sequence_include_neg_test_beg_end", "[sequence_tests]" )
 {
-    auto s = SF::seqI(-7,-3);
+    {
+    auto s = SF::seqI(-7,-3,1);
 
     REQUIRE( *SA::iterAt(s,0) == -7 );
     REQUIRE( *SA::iterAt(s,1) == -6 );
     REQUIRE( *SA::iterAt(s,2) == -5 );
     REQUIRE( *SA::iterAt(s,3) == -4 );
     REQUIRE( *SA::iterAt(s,4) == -3 );
+    }
+
+    {
+    auto s = SF::seqI(-3,-7,1);
+
+    REQUIRE( *SA::iterAt(s,0) == -3 );
+    REQUIRE( *SA::iterAt(s,1) == -4 );
+    REQUIRE( *SA::iterAt(s,2) == -5 );
+    REQUIRE( *SA::iterAt(s,3) == -6 );
+    REQUIRE( *SA::iterAt(s,4) == -7 );
+    }
 }

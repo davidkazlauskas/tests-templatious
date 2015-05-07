@@ -168,6 +168,8 @@ TEST_CASE( "sequence_const_traversal", "[sequence_tests]" )
     REQUIRE( sum == expSum );
     REQUIRE( *Ad::iterAt(ref,6) == 6 );
     REQUIRE( *Ad::citerAt(ref,6) == 6 );
+    REQUIRE( *SA::iterAt(s,6) == 6 );
+    REQUIRE( *SA::citerAt(s,6) == 6 );
     REQUIRE( Ad::size(ref) == 7 );
     REQUIRE( SA::size(s) == 7 );
 }

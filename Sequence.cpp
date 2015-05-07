@@ -172,4 +172,32 @@ TEST_CASE( "sequence_const_traversal", "[sequence_tests]" )
     REQUIRE( *SA::citerAt(s,6) == 6 );
     REQUIRE( Ad::size(ref) == 7 );
     REQUIRE( SA::size(s) == 7 );
+
+    bool caught = false;
+    try {
+        SA::iterAt(s,8);
+    } catch (const tt::t::IteratorPastEndException& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
+
+    caught = false;
+    try {
+        SA::citerAt(s,8);
+    } catch (const tt::t::IteratorPastEndException& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
+}
+
+TEST_CASE( "sequence_raw_qualities", "[sequence_tests]" )
+{
+    bool caught = false;
+    try {
+        tt::t::SeqL<int,false> s(7,9,-1);
+    } catch (const tt::t::NegativeStepException& e) {
+        caught = true;
+    }
+
+    REQUIRE( caught );
 }

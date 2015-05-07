@@ -216,4 +216,11 @@ TEST_CASE( "sequence_decr_iter_neg_step", "[sequence_tests]" )
         --iter;
         REQUIRE( *iter == 7 );
     }
+
+    {
+        auto s = SF::seqL<unsigned int>(3,7).rev();
+        auto iter = SA::iterAt(s,1);
+        --iter;
+        REQUIRE( *iter == 7 );
+    }
 }

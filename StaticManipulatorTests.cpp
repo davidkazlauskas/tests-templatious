@@ -552,6 +552,17 @@ TEST_CASE( "static_manipulator_collection_equality_custom_const_fctor_anything_e
     REQUIRE( !SM::areCollectionsEqualS(fctor,v,SF::seqL(100,201)) );
 }
 
+TEST_CASE( "static_manipulator_collection_equality_almost_equal", "[static_manipulator_tests]" )
+{
+    auto a = SF::seqL(3);
+    auto b = SF::seqL(4);
+
+    auto aFlt = SF::filter(a,[](int) { return true; });
+    auto bFlt = SF::filter(b,[](int) { return true; });
+
+    REQUIRE( !SM::areCollectionsEqual(aFlt,bFlt) );
+}
+
 TEST_CASE( "static_manipulator_forall", "[static_manipulator_tests]" )
 {
     auto s = SF::seqL(100);

@@ -840,3 +840,19 @@ TEST_CASE( "static_manipulator_tests_max_multitype", "[static_manipulator_tests]
     int i = SM::max<int>(v,777,p);
     REQUIRE( i == 777 );
 }
+
+TEST_CASE( "static_manipulator_tests_sort_stress", "[static_manipulator_tests]" )
+{
+    std::list<int> l;
+
+    // deterministic seed
+    srand( 7 );
+    TEMPLATIOUS_REPEAT( 1000 ) {
+        int num = rand() % 777;
+        SA::add(l,num);
+    }
+
+    SM::sort(l);
+    REQUIRE( SM::isSorted(l) );
+}
+

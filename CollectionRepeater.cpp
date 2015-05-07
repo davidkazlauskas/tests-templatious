@@ -161,3 +161,9 @@ TEST_CASE( "collection_repeater_copyable_iterator", "[collection_repeater]" )
     REQUIRE( sum == 7 * 2 * 4 );
 }
 
+TEST_CASE( "collection_repeater_iter_at", "[collection_repeater]" )
+{
+    auto r = SF::repS(7,2);
+
+    REQUIRE( *SA::iterAt(r,3) == 2 );
+}

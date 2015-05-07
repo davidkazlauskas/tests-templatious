@@ -283,8 +283,10 @@ TEST_CASE( "static_factory_match_functor_loose_base", "[static_factory_tests]" )
 TEST_CASE( "static_factory_make_collection_test", "[static_factory_tests]" )
 {
     auto v = SF::makeCollection<int,std::vector>(16);
+    auto v2 = SF::makeCollection<int,std::vector>();
 
     REQUIRE( std::type_index(typeid(std::vector<int>)) == std::type_index(typeid(v)) );
+    REQUIRE( std::type_index(typeid(std::vector<int>)) == std::type_index(typeid(v2)) );
     REQUIRE( v.capacity() == 16 );
 }
 

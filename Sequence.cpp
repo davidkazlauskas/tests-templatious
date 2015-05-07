@@ -260,3 +260,14 @@ TEST_CASE( "sequence_include_neg_test", "[sequence_tests]" )
     REQUIRE( *SA::iterAt(s,2) == -2 );
     REQUIRE( *SA::iterAt(s,3) == -3 );
 }
+
+TEST_CASE( "sequence_include_neg_test_beg_end", "[sequence_tests]" )
+{
+    auto s = SF::seqI(-7,-3);
+
+    REQUIRE( *SA::iterAt(s,0) == -7 );
+    REQUIRE( *SA::iterAt(s,1) == -6 );
+    REQUIRE( *SA::iterAt(s,2) == -5 );
+    REQUIRE( *SA::iterAt(s,3) == -4 );
+    REQUIRE( *SA::iterAt(s,4) == -3 );
+}

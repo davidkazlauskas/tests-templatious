@@ -167,3 +167,10 @@ TEST_CASE( "collection_repeater_iter_at", "[collection_repeater]" )
 
     REQUIRE( *SA::iterAt(r,3) == 2 );
 }
+
+TEST_CASE( "collection_repeater_get_item", "[collection_repeater]" )
+{
+    auto r = SF::repS(1,7);
+
+    REQUIRE( r.theItem() == 7 );
+}

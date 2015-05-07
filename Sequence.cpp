@@ -217,10 +217,36 @@ TEST_CASE( "sequence_decr_iter_neg_step", "[sequence_tests]" )
         REQUIRE( *iter == 7 );
     }
 
+    auto s = SF::seqL<unsigned int>(3,7).rev();
     {
-        auto s = SF::seqL<unsigned int>(3,7).rev();
         auto iter = SA::iterAt(s,1);
         --iter;
         REQUIRE( *iter == 7 );
+    }
+
+    {
+        auto iter = SA::citerAt(s,1);
+        --iter;
+        REQUIRE( *iter == 7 );
+    }
+
+    {
+        bool caught = false;
+        try {
+            SA::iterAt(s,6);
+        } catch (const tt::t::IteratorPastEndException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
+
+    {
+        bool caught = false;
+        try {
+            SA::citerAt(s,6);
+        } catch (const tt::t::IteratorPastEndException& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
     }
 }

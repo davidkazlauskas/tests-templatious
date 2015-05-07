@@ -144,3 +144,30 @@ TEST_CASE( "sequence_neg_step", "[sequence_tests]")
 
     REQUIRE( caught );
 }
+
+TEST_CASE( "sequence_const_traversal", "[sequence_tests]" )
+{
+    auto s = SF::seqL(7);
+
+    typedef decltype(s) SeqT;
+
+    const SeqT& ref(s);
+
+    typedef templatious::adapters::CollectionAdapter< const SeqT > Ad;
+
+    auto b = Ad::cbegin(ref);
+    auto e = Ad::cend(ref);
+
+    long sum = 0;
+    for (; b != e; ++b) {
+        sum += *b;
+    }
+
+    long expSum = SM::sum<long>(s);
+
+    REQUIRE( sum == expSum );
+    REQUIRE( *Ad::iterAt(ref,6) == 6 );
+    REQUIRE( *Ad::citerAt(ref,6) == 6 );
+    REQUIRE( Ad::size(ref) == 7 );
+    REQUIRE( SA::size(s) == 7 );
+}

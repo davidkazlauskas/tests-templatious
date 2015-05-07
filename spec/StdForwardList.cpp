@@ -75,3 +75,18 @@ TEST_CASE( "std_fw_list_element_move", "[std_fw_list_tests]" )
     REQUIRE( moveTest(v) );
 }
 
+TEST_CASE( "std_fw_list_separate_iter_insert_throw", "[std_fw_list_tests]" )
+{
+    std::forward_list<int> a;
+    std::forward_list<int> b;
+    SA::add(b,7);
+
+    bool caught = false;
+    try {
+        SA::insert(a,SA::begin(b),7);
+    } catch (const tt::t::adapters::CollectionAdapterIteratorOutOfBoundsException& e) {
+        caught = true;
+    }
+
+    REQUIRE( caught );
+}

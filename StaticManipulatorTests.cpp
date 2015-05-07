@@ -414,6 +414,29 @@ TEST_CASE( "static_manipulator_tests_traverse_with_pass_index", "[static_manipul
     REQUIRE( diffGood );
 }
 
+TEST_CASE( "static_manipulator_tests_traverse_man_stop", "[static_manipulator_tests]" )
+{
+    std::vector<long> v;
+    SA::add(v,SF::seqI(7,107));
+    std::list<short> l;
+    SA::add(l,SF::seqI(77,177));
+
+    int sum = 0;
+    int cnt = 3;
+    SM::traverse(
+        [&](long a,short b) {
+            sum += a;
+            sum += b;
+            --cnt;
+            return cnt > 0;
+        },
+        v,l
+    );
+
+    int expSum = 7 + 8 + 9 + 77 + 78 + 79;
+    REQUIRE( sum == expSum );
+}
+
 TEST_CASE( "static_manipulator_tests_fold_mul", "[static_manipulator_tests]" )
 {
     std::vector<long> v;

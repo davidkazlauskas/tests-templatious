@@ -250,3 +250,13 @@ TEST_CASE( "sequence_decr_iter_neg_step", "[sequence_tests]" )
         REQUIRE( caught );
     }
 }
+
+TEST_CASE( "sequence_include_neg_test", "[sequence_tests]" )
+{
+    auto s = SF::seqI(-3);
+
+    REQUIRE( *SA::iterAt(s,0) == 0 );
+    REQUIRE( *SA::iterAt(s,1) == -1 );
+    REQUIRE( *SA::iterAt(s,2) == -2 );
+    REQUIRE( *SA::iterAt(s,3) == -3 );
+}

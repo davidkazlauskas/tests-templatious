@@ -290,3 +290,13 @@ TEST_CASE( "static_factory_make_collection_test", "[static_factory_tests]" )
     REQUIRE( v.capacity() == 16 );
 }
 
+TEST_CASE( "static_factory_select_c_filter", "[static_factory_tests]" )
+{
+    auto s = SF::seqL(7);
+    auto f = SF::filter(s,[](int i) { return i % 2 != 0; });
+    auto sc = SF::selectC(f,[](int i) { return i * i; });
+
+    REQUIRE( SA::getByIndex(sc,0) == 1 );
+    REQUIRE( SA::getByIndex(sc,1) == 9 );
+    REQUIRE( SA::getByIndex(sc,2) == 25 );
+}

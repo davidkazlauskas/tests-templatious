@@ -76,3 +76,16 @@ TEST_CASE( "std_vector_element_move", "[std_vector_tests]" )
     REQUIRE( moveTest(v) );
 }
 
+TEST_CASE( "std::vecor_insert_foreign_throw", "[std_vector_tests]" )
+{
+    std::vector<int> a;
+    std::vector<int> b;
+
+    bool caught = false;
+    try {
+        SA::insert(a,SA::begin(b),7);
+    } catch (const tt::t::adapters::CollectionAdapterIteratorOutOfBoundsException& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
+}

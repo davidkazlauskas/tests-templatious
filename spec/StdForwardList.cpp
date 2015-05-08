@@ -96,4 +96,12 @@ TEST_CASE( "std_fw_list_separate_iter_insert_throw", "[std_fw_list_tests]" )
         caught = true;
     }
     REQUIRE( caught );
+
+    caught = false;
+    try {
+        SA::erase(a,SA::begin(b),SA::end(b));
+    } catch (const tt::t::adapters::CollectionAdapterIteratorOutOfBoundsException& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
 }

@@ -819,4 +819,20 @@ TEST_CASE( "static_vector_preinitialized", "[static_vector_tests]" )
 
     REQUIRE( sumA == 7 * 8 );
     REQUIRE( sumB == 7 * 8 );
+
+    bool caught = false;
+    try {
+        buf.getStaticVectorPre(-1);
+    } catch (const tt::t::StaticBufferWrongSize& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
+
+    caught = false;
+    try {
+        buf.getStaticVectorPre(1);
+    } catch (const tt::t::StaticBufferExceedException& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
 }

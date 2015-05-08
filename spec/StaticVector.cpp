@@ -785,3 +785,16 @@ TEST_CASE( "static_vector_erase_assertions", "[static_vector_tests]" )
     }
 }
 
+TEST_CASE( "static_vector_at_operator", "[static_vector_tests]" )
+{
+    tt::t::StaticBuffer<int,16> buf;
+    auto v = buf.getStaticVector();
+
+    SA::add(v,7);
+
+    REQUIRE( v[0] == 7 );
+
+    v[0] = 77;
+
+    REQUIRE( v[0] == 77 );
+}

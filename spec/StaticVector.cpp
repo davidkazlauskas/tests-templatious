@@ -798,3 +798,25 @@ TEST_CASE( "static_vector_at_operator", "[static_vector_tests]" )
 
     REQUIRE( v[0] == 77 );
 }
+
+struct DefCtorObj {
+    DefCtorObj() : _i(7) {}
+
+    int _i;
+};
+
+TEST_CASE( "static_vector_preinitialized", "[static_vector_tests]" )
+{
+    tt::t::StaticBuffer<DefCtorObj,16> buf;
+
+    auto a = buf.getStaticVectorPre(8);
+    auto b = buf.getStaticVectorPre();
+
+    auto summer = [](const DefCtorObj& o) { return o._i; };
+
+    long sumA = SM::sumS<long>(summer,a);
+    long sumB = SM::sumS<long>(summer,b);
+
+    REQUIRE( sumA == 7 * 8 );
+    REQUIRE( sumB == 7 * 8 );
+}

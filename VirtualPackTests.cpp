@@ -689,20 +689,21 @@ TEST_CASE( "virtual_pack_custom_wait", "[virtual_pack_tests]" )
     auto handle = std::async(std::launch::async,
         [=]() {
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
-            pack->tryCallFunction<int,int>(
+            auto l =
                 [](int& a,int& b) {
                     a *= 2;
                     b *= 2;
-                }
-            );
+                };
+            pack->tryCallFunction<int,int>(l);
+            pack->tryCallFunction<int,int>(l);
         });
 
     pack->wait();
     int outA = pack->fGet<0>();
     int outB = pack->fGet<1>();
 
-    REQUIRE( outA == 2 );
-    REQUIRE( outB == 4 );
+    REQUIRE( outA == 4 );
+    REQUIRE( outB == 8 );
 }
 
 TEST_CASE( "virtual_pack_custom_nowait", "[virtual_pack_tests]" )

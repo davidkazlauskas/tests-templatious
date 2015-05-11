@@ -1,7 +1,7 @@
 #!/bin/bash
 
-lcov --directory . --capture --output-file outcov.info
-lcov --extract outcov.info '*/templatious/*hpp' > outcov-flt.info
+lcov --rc lcov_branch_coverage=1 --directory . --capture --output-file outcov.info
+lcov --rc lcov_branch_coverage=1 --extract outcov.info '*/templatious/*hpp' > outcov-flt.info
 
-genhtml --output-directory htmlrep/ outcov-flt.info
+genhtml --rc lcov_branch_coverage=1 --branch-coverage --output-directory htmlrep/ outcov-flt.info
 

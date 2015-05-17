@@ -29,7 +29,6 @@ script: make && ./a.out
 
 after_success:
     - if [ "$TEMPLATIOUS_GCC_COVERAGE" == "yes" ]; then coveralls --gcov /usr/bin/gcov-4.8 --gcov-options '\-lp'; fi
-    #- if [ "$TEMPLATIOUS_GCC_COVERAGE" == "yes" ]; then coveralls --gcov /usr/bin/gcov-4.8 --exclude-pattern '.*include.*' --exclude-pattern '.*tests-templatious.*' --include "$TEMPLATIOUS_DIR" --gcov-options '\-lp'; fi
 
 env:
     - TEMPLATIOUS_DIR=$TRAVIS_BUILD_DIR/build/TemplatiousLib

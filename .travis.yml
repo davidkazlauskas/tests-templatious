@@ -20,7 +20,8 @@ before_script:
     - mkdir TemplatiousLib
     - cd TemplatiousLib
     - git clone https://github.com/davidkazlauskas/templatious.git
-    - git checkout travis-yml-clang-fix
+    - git branch -a
+    - git checkout origin/travis-yml-clang-fix
     - cd ..
     - cmake ..
 

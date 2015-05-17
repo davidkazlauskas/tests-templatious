@@ -22,10 +22,7 @@ before_script:
     - cd ..
     - cmake ..
 
-script: make
-
-after_script:
-    - a.out
+script: make && ./a.out
 
 env:
     - TEMPLATIOUS_DIR=$TRAVIS_BUILD_DIR/build/TemplatiousLib

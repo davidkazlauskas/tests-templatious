@@ -300,3 +300,30 @@ TEST_CASE( "static_factory_select_c_filter", "[static_factory_tests]" )
     REQUIRE( SA::getByIndex(sc,1) == 9 );
     REQUIRE( SA::getByIndex(sc,2) == 25 );
 }
+
+TEST_CASE( "static_factory_range_sequence", "[static_factory_tests]" )
+{
+    auto s = SF::seqL(7);
+    auto r = SF::range(s,1,4);
+
+    int expSum = 1 + 2 + 3;
+    REQUIRE( SM::sum<int>(r) == expSum );
+}
+
+TEST_CASE( "static_factory_skip_sequence", "[static_factory_tests]" )
+{
+    auto s = SF::seqL(7);
+    auto r = SF::skip(s,2);
+
+    int expSum = 0 + 2 + 4 + 6;
+    REQUIRE( SM::sum<int>(r) == expSum );
+}
+
+TEST_CASE( "static_factory_select_sequence", "[static_factory_tests]" )
+{
+    auto s = SF::seqL(7);
+    auto r = SF::select(s,[](int i) { return 2*i; });
+
+    int expSum = SM::sum<int>(s) * 2;
+    REQUIRE( SM::sum<int>(r) == expSum );
+}

@@ -283,3 +283,20 @@ TEST_CASE( "sequence_include_neg_test_beg_end", "[sequence_tests]" )
     REQUIRE( *SA::iterAt(s,4) == -7 );
     }
 }
+
+TEST_CASE( "sequence_operators", "[sequence_tests]" )
+{
+    auto s = SF::seqI(1,10);
+
+    auto b = SA::iterAt(s,2);
+    auto e = SA::iterAt(s,4);
+
+    REQUIRE( b < e );
+    REQUIRE( e > b );
+    REQUIRE( b <= e );
+    REQUIRE( e >= b );
+    REQUIRE( b == b );
+    REQUIRE( e == e );
+    REQUIRE( b <= b );
+    REQUIRE( e <= e );
+}

@@ -4,6 +4,11 @@ compiler:
     - g++-4.8
     - clang++-3.5
 
+before_install:
+    sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+    sudo add-apt-repository 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise main'
+    sudo apt-get update
+
 install:
     - if [ "$CXX" == "g++" ]; then sudo apt-get install g++-4.8 && export CXX=g++-4.8; fi
     - if [ "$CXX" == "clang++" ]; then sudo apt-get install clang-3.5 && export CXX=clang++-3.5; fi

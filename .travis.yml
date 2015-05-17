@@ -13,7 +13,7 @@ before_install:
 install:
     - if [ "$CXX" == "g++" ]; then export TEMPLATIOUS_GCC_COVERAGE="yes"; fi
     - if [ "$CXX" == "g++" ]; then sudo pip install cpp-coveralls; fi
-    - if [ "$CXX" == "g++" ]; then sudo apt-get install g++-4.8 && export CXX=g++-4.8; fi
+    - if [ "$CXX" == "g++" ]; then sudo apt-get install g++-4.8 binutils && export CXX=g++-4.8; fi
     - if [ "$CXX" == "clang++" ]; then sudo apt-get install clang-3.5 && export CXX=clang++-3.5; fi
 
 before_script:
@@ -28,7 +28,7 @@ before_script:
 script: make && ./a.out
 
 after_success:
-    - if [ "$TEMPLATIOUS_GCC_COVERAGE" == "yes" ]; then coveralls --exclude lib --exclude tests-templatious --gcov-options '\-lp'; fi
+    - if [ "$TEMPLATIOUS_GCC_COVERAGE" == "yes" ]; then coveralls --exclude-pattern '.*include.*' lib --exclude-pattern '.*tests-templatious.*' --gcov-options '\-lp'; fi
 
 env:
     - TEMPLATIOUS_DIR=$TRAVIS_BUILD_DIR/build/TemplatiousLib

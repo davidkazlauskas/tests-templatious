@@ -23,6 +23,7 @@ if ( "$ENV{TEMPLATIOUS_GCC_COVERAGE}" STREQUAL "yes" )
     ADD_DEFINITIONS(
         --coverage
     )
+    file( COPY "gencov" DESTINATION "${CMAKE_BINARY_DIR}" )
 endif()
 
 #SET ( CMAKE_CXX_COMPILER "g++-4.9" )

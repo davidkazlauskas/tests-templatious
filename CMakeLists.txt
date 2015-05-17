@@ -10,7 +10,7 @@ ADD_DEFINITIONS (
     #-lstdc++
     -Wall
     -x c++
-    --coverage
+    #--coverage
     -ggdb3
     #-O0
     #-pthread

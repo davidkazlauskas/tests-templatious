@@ -18,11 +18,13 @@ before_script:
     - mkdir build
     - cd build
     - mkdir TemplatiousLib
-    - cd TemplatiousLib
+    - pushd TemplatiousLib
     - git clone https://github.com/davidkazlauskas/templatious.git
+    - pushd templatious
     - git branch -a
     - git checkout origin/travis-yml-clang-fix
-    - cd ..
+    - popd
+    - popd
     - cmake ..
 
 script: make && ./a.out

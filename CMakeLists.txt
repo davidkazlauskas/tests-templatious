@@ -18,6 +18,13 @@ ADD_DEFINITIONS (
     #-Wno-unused-local-typedefs # keep g++ happy
 )
 
+if ( "$ENV{TEMPLATIOUS_GCC_COVERAGE}" STREQUAL "yes" )
+    MESSAGE( STATUS "Compiling with code coverage for g++" )
+    ADD_DEFINITIONS(
+        --coverage
+    )
+endif()
+
 #SET ( CMAKE_CXX_COMPILER "g++-4.9" )
 #SET ( CMAKE_CXX_COMPILER "clang++-3.7" )
 #SET ( CMAKE_CXX_COMPILER "g++" )

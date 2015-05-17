@@ -1,0 +1,26 @@
+language: cpp
+
+compiler:
+    - gcc
+    - clang
+
+before_script:
+    - mkdir build
+    - cd build
+    - mkdir TemplatiousLib
+    - cd TemplatiousLib
+    - git clone https://github.com/davidkazlauskas/templatious.git
+    - cd ..
+    - cmake ..
+
+script: make
+
+after_script:
+    - a.out
+
+env:
+    - TEMPLATIOUS_DIR=$TRAVIS_BUILD_DIR/build/TemplatiousLib
+
+os:
+    -linux
+

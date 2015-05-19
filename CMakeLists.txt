@@ -7,15 +7,9 @@ include_directories ( $ENV{TEMPLATIOUS_DIR} )
 
 ADD_DEFINITIONS (
     -std=c++11
-    #-lstdc++
     -Wall
     -x c++
-    #--coverage
     -ggdb3
-    #-O0
-    #-pthread
-    #-fcolor-diagnostics
-    #-Wno-unused-local-typedefs # keep g++ happy
 )
 
 if ( "$ENV{TEMPLATIOUS_GCC_COVERAGE}" STREQUAL "yes" )
@@ -25,10 +19,6 @@ if ( "$ENV{TEMPLATIOUS_GCC_COVERAGE}" STREQUAL "yes" )
     )
     file( COPY "gencov" DESTINATION "${CMAKE_BINARY_DIR}" )
 endif()
-
-#SET ( CMAKE_CXX_COMPILER "g++-4.9" )
-#SET ( CMAKE_CXX_COMPILER "clang++-3.7" )
-#SET ( CMAKE_CXX_COMPILER "g++" )
 
 SET ( generic_tests
     TypeLists.cpp PackTests.cpp

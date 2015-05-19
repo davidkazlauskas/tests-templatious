@@ -20,6 +20,9 @@ before_script:
     - mkdir TemplatiousLib
     - pushd TemplatiousLib
     - git clone https://github.com/davidkazlauskas/templatious.git
+    - pushd templatious
+    - git log -n 1
+    - popd
     - popd
     - mkdir build
     - pushd build

@@ -300,3 +300,35 @@ TEST_CASE( "sequence_operators", "[sequence_tests]" )
     REQUIRE( b <= b );
     REQUIRE( e <= e );
 }
+
+TEST_CASE( "sugar_foreach", "[sequence_tests]" )
+{
+    int sum = 0;
+    TEMPLATIOUS_FOREACH(auto i,SF::seqL(8,10)) {
+        sum += i;
+    }
+
+    int expSum = 8 + 9;
+    REQUIRE( sum == expSum );
+}
+
+TEST_CASE( "sugar_0_to_n", "[sequence_tests]" )
+{
+    int sum = 0;
+    TEMPLATIOUS_0_TO_N(i,4) {
+        sum += i;
+    }
+
+    int expSum = 0 + 1 + 2 + 3;
+    REQUIRE( sum == expSum );
+}
+
+TEST_CASE( "sugar_repeat", "[sequence_tests]" )
+{
+    int count = 0;
+    TEMPLATIOUS_REPEAT( 10 ) {
+        ++count;
+    }
+
+    REQUIRE( count == 10 );
+}

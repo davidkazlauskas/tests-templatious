@@ -713,6 +713,9 @@ TEST_CASE( "virtual_pack_custom_nowait", "[virtual_pack_tests]" )
         int,int
     >(1,2);
 
+    // llvm thread sanitizer reports
+    // race condition here but yeah,
+    // that's the idea of this test
     auto handle = std::async(std::launch::async,
         [=]() {
             std::this_thread::sleep_for(std::chrono::milliseconds(100));

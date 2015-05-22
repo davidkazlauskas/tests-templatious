@@ -20,7 +20,7 @@
 std::vector<int> rvalVect() {
     std::vector<int> res;
     SA::add(res,1,2,3,4,5,6,7);
-    return std::move(res);
+    return res;
 }
 
 TEST_CASE( "virtual_collection_move_semantics", "[virtual_collection]" ) {

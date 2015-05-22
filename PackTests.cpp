@@ -289,7 +289,7 @@ TEST_CASE( "pack_transform_moar", "[pack_tests]" )
         s << "<";
 
         std::string res = s.str();
-        return std::move(res);
+        return res;
     };
     auto trP = SF::packTransformWithin(trFunc,p);
 

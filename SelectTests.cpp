@@ -39,7 +39,7 @@ namespace test_templatious {
             SA::add(res,CompositeType());
         }
 
-        return std::move(res);
+        return res;
     }
 }
 

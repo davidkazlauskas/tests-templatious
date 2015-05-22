@@ -36,7 +36,7 @@ namespace roost {
     std::string replace_all_copy(const std::string& str,const char* find,const char* repl) {
         std::string val(str);
         replace_all(val,find,repl);
-        return std::move(val);
+        return val;
     }
 
     template <class T>
@@ -47,7 +47,7 @@ namespace roost {
             *i = std::toupper(*i,loc);
         }
 
-        return std::move(ret);
+        return ret;
     }
 }
 
@@ -223,7 +223,7 @@ namespace
             [](char c) { return c ^ '7'; },
             v
         );
-        return std::move(vn);
+        return vn;
     };
 
     auto turnToBytesF =
@@ -235,7 +235,7 @@ namespace
         memcpy(tmp,&d,sz);
 
         SA::add(res,tmp);
-        return std::move(res);
+        return res;
     };
 
     auto makeFromBytesF =

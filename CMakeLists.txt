@@ -9,8 +9,12 @@ ADD_DEFINITIONS (
     -std=c++11
     -Wall
     -x c++
-    -ggdb3
+    -g
 )
+
+SET( CURR_SANITIZE "$ENV{LLVM_SANITIZER_FLAGS}" )
+SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CURR_SANITIZE}" )
+SET( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CURR_SANITIZE}" )
 
 if ( "$ENV{TEMPLATIOUS_GCC_COVERAGE}" STREQUAL "yes" )
     MESSAGE( STATUS "Compiling with code coverage for g++" )

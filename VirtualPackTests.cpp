@@ -705,6 +705,38 @@ TEST_CASE( "virtual_pack_custom_wait", "[virtual_pack_tests]" )
     REQUIRE( outB == 4 );
 }
 
+TEST_CASE( "virtual_pack_custom_double_wait", "[virtual_pack_tests]" )
+{
+    auto pack = SF::vpackPtrCustom<
+        tt::t::VPACK_WAIT,
+        int,int
+    >(1,2);
+
+    std::mutex mtx;
+    auto handle = std::async(std::launch::async,
+        [&mtx,pack]() {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            auto l =
+                [](int& a,int& b) {
+                    a *= 2;
+                    b *= 2;
+                };
+            mtx.lock();
+            // should not error out
+            pack->tryCallFunction<int,int>(l);
+            pack->tryCallFunction<int,int>(l);
+            mtx.unlock();
+        });
+
+    pack->wait();
+    mtx.lock();
+    int outA = pack->fGet<0>();
+    int outB = pack->fGet<1>();
+
+    REQUIRE( outA == 4 );
+    REQUIRE( outB == 8 );
+}
+
 TEST_CASE( "virtual_pack_custom_nowait", "[virtual_pack_tests]" )
 {
     auto pack = SF::vpackPtrCustom<

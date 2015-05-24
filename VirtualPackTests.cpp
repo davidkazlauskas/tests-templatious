@@ -712,19 +712,23 @@ TEST_CASE( "virtual_pack_custom_double_wait", "[virtual_pack_tests]" )
         int,int
     >(1,2);
 
+    std::mutex mtx;
     auto handle = std::async(std::launch::async,
-        [=]() {
+        [pack,&mtx]() {
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
             auto l =
                 [](int& a,int& b) {
                     a *= 2;
                     b *= 2;
                 };
+            mtx.lock();
             pack->tryCallFunction<int,int>(l);
             pack->tryCallFunction<int,int>(l);
+            mtx.unlock();
         });
 
     pack->wait();
+    mtx.lock();
     int outA,outB;
     pack->tryCallFunction<int,int>(
         [&](int& a,int& b) {
@@ -732,6 +736,7 @@ TEST_CASE( "virtual_pack_custom_double_wait", "[virtual_pack_tests]" )
             outB = b;
         }
     );
+    mtx.unlock();
 
     REQUIRE( outA == 4 );
     REQUIRE( outB == 8 );

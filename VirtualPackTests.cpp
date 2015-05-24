@@ -695,15 +695,14 @@ TEST_CASE( "virtual_pack_custom_wait", "[virtual_pack_tests]" )
                     b *= 2;
                 };
             pack->tryCallFunction<int,int>(l);
-            pack->tryCallFunction<int,int>(l);
         });
 
     pack->wait();
     int outA = pack->fGet<0>();
     int outB = pack->fGet<1>();
 
-    REQUIRE( outA == 4 );
-    REQUIRE( outB == 8 );
+    REQUIRE( outA == 2 );
+    REQUIRE( outB == 4 );
 }
 
 TEST_CASE( "virtual_pack_custom_nowait", "[virtual_pack_tests]" )

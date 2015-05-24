@@ -737,6 +737,39 @@ TEST_CASE( "virtual_pack_custom_double_wait", "[virtual_pack_tests]" )
     REQUIRE( outB == 8 );
 }
 
+TEST_CASE( "virtual_pack_custom_short_wait", "[virtual_pack_tests]" )
+{
+    auto pack = SF::vpackPtrCustom<
+        tt::t::VPACK_WAIT,
+        int,int
+    >(1,2);
+
+    std::mutex mtx;
+    auto handle = std::async(std::launch::async,
+        [&mtx,pack]() {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            auto l =
+                [](int& a,int& b) {
+                    a *= 2;
+                    b *= 2;
+                };
+            mtx.lock();
+            // should not error out
+            pack->tryCallFunction<int,int>(l);
+            pack->tryCallFunction<int,int>(l);
+            mtx.unlock();
+        });
+
+    pack->waitMs(1);
+    mtx.lock();
+    int outA = pack->fGet<0>();
+    int outB = pack->fGet<1>();
+    mtx.unlock();
+
+    REQUIRE( outA == 1 );
+    REQUIRE( outB == 2 );
+}
+
 TEST_CASE( "virtual_pack_custom_nowait", "[virtual_pack_tests]" )
 {
     auto pack = SF::vpackPtrCustom<
@@ -744,22 +777,24 @@ TEST_CASE( "virtual_pack_custom_nowait", "[virtual_pack_tests]" )
         int,int
     >(1,2);
 
-    // llvm thread sanitizer reports
-    // race condition here but yeah,
-    // that's the idea of this test
+    std::mutex mtx;
     auto handle = std::async(std::launch::async,
-        [=]() {
+        [pack,&mtx]() {
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            mtx.lock();
             pack->tryCallFunction<int,int>(
                 [](int& a,int& b) {
                     a *= 2;
                     b *= 2;
                 }
             );
+            mtx.unlock();
         });
     pack->wait();
+    mtx.lock();
     int outA = pack->fGet<0>();
     int outB = pack->fGet<1>();
+    mtx.unlock();
 
     REQUIRE( outA == 1 );
     REQUIRE( outB == 2 );

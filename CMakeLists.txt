@@ -33,6 +33,7 @@ SET ( generic_tests
     SelectTests.cpp ChainUsageTests.cpp
     VirtualCollectionGeneric.cpp
     VirtualPackTests.cpp ProxyMiscTests.cpp
+    DynamicVPackFactory.cpp
 )
 
 SET ( specific_tests

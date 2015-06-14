@@ -659,4 +659,21 @@ TEST_CASE("dyn_vpack_factory_dummy_types","[dynamic_vpack_tests]")
     REQUIRE( buf[0] == typeid(DummyA).name() );
     REQUIRE( buf[1] == "[DummyB]" );
     REQUIRE( buf[2] == "" );
+
+    SM::set("unchanged",buf);
+
+    bool caught = false;
+    try {
+        p->formatAll(1,buf);
+    } catch (const std::exception& e) {
+        caught = true;
+    }
+    REQUIRE( caught );
+
+    bool allUnchanged =
+        SM::forAll([](const std::string& str) {
+            return str == "unchaned";
+        },buf);
+
+    REQUIRE( allUnchanged );
 }

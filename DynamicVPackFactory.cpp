@@ -646,3 +646,17 @@ TEST_CASE("dyn_vpack_factory_exceptions","[dynamic_vpack_tests]")
         REQUIRE( caught );
     }
 }
+
+TEST_CASE("dyn_vpack_factory_dummy_types","[dynamic_vpack_tests]")
+{
+    const char* types[] = {"DummyA","DummyB"};
+    const char* values[] = {"",""};
+
+    auto p = trivialFactory.makePack(2,types,values);
+    std::string buf[32];
+    int size = p->formatAll(32,buf);
+    REQUIRE( size == 2 );
+    REQUIRE( buf[0] == typeid(DummyA).name() );
+    REQUIRE( buf[1] == "[DummyB]" );
+    REQUIRE( buf[2] == "" );
+}

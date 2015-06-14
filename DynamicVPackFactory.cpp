@@ -67,11 +67,19 @@ static auto innerAllocNode = TNF::makeFullNode<BoxedInt>(
         fmt = "<BoxedInt>";
     });
 
+struct DummyA {};
+struct DummyB {};
+
+static auto dummyADefaultNode = TNF::makeDummyNode<DummyA>();
+static auto dummyBCustomNode = TNF::makeDummyNode<DummyB>("[DummyB]");
+
 templatious::DynVPackFactory makeTrivialFactory() {
     tt::t::DynVPackFactoryBuilder bld;
     bld.attachNode("int",intNode);
     bld.attachNode("const int",cIntNode);
     bld.attachNode("char",charNode);
+    bld.attachNode("DummyA",dummyADefaultNode);
+    bld.attachNode("DummyB",dummyBCustomNode);
     return bld.getFactory();
 }
 

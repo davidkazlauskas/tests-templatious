@@ -590,6 +590,16 @@ TEST_CASE("dyn_vpack_factory_exceptions","[dynamic_vpack_tests]")
     {
         caught = false;
         try {
+            bld.getFactory();
+        } catch (const std::exception& e) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
+
+    {
+        caught = false;
+        try {
             fact.makePack(33,types,values);
         } catch (const std::exception& e) {
             caught = true;

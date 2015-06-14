@@ -672,7 +672,7 @@ TEST_CASE("dyn_vpack_factory_dummy_types","[dynamic_vpack_tests]")
 
     bool allUnchanged =
         SM::forAll([](const std::string& str) {
-            return str == "unchaned";
+            return str == "unchanged";
         },buf);
 
     REQUIRE( allUnchanged );

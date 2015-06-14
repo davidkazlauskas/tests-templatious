@@ -18,7 +18,7 @@ struct BoxedInt {
     int* _ptr;
 };
 
-typedef tt::t::detail::TypeNodeFactory TNF;
+typedef tt::t::TypeNodeFactory TNF;
 static auto intNode = TNF::makePodNode<int>(
     [](void* ptr,const char* param) {
         *reinterpret_cast<int*>(ptr) = std::atoi(param);
@@ -67,8 +67,8 @@ static auto innerAllocNode = TNF::makeFullNode<BoxedInt>(
         fmt = "<BoxedInt>";
     });
 
-templatious::detail::DynVPackFactory makeTrivialFactory() {
-    tt::t::detail::DynVPackFactoryBuilder bld;
+templatious::DynVPackFactory makeTrivialFactory() {
+    tt::t::DynVPackFactoryBuilder bld;
     bld.attachNode("int",intNode);
     bld.attachNode("const int",cIntNode);
     bld.attachNode("char",charNode);
@@ -129,7 +129,7 @@ TEST_CASE("type_node_pod_basic","[dynamic_vpack_tests]")
 
 TEST_CASE("dyn_vpack_construct_single","[dynamic_vpack_tests]")
 {
-    const tt::t::detail::TypeNode* nodes[1];
+    const tt::t::TypeNode* nodes[1];
     nodes[0] = intNode;
     const char* init[] = { "128" };
 
@@ -143,7 +143,7 @@ TEST_CASE("dyn_vpack_construct_single","[dynamic_vpack_tests]")
 
 TEST_CASE("dyn_vpack_construct_double","[dynamic_vpack_tests]")
 {
-    const tt::t::detail::TypeNode* nodes[2];
+    const tt::t::TypeNode* nodes[2];
     nodes[0] = intNode;
     nodes[1] = intNode;
     const char* init[] = { "128", "127" };
@@ -159,7 +159,7 @@ TEST_CASE("dyn_vpack_construct_double","[dynamic_vpack_tests]")
 
 TEST_CASE("dyn_vpack_construct_double_misaligned","[dynamic_vpack_tests]")
 {
-    const tt::t::detail::TypeNode* nodes[2];
+    const tt::t::TypeNode* nodes[2];
     nodes[0] = charNode;
     nodes[1] = intNode;
     const char* init[] = { "7", "128" };
@@ -183,7 +183,7 @@ TEST_CASE("dyn_vpack_construct_double_misaligned","[dynamic_vpack_tests]")
 
 TEST_CASE("dyn_vpack_as_normal_pack","[dynamic_vpack_tests]")
 {
-    const tt::t::detail::TypeNode* nodes[2];
+    const tt::t::TypeNode* nodes[2];
     nodes[0] = charNode;
     nodes[1] = intNode;
     const char* init[] = { "7", "128" };
@@ -221,7 +221,7 @@ TEST_CASE("dyn_vpack_as_normal_pack","[dynamic_vpack_tests]")
 
 TEST_CASE("dyn_vpack_const_node","[dynamic_vpack_tests]")
 {
-    const tt::t::detail::TypeNode* nodes[2];
+    const tt::t::TypeNode* nodes[2];
     nodes[0] = charNode;
     nodes[1] = cIntNode;
     const char* init[] = { "7", "128" };
@@ -268,7 +268,7 @@ TEST_CASE("dyn_vpack_const_node","[dynamic_vpack_tests]")
 
 TEST_CASE("dyn_vpack_range_check","[dynamic_vpack_tests]")
 {
-    const tt::t::detail::TypeNode* nodes[2];
+    const tt::t::TypeNode* nodes[2];
     nodes[0] = charNode;
     nodes[1] = cIntNode;
     const char* init[] = { "7", "128" };
@@ -320,7 +320,7 @@ TEST_CASE("dyn_vpack_range_check","[dynamic_vpack_tests]")
 
 TEST_CASE("dyn_vpack_real_factory","[dynamic_vpack_tests]")
 {
-    tt::t::detail::DynVPackFactoryBuilder bld;
+    tt::t::DynVPackFactoryBuilder bld;
     bld.attachNode("int",intNode);
     bld.attachNode("char",charNode);
     auto fact = bld.getFactory();
@@ -358,7 +358,7 @@ TEST_CASE("dyn_vpack_real_factory","[dynamic_vpack_tests]")
 
 TEST_CASE("dyn_vpack_throw_construct","[dynamic_vpack_tests]")
 {
-    tt::t::detail::DynVPackFactoryBuilder bld;
+    tt::t::DynVPackFactoryBuilder bld;
     bld.attachNode("throw",ctorThowNode);
     bld.attachNode("boxed_int",innerAllocNode);
     auto fact = bld.getFactory();
@@ -380,7 +380,7 @@ TEST_CASE("dyn_vpack_throw_construct","[dynamic_vpack_tests]")
 
 TEST_CASE("dyn_vpack_composition","[dynamic_vpack_tests]")
 {
-    tt::t::detail::DynVPackFactoryBuilder bld;
+    tt::t::DynVPackFactoryBuilder bld;
     bld.attachNode("comp",virtualPackNode);
     auto fact = bld.getFactory();
 
@@ -557,7 +557,7 @@ TEST_CASE("dyn_vpack_custom_wcallback","[dynamic_vpack_tests]")
 
 TEST_CASE("dyn_vpack_factory_exceptions","[dynamic_vpack_tests]")
 {
-    tt::t::detail::DynVPackFactoryBuilder bld;
+    tt::t::DynVPackFactoryBuilder bld;
     bld.attachNode("int",intNode);
     bld.attachNode("char",charNode);
 

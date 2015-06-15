@@ -24,8 +24,8 @@ static const int DefaultCoreSettings = tt::t::VPACK_DEF_MASK;
 
 TEST_CASE( "virtual_pack_impl", "[virtual_pack_tests]" )
 {
-    tt::t::VirtualPackImpl<DefaultCoreSettings,int,int>
-        impl(tt::t::ExpVpackConInvoke(),1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,void*,int,int>
+        impl(tt::t::ExpVpackConInvoke(),nullptr,1,2);
 
     const tt::t::VirtualPack* ptr = &impl;
 
@@ -48,8 +48,8 @@ TEST_CASE( "virtual_pack_impl", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_impl_const_correct", "[virtual_pack_tests]" )
 {
-    tt::t::VirtualPackImpl<DefaultCoreSettings,int,const int>
-        impl(tt::t::ExpVpackConInvoke(),1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,void*,int,const int>
+        impl(tt::t::ExpVpackConInvoke(),nullptr,1,2);
     bool matches = impl.matchesSignature<int,int>();
     REQUIRE( !matches );
     matches = impl.matchesSignature<int,const int>();
@@ -62,16 +62,16 @@ TEST_CASE( "virtual_pack_impl_const_correct", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_impl_const_correct_p2", "[virtual_pack_tests]" )
 {
-    tt::t::VirtualPackImpl<DefaultCoreSettings,const int,const int>
-        impl(tt::t::ExpVpackConInvoke(),1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,void*,const int,const int>
+        impl(tt::t::ExpVpackConInvoke(),nullptr,1,2);
     bool matches = impl.matchesSignature<int,int>();
     REQUIRE( !matches );
 }
 
 TEST_CASE( "virtual_pack_impl_call_correct_fails", "[virtual_pack_tests]" )
 {
-    tt::t::VirtualPackImpl<DefaultCoreSettings,int,const int>
-        impl(tt::t::ExpVpackConInvoke(),1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,void*,int,const int>
+        impl(tt::t::ExpVpackConInvoke(),nullptr,1,2);
 
     int outA,outB;
     outA = outB = -7;
@@ -109,8 +109,8 @@ TEST_CASE( "virtual_pack_impl_call_correct_fails", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_impl_call_success", "[virtual_pack_tests]" )
 {
-    tt::t::VirtualPackImpl<DefaultCoreSettings,int,const int>
-        impl(tt::t::ExpVpackConInvoke(),1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,void*,int,const int>
+        impl(tt::t::ExpVpackConInvoke(),nullptr,1,2);
 
     int outA,outB;
     outA = outB = -7;
@@ -133,9 +133,9 @@ TEST_CASE( "virtual_pack_impl_call_success", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_impl_call_mod_contents", "[virtual_pack_tests]" )
 {
-    tt::t::VirtualPackImpl<DefaultCoreSettings,int,int> impl(
+    tt::t::VirtualPackImpl<DefaultCoreSettings,void*,int,int> impl(
         tt::t::ExpVpackConInvoke(),
-        1,2);
+        nullptr,1,2);
 
     int outA,outB;
     outA = outB = -7;
@@ -160,8 +160,8 @@ TEST_CASE( "virtual_pack_impl_call_mod_contents", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_impl_const_ref", "[virtual_pack_tests]" )
 {
-    typedef tt::t::VirtualPackImpl<DefaultCoreSettings,int,int> TheImpl;
-    TheImpl impl(tt::t::ExpVpackConInvoke(),1,2);
+    typedef tt::t::VirtualPackImpl<DefaultCoreSettings,void*,int,int> TheImpl;
+    TheImpl impl(tt::t::ExpVpackConInvoke(),nullptr,1,2);
 
     const TheImpl& cref(impl);
 
@@ -194,8 +194,8 @@ TEST_CASE( "virtual_pack_impl_const_ref", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_impl_const_ref_notry", "[virtual_pack_tests]" )
 {
-    typedef tt::t::VirtualPackImpl<DefaultCoreSettings,int,int> TheImpl;
-    TheImpl impl(tt::t::ExpVpackConInvoke(),1,2);
+    typedef tt::t::VirtualPackImpl<DefaultCoreSettings,void*,int,int> TheImpl;
+    TheImpl impl(tt::t::ExpVpackConInvoke(),nullptr,1,2);
 
     const TheImpl& cref(impl);
 
@@ -247,8 +247,8 @@ TEST_CASE( "virtual_pack_match_test_const_fail", "[virtual_pack_tests]" )
         int, int
     > m(l);
 
-    tt::t::VirtualPackImpl<DefaultCoreSettings,int,const int>
-        impl(tt::t::ExpVpackConInvoke(),1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,void*,int,const int>
+        impl(tt::t::ExpVpackConInvoke(),nullptr,1,2);
 
     bool isGood = m(impl);
     REQUIRE( !isGood );
@@ -272,8 +272,8 @@ TEST_CASE( "virtual_pack_match_test_const_pass", "[virtual_pack_tests]" )
         int, const int
     > m(l);
 
-    tt::t::VirtualPackImpl<DefaultCoreSettings,int,const int>
-        impl(tt::t::ExpVpackConInvoke(),1,2);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,void*,int,const int>
+        impl(tt::t::ExpVpackConInvoke(),nullptr,1,2);
 
     bool isGood = m(impl);
     REQUIRE( isGood );
@@ -283,8 +283,8 @@ TEST_CASE( "virtual_pack_match_test_const_pass", "[virtual_pack_tests]" )
 
 TEST_CASE( "virtual_pack_fget", "[virtual_pack_tests]" )
 {
-    tt::t::VirtualPackImpl<DefaultCoreSettings,int,const int,double>
-        impl(tt::t::ExpVpackConInvoke(),1,2,7.7);
+    tt::t::VirtualPackImpl<DefaultCoreSettings,void*,int,const int,double>
+        impl(tt::t::ExpVpackConInvoke(),nullptr,1,2,7.7);
 
     REQUIRE( impl.fGet<0>() == 1 );
     REQUIRE( impl.fGet<1>() == 2 );

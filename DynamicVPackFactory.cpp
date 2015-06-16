@@ -677,3 +677,52 @@ TEST_CASE("dyn_vpack_factory_dummy_types","[dynamic_vpack_tests]")
 
     REQUIRE( allUnchanged );
 }
+
+TEST_CASE("dyn_vpack_factory_serialize","[dynamic_vpack_tests]")
+{
+    std::string arr[32];
+    SM::set("unset",arr);
+    auto p = SF::vpack<int,char>(7,'7');
+    int outSize = trivialFactory.serializePack(p,32,arr);
+    REQUIRE( outSize == 2 );
+    REQUIRE( arr[0] == "7" );
+    REQUIRE( arr[1] == "55" );
+
+    auto rng = SF::range(arr,2);
+    bool allUnset = SM::forAll(
+        [](const std::string& str) { return str == "unset"; },
+        rng);
+    REQUIRE( allUnset );
+}
+
+TEST_CASE("dyn_vpack_factory_throw_unknown_serialize","[dynamic_vpack_tests]")
+{
+    struct MyHipsterStruct {};
+
+    std::string arr[32];
+    SM::set("unset",arr);
+    auto p = SF::vpack<int,MyHipsterStruct>(7,MyHipsterStruct());
+
+    bool caught = false;
+    try {
+        trivialFactory.serializePack(p,32,arr);
+    } catch (const std::exception&) {
+        caught = true;
+    }
+    REQUIRE( caught );
+}
+
+TEST_CASE("dyn_vpack_factory_no_space_throw_serialize","[dynamic_vpack_tests]")
+{
+    std::string arr[32];
+    SM::set("unset",arr);
+    auto p = SF::vpack<int,int>(1,2);
+
+    bool caught = false;
+    try {
+        trivialFactory.serializePack(p,1,arr);
+    } catch (const std::exception&) {
+        caught = true;
+    }
+    REQUIRE( caught );
+}

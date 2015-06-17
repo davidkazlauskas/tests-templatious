@@ -726,3 +726,12 @@ TEST_CASE("dyn_vpack_factory_no_space_throw_serialize","[dynamic_vpack_tests]")
     }
     REQUIRE( caught );
 }
+
+TEST_CASE("dyn_vpack_vect_ser","[dynamic_vpack_tests]")
+{
+    auto p = SF::vpack<int,int>(1,2);
+    auto out = trivialFactory.serializePack(p);
+    REQUIRE( SA::size(out) == 2 );
+    REQUIRE( out[0] == "1" );
+    REQUIRE( out[1] == "2" );
+}

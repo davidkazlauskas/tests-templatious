@@ -735,3 +735,28 @@ TEST_CASE("dyn_vpack_vect_ser","[dynamic_vpack_tests]")
     REQUIRE( out[0] == "1" );
     REQUIRE( out[1] == "2" );
 }
+
+TEST_CASE("dyn_vpack_core_ser_gen","[dynamic_vpack_tests]")
+{
+    const char* types[] = {"int","char"};
+    const char* values[] = {"7","7"};
+
+    std::string out[2];
+
+    auto mf = SF::virtualMatchFunctor(
+        SF::virtualMatch<int,char>([](int,char) {})
+    );
+
+    auto p = trivialFactory.makePackCustomWCallback<
+        0
+    >(2,types,values,
+        [&](const templatious::detail::DynamicVirtualPackCore& c) {
+            trivialFactory.serializeDynamicCore(c,2,out);
+        }
+    );
+
+    mf.tryMatch(*p);
+
+    REQUIRE( out[0] == "7" );
+    REQUIRE( out[1] == "55" );
+}

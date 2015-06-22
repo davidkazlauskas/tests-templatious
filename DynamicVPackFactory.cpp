@@ -742,12 +742,13 @@ TEST_CASE("dyn_vpack_core_ser_gen","[dynamic_vpack_tests]")
     const char* values[] = {"7","7"};
 
     std::string out[2];
+    SM::set("-1",out);
 
     auto mf = SF::virtualMatchFunctor(
         SF::virtualMatch<int,char>([](int,char) {})
     );
 
-    auto p = trivialFactory.makePackCustomWCallback<
+    auto p1 = trivialFactory.makePackCustomWCallback<
         0
     >(2,types,values,
         [&](const templatious::detail::DynamicVirtualPackCore& c) {
@@ -755,7 +756,25 @@ TEST_CASE("dyn_vpack_core_ser_gen","[dynamic_vpack_tests]")
         }
     );
 
-    mf.tryMatch(*p);
+    mf.tryMatch(*p1);
+
+    REQUIRE( out[0] == "7" );
+    REQUIRE( out[1] == "55" );
+
+    SM::set("-1",out);
+    auto p2 = trivialFactory.makePackCustomWCallback<
+        0
+    >(2,types,values,
+        [&](const templatious::detail::DynamicVirtualPackCore& c) {
+            auto outVec = trivialFactory.serializeDynamicCore(c);
+            REQUIRE( SA::size(outVec) == 2 );
+
+            out[0] = outVec[0];
+            out[1] = outVec[1];
+        }
+    );
+
+    mf.tryMatch(*p2);
 
     REQUIRE( out[0] == "7" );
     REQUIRE( out[1] == "55" );

@@ -85,7 +85,7 @@ templatious::DynVPackFactory makeTrivialFactory() {
 
 static auto trivialFactory = makeTrivialFactory();
 
-static auto virtualPackNode = TNF::makeFullNode<std::shared_ptr<templatious::VirtualPack>>(
+static auto virtualPackNode = TNF::makeFullNode< std::shared_ptr<templatious::VirtualPack> >(
     [](void* ptr,const char*) {
         const char* types[] = {"int","char"};
         const char* values[] = {"7","7"};
@@ -742,7 +742,9 @@ TEST_CASE("dyn_vpack_core_ser_gen","[dynamic_vpack_tests]")
     const char* values[] = {"7","7"};
 
     std::string out[2];
+    templatious::TNodePtr outArr[32];
     SM::set("-1",out);
+    SM::set(nullptr,outArr);
 
     auto mf = SF::virtualMatchFunctor(
         SF::virtualMatch<int,char>([](int,char) {})
@@ -752,7 +754,7 @@ TEST_CASE("dyn_vpack_core_ser_gen","[dynamic_vpack_tests]")
         0
     >(2,types,values,
         [&](const templatious::detail::DynamicVirtualPackCore& c) {
-            trivialFactory.serializeDynamicCore(c,2,out);
+            trivialFactory.serializeDynamicCore(c,2,out,outArr);
         }
     );
 
@@ -760,6 +762,9 @@ TEST_CASE("dyn_vpack_core_ser_gen","[dynamic_vpack_tests]")
 
     REQUIRE( out[0] == "7" );
     REQUIRE( out[1] == "55" );
+    REQUIRE( outArr[0] == intNode );
+    REQUIRE( outArr[1] == charNode );
+    REQUIRE( outArr[2] == nullptr );
 
     SM::set("-1",out);
     auto p2 = trivialFactory.makePackCustomWCallback<

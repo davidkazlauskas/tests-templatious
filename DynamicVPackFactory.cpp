@@ -784,3 +784,15 @@ TEST_CASE("dyn_vpack_core_ser_gen","[dynamic_vpack_tests]")
     REQUIRE( out[0] == "7" );
     REQUIRE( out[1] == "55" );
 }
+
+TEST_CASE("dyn_vpack_reverse_lookup","[dynamic_vpack_tests]")
+{
+    REQUIRE( trivialFactory.associatedName(intNode)
+        == std::string("int") );
+    REQUIRE( trivialFactory.associatedName(cIntNode)
+        == std::string("const int") );
+    REQUIRE( trivialFactory.associatedName(charNode)
+        == std::string("char") );
+    REQUIRE( trivialFactory.associatedName(innerAllocNode)
+        == nullptr );
+}

@@ -796,3 +796,65 @@ TEST_CASE("dyn_vpack_reverse_lookup","[dynamic_vpack_tests]")
     REQUIRE( trivialFactory.associatedName(innerAllocNode)
         == nullptr );
 }
+
+TEST_CASE("dyn_vpack_serialize_multithreaded","[dynamic_vpack_tests]")
+{
+    auto vp = SF::vpackPtrCustom< templatious::VPACK_SYNCED,
+         int,int,int,int,int,int,int >( 0,0,0,0,0,0,0 );
+
+    const int ROUNDS = 100000;
+    auto h1 = std::async(std::launch::async,[=]() {
+        auto match = SF::virtualMatchFunctor(
+            SF::virtualMatch<int,int,int,int,int,int,int>(
+                [](int& a,int& b,int& c,int& d,int& e,int& f,int& g) {
+                    ++a;
+                    ++b;
+                    ++c;
+                    ++d;
+                    ++e;
+                    ++f;
+                    ++g;
+                })
+        );
+
+        TEMPLATIOUS_REPEAT( ROUNDS ) {
+            match.tryMatch(*vp);
+        }
+    });
+
+    bool outSuccess = true;
+    auto h2 = std::async(std::launch::async,[vp,&outSuccess]() {
+        std::string out[7];
+        TEMPLATIOUS_0_TO_N( i, ROUNDS ) {
+            if (i % 2 == 0) {
+                auto vec = trivialFactory.serializePack( *vp );
+                int outRes = -1;
+                outSuccess &= SM::forAll([&](std::string& str) {
+                    int currOut = std::atoi(str.c_str());
+                    if (outRes == -1) {
+                        outRes = currOut;
+                    }
+
+                    return currOut == outRes;
+                },vec);
+            } else {
+                int size = trivialFactory.serializePack( *vp, 7, out );
+                outSuccess &= size == 7;
+                int outRes = -1;
+                outSuccess &= SM::forAll([&](std::string& str) {
+                    int currOut = std::atoi(str.c_str());
+                    if (outRes == -1) {
+                        outRes = currOut;
+                    }
+
+                    return currOut == outRes;
+                },out);
+            }
+        }
+    });
+
+    h1.wait();
+    h2.wait();
+
+    REQUIRE( outSuccess );
+}

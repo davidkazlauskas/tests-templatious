@@ -363,7 +363,7 @@ TEST_CASE( "static_manipulator_tests_traverse", "[static_manipulator_tests]" )
 
     bool diffGood = true;
     int mappedSum = 0;
-    SM::traverse(
+    auto timeTrav = SM::traverse(
         [&](int i,long j,short k) {
             diffGood &= (j - i == 7);
             diffGood &= (k - j == 70);
@@ -375,6 +375,7 @@ TEST_CASE( "static_manipulator_tests_traverse", "[static_manipulator_tests]" )
     int manSum = SM::sum(s,v,l);
     REQUIRE( manSum == mappedSum );
     REQUIRE( diffGood );
+    REQUIRE( timeTrav == 101 );
 }
 
 TEST_CASE( "static_manipulator_tests_traverse_size_assertion", "[static_manipulator_tests]" )
@@ -444,7 +445,7 @@ TEST_CASE( "static_manipulator_tests_traverse_man_stop", "[static_manipulator_te
 
     int sum = 0;
     int cnt = 3;
-    SM::traverse(
+    auto outCount = SM::traverse(
         [&](long a,short b) {
             sum += a;
             sum += b;
@@ -456,6 +457,7 @@ TEST_CASE( "static_manipulator_tests_traverse_man_stop", "[static_manipulator_te
 
     int expSum = 7 + 8 + 9 + 77 + 78 + 79;
     REQUIRE( sum == expSum );
+    REQUIRE( outCount == 2 );
 }
 
 TEST_CASE( "static_manipulator_tests_fold_mul", "[static_manipulator_tests]" )

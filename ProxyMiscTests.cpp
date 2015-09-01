@@ -119,3 +119,18 @@ TEST_CASE( "proxy_ptr_dereference", "[proxy_tests]" )
     REQUIRE( SA::iterAt(f,2)->_i == 5 );
     REQUIRE( SA::iterAt(s,3)->_i == 6 );
 }
+
+TEST_CASE( "proxy_clear_only_movable", "[proxy_tests]" )
+{
+    typedef std::unique_ptr< int > PType;
+    std::vector< PType > vec;
+    SA::add(vec,SF::packRepeat<7>(nullptr));
+    SA::clear(
+        SF::filter(
+            vec,
+            [](const PType& type) { return nullptr == type; }
+        )
+    );
+
+    REQUIRE( SA::size( vec ) == 0 );
+}

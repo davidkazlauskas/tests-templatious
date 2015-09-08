@@ -1339,3 +1339,25 @@ TEST_CASE("virtual_pack_single_value_call","[virtual_pack_tests]") {
         REQUIRE( caught );
     }
 }
+
+TEST_CASE("virtual_pack_single_value_concurrent","[virtual_pack_tests]") {
+    auto victim = SF::vpackPtrCustom<
+        templatious::VPACK_SYNCED,
+        int
+    >(0);
+
+    auto a1 = std::async(
+        [=]() {
+            TEMPLATIOUS_REPEAT( 10000 ) {
+                victim->callSingle<int>(
+                    0,
+                    [](int& i) {
+                        ++i;
+                    }
+                );
+            }
+        }
+    );
+
+    a1.wait();
+}

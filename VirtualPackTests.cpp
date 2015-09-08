@@ -1292,3 +1292,7 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
 
     REQUIRE( sum == 5 );
 }
+
+TEST_CASE("virtual_pack_single_value_call","[virtual_pack_tests]") {
+
+}

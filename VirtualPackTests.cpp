@@ -1303,12 +1303,14 @@ TEST_CASE("virtual_pack_single_value_call","[virtual_pack_tests]") {
 
     auto vpack = SF::vpack< int >(7);
     templatious::VirtualPack& hidden = vpack;
+    const templatious::VirtualPack& hiddenC = hidden;
 
     int out = -1;
     bool res = hidden.callSingle< char >(0,dummy);
     REQUIRE( !res );
 
-    res = hidden.callSingle< int >(0,[&](int i) {out = i;});
+    auto out7 = [&](int i) {out = i;};
+    res = hidden.callSingle< int >(0,out7);
     REQUIRE( res );
     REQUIRE( out == 7 );
 

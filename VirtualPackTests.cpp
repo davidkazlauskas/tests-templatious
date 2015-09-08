@@ -1314,6 +1314,11 @@ TEST_CASE("virtual_pack_single_value_call","[virtual_pack_tests]") {
     REQUIRE( res );
     REQUIRE( out == 7 );
 
+    out = -1;
+    res = hiddenC.callSingle< const int >(0,out7);
+    REQUIRE( res );
+    REQUIRE( out == 7 );
+
     bool caught = false;
     try {
         hidden.callSingle< int >(-1,dummy);

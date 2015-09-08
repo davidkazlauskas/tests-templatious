@@ -1344,6 +1344,15 @@ TEST_CASE("virtual_pack_single_value_call","[virtual_pack_tests]") {
     }
 }
 
+TEST_CASE("virtual_pack_single_value_call_const_correct","[virtual_pack_tests]") {
+    DummyFctor dummy;
+
+    auto vpack = SF::vpack< const int >(7);
+    templatious::VirtualPack& hidden = vpack;
+    bool res = hidden.callSingle< int >(0,dummy);
+    REQUIRE( !res );
+}
+
 TEST_CASE("virtual_pack_single_value_concurrent","[virtual_pack_tests]") {
     auto victim = SF::vpackPtrCustom<
         templatious::VPACK_SYNCED,

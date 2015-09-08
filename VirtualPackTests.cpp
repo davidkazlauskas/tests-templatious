@@ -1319,11 +1319,23 @@ TEST_CASE("virtual_pack_single_value_call","[virtual_pack_tests]") {
     REQUIRE( res );
     REQUIRE( out == 7 );
 
-    bool caught = false;
-    try {
-        hidden.callSingle< int >(-1,dummy);
-    } catch (const templatious::VirtualPackTypeOutOfBoundsException&) {
-        caught = true;
+    {
+        bool caught = false;
+        try {
+            hidden.callSingle< int >(-1,dummy);
+        } catch (const templatious::VirtualPackTypeOutOfBoundsException&) {
+            caught = true;
+        }
+        REQUIRE( caught );
     }
-    REQUIRE( caught );
+
+    {
+        bool caught = false;
+        try {
+            hidden.callSingle< int >(1,dummy);
+        } catch (const templatious::VirtualPackTypeOutOfBoundsException&) {
+            caught = true;
+        }
+        REQUIRE( caught );
+    }
 }

@@ -1319,6 +1319,10 @@ TEST_CASE("virtual_pack_single_value_call","[virtual_pack_tests]") {
     REQUIRE( res );
     REQUIRE( out == 7 );
 
+    res = hidden.callSingle< int >(0,[](int& i) { i*=i; });
+    REQUIRE( res );
+    REQUIRE( vpack.fGet<0>() == 49 );
+
     {
         bool caught = false;
         try {

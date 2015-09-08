@@ -1293,15 +1293,30 @@ TEST_CASE( "virtual_match_functor_const_coverage", "[virtual_pack_tests]" )
     REQUIRE( sum == 5 );
 }
 
+struct DummyFctor {
+    template <class... Any>
+    void operator()(Any&&...) const {}
+};
+
 TEST_CASE("virtual_pack_single_value_call","[virtual_pack_tests]") {
+    DummyFctor dummy;
+
     auto vpack = SF::vpack< int >(7);
     templatious::VirtualPack& hidden = vpack;
 
     int out = -1;
-    bool res = hidden.callSingle< char >(0,[](char c) {});
+    bool res = hidden.callSingle< char >(0,dummy);
     REQUIRE( !res );
 
     res = hidden.callSingle< int >(0,[&](int i) {out = i;});
     REQUIRE( res );
     REQUIRE( out == 7 );
+
+    bool caught = false;
+    try {
+        hidden.callSingle< int >(-1,dummy);
+    } catch (const templatious::VirtualPackTypeOutOfBoundsException&) {
+        caught = true;
+    }
+    REQUIRE( caught );
 }

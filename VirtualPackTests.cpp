@@ -1351,6 +1351,21 @@ TEST_CASE("virtual_pack_single_value_concurrent","[virtual_pack_tests]") {
     >(0);
 
     auto a1 = std::async(
+        std::launch::async,
+        [=]() {
+            TEMPLATIOUS_REPEAT( 10000 ) {
+                victim->callSingle<int>(
+                    0,
+                    [](int& i) {
+                        ++i;
+                    }
+                );
+            }
+        }
+    );
+
+    auto a2 = std::async(
+        std::launch::async,
         [=]() {
             TEMPLATIOUS_REPEAT( 10000 ) {
                 victim->callSingle<int>(
@@ -1364,4 +1379,7 @@ TEST_CASE("virtual_pack_single_value_concurrent","[virtual_pack_tests]") {
     );
 
     a1.wait();
+    a2.wait();
+
+    REQUIRE( victim->fGet<0>() == 2 * 10000 );
 }
